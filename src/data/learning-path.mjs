@@ -1,7 +1,7 @@
 // @ts-check
 
 /** @typedef {'es' | 'en'} LearningLocale */
-/** @typedef {'foundations' | 'collaboration' | 'delivery'} LearningModuleId */
+/** @typedef {'foundations' | 'collaboration' | 'delivery' | 'testing'} LearningModuleId */
 /** @typedef {'overview' | 'concept' | 'tool' | 'lab'} LearningStepKind */
 /** @typedef {{ es: string, en: string }} LocalizedText */
 /**
@@ -134,6 +134,38 @@ export const learningModules = Object.freeze([
         id: 'delivery.lab-container-pipeline', module: 'delivery', order: 12,
         relativePath: 'delivery/lab-container-pipeline/', kind: 'lab', minutes: 35,
         prerequisites: ['delivery.docker', 'foundations.networking'], label: { es: 'Lab · pipeline local', en: 'Lab · local pipeline' },
+      }),
+    ]),
+  }),
+  Object.freeze({
+    id: 'testing',
+    order: 4,
+    label: localized({ es: 'Pruebas', en: 'Testing' }),
+    sidebarLabel: localized({ es: '04 · Pruebas', en: '04 · Testing' }),
+    outcome: localized({
+      es: 'Convierte la confianza en evidencia con pruebas automáticas y feedback rápido.',
+      en: 'Turn confidence into evidence with automated tests and fast feedback.',
+    }),
+    steps: Object.freeze([
+      step({
+        id: 'testing.overview', module: 'testing', order: 13,
+        relativePath: 'testing/', kind: 'overview', minutes: 10,
+        prerequisites: ['collaboration.github-flow'], label: { es: 'Panorama', en: 'Overview' },
+      }),
+      step({
+        id: 'testing.pyramid', module: 'testing', order: 14,
+        relativePath: 'testing/pyramid/', kind: 'concept', minutes: 30,
+        prerequisites: ['foundations.linux-cli'], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
+      }),
+      step({
+        id: 'testing.in-ci', module: 'testing', order: 15,
+        relativePath: 'testing/in-ci/', kind: 'tool', minutes: 30,
+        prerequisites: ['delivery.github-actions'], label: { es: 'Pruebas en CI', en: 'Tests in CI' },
+      }),
+      step({
+        id: 'testing.lab-first-test', module: 'testing', order: 16,
+        relativePath: 'testing/lab-first-test/', kind: 'lab', minutes: 25,
+        prerequisites: ['testing.pyramid'], label: { es: 'Lab · tu primera prueba', en: 'Lab · your first test' },
       }),
     ]),
   }),
