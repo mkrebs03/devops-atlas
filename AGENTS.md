@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository builds the bilingual DevOps Atlas documentation site with Astro and Starlight. Spanish pages live in `src/content/docs/`; matching English pages live under `src/content/docs/en/`. Organize learning content by module: `foundations`, `collaboration`, or `delivery`. Shared UI is in `src/components/`, site styling in `src/styles/`, and translations in `src/content/i18n/`. Playwright smoke tests are stored in `tests/`. Deployment assets belong in `deploy/`, while CI and release workflows live in `.github/workflows/`.
+This repository builds the bilingual DevOps Atlas documentation site with Astro and Starlight. Spanish pages live in `src/content/docs/`; matching English pages live under `src/content/docs/en/`. Organize learning content by module: `foundations`, `collaboration`, `delivery`, `testing`, or `deployment`. Shared UI is in `src/components/`, site styling in `src/styles/`, and translations in `src/content/i18n/`. Playwright smoke tests are stored in `tests/`. Deployment assets belong in `deploy/`, while CI and release workflows live in `.github/workflows/`.
 
 ## Build, Test, and Development Commands
 
@@ -18,7 +18,7 @@ Use Node 20.11–25 and pnpm 10.29.3 (see `.node-version` and `package.json`).
 
 ## Coding Style & Content Conventions
 
-Use two-space indentation, single quotes in TypeScript/JavaScript, and semicolons, matching existing files. Prefer descriptive kebab-case documentation names such as `lab-container-pipeline.md`; use PascalCase for Astro components, for example `AtlasHome.astro`. Every Markdown page requires `title`, `description`, `type`, `level`, and `module` frontmatter. Allowed values are enforced in `scripts/validate-content.mjs`. Keep Spanish and English navigation and content counterparts synchronized when changing user-facing material.
+Use two-space indentation, single quotes in TypeScript/JavaScript, and semicolons, matching existing files. Prefer descriptive kebab-case documentation names such as `lab-container-pipeline.md`; use PascalCase for Astro components, for example `AtlasHome.astro`. Every Markdown page requires `title`, `description`, `type`, `level`, and `module` frontmatter. Allowed values are enforced in `scripts/validate-content.mjs`. Frontmatter is parsed by a minimal YAML subset (`scripts/frontmatter-parser.mjs`), so avoid double quotes and colons inside `learningObjectives`/`takeaways` values. Canonical learning steps additionally require `estimatedTime` (exact `"{minutes} minutos"`/`"{minutes} minutes"`), `tools`, `prerequisites`, `learningObjectives`, and `takeaways`, with matching Spanish/English objective and takeaway counts. Diagrams are authored as `mermaid` fenced code blocks and rendered client-side (see `src/components/starlight/MermaidRunner.astro`). Keep Spanish and English navigation and content counterparts synchronized when changing user-facing material.
 
 ## Testing Guidelines
 

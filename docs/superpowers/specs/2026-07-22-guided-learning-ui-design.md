@@ -1,5 +1,21 @@
 # Guided Learning UI Redesign
 
+> **Superseded (2026-07-22).** Two decisions in this spec were later revised and
+> implemented on branch `feat/atlas-cartographic-ui`:
+>
+> - **Visual direction** — the editorial/chartreuse aesthetic was replaced by a
+>   cartographic "technical navigation chart" system: self-hosted fonts (Barlow
+>   Condensed / IBM Plex Sans / IBM Plex Mono), a coordinate graticule, the learning
+>   route drawn as a plotted survey-station line, and a single amber route accent.
+>   See `feat(ui): cartographic Atlas visual system`.
+> - **Scope** — the "does not expand the curriculum beyond three modules" boundary was
+>   lifted. The curriculum now includes **Testing** and **CI/CD & Deployment** modules
+>   (with IaC, cloud, Kubernetes, observability and security planned). See the
+>   `feat(testing)` and `feat(deployment)` commits.
+>
+> Everything else here — the local progress model, single learning-path definition,
+> component split, and the WCAG-AA and progressive-enhancement requirements — still holds.
+
 ## Purpose
 
 DevOps Atlas will become a guided educational platform for people beginning their DevOps journey. It must remain more distinctive than a conventional documentation wiki while making learning—not decoration—the primary experience. The redesign will give every visitor an obvious starting point, a visible route through the material, and a clear next step.
