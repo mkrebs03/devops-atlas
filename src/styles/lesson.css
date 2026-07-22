@@ -195,7 +195,7 @@ html[data-has-sidebar] .pagination-links .link-title {
 }
 
 /* Diagrams (Mermaid) render into a dark chart figure, consistent in both themes. */
-html[data-has-sidebar] .sl-markdown-content pre.mermaid:not(:where(.not-content *)) {
+html[data-has-sidebar] .sl-markdown-content .atlas-diagram {
   display: grid;
   place-items: center;
   margin-block: 1.75rem;
@@ -203,13 +203,9 @@ html[data-has-sidebar] .sl-markdown-content pre.mermaid:not(:where(.not-content 
   border: 1px solid var(--atlas-border-strong);
   border-radius: var(--atlas-radius-sm);
   background: var(--atlas-code-surface);
-  color: var(--atlas-ink-muted);
-  font-family: var(--atlas-font-mono);
-  font-size: var(--sl-text-sm);
-  line-height: 1.5;
   overflow-x: auto;
 }
-html[data-has-sidebar] .sl-markdown-content pre.mermaid svg { max-width: 100%; height: auto; }
+html[data-has-sidebar] .sl-markdown-content .atlas-diagram svg { max-width: 100%; height: auto; }
 
 /* Self-check: a native <details> styled as a field prompt (? → ✓ when revealed). */
 html[data-has-sidebar] .sl-markdown-content details:not(:where(.not-content *)) {

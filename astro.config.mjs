@@ -1,7 +1,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { learningModules } from './src/data/learning-path.mjs';
-import remarkMermaid from './src/lib/remark-mermaid.mjs';
 
 const learningSidebar = learningModules.map((module) => ({
   label: module.sidebarLabel.es,
@@ -16,9 +15,6 @@ const learningSidebar = learningModules.map((module) => ({
 export default defineConfig({
   site: process.env.PUBLIC_SITE_URL ?? 'http://localhost:4321',
   output: 'static',
-  markdown: {
-    remarkPlugins: [remarkMermaid],
-  },
   integrations: [
     starlight({
       title: 'DevOps Atlas',
