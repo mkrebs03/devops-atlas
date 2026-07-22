@@ -3,7 +3,7 @@ import { z } from 'astro/zod';
 import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
 import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 
-const moduleSchema = z.enum(['foundations', 'collaboration', 'delivery', 'testing']);
+const moduleSchema = z.enum(['foundations', 'collaboration', 'delivery', 'testing', 'deployment']);
 const typeSchema = z.enum(['concept', 'tool', 'lab']);
 const levelSchema = z.enum(['beginner', 'intermediate', 'advanced']);
 

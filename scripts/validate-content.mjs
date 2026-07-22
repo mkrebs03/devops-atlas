@@ -10,7 +10,7 @@ const root = path.resolve('src/content/docs');
 const allowed = {
   type: new Set(['concept', 'tool', 'lab']),
   level: new Set(['beginner', 'intermediate', 'advanced']),
-  module: new Set(['foundations', 'collaboration', 'delivery', 'testing']),
+  module: new Set(['foundations', 'collaboration', 'delivery', 'testing', 'deployment']),
 };
 
 function filesIn(directory) {
@@ -160,7 +160,7 @@ const canonicalFiles = new Set(learningSteps.flatMap((step) => [
   canonicalFile(step.relativePath, 'en'),
 ]));
 for (const relative of documents.keys()) {
-  if (/^(?:en\/)?(?:foundations|collaboration|delivery|testing)\//.test(relative) && !canonicalFiles.has(relative)) {
+  if (/^(?:en\/)?(?:foundations|collaboration|delivery|testing|deployment)\//.test(relative) && !canonicalFiles.has(relative)) {
     errors.push(`${relative}: module page is not referenced by the canonical learning path`);
   }
 }

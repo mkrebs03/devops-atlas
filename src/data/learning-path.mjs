@@ -1,7 +1,7 @@
 // @ts-check
 
 /** @typedef {'es' | 'en'} LearningLocale */
-/** @typedef {'foundations' | 'collaboration' | 'delivery' | 'testing'} LearningModuleId */
+/** @typedef {'foundations' | 'collaboration' | 'delivery' | 'testing' | 'deployment'} LearningModuleId */
 /** @typedef {'overview' | 'concept' | 'tool' | 'lab'} LearningStepKind */
 /** @typedef {{ es: string, en: string }} LocalizedText */
 /**
@@ -166,6 +166,38 @@ export const learningModules = Object.freeze([
         id: 'testing.lab-first-test', module: 'testing', order: 16,
         relativePath: 'testing/lab-first-test/', kind: 'lab', minutes: 25,
         prerequisites: ['testing.pyramid'], label: { es: 'Lab · tu primera prueba', en: 'Lab · your first test' },
+      }),
+    ]),
+  }),
+  Object.freeze({
+    id: 'deployment',
+    order: 5,
+    label: localized({ es: 'Despliegue', en: 'Deployment' }),
+    sidebarLabel: localized({ es: '05 · Despliegue', en: '05 · Deployment' }),
+    outcome: localized({
+      es: 'Lleva un artefacto a producción con estrategias seguras y capacidad de revertir.',
+      en: 'Take an artifact to production with safe strategies and the ability to roll back.',
+    }),
+    steps: Object.freeze([
+      step({
+        id: 'deployment.overview', module: 'deployment', order: 17,
+        relativePath: 'deployment/', kind: 'overview', minutes: 10,
+        prerequisites: ['delivery.github-actions'], label: { es: 'Panorama', en: 'Overview' },
+      }),
+      step({
+        id: 'deployment.pipeline', module: 'deployment', order: 18,
+        relativePath: 'deployment/pipeline/', kind: 'concept', minutes: 30,
+        prerequisites: ['delivery.github-actions'], label: { es: 'Del build al release', en: 'From build to release' },
+      }),
+      step({
+        id: 'deployment.strategies', module: 'deployment', order: 19,
+        relativePath: 'deployment/strategies/', kind: 'concept', minutes: 35,
+        prerequisites: ['deployment.pipeline'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
+      }),
+      step({
+        id: 'deployment.lab-release', module: 'deployment', order: 20,
+        relativePath: 'deployment/lab-release/', kind: 'lab', minutes: 30,
+        prerequisites: ['deployment.pipeline'], label: { es: 'Lab · promover y revertir', en: 'Lab · promote and roll back' },
       }),
     ]),
   }),

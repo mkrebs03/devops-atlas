@@ -4,8 +4,8 @@ test.describe('DevOps Atlas', () => {
   test('presents the guided route', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { name: /Entiende el recorrido/i })).toBeVisible();
-    await expect(page.locator('[data-module-id]')).toHaveCount(4);
-    await expect(page.locator('[data-progress-step]')).toHaveCount(16);
+    await expect(page.locator('[data-module-id]')).toHaveCount(5);
+    await expect(page.locator('[data-progress-step]')).toHaveCount(20);
     await expect(page.getByText('ATLAS / 001')).toHaveCount(0);
     await expect(page.getByText(/VALPARAÍSO/)).toHaveCount(0);
   });
