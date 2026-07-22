@@ -1,0 +1,245 @@
+---
+interface Props {
+  locale?: 'es' | 'en';
+}
+
+const { locale = 'es' } = Astro.props;
+const prefix = locale === 'en' ? '/en' : '';
+const copy = locale === 'en'
+  ? {
+      eyebrow: 'A FIELD GUIDE TO SYSTEMS',
+      title: 'Learn the chain behind reliable delivery.',
+      intro: 'DevOps Atlas connects the ideas, tools and habits that move a change from your terminal to production.',
+      route: 'The route',
+      routeIntro: 'Three stages. One mental model. No cargo cult commands.',
+      explore: 'Explore module',
+      cards: 'Start with a signal',
+      cardsTitle: 'Choose your next useful question.',
+      status: 'STATUS: LEARNING',
+      stage: 'STAGE',
+      fieldNotes: 'FIELD NOTES FOR CURIOUS OPERATORS',
+      observe: 'observe',
+      change: 'change',
+      verify: 'verify',
+      flow: 'flow',
+      all: 'All',
+      empty: 'No signal matches those filters yet.',
+      reset: 'Reset filters',
+      signal: 'Atlas signal',
+      signalBody: 'Build a mental model before you collect tools.',
+      local: '100% local labs',
+      localBody: 'Practice without touching production infrastructure.',
+    }
+  : {
+      eyebrow: 'GUÍA DE CAMPO PARA SISTEMAS',
+      title: 'Aprende la cadena detrás de una entrega confiable.',
+      intro: 'DevOps Atlas conecta las ideas, herramientas y hábitos que llevan un cambio desde tu terminal hasta producción.',
+      route: 'La ruta',
+      routeIntro: 'Tres etapas. Un solo modelo mental. Cero comandos por copiar sin entender.',
+      explore: 'Explorar módulo',
+      cards: 'Empieza por una señal',
+      cardsTitle: 'Elige tu próxima pregunta útil.',
+      status: 'ESTADO: APRENDIZAJE',
+      stage: 'ETAPA',
+      fieldNotes: 'APUNTES DE CAMPO PARA OPERADORES CURIOSOS',
+      observe: 'observa',
+      change: 'cambia',
+      verify: 'verifica',
+      flow: 'flujo',
+      all: 'Todos',
+      empty: 'Todavía no hay una señal con esos filtros.',
+      reset: 'Limpiar filtros',
+      signal: 'Señal del atlas',
+      signalBody: 'Construye un modelo mental antes de coleccionar herramientas.',
+      local: 'Labs 100% locales',
+      localBody: 'Practica sin tocar la infraestructura productiva.',
+    };
+
+const modules = locale === 'en'
+  ? [
+      { number: '01', slug: 'foundations', title: 'Foundations', subtitle: 'Read the machine', detail: 'Linux, processes, ports and the signals moving through a system.', tone: 'lime', count: '04 tracks' },
+      { number: '02', slug: 'collaboration', title: 'Collaboration', subtitle: 'Shape the change', detail: 'Git, branches and the social contract around a safe change.', tone: 'coral', count: '04 tracks' },
+      { number: '03', slug: 'delivery', title: 'Delivery', subtitle: 'Ship with intent', detail: 'Containers, workflows and the feedback loop from commit to release.', tone: 'cyan', count: '04 tracks' },
+    ]
+  : [
+      { number: '01', slug: 'foundations', title: 'Fundamentos', subtitle: 'Lee la máquina', detail: 'Linux, procesos, puertos y las señales que cruzan un sistema.', tone: 'lime', count: '04 temas' },
+      { number: '02', slug: 'collaboration', title: 'Colaboración', subtitle: 'Moldea el cambio', detail: 'Git, ramas y el contrato social detrás de un cambio seguro.', tone: 'coral', count: '04 temas' },
+      { number: '03', slug: 'delivery', title: 'Entrega', subtitle: 'Publica con intención', detail: 'Contenedores, workflows y el feedback entre commit y release.', tone: 'cyan', count: '04 temas' },
+    ];
+
+const cards = locale === 'en'
+  ? [
+      { type: 'concept', level: 'beginner', module: 'foundations', label: 'CONCEPT', title: 'What is DevOps?', text: 'A shared language for flow, feedback and responsibility.', href: `${prefix}/foundations/` },
+      { type: 'tool', level: 'beginner', module: 'foundations', label: 'TOOL', title: 'Linux terminal', text: 'The smallest useful interface to understand a machine.', href: `${prefix}/foundations/linux-cli/` },
+      { type: 'concept', level: 'beginner', module: 'collaboration', label: 'CONCEPT', title: 'The Git model', text: 'Commits, branches and history as a map of decisions.', href: `${prefix}/collaboration/git-model/` },
+      { type: 'tool', level: 'beginner', module: 'delivery', label: 'TOOL', title: 'Docker', text: 'Package an environment so the handoff has fewer surprises.', href: `${prefix}/delivery/docker/` },
+      { type: 'lab', level: 'beginner', module: 'delivery', label: 'LAB', title: 'Build a local pipeline', text: 'Turn a commit into a checked container on your machine.', href: `${prefix}/delivery/lab-container-pipeline/` },
+    ]
+  : [
+      { type: 'concept', level: 'beginner', module: 'foundations', label: 'CONCEPTO', title: '¿Qué es DevOps?', text: 'Un lenguaje compartido para hablar de flujo, feedback y responsabilidad.', href: `${prefix}/foundations/` },
+      { type: 'tool', level: 'beginner', module: 'foundations', label: 'HERRAMIENTA', title: 'Terminal Linux', text: 'La interfaz mínima para empezar a entender una máquina.', href: `${prefix}/foundations/linux-cli/` },
+      { type: 'concept', level: 'beginner', module: 'collaboration', label: 'CONCEPTO', title: 'El modelo de Git', text: 'Commits, ramas e historial como mapa de decisiones.', href: `${prefix}/collaboration/git-model/` },
+      { type: 'tool', level: 'beginner', module: 'delivery', label: 'HERRAMIENTA', title: 'Docker', text: 'Empaqueta un entorno para que el relevo tenga menos sorpresas.', href: `${prefix}/delivery/docker/` },
+      { type: 'lab', level: 'beginner', module: 'delivery', label: 'LAB', title: 'Construye un pipeline local', text: 'Convierte un commit en un contenedor validado en tu máquina.', href: `${prefix}/delivery/lab-container-pipeline/` },
+    ];
+---
+
+<div class="atlas-home" data-atlas-home>
+  <section class="atlas-intro" aria-labelledby="atlas-intro-title">
+    <div class="atlas-intro__signal" aria-hidden="true">
+      <span class="signal-pulse"></span>
+      <span>ATLAS / 001</span>
+      <span class="signal-line"></span>
+      <span>{copy.status}</span>
+    </div>
+    <div class="atlas-intro__grid">
+      <div>
+        <p class="atlas-kicker">{copy.eyebrow}</p>
+        <h1 id="atlas-intro-title">{copy.title}</h1>
+        <p class="atlas-intro__lede">{copy.intro}</p>
+        <div class="atlas-intro__actions">
+          <a class="atlas-action atlas-action--primary" href={`${prefix}/foundations/`}>
+            <span>01</span> {locale === 'en' ? 'Start the route' : 'Comenzar la ruta'} <span aria-hidden="true">↗</span>
+          </a>
+          <a class="atlas-action atlas-action--quiet" href={`${prefix}/delivery/lab-container-pipeline/`}>
+            {locale === 'en' ? 'Jump to a lab' : 'Ir directo a un lab'} <span aria-hidden="true">↓</span>
+          </a>
+        </div>
+      </div>
+      <div class="atlas-radar" role="img" aria-label={locale === 'en' ? 'Visual route map' : 'Mapa visual de la ruta'}>
+        <div class="radar-grid"></div>
+        <div class="radar-ring radar-ring--outer"></div>
+        <div class="radar-ring radar-ring--inner"></div>
+        <div class="radar-axis radar-axis--vertical"></div>
+        <div class="radar-axis radar-axis--horizontal"></div>
+        <div class="radar-node radar-node--one"><span>01</span></div>
+        <div class="radar-node radar-node--two"><span>02</span></div>
+        <div class="radar-node radar-node--three"><span>03</span></div>
+        <div class="radar-core"><span>↗</span><small>{copy.flow}</small></div>
+        <span class="radar-label radar-label--top">{copy.observe}</span>
+        <span class="radar-label radar-label--right">{copy.change}</span>
+        <span class="radar-label radar-label--bottom">{copy.verify}</span>
+      </div>
+    </div>
+    <div class="atlas-intro__footer">
+      <span>VALPARAÍSO / 2026</span>
+      <span class="atlas-intro__footer-line"></span>
+      <span>{copy.fieldNotes}</span>
+    </div>
+  </section>
+
+  <section class="atlas-section atlas-route" aria-labelledby="route-title">
+    <div class="atlas-section__heading">
+      <div>
+        <p class="atlas-kicker">{copy.route}</p>
+        <h2 id="route-title">{copy.routeIntro}</h2>
+      </div>
+      <span class="atlas-section__index">01 — 03</span>
+    </div>
+    <div class="atlas-module-grid">
+      {modules.map((module, index) => (
+        <a class={`atlas-module atlas-module--${module.tone}`} href={`${prefix}/${module.slug}/`}>
+          <div class="atlas-module__top"><span>{module.number}</span><span>{module.count}</span></div>
+          <div class="atlas-module__glyph" aria-hidden="true">
+            <span class="glyph-line glyph-line--one"></span><span class="glyph-line glyph-line--two"></span><span class="glyph-line glyph-line--three"></span><span class="glyph-dot glyph-dot--one"></span><span class="glyph-dot glyph-dot--two"></span><span class="glyph-dot glyph-dot--three"></span>
+          </div>
+          <p class="atlas-module__eyebrow">{copy.stage} {index + 1}</p>
+          <h3>{module.title}</h3>
+          <p class="atlas-module__subtitle">{module.subtitle}</p>
+          <p class="atlas-module__detail">{module.detail}</p>
+          <span class="atlas-module__link">{copy.explore} <span aria-hidden="true">↗</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="atlas-section atlas-signals" aria-labelledby="signals-title">
+    <div class="atlas-section__heading atlas-section__heading--signals">
+      <div>
+        <p class="atlas-kicker">{copy.cards}</p>
+        <h2 id="signals-title">{copy.cardsTitle}</h2>
+      </div>
+      <div class="atlas-filter-row" role="group" aria-label={locale === 'en' ? 'Filter atlas content' : 'Filtrar contenido del atlas'}>
+        <label>
+          <span class="sr-only">{locale === 'en' ? 'Content type' : 'Tipo de contenido'}</span>
+          <select data-atlas-filter="type">
+            <option value="all">{copy.all}</option>
+            <option value="concept">{locale === 'en' ? 'Concepts' : 'Conceptos'}</option>
+            <option value="tool">{locale === 'en' ? 'Tools' : 'Herramientas'}</option>
+            <option value="lab">Labs</option>
+          </select>
+        </label>
+        <label>
+          <span class="sr-only">{locale === 'en' ? 'Level' : 'Nivel'}</span>
+          <select data-atlas-filter="level">
+            <option value="all">{locale === 'en' ? 'All levels' : 'Todos los niveles'}</option>
+            <option value="beginner">{locale === 'en' ? 'Beginner' : 'Inicial'}</option>
+            <option value="intermediate">{locale === 'en' ? 'Intermediate' : 'Intermedio'}</option>
+          </select>
+        </label>
+        <button class="atlas-filter-reset" type="button" data-atlas-reset>{copy.reset}</button>
+      </div>
+    </div>
+    <div class="atlas-card-grid" data-atlas-cards>
+      {cards.map((card, index) => (
+        <a class="atlas-card" data-atlas-card data-type={card.type} data-level={card.level} data-module={card.module} href={card.href}>
+          <div class="atlas-card__top"><span class={`atlas-badge atlas-badge--${card.type}`}>{card.label}</span><span class="atlas-card__number">0{index + 1}</span></div>
+          <h3>{card.title}</h3>
+          <p>{card.text}</p>
+          <span class="atlas-card__arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+    <p class="atlas-filter-empty" data-atlas-empty role="status" aria-live="polite" hidden>{copy.empty}</p>
+  </section>
+
+  <section class="atlas-section atlas-bottom-grid" aria-label={locale === 'en' ? 'Atlas principles' : 'Principios del atlas'}>
+    <div class="atlas-principle atlas-principle--dark">
+      <p class="atlas-kicker">{copy.signal}</p>
+      <h2>{copy.signalBody}</h2>
+      <div class="atlas-principle__diagram" aria-hidden="true"><span>input</span><i></i><span>decision</span><i></i><span>feedback</span></div>
+    </div>
+    <div class="atlas-principle atlas-principle--paper">
+      <p class="atlas-kicker">{copy.local}</p>
+      <h2>{copy.localBody}</h2>
+      <div class="atlas-principle__terminal" aria-hidden="true"><span>$ atlas lab --start</span><strong>✓ environment ready</strong><span class="terminal-cursor">_</span></div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const initAtlasFilters = () => {
+    const root = document.querySelector<HTMLElement>('[data-atlas-home]');
+    if (!root || root.dataset.atlasReady === 'true') return;
+    root.dataset.atlasReady = 'true';
+
+    const filters = Array.from(root.querySelectorAll<HTMLSelectElement>('[data-atlas-filter]'));
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-atlas-card]'));
+    const empty = root.querySelector<HTMLElement>('[data-atlas-empty]');
+
+    const applyFilters = () => {
+      const selectedType = root.querySelector<HTMLSelectElement>('[data-atlas-filter="type"]')?.value ?? 'all';
+      const selectedLevel = root.querySelector<HTMLSelectElement>('[data-atlas-filter="level"]')?.value ?? 'all';
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const matchesType = selectedType === 'all' || card.dataset.type === selectedType;
+        const matchesLevel = selectedLevel === 'all' || card.dataset.level === selectedLevel;
+        const show = matchesType && matchesLevel;
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+
+      if (empty) empty.hidden = visible !== 0;
+    };
+
+    filters.forEach((filter) => filter.addEventListener('change', applyFilters));
+    root.querySelector('[data-atlas-reset]')?.addEventListener('click', () => {
+      filters.forEach((filter) => { filter.value = 'all'; });
+      applyFilters();
+    });
+  };
+
+  initAtlasFilters();
+  document.addEventListener('astro:page-load', initAtlasFilters);
+</script>

@@ -1,0 +1,18 @@
+{
+  "search.label": "Buscar",
+  "search.cancelLabel": "Cancelar",
+  "themeSelect.accessibleLabel": "Seleccionar tema",
+  "themeSelect.dark": "Oscuro",
+  "themeSelect.light": "Claro",
+  "themeSelect.auto": "Automático",
+  "languageSelect.accessibleLabel": "Seleccionar idioma",
+  "sidebarNav.accessibleLabel": "Navegación principal",
+  "tableOfContents.onThisPage": "En esta página",
+  "page.previousLink": "Anterior",
+  "page.nextLink": "Siguiente",
+  "page.lastUpdated": "Última actualización:",
+  "aside.note": "Nota",
+  "aside.tip": "Consejo",
+  "aside.caution": "Precaución",
+  "aside.danger": "Peligro"
+}

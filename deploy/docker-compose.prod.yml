@@ -1,0 +1,18 @@
+services:
+  devops-atlas:
+    image: ${ATLAS_IMAGE:?ATLAS_IMAGE is required}
+    container_name: devops-atlas
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    networks:
+      - caddy-net
+
+networks:
+  caddy-net:
+    external: true

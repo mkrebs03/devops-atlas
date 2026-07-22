@@ -1,0 +1,11 @@
+node_modules
+dist
+.astro
+.git
+.superpowers
+playwright-report
+test-results
+*.log
+.env
+.env.*
+!.env.example

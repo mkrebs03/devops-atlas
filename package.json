@@ -1,0 +1,28 @@
+{
+  "name": "devops-atlas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.29.3",
+  "engines": {
+    "node": ">=20.11 <26"
+  },
+  "scripts": {
+    "dev": "ASTRO_DEV_BACKGROUND=0 astro dev",
+    "build": "pnpm run check && pnpm run validate:content && astro build",
+    "check": "astro check",
+    "validate:content": "node scripts/validate-content.mjs",
+    "preview": "astro preview",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "0.41.3",
+    "astro": "7.1.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.9",
+    "@playwright/test": "1.61.1",
+    "typescript": "6.0.3"
+  }
+}

@@ -1,0 +1,122 @@
+name: Deploy DevOps Atlas
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  PUBLIC_SITE_URL: ${{ vars.PUBLIC_SITE_URL }}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.29.3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Require production site URL
+        run: |
+          test -n "$PUBLIC_SITE_URL"
+          case "$PUBLIC_SITE_URL" in
+            https://devops.example.com|http://localhost:4321) echo 'Set the PUBLIC_SITE_URL repository variable before deploying.'; exit 1 ;;
+          esac
+
+      - name: Validate source
+        run: pnpm run build
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,format=long,prefix=sha-
+
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            PUBLIC_SITE_URL=${{ env.PUBLIC_SITE_URL }}
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout deployment files
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            deploy/docker-compose.prod.yml
+            deploy/nginx.conf
+
+      - name: Configure SSH
+        shell: bash
+        env:
+          VPS_SSH_PRIVATE_KEY: ${{ secrets.VPS_SSH_PRIVATE_KEY }}
+          VPS_KNOWN_HOSTS: ${{ secrets.VPS_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d "$HOME/.ssh"
+          printf '%s\n' "$VPS_SSH_PRIVATE_KEY" > "$HOME/.ssh/devops-atlas"
+          printf '%s\n' "$VPS_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/devops-atlas" "$HOME/.ssh/known_hosts"
+
+      - name: Copy production contract
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" 'mkdir -p /opt/devops-atlas'
+          scp -i "$HOME/.ssh/devops-atlas" deploy/docker-compose.prod.yml deploy/nginx.conf "$VPS_USER@$VPS_HOST:/opt/devops-atlas/"
+
+      - name: Pull and restart the versioned image
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          GHCR_USER: ${{ secrets.GHCR_USER }}
+          GHCR_READ_TOKEN: ${{ secrets.GHCR_READ_TOKEN }}
+        shell: bash
+        run: |
+          IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:sha-$GITHUB_SHA"
+          printf '%s' "$GHCR_READ_TOKEN" | ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" "docker login ghcr.io --username '$GHCR_USER' --password-stdin"
+          ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" "printf 'ATLAS_IMAGE=$IMAGE\\n' > /opt/devops-atlas/.env && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml pull && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml up -d --remove-orphans"
+
+      - name: Check public site
+        env:
+          PUBLIC_SITE_URL: ${{ env.PUBLIC_SITE_URL }}
+        run: |
+          curl --fail --retry 5 --retry-delay 5 --silent --show-error "$PUBLIC_SITE_URL/healthz"
