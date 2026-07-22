@@ -27,7 +27,7 @@ The product will use a contemporary technical field-notebook aesthetic: warm, ap
 
 The landing becomes the learner's control point rather than a long promotional composition.
 
-The compact hero explains that the platform teaches how a change moves from a terminal to production. Its primary action is **Start the route** for a new visitor and **Continue learning** when local progress exists. A secondary action opens all content. The hero states the real scope of the current curriculum: three modules, twelve lessons, and practical labs.
+The compact hero explains that the platform teaches how a change moves from a terminal to production. Its primary action is **Start the route** for a new visitor and **Continue learning** when local progress exists. A secondary action opens all content. The hero states the real scope of the current curriculum: three modules, twelve learning steps, including three practical labs.
 
 The main visual is a connected learning path with three stages:
 
@@ -36,6 +36,8 @@ The main visual is a connected learning path with three stages:
 3. **Deliver with confidence** — Docker and automation.
 
 Each stage shows its learning outcome, lesson count, estimated duration, and completion progress. Connections express order and dependency. On mobile this route becomes vertical and places the current or next lesson first.
+
+The twelve completable steps are the four existing pages in each module. The module `index.md` page is step one and acts as its conceptual introduction; the three topic or lab pages that follow are steps two through four. English counterparts represent the same steps and do not increase the total. All twelve pages participate in ordering, completion totals, and previous/next recommendations.
 
 A short entry section offers three useful choices: start from zero, open a lab, or resume the last lesson. The existing catalog filters are removed until the content volume justifies them. The final promotional panels are replaced with the explicit methodology: understand, practice, verify.
 
@@ -59,11 +61,13 @@ On mobile, module navigation is collapsible. A compact context bar exposes the m
 
 Progress is functional and stored in `localStorage`; no account, analytics pipeline, or server state is introduced. The model records stable lesson identifiers, completed lessons, and the last visited lesson. Spanish and English counterparts share identifiers so changing language does not duplicate progress.
 
+The resume target follows one rule everywhere. If no step has been visited, use the first step. If the last visited step is incomplete, resume it. If it is complete, select the first incomplete step after it; when no later step exists, select the earliest incomplete step in the route. When all twelve steps are complete, replace the resume action with **Review the route**, link it to the route summary, and present the course as completed. “In progress” means the last visited step when it is not completed; all other incomplete steps are pending. The mobile priority and landing CTA use this same target.
+
 Progressive enhancement is required. When JavaScript or browser storage is unavailable, all content and navigation remain usable; only persistence controls and personalized resume behavior are omitted or become non-persistent.
 
 ## Technical Structure
 
-A single typed learning-path definition owns module order, lesson order, identifiers, durations, relationships, and localized labels. Frontmatter remains the source for lesson-specific educational metadata such as objectives and prerequisites; existing fields are reused where possible.
+A single typed learning-path definition owns module order, lesson order, identifiers, relationships, and localized labels. Frontmatter remains the source for lesson-specific educational metadata. Every routed page requires the existing `title`, `description`, `type`, `level`, `module`, `tools`, and `prerequisites` fields plus `estimatedTime: string`, `learningObjectives: string[]`, and `takeaways: string[]`. The path definition—not frontmatter—owns the stable identifier and numeric order, preventing locale-specific duplication.
 
 The UI is divided into focused Astro components:
 
