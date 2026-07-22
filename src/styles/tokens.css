@@ -1,0 +1,156 @@
+:root {
+  color-scheme: light;
+
+  /* Type: characterful local-first stacks with no network dependency. */
+  --atlas-font-display: Charter, 'Bitstream Charter', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --atlas-font-body: 'Avenir Next', Avenir, Aptos, 'Segoe UI', sans-serif;
+  --atlas-font-mono: 'IBM Plex Mono', 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
+
+  /* Semantic color roles. */
+  --atlas-surface: #f7f2e8;
+  --atlas-surface-raised: #fffaf0;
+  --atlas-surface-recessed: #ece5d8;
+  --atlas-ink: #101827;
+  --atlas-ink-soft: #263448;
+  --atlas-ink-muted: #4b596a;
+  --atlas-primary: #d7f33f;
+  --atlas-primary-strong: #526900;
+  --atlas-primary-ink: #172000;
+  --atlas-lab: #a92f25;
+  --atlas-lab-surface: #ffe1d9;
+  --atlas-lab-on-primary: #7d211a;
+  --atlas-information: #16667a;
+  --atlas-information-surface: #d7f2f5;
+  --atlas-danger: #a82f37;
+  --atlas-danger-surface: #ffe1e3;
+  --atlas-focus: #b72f24;
+  --atlas-border: #c9c1b4;
+  --atlas-border-strong: #817a70;
+  --atlas-code-surface: #121b29;
+  --atlas-code-ink: #f4f1e8;
+  --atlas-code-accent: #d7f33f;
+  --atlas-inverse-surface: #101827;
+  --atlas-inverse-ink: #f5f0e5;
+  --atlas-module-foundations-surface: var(--atlas-inverse-surface);
+  --atlas-module-foundations-ink: var(--atlas-inverse-ink);
+  --atlas-module-collaboration-surface: #ff8b76;
+  --atlas-module-collaboration-ink: #101827;
+  --atlas-module-delivery-surface: #174f67;
+  --atlas-module-delivery-ink: #f5f0e5;
+
+  /* Layout and shape. */
+  --atlas-space-1: 0.25rem;
+  --atlas-space-2: 0.5rem;
+  --atlas-space-3: 0.75rem;
+  --atlas-space-4: 1rem;
+  --atlas-space-5: 1.5rem;
+  --atlas-space-6: 2rem;
+  --atlas-space-7: 3rem;
+  --atlas-space-8: 4.5rem;
+  --atlas-radius-sm: 0.25rem;
+  --atlas-radius-md: 0.5rem;
+  --atlas-radius-lg: 0.875rem;
+  --atlas-shadow-sm: 0 1px 0 rgb(16 24 39 / 10%), 0 6px 18px rgb(16 24 39 / 6%);
+  --atlas-shadow-header: 0 1px 12px rgb(16 24 39 / 5%);
+  --atlas-shadow-offset: 0.35rem 0.35rem 0 var(--atlas-ink);
+  --atlas-reading-width: 46rem;
+  --atlas-page-width: 77.5rem;
+
+  /* Starlight bridge. */
+  --sl-font: var(--atlas-font-body);
+  --sl-font-system: var(--atlas-font-body);
+  --sl-font-mono: var(--atlas-font-mono);
+  --sl-content-width: var(--atlas-reading-width);
+  --sl-color-white: var(--atlas-ink);
+  --sl-color-gray-1: var(--atlas-ink-soft);
+  --sl-color-gray-2: var(--atlas-ink-muted);
+  --sl-color-gray-3: #596678;
+  --sl-color-gray-4: #8d928f;
+  --sl-color-gray-5: var(--atlas-border);
+  --sl-color-gray-6: var(--atlas-surface-recessed);
+  --sl-color-gray-7: var(--atlas-surface-raised);
+  --sl-color-black: var(--atlas-surface);
+  --sl-color-text: var(--atlas-ink-soft);
+  --sl-color-text-accent: var(--atlas-primary-strong);
+  --sl-color-text-invert: var(--atlas-primary-ink);
+  --sl-color-bg: var(--atlas-surface);
+  --sl-color-bg-nav: var(--atlas-surface-raised);
+  --sl-color-bg-sidebar: var(--atlas-surface);
+  --sl-color-bg-inline-code: var(--atlas-surface-recessed);
+  --sl-color-bg-accent: var(--atlas-primary);
+  --sl-color-accent-low: #e8f5a8;
+  --sl-color-accent: var(--atlas-primary-strong);
+  --sl-color-accent-high: #314300;
+  --sl-color-hairline-light: var(--atlas-border);
+  --sl-color-hairline: var(--atlas-border);
+  --sl-color-hairline-shade: var(--atlas-border);
+  --sl-text-body-sm: var(--sl-text-sm);
+  --sl-text-code-sm: var(--sl-text-sm);
+  --sl-line-height: 1.72;
+  --sl-line-height-headings: 1.12;
+  --sl-shadow-sm: var(--atlas-shadow-sm);
+  --sl-shadow-md: var(--atlas-shadow-sm);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --atlas-surface: #101722;
+  --atlas-surface-raised: #172230;
+  --atlas-surface-recessed: #202d3c;
+  --atlas-ink: #f5f0e5;
+  --atlas-ink-soft: #d8dfe3;
+  --atlas-ink-muted: #b4bec7;
+  --atlas-primary: #d7ff3f;
+  --atlas-primary-strong: #d7ff3f;
+  --atlas-primary-ink: #172000;
+  --atlas-lab: #ff9483;
+  --atlas-lab-surface: #412522;
+  --atlas-lab-on-primary: #7d211a;
+  --atlas-information: #84ddeb;
+  --atlas-information-surface: #15333d;
+  --atlas-danger: #ff9da4;
+  --atlas-danger-surface: #402329;
+  --atlas-focus: #ff9382;
+  --atlas-border: #3d4b5a;
+  --atlas-border-strong: #718091;
+  --atlas-code-surface: #090e16;
+  --atlas-code-ink: #f5f0e5;
+  --atlas-code-accent: #d7ff3f;
+  --atlas-inverse-surface: #172230;
+  --atlas-inverse-ink: #f5f0e5;
+  --atlas-module-foundations-surface: #121b29;
+  --atlas-module-foundations-ink: #f5f0e5;
+  --atlas-module-collaboration-surface: #ff8b76;
+  --atlas-module-collaboration-ink: #101827;
+  --atlas-module-delivery-surface: #174f67;
+  --atlas-module-delivery-ink: #f5f0e5;
+  --atlas-shadow-offset: 0.35rem 0.35rem 0 #05080d;
+  --atlas-shadow-header: 0 1px 0 rgb(245 240 229 / 4%), 0 10px 24px rgb(5 8 13 / 18%);
+
+  --sl-color-white: var(--atlas-ink);
+  --sl-color-gray-1: var(--atlas-ink-soft);
+  --sl-color-gray-2: var(--atlas-ink-muted);
+  --sl-color-gray-3: #95a1ad;
+  --sl-color-gray-4: #718091;
+  --sl-color-gray-5: var(--atlas-border);
+  --sl-color-gray-6: var(--atlas-surface-recessed);
+  --sl-color-gray-7: var(--atlas-surface-raised);
+  --sl-color-black: var(--atlas-surface);
+  --sl-color-text: var(--atlas-ink-soft);
+  --sl-color-text-accent: var(--atlas-primary);
+  --sl-color-text-invert: var(--atlas-primary-ink);
+  --sl-color-bg: var(--atlas-surface);
+  --sl-color-bg-nav: var(--atlas-surface-raised);
+  --sl-color-bg-sidebar: var(--atlas-surface);
+  --sl-color-bg-inline-code: var(--atlas-surface-recessed);
+  --sl-color-bg-accent: var(--atlas-primary);
+  --sl-color-accent-low: #293600;
+  --sl-color-accent: var(--atlas-primary);
+  --sl-color-accent-high: #efffb0;
+}
+
+@media (min-width: 50rem) {
+  :root {
+    --sl-nav-height: 4.5rem;
+  }
+}

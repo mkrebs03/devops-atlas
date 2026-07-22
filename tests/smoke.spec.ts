@@ -1,33 +1,27 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('DevOps Atlas', () => {
-  test('renders the visual route and module cards', async ({ page }) => {
+  test('presents the guided route', async ({ page }) => {
     await page.goto('/');
-
-    await expect(page.getByRole('heading', { name: /Aprende la cadena/i })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Fundamentos/i }).first()).toBeVisible();
-    await expect(page.locator('[data-atlas-card]')).toHaveCount(5);
+    await expect(page.getByRole('heading', { name: /Entiende el recorrido/i })).toBeVisible();
+    await expect(page.locator('[data-module-id]')).toHaveCount(3);
+    await expect(page.locator('[data-progress-step]')).toHaveCount(12);
+    await expect(page.getByText('ATLAS / 001')).toHaveCount(0);
+    await expect(page.getByText(/VALPARAÍSO/)).toHaveCount(0);
   });
 
-  test('filters the atlas by content type', async ({ page }) => {
-    await page.goto('/');
-
-    await page.locator('[data-atlas-filter="type"]').selectOption('lab');
-    await expect(page.locator('[data-atlas-card]:visible')).toHaveCount(1);
-    await expect(page.locator('[data-atlas-card]:visible')).toContainText(/pipeline/i);
-  });
-
-  test('serves the English route', async ({ page }) => {
+  test('serves the equivalent English route', async ({ page }) => {
     await page.goto('/en/');
-
-    await expect(page.getByRole('heading', { name: /Learn the chain/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Understand the path/i })).toBeVisible();
     await expect(page.getByText('Foundations', { exact: true }).first()).toBeVisible();
+    await expect(page.locator('h1:visible')).toHaveCount(1);
   });
 
-  test('opens the first learning module', async ({ page }) => {
+  test('opens the first learning step', async ({ page }) => {
     await page.goto('/');
-    await page.getByRole('link', { name: /Explorar módulo/i }).first().click();
+    await page.getByRole('link', { name: /Comenzar la ruta/i }).click();
     await expect(page).toHaveURL(/\/foundations\/$/);
     await expect(page.getByRole('heading', { name: 'Fundamentos', exact: true })).toBeVisible();
+    await expect(page.getByText('Al terminar podrás', { exact: true })).toBeVisible();
   });
 });

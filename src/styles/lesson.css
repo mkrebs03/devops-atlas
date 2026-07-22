@@ -1,0 +1,181 @@
+html[data-has-sidebar] .content-panel {
+  border-top-color: var(--atlas-border);
+}
+
+.lesson-header { max-width: var(--atlas-reading-width); padding-block: 1rem 0.5rem; }
+.lesson-header__context { display: flex; flex-wrap: wrap; gap: 0.55rem 1rem; align-items: center; color: var(--atlas-ink-muted); font-family: var(--atlas-font-mono); font-size: var(--sl-text-sm); }
+.lesson-kind { padding: 0.2rem 0.45rem; color: var(--atlas-information); border: 1px solid currentColor; border-radius: 999px; font-weight: 700; }
+.lesson-kind--lab { color: var(--atlas-lab); }
+.lesson-kind--tool { color: var(--atlas-primary-strong); }
+.lesson-header h1 { margin: 1rem 0 0; color: var(--atlas-ink); font-family: var(--atlas-font-display); font-size: clamp(2.8rem, 6vw, 4.8rem); letter-spacing: -0.05em; line-height: 0.95; }
+.lesson-header__description { max-width: 42rem; margin: 1rem 0 0; color: var(--atlas-ink-muted); font-size: 1.15rem; line-height: 1.6; }
+.lesson-header__prerequisites { margin: 1rem 0 0; color: var(--atlas-ink-muted); font-size: var(--sl-text-sm); }
+.lesson-header__prerequisites a { color: var(--sl-color-text-accent); }
+.lesson-objectives { margin-top: 1.5rem; padding: 1.25rem 1.4rem; border-inline-start: 0.3rem solid var(--atlas-primary-strong); background: var(--atlas-surface-recessed); }
+.lesson-objectives > p { margin: 0; color: var(--atlas-ink); font-family: var(--atlas-font-mono); font-size: var(--sl-text-sm); font-weight: 700; }
+.lesson-objectives ul { margin: 0.75rem 0 0; padding-inline-start: 1.25rem; }
+.lesson-objectives li { margin-top: 0.35rem; color: var(--atlas-ink-soft); }
+.lesson-header__progress { display: grid; grid-template-columns: auto 1fr; gap: 1rem; align-items: center; margin-top: 1.25rem; color: var(--atlas-ink-muted); font-family: var(--atlas-font-mono); font-size: var(--sl-text-sm); }
+
+.lesson-completion { display: grid; grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.7fr); gap: 1.5rem; margin-top: 4rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--atlas-border-strong); border-radius: var(--atlas-radius-md); background: var(--atlas-surface-raised); box-shadow: var(--atlas-shadow-sm); }
+.lesson-completion ul { margin: 0; padding-inline-start: 1.2rem; }
+.lesson-completion button { grid-column: 1; justify-self: start; padding: 0.7rem 1rem; cursor: pointer; }
+.lesson-next { grid-row: 1 / span 2; grid-column: 2; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem; color: var(--atlas-primary-ink); border-radius: var(--atlas-radius-sm); background: var(--atlas-primary); text-decoration: none; }
+.lesson-next span, .lesson-next small { font-family: var(--atlas-font-mono); font-size: var(--sl-text-sm); }
+.lesson-next strong { margin-block: auto 1rem; color: inherit; font-family: var(--atlas-font-display); font-size: 1.8rem; line-height: 1; }
+
+html[data-has-sidebar] .sl-markdown-content {
+  color: var(--atlas-ink-soft);
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+html[data-has-sidebar] .sl-markdown-content :is(h1, h2, h3, h4, h5, h6):not(:where(.not-content *)) {
+  color: var(--atlas-ink);
+  font-family: var(--atlas-font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+}
+
+html[data-has-sidebar] .sl-markdown-content h2:not(:where(.not-content *)) {
+  padding-bottom: var(--atlas-space-2);
+  border-bottom: 1px solid var(--atlas-border);
+}
+
+html[data-has-sidebar] .sl-markdown-content a:not(:where(.not-content *)) {
+  color: var(--sl-color-text-accent);
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.18em;
+}
+
+html[data-has-sidebar] .sl-markdown-content a:hover:not(:where(.not-content *)) {
+  color: var(--atlas-ink);
+}
+
+html[data-has-sidebar] .sl-markdown-content code:not(:where(.not-content *)) {
+  border: 1px solid var(--atlas-border);
+  border-radius: var(--atlas-radius-sm);
+  color: var(--atlas-ink);
+  font-family: var(--atlas-font-mono);
+  font-size: var(--sl-text-sm);
+}
+
+html[data-has-sidebar] .sl-markdown-content pre:not(:where(.not-content *)),
+html[data-has-sidebar] .expressive-code .frame {
+  border: 1px solid var(--atlas-border-strong) !important;
+  border-radius: var(--atlas-radius-sm) !important;
+  background: var(--atlas-code-surface);
+  box-shadow: var(--atlas-shadow-offset) !important;
+}
+
+html[data-has-sidebar] .expressive-code button,
+html[data-has-sidebar] #starlight__search button {
+  font-size: var(--sl-text-sm);
+}
+
+html[data-has-sidebar] .sl-markdown-content pre:not(:where(.not-content *)) {
+  color: var(--atlas-code-ink);
+  font-size: var(--sl-text-sm);
+  line-height: 1.65;
+}
+
+html[data-has-sidebar] .sl-markdown-content pre code:not(:where(.not-content *)) {
+  color: inherit;
+  font-family: var(--atlas-font-mono);
+}
+
+html[data-has-sidebar] .sl-markdown-content blockquote:not(:where(.not-content *)) {
+  border-inline-start: 0.25rem solid var(--atlas-information);
+  color: var(--atlas-ink-soft);
+  background: var(--atlas-information-surface);
+  padding: var(--atlas-space-4) var(--atlas-space-5);
+}
+
+html[data-has-sidebar] .starlight-aside {
+  border: 1px solid var(--atlas-border);
+  border-inline-start-width: 0.3rem;
+  border-radius: var(--atlas-radius-sm);
+  color: var(--atlas-ink-soft);
+  box-shadow: var(--atlas-shadow-sm);
+}
+
+html[data-has-sidebar] .starlight-aside--note {
+  --sl-color-asides-border: var(--atlas-information);
+  --sl-color-asides-text-accent: var(--atlas-information);
+  background: var(--atlas-information-surface);
+}
+
+html[data-has-sidebar] .starlight-aside--tip {
+  --sl-color-asides-border: var(--atlas-primary-strong);
+  --sl-color-asides-text-accent: var(--atlas-primary-strong);
+  background: var(--sl-color-accent-low);
+}
+
+html[data-has-sidebar] .starlight-aside--caution {
+  --sl-color-asides-border: var(--atlas-lab);
+  --sl-color-asides-text-accent: var(--atlas-lab);
+  background: var(--atlas-lab-surface);
+}
+
+html[data-has-sidebar] .starlight-aside--danger {
+  --sl-color-asides-border: var(--atlas-danger);
+  --sl-color-asides-text-accent: var(--atlas-danger);
+  background: var(--atlas-danger-surface);
+}
+
+html[data-has-sidebar] .starlight-aside__title {
+  font-family: var(--atlas-font-mono);
+  font-size: var(--sl-text-sm);
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+html[data-has-sidebar] .sl-markdown-content table:not(:where(.not-content *)) {
+  width: 100%;
+  border-block: 1px solid var(--atlas-border);
+  font-size: var(--sl-text-sm);
+}
+
+html[data-has-sidebar] .sl-markdown-content th:not(:where(.not-content *)) {
+  color: var(--atlas-ink);
+  background: var(--atlas-surface-recessed);
+}
+
+html[data-has-sidebar] .pagination-links {
+  margin-top: var(--atlas-space-7);
+}
+
+html[data-has-sidebar] .pagination-links a {
+  border-color: var(--atlas-border) !important;
+  border-radius: var(--atlas-radius-sm) !important;
+  color: var(--atlas-ink-muted) !important;
+  background: var(--atlas-surface-raised);
+  box-shadow: none !important;
+  font-size: var(--sl-text-sm);
+}
+
+html[data-has-sidebar] .pagination-links a:hover {
+  border-color: var(--atlas-border-strong) !important;
+  transform: translateY(-2px);
+}
+
+html[data-has-sidebar] .pagination-links .link-title {
+  color: var(--atlas-ink) !important;
+  font-family: var(--atlas-font-display);
+  font-size: var(--sl-text-xl) !important;
+  font-weight: 700;
+}
+
+@media (max-width: 40rem) {
+  html[data-has-sidebar] .sl-markdown-content {
+    font-size: 1rem;
+    line-height: 1.68;
+  }
+
+  html[data-has-sidebar] .sl-markdown-content pre:not(:where(.not-content *)),
+  html[data-has-sidebar] .expressive-code .frame {
+    box-shadow: 0.2rem 0.2rem 0 var(--atlas-border) !important;
+  }
+  .lesson-completion { grid-template-columns: 1fr; }
+  .lesson-next { grid-row: auto; grid-column: 1; min-height: 11rem; }
+}

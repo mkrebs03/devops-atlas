@@ -29,7 +29,17 @@ export default defineConfig({
           lang: 'en',
         },
       },
-      customCss: ['./src/styles/atlas.css'],
+      customCss: [
+        './src/styles/tokens.css',
+        './src/styles/shell.css',
+        './src/styles/learning-path.css',
+        './src/styles/lesson.css',
+        './src/styles/progress.css',
+      ],
+      components: {
+        PageTitle: './src/components/starlight/AtlasPageTitle.astro',
+        Footer: './src/components/starlight/AtlasFooter.astro',
+      },
       sidebar: [
         {
           label: 'Ruta de aprendizaje',

@@ -1,0 +1,181 @@
+html {
+  background: var(--atlas-surface);
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--atlas-ink-soft);
+  background: var(--atlas-surface);
+  font-family: var(--atlas-font-body);
+  letter-spacing: -0.008em;
+}
+
+::selection {
+  color: var(--atlas-primary-ink);
+  background: var(--atlas-primary);
+}
+
+:where(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--atlas-focus);
+  outline-offset: 3px;
+}
+
+.page > header.header {
+  border-bottom-color: var(--atlas-border);
+  background: color-mix(in srgb, var(--atlas-surface-raised) 94%, transparent);
+  box-shadow: var(--atlas-shadow-header);
+  backdrop-filter: blur(14px);
+}
+
+.site-title {
+  color: var(--atlas-ink) !important;
+  font-family: var(--atlas-font-display);
+  font-size: clamp(1.25rem, 2vw, 1.55rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.035em;
+}
+
+.site-title::before {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: none;
+  border: 2px solid var(--atlas-ink);
+  background: var(--atlas-primary);
+  box-shadow: 3px 3px 0 var(--atlas-ink);
+  content: '';
+  transform: rotate(-8deg);
+}
+
+site-search button[data-open-modal] {
+  min-height: 2.75rem;
+  border-color: var(--atlas-border-strong) !important;
+  border-radius: var(--atlas-radius-sm) !important;
+  color: var(--atlas-ink-soft) !important;
+  background: var(--atlas-surface) !important;
+  font-size: var(--sl-text-sm) !important;
+  box-shadow: none;
+}
+
+site-search button[data-open-modal]:hover {
+  border-color: var(--atlas-ink) !important;
+  color: var(--atlas-ink) !important;
+  box-shadow: 3px 3px 0 var(--atlas-border);
+}
+
+site-search button > kbd,
+site-search button > kbd kbd {
+  font-size: var(--sl-text-sm) !important;
+}
+
+site-search dialog {
+  color: var(--atlas-ink-soft);
+  background: var(--atlas-surface-raised) !important;
+}
+
+.right-group select,
+.mobile-preferences select {
+  min-height: 2.75rem;
+  font-size: var(--sl-text-sm) !important;
+}
+
+.right-group label,
+.mobile-preferences label {
+  color: var(--atlas-ink-soft);
+}
+
+.sidebar-pane {
+  border-inline-end-color: var(--atlas-border) !important;
+  background: var(--atlas-surface) !important;
+}
+
+#starlight__sidebar {
+  scrollbar-color: var(--atlas-border-strong) transparent;
+}
+
+#starlight__sidebar .top-level > li + li {
+  padding-top: var(--atlas-space-4);
+  border-top: 1px solid var(--atlas-border);
+}
+
+#starlight__sidebar summary,
+#starlight__sidebar a {
+  min-height: 2.25rem;
+  font-size: var(--sl-text-sm);
+}
+
+#starlight__sidebar summary {
+  color: var(--atlas-ink);
+  font-family: var(--atlas-font-mono);
+  letter-spacing: 0.025em;
+}
+
+#starlight__sidebar a {
+  display: flex;
+  align-items: center;
+  border-radius: var(--atlas-radius-sm);
+  color: var(--atlas-ink-muted);
+}
+
+#starlight__sidebar a:hover {
+  color: var(--atlas-ink);
+  background: var(--atlas-surface-recessed);
+}
+
+#starlight__sidebar a[aria-current='page'] {
+  color: var(--atlas-primary-ink);
+  background: var(--atlas-primary);
+  box-shadow: inset 3px 0 0 var(--atlas-ink);
+}
+
+.right-sidebar-panel h2,
+starlight-toc h2 {
+  color: var(--atlas-ink-muted) !important;
+  font-family: var(--atlas-font-mono);
+  font-size: var(--sl-text-sm) !important;
+  letter-spacing: 0.04em;
+}
+
+.right-sidebar-panel a,
+starlight-toc a {
+  font-size: var(--sl-text-sm) !important;
+}
+
+.mobile-preferences {
+  border-top-color: var(--atlas-border) !important;
+}
+
+mobile-starlight-toc summary,
+mobile-starlight-toc .toggle,
+mobile-starlight-toc .display-current {
+  font-size: var(--sl-text-sm) !important;
+}
+
+@media (max-width: 49.99rem) {
+  :root {
+    --sl-nav-height: 4rem;
+    --sl-menu-button-size: 2.75rem;
+  }
+
+  .page > header.header {
+    padding-inline: var(--atlas-space-4);
+  }
+
+  .sidebar-pane {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
