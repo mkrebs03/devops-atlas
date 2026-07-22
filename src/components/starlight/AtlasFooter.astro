@@ -9,4 +9,4 @@ const locale = lang === 'en' ? 'en' : 'es';
 const next = step ? learningSteps.find((item) => item.order === step.order + 1) : undefined;
 ---
 {step && <LessonCompletion step={step} next={next} takeaways={entry.data.takeaways} locale={locale} />}
-{!isSplash && <DefaultFooter />}
+{!isSplash && !step && <DefaultFooter />}

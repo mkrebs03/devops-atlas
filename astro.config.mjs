@@ -30,6 +30,7 @@ export default defineConfig({
         },
       },
       customCss: [
+        './src/styles/fonts.css',
         './src/styles/tokens.css',
         './src/styles/shell.css',
         './src/styles/learning-path.css',
@@ -37,6 +38,7 @@ export default defineConfig({
         './src/styles/progress.css',
       ],
       components: {
+        Header: './src/components/starlight/AtlasHeader.astro',
         PageTitle: './src/components/starlight/AtlasPageTitle.astro',
         Footer: './src/components/starlight/AtlasFooter.astro',
       },

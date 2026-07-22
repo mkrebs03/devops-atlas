@@ -1,5 +1,6 @@
 ---
 import { getLearningModule, getLearningStep, getLocalizedStepPath, learningSteps } from '../data/learning-path.mjs';
+import CourseNav from './CourseNav.astro';
 interface Props { step: any; data: any; locale: 'es' | 'en'; }
 const { step, data, locale } = Astro.props;
 const module = getLearningModule(step.module)!;
@@ -7,6 +8,7 @@ const typeLabels = locale === 'en' ? { overview: 'Overview', concept: 'Concept',
 const prerequisites = step.prerequisites.map((id: string) => getLearningStep(id)).filter(Boolean);
 ---
 <header class="lesson-header" data-learning-progress data-locale={locale} data-current-step={step.id} data-progress-step={step.id} data-progress-state="pending">
+  <CourseNav current={step} locale={locale} />
   <div class="lesson-header__context">
     <span class={`lesson-kind lesson-kind--${step.kind}`}>{typeLabels[step.kind as keyof typeof typeLabels]}</span>
     <span>{module.label[locale]}</span><span>{step.order} / {learningSteps.length}</span><span>{data.estimatedTime}</span>

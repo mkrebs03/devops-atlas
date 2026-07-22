@@ -1,20 +1,23 @@
 /* Shared state vocabulary for the progressively enhanced route and lesson controls. */
 [data-learning-progress] {
   --atlas-progress-track: var(--atlas-surface-recessed);
-  --atlas-progress-fill: var(--atlas-primary-strong);
+  --atlas-progress-fill: var(--atlas-primary);
   color: var(--atlas-ink-soft);
 }
 
-.progress-summary { display: grid; gap: 0.65rem; }
-.progress-summary__labels { display: flex; justify-content: space-between; gap: 1rem; color: var(--atlas-ink-muted); font-family: var(--atlas-font-mono); font-size: var(--sl-text-sm); }
+.progress-summary { display: grid; gap: 0.6rem; }
+.progress-summary__labels { display: flex; justify-content: space-between; gap: 1rem; color: var(--atlas-ink-muted); font-family: var(--atlas-font-mono); font-size: var(--sl-text-sm); letter-spacing: 0.04em; }
 .progress-summary--compact { margin-top: 1.2rem; }
 
+/* Chainage bar: ticked distance scale with an amber route fill. */
 .atlas-progress-track,
 [data-progress-track] {
+  position: relative;
   height: 0.5rem;
   border: 1px solid var(--atlas-border-strong);
-  border-radius: 999px;
+  border-radius: 0;
   background: var(--atlas-progress-track);
+  overflow: hidden;
 }
 
 .atlas-progress-fill,
@@ -22,9 +25,18 @@
   display: block;
   width: var(--atlas-progress, 0%);
   height: 100%;
-  border-radius: inherit;
   background: var(--atlas-progress-fill);
   transition: width 240ms ease;
+}
+
+.atlas-progress-track::after,
+[data-progress-track]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 22px, var(--atlas-border-strong) 22px 23px);
+  opacity: 0.4;
+  pointer-events: none;
 }
 
 [data-progress-status],
@@ -32,16 +44,16 @@
   color: var(--atlas-ink-muted);
   font-family: var(--atlas-font-mono);
   font-size: var(--sl-text-sm);
-  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
-[data-progress-state='current'] {
-  border-color: var(--atlas-primary-strong);
-  box-shadow: inset 0.25rem 0 0 var(--atlas-primary-strong);
+[data-progress-step]:not(.lesson-header)[data-progress-state='current'] {
+  border-color: var(--atlas-primary);
+  box-shadow: inset 0.2rem 0 0 var(--atlas-primary);
 }
 
 [data-progress-state='completed'] {
-  --atlas-progress-fill: var(--atlas-primary-strong);
+  --atlas-progress-fill: var(--atlas-primary);
 }
 
 [data-progress-state='completed'] [data-progress-status] {
@@ -59,17 +71,19 @@
 
 [data-progress-control] {
   min-height: 2.75rem;
-  border: 1px solid var(--atlas-ink);
+  padding-inline: 1rem;
+  border: 1px solid var(--atlas-primary);
   border-radius: var(--atlas-radius-sm);
   color: var(--atlas-primary-ink);
   background: var(--atlas-primary);
   font-family: var(--atlas-font-mono);
   font-size: var(--sl-text-sm);
-  font-weight: 700;
-  box-shadow: 0.25rem 0.25rem 0 var(--atlas-ink);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: filter 150ms ease;
 }
 
-[data-progress-control]:hover { transform: translateY(-2px); }
+[data-progress-control]:hover { filter: brightness(1.06); }
 
 @media (prefers-reduced-motion: reduce) {
   .atlas-progress-fill,

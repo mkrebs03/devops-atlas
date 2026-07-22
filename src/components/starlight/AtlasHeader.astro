@@ -1,0 +1,16 @@
+---
+import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
+import Search from '@astrojs/starlight/components/Search.astro';
+import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+const { lang } = Astro.locals.starlightRoute;
+const home = lang === 'en' ? '/en/' : '/';
+---
+<div class="atlas-header">
+  <div class="atlas-header__brand"><SiteTitle /><a class="atlas-header__mobile-brand" href={home}>Atlas</a><span>{lang === 'en' ? 'Learn systems by following the change' : 'Aprende sistemas siguiendo el cambio'}</span></div>
+  <nav class="atlas-header__nav" aria-label={lang === 'en' ? 'Main navigation' : 'Navegación principal'}>
+    <a href={`${home}#learning-path`}>{lang === 'en' ? 'Learning path' : 'Ruta'}</a>
+    <Search />
+  </nav>
+  <div class="atlas-header__preferences"><ThemeSelect /><LanguageSelect /></div>
+</div>
