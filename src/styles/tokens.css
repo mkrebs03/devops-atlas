@@ -1,0 +1,146 @@
+:root {
+  color-scheme: light;
+
+  /* Type: cartographic lettering — condensed signage display, technical body, mono for data. */
+  --atlas-font-display: 'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  --atlas-font-body: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --atlas-font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  /* Light theme = "papel de dibujo" (cool drafting film, not cream). */
+  --atlas-surface: #e9ece3;
+  --atlas-surface-raised: #f4f6ef;
+  --atlas-surface-recessed: #dee3d6;
+  --atlas-ink: #141f1a;
+  --atlas-ink-soft: #37443b;
+  --atlas-ink-muted: #647266;
+  --atlas-primary: #e0952f;
+  --atlas-primary-strong: #8a5310;
+  --atlas-primary-ink: #241403;
+  --atlas-lab: #2e6e66;
+  --atlas-lab-surface: #d6ebe6;
+  --atlas-lab-on-primary: #1f5a53;
+  --atlas-information: #2e6e66;
+  --atlas-information-surface: #dbebe7;
+  --atlas-danger: #b23a24;
+  --atlas-danger-surface: #f6ddd5;
+  --atlas-focus: #b9701a;
+  --atlas-border: #cbd3c3;
+  --atlas-border-strong: #a5b1a0;
+  --atlas-code-surface: #0c1512;
+  --atlas-code-ink: #dce3d6;
+  --atlas-code-accent: #e8a13c;
+  --atlas-inverse-surface: #0d1613;
+  --atlas-inverse-ink: #ecebdf;
+
+  /* Route as single accent; modules read by mono code, not by colour. */
+  --atlas-module-foundations-surface: var(--atlas-inverse-surface);
+  --atlas-module-foundations-ink: var(--atlas-inverse-ink);
+  --atlas-module-collaboration-surface: var(--atlas-inverse-surface);
+  --atlas-module-collaboration-ink: var(--atlas-inverse-ink);
+  --atlas-module-delivery-surface: var(--atlas-inverse-surface);
+  --atlas-module-delivery-ink: var(--atlas-inverse-ink);
+
+  /* Coordinate graticule substrate. */
+  --atlas-grid-minor: #d6dbcd;
+  --atlas-grid-major: #c6cfbd;
+
+  /* Layout and shape — angular chart, minimal radius. */
+  --atlas-space-1: 0.25rem;
+  --atlas-space-2: 0.5rem;
+  --atlas-space-3: 0.75rem;
+  --atlas-space-4: 1rem;
+  --atlas-space-5: 1.5rem;
+  --atlas-space-6: 2rem;
+  --atlas-space-7: 3rem;
+  --atlas-space-8: 4rem;
+  --atlas-radius-sm: 2px;
+  --atlas-radius-md: 3px;
+  --atlas-radius-lg: 4px;
+  --atlas-shadow-sm: 0 1px 0 rgb(20 31 26 / 5%), 0 10px 26px -18px rgb(20 31 26 / 30%);
+  --atlas-shadow-header: 0 1px 0 var(--atlas-border);
+  --atlas-shadow-offset: none;
+  --atlas-reading-width: 58rem;
+  --atlas-page-width: 77.5rem;
+
+  /* Starlight bridge. */
+  --sl-font: var(--atlas-font-body);
+  --sl-font-system: var(--atlas-font-body);
+  --sl-font-mono: var(--atlas-font-mono);
+  --sl-content-width: var(--atlas-reading-width);
+  --sl-color-white: var(--atlas-ink);
+  --sl-color-gray-1: var(--atlas-ink-soft);
+  --sl-color-gray-2: var(--atlas-ink-muted);
+  --sl-color-gray-3: #7d8a80;
+  --sl-color-gray-4: #97a394;
+  --sl-color-gray-5: var(--atlas-border);
+  --sl-color-gray-6: var(--atlas-surface-recessed);
+  --sl-color-gray-7: var(--atlas-surface-raised);
+  --sl-color-black: var(--atlas-surface);
+  --sl-color-text: var(--atlas-ink-soft);
+  --sl-color-text-accent: var(--atlas-primary-strong);
+  --sl-color-text-invert: var(--atlas-primary-ink);
+  --sl-color-bg: var(--atlas-surface);
+  --sl-color-bg-nav: var(--atlas-surface-raised);
+  --sl-color-bg-sidebar: var(--atlas-surface);
+  --sl-color-bg-inline-code: var(--atlas-surface-recessed);
+  --sl-color-bg-accent: var(--atlas-primary);
+  --sl-color-accent-low: #f0e2c8;
+  --sl-color-accent: var(--atlas-primary-strong);
+  --sl-color-accent-high: #5c3a0a;
+  --sl-color-hairline-light: var(--atlas-border);
+  --sl-color-hairline: var(--atlas-border);
+  --sl-color-hairline-shade: var(--atlas-border);
+  --sl-text-body-sm: var(--sl-text-sm);
+  --sl-text-code-sm: var(--sl-text-sm);
+  --sl-line-height: 1.7;
+  --sl-line-height-headings: 1.06;
+  --sl-shadow-sm: var(--atlas-shadow-sm);
+  --sl-shadow-md: var(--atlas-shadow-sm);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Dark theme = "carta nocturna" (aeronautical night chart). */
+  --atlas-surface: #0d1613;
+  --atlas-surface-raised: #121f1b;
+  --atlas-surface-recessed: #0a120f;
+  --atlas-ink: #ecebdf;
+  --atlas-ink-soft: #c0c7bc;
+  --atlas-ink-muted: #808e83;
+  --atlas-primary: #e8a13c;
+  --atlas-primary-strong: #f0b45e;
+  --atlas-primary-ink: #1a1206;
+  --atlas-lab: #7ac2b8;
+  --atlas-lab-surface: #14302c;
+  --atlas-lab-on-primary: #bfe6df;
+  --atlas-information: #7ac2b8;
+  --atlas-information-surface: #14302c;
+  --atlas-danger: #e0745c;
+  --atlas-danger-surface: #3a1f19;
+  --atlas-focus: #e8a13c;
+  --atlas-border: #26382f;
+  --atlas-border-strong: #3b5248;
+  --atlas-code-surface: #0a120f;
+  --atlas-code-ink: #dce3d6;
+  --atlas-code-accent: #f0b45e;
+  --atlas-inverse-surface: #0a120f;
+  --atlas-inverse-ink: #ecebdf;
+  --atlas-grid-minor: #16241f;
+  --atlas-grid-major: #1d3029;
+  --atlas-shadow-sm: 0 1px 0 rgb(236 235 223 / 3%), 0 12px 30px -18px rgb(0 0 0 / 55%);
+  --atlas-shadow-header: 0 1px 0 var(--atlas-border);
+
+  --sl-color-gray-3: #93a297;
+  --sl-color-gray-4: #6d7c72;
+  --sl-color-black: var(--atlas-surface);
+  --sl-color-accent-low: #2a2410;
+  --sl-color-accent: var(--atlas-primary-strong);
+  --sl-color-accent-high: #f4d9a8;
+}
+
+@media (min-width: 50rem) {
+  :root {
+    --sl-nav-height: 3.75rem;
+  }
+}

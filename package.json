@@ -11,14 +11,15 @@
     "dev": "ASTRO_DEV_BACKGROUND=0 astro dev",
     "build": "pnpm run check && pnpm run validate:content && astro build",
     "check": "astro check",
-    "validate:content": "node scripts/validate-content.mjs",
+    "validate:content": "node scripts/test-frontmatter-parser.mjs && node scripts/validate-content.mjs",
     "preview": "astro preview",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@astrojs/starlight": "0.41.3",
-    "astro": "7.1.3"
+    "astro": "7.1.3",
+    "mermaid": "^11.16.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.9",

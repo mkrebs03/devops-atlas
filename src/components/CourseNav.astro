@@ -1,0 +1,17 @@
+---
+import { getLocalizedStepPath, learningModules } from '../data/learning-path.mjs';
+interface Props { current: any; locale: 'es' | 'en'; }
+const { current, locale } = Astro.props;
+const currentModule = learningModules.find((module) => module.id === current.module)!;
+---
+<details class="course-nav">
+  <summary><span>{locale === 'en' ? 'Course' : 'Curso'}</span><strong>{currentModule.label[locale]}</strong><small>{current.order} / 12</small></summary>
+  <div class="course-nav__panel">
+    {learningModules.map((module) => (
+      <section>
+        <h2><span>0{module.order}</span>{module.label[locale]}</h2>
+        <ol>{module.steps.map((step) => <li><a href={getLocalizedStepPath(step, locale)} aria-current={step.id === current.id ? 'page' : undefined}><span>{step.order.toString().padStart(2, '0')}</span>{step.label[locale]}{step.id === current.id && <small>{locale === 'en' ? 'Current' : 'Actual'}</small>}</a></li>)}</ol>
+      </section>
+    ))}
+  </div>
+</details>

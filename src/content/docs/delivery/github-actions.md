@@ -1,47 +1,91 @@
 ---
 title: GitHub Actions
-description: Convierte el camino de validación en un workflow visible y repetible.
+description: Convierte el camino de validación y despliegue en un workflow visible y repetible.
 type: tool
 level: beginner
 module: delivery
 tools: [github-actions, ci-cd, yaml]
 estimatedTime: 35 minutos
-prerequisites: [github-flow]
+prerequisites: [collaboration.github-flow]
+learningObjectives:
+  - Interpretar eventos, jobs y pasos dentro de un workflow de GitHub Actions.
+  - Diseñar una validación con lint, tests y build que dé feedback rápido.
+  - Separar la validación en pull requests del despliegue tras integrar en main.
+takeaways:
+  - Un workflow convierte el camino de validación en una promesa ejecutable.
+  - Los jobs corren en paralelo salvo que declares dependencias con needs.
+  - El despliegue ocurre después de integrar, con secretos y permisos mínimos.
 ---
 
 ## Un workflow es una promesa ejecutable
 
-GitHub Actions permite describir qué ocurre ante eventos del repositorio. Un pipeline de documentación puede ser pequeño y aun así enseñar buenas fronteras:
+GitHub Actions describe qué ocurre ante eventos del repositorio (`push`, `pull_request`, etiquetas). Un workflow se compone de **jobs** —que corren en máquinas separadas y en paralelo— y cada job de **pasos** en orden.
+
+```mermaid
+flowchart LR
+  E["evento: push / PR"] --> L["lint"]
+  E --> T["test"]
+  L --> B["build"]
+  T --> B
+  B --> P["publish (solo main)"]
+```
+
+## Validar con lint, tests y build
+
+Un buen pipeline no solo compila: revisa formato, tipos y comportamiento antes de empaquetar.
 
 ```yaml
 name: Validate Atlas
-
 on:
   pull_request:
   push:
     branches: [main]
 
 jobs:
-  check:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 10.29.3
+        with: { version: 10.29.3 }
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm run check       # tipos
+      - run: pnpm run test:e2e    # comportamiento
+
+  build:
+    needs: test                   # espera a que test pase
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.29.3 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
       - run: pnpm run build
 ```
 
-El workflow no debería esconder el trabajo: cada paso debe decir qué garantiza y qué evidencia deja.
+`cache: pnpm` reutiliza dependencias entre ejecuciones; `needs: test` hace que `build` espere. Cada paso debe decir qué garantiza y qué evidencia deja.
 
 ## Validar no es desplegar
 
-Los pull requests ejecutan validaciones sin tocar producción. Solo después de integrar en `main` se construye la imagen publicable y se solicita el despliegue.
+Los pull requests ejecutan validaciones sin tocar producción. Solo después de integrar en `main` se construye la imagen publicable y se despliega, normalmente en un job aparte protegido por un **environment**:
+
+```yaml
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "publicar imagen y desplegar"
+```
+
+El `if` limita el deploy a `main`; el `environment` permite exigir aprobaciones o guardar secretos por entorno.
 
 :::tip Trata el pipeline como producto
 Un error de CI es una experiencia de usuario. Mensajes cortos, comandos reproducibles y artefactos visibles reducen el tiempo entre fallo y aprendizaje.
@@ -49,4 +93,32 @@ Un error de CI es una experiencia de usuario. Mensajes cortos, comandos reproduc
 
 ## Secretos y permisos
 
-Los secretos viven en GitHub, no en YAML ni en el repositorio. Concede a cada job lo mínimo: leer código para validar y escribir paquetes solo en el job que publica una imagen.
+Los secretos viven en GitHub, no en el YAML ni en el repositorio. Concede a cada job lo mínimo: leer código para validar y escribir paquetes solo en el job que publica.
+
+```yaml
+permissions:
+  contents: read
+  packages: write
+```
+
+## Comprueba lo que entendiste
+
+<details>
+<summary>Quieres que build solo corra si test pasa. Qué usas?</summary>
+
+`needs: test` en el job build. Por defecto los jobs corren en paralelo; `needs` declara una dependencia y hace que build espere a que test termine con éxito.
+
+</details>
+
+<details>
+<summary>Tu deploy corre en cada pull request. Cómo lo limitas a main?</summary>
+
+Con una condición en el job, `if: github.ref == 'refs/heads/main'`, idealmente combinada con un `environment` que exija aprobación. La validación corre en cada PR; el despliegue, solo tras integrar.
+
+</details>
+
+## Sigue explorando
+
+- [GitHub Actions (documentación)](https://docs.github.com/es/actions) — eventos, jobs, contextos y expresiones.
+- [Sintaxis de workflows](https://docs.github.com/es/actions/using-workflows/workflow-syntax-for-github-actions) — cada campo del YAML.
+- [Environments](https://docs.github.com/es/actions/deployment/targeting-different-environments/using-environments-for-deployment) — aprobaciones y secretos por entorno.

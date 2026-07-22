@@ -5,16 +5,25 @@ type: concept
 level: beginner
 module: delivery
 tools: [docker, github-actions, ci-cd]
-estimatedTime: 2 hours
-prerequisites: [git-model, networking]
+estimatedTime: 10 minutes
+prerequisites: [collaboration.git-model, foundations.networking]
+learningObjectives:
+  - Relate commit, validation, packaging, and verification in a delivery route.
+  - Identify the evidence each pipeline stage should produce.
+takeaways:
+  - A pipeline reduces uncertainty by turning steps into repeatable checks.
+  - A deliverable artifact needs an identity, a contract, and evidence that it works.
 ---
 
 ## Delivery reduces uncertainty
 
 A pipeline does not exist to look automated. It turns a small intention into evidence: code can be installed, tested, packaged and published under known conditions.
 
-```text
-commit → check → build → package → publish → verify
+## The delivery chain
+
+```mermaid
+flowchart LR
+  Co["commit"] --> Ch["check"] --> Bu["build"] --> Pk["package"] --> Pu["publish"] --> V["verify"]
 ```
 
 Docker makes the package visible. GitHub Actions makes the route repeatable. Feedback from each stage should arrive quickly and explain what failed.

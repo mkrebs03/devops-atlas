@@ -1,245 +1,122 @@
 ---
+import ProgressSummary from './ProgressSummary.astro';
+import {
+  getLocalizedStepPath,
+  learningModules,
+  learningSteps,
+  selectLabStep,
+} from '../data/learning-path.mjs';
+
 interface Props {
   locale?: 'es' | 'en';
 }
 
 const { locale = 'es' } = Astro.props;
-const prefix = locale === 'en' ? '/en' : '';
-const copy = locale === 'en'
+const t = locale === 'en'
   ? {
-      eyebrow: 'A FIELD GUIDE TO SYSTEMS',
-      title: 'Learn the chain behind reliable delivery.',
-      intro: 'DevOps Atlas connects the ideas, tools and habits that move a change from your terminal to production.',
-      route: 'The route',
-      routeIntro: 'Three stages. One mental model. No cargo cult commands.',
-      explore: 'Explore module',
-      cards: 'Start with a signal',
-      cardsTitle: 'Choose your next useful question.',
-      status: 'STATUS: LEARNING',
-      stage: 'STAGE',
-      fieldNotes: 'FIELD NOTES FOR CURIOUS OPERATORS',
-      observe: 'observe',
-      change: 'change',
-      verify: 'verify',
-      flow: 'flow',
-      all: 'All',
-      empty: 'No signal matches those filters yet.',
-      reset: 'Reset filters',
-      signal: 'Atlas signal',
-      signalBody: 'Build a mental model before you collect tools.',
-      local: '100% local labs',
-      localBody: 'Practice without touching production infrastructure.',
+      eyebrow: 'A guided path through DevOps',
+      title: 'Understand the path from terminal to production.',
+      intro: 'Learn the systems, collaboration habits, and delivery tools behind reliable software—one practical step at a time.',
+      start: 'Start the route', continue: 'Continue learning', review: 'Review the route', explore: 'Explore the full route',
+      scope: '5 modules · 20 steps · 5 practical labs', path: 'Your learning route', pathIntro: 'Each stage builds the mental model for the next.',
+      steps: 'steps', minutes: 'min', open: 'Open module', entry: 'Choose how to begin',
+      zero: 'Start from zero', zeroBody: 'Follow the complete sequence with no prior DevOps knowledge.',
+      lab: 'Open a lab', labBody: 'Learn by doing in a safe, local environment.',
+      resume: 'Resume your progress', resumeBody: 'Return to the next useful step in your route.',
+      method: 'How the Atlas teaches', understand: 'Understand', understandBody: 'Build a mental model before memorizing commands.',
+      practice: 'Practice', practiceBody: 'Use small local labs to turn concepts into evidence.', verify: 'Verify', verifyBody: 'Check the result and explain what changed.',
     }
   : {
-      eyebrow: 'GUÍA DE CAMPO PARA SISTEMAS',
-      title: 'Aprende la cadena detrás de una entrega confiable.',
-      intro: 'DevOps Atlas conecta las ideas, herramientas y hábitos que llevan un cambio desde tu terminal hasta producción.',
-      route: 'La ruta',
-      routeIntro: 'Tres etapas. Un solo modelo mental. Cero comandos por copiar sin entender.',
-      explore: 'Explorar módulo',
-      cards: 'Empieza por una señal',
-      cardsTitle: 'Elige tu próxima pregunta útil.',
-      status: 'ESTADO: APRENDIZAJE',
-      stage: 'ETAPA',
-      fieldNotes: 'APUNTES DE CAMPO PARA OPERADORES CURIOSOS',
-      observe: 'observa',
-      change: 'cambia',
-      verify: 'verifica',
-      flow: 'flujo',
-      all: 'Todos',
-      empty: 'Todavía no hay una señal con esos filtros.',
-      reset: 'Limpiar filtros',
-      signal: 'Señal del atlas',
-      signalBody: 'Construye un modelo mental antes de coleccionar herramientas.',
-      local: 'Labs 100% locales',
-      localBody: 'Practica sin tocar la infraestructura productiva.',
+      eyebrow: 'Una ruta guiada por DevOps',
+      title: 'Entiende el recorrido desde la terminal hasta producción.',
+      intro: 'Aprende los sistemas, hábitos de colaboración y herramientas de entrega detrás de software confiable, paso a paso y con práctica.',
+      start: 'Comenzar la ruta', continue: 'Continuar aprendiendo', review: 'Revisar la ruta', explore: 'Explorar la ruta completa',
+      scope: '5 módulos · 20 etapas · 5 laboratorios prácticos', path: 'Tu ruta de aprendizaje', pathIntro: 'Cada etapa construye el modelo mental de la siguiente.',
+      steps: 'etapas', minutes: 'min', open: 'Abrir módulo', entry: 'Elige cómo comenzar',
+      zero: 'Empezar desde cero', zeroBody: 'Sigue la secuencia completa sin conocimientos previos de DevOps.',
+      lab: 'Abrir un laboratorio', labBody: 'Aprende haciendo en un entorno local y seguro.',
+      resume: 'Retomar tu avance', resumeBody: 'Vuelve al siguiente paso útil de tu recorrido.',
+      method: 'Cómo enseña el Atlas', understand: 'Entender', understandBody: 'Construye un modelo mental antes de memorizar comandos.',
+      practice: 'Practicar', practiceBody: 'Usa laboratorios locales pequeños para convertir conceptos en evidencia.', verify: 'Verificar', verifyBody: 'Comprueba el resultado y explica qué cambió.',
     };
 
-const modules = locale === 'en'
-  ? [
-      { number: '01', slug: 'foundations', title: 'Foundations', subtitle: 'Read the machine', detail: 'Linux, processes, ports and the signals moving through a system.', tone: 'lime', count: '04 tracks' },
-      { number: '02', slug: 'collaboration', title: 'Collaboration', subtitle: 'Shape the change', detail: 'Git, branches and the social contract around a safe change.', tone: 'coral', count: '04 tracks' },
-      { number: '03', slug: 'delivery', title: 'Delivery', subtitle: 'Ship with intent', detail: 'Containers, workflows and the feedback loop from commit to release.', tone: 'cyan', count: '04 tracks' },
-    ]
-  : [
-      { number: '01', slug: 'foundations', title: 'Fundamentos', subtitle: 'Lee la máquina', detail: 'Linux, procesos, puertos y las señales que cruzan un sistema.', tone: 'lime', count: '04 temas' },
-      { number: '02', slug: 'collaboration', title: 'Colaboración', subtitle: 'Moldea el cambio', detail: 'Git, ramas y el contrato social detrás de un cambio seguro.', tone: 'coral', count: '04 temas' },
-      { number: '03', slug: 'delivery', title: 'Entrega', subtitle: 'Publica con intención', detail: 'Contenedores, workflows y el feedback entre commit y release.', tone: 'cyan', count: '04 temas' },
-    ];
-
-const cards = locale === 'en'
-  ? [
-      { type: 'concept', level: 'beginner', module: 'foundations', label: 'CONCEPT', title: 'What is DevOps?', text: 'A shared language for flow, feedback and responsibility.', href: `${prefix}/foundations/` },
-      { type: 'tool', level: 'beginner', module: 'foundations', label: 'TOOL', title: 'Linux terminal', text: 'The smallest useful interface to understand a machine.', href: `${prefix}/foundations/linux-cli/` },
-      { type: 'concept', level: 'beginner', module: 'collaboration', label: 'CONCEPT', title: 'The Git model', text: 'Commits, branches and history as a map of decisions.', href: `${prefix}/collaboration/git-model/` },
-      { type: 'tool', level: 'beginner', module: 'delivery', label: 'TOOL', title: 'Docker', text: 'Package an environment so the handoff has fewer surprises.', href: `${prefix}/delivery/docker/` },
-      { type: 'lab', level: 'beginner', module: 'delivery', label: 'LAB', title: 'Build a local pipeline', text: 'Turn a commit into a checked container on your machine.', href: `${prefix}/delivery/lab-container-pipeline/` },
-    ]
-  : [
-      { type: 'concept', level: 'beginner', module: 'foundations', label: 'CONCEPTO', title: '¿Qué es DevOps?', text: 'Un lenguaje compartido para hablar de flujo, feedback y responsabilidad.', href: `${prefix}/foundations/` },
-      { type: 'tool', level: 'beginner', module: 'foundations', label: 'HERRAMIENTA', title: 'Terminal Linux', text: 'La interfaz mínima para empezar a entender una máquina.', href: `${prefix}/foundations/linux-cli/` },
-      { type: 'concept', level: 'beginner', module: 'collaboration', label: 'CONCEPTO', title: 'El modelo de Git', text: 'Commits, ramas e historial como mapa de decisiones.', href: `${prefix}/collaboration/git-model/` },
-      { type: 'tool', level: 'beginner', module: 'delivery', label: 'HERRAMIENTA', title: 'Docker', text: 'Empaqueta un entorno para que el relevo tenga menos sorpresas.', href: `${prefix}/delivery/docker/` },
-      { type: 'lab', level: 'beginner', module: 'delivery', label: 'LAB', title: 'Construye un pipeline local', text: 'Convierte un commit en un contenedor validado en tu máquina.', href: `${prefix}/delivery/lab-container-pipeline/` },
-    ];
+const firstStep = learningSteps[0];
+const firstLab = selectLabStep();
+const firstPath = getLocalizedStepPath(firstStep, locale)!;
+const labPath = getLocalizedStepPath(firstLab, locale)!;
+const totalMinutes = learningSteps.reduce((sum, step) => sum + step.minutes, 0);
 ---
 
-<div class="atlas-home" data-atlas-home>
-  <section class="atlas-intro" aria-labelledby="atlas-intro-title">
-    <div class="atlas-intro__signal" aria-hidden="true">
-      <span class="signal-pulse"></span>
-      <span>ATLAS / 001</span>
-      <span class="signal-line"></span>
-      <span>{copy.status}</span>
-    </div>
-    <div class="atlas-intro__grid">
-      <div>
-        <p class="atlas-kicker">{copy.eyebrow}</p>
-        <h1 id="atlas-intro-title">{copy.title}</h1>
-        <p class="atlas-intro__lede">{copy.intro}</p>
-        <div class="atlas-intro__actions">
-          <a class="atlas-action atlas-action--primary" href={`${prefix}/foundations/`}>
-            <span>01</span> {locale === 'en' ? 'Start the route' : 'Comenzar la ruta'} <span aria-hidden="true">↗</span>
-          </a>
-          <a class="atlas-action atlas-action--quiet" href={`${prefix}/delivery/lab-container-pipeline/`}>
-            {locale === 'en' ? 'Jump to a lab' : 'Ir directo a un lab'} <span aria-hidden="true">↓</span>
-          </a>
-        </div>
-      </div>
-      <div class="atlas-radar" role="img" aria-label={locale === 'en' ? 'Visual route map' : 'Mapa visual de la ruta'}>
-        <div class="radar-grid"></div>
-        <div class="radar-ring radar-ring--outer"></div>
-        <div class="radar-ring radar-ring--inner"></div>
-        <div class="radar-axis radar-axis--vertical"></div>
-        <div class="radar-axis radar-axis--horizontal"></div>
-        <div class="radar-node radar-node--one"><span>01</span></div>
-        <div class="radar-node radar-node--two"><span>02</span></div>
-        <div class="radar-node radar-node--three"><span>03</span></div>
-        <div class="radar-core"><span>↗</span><small>{copy.flow}</small></div>
-        <span class="radar-label radar-label--top">{copy.observe}</span>
-        <span class="radar-label radar-label--right">{copy.change}</span>
-        <span class="radar-label radar-label--bottom">{copy.verify}</span>
-      </div>
-    </div>
-    <div class="atlas-intro__footer">
-      <span>VALPARAÍSO / 2026</span>
-      <span class="atlas-intro__footer-line"></span>
-      <span>{copy.fieldNotes}</span>
-    </div>
-  </section>
-
-  <section class="atlas-section atlas-route" aria-labelledby="route-title">
-    <div class="atlas-section__heading">
-      <div>
-        <p class="atlas-kicker">{copy.route}</p>
-        <h2 id="route-title">{copy.routeIntro}</h2>
-      </div>
-      <span class="atlas-section__index">01 — 03</span>
-    </div>
-    <div class="atlas-module-grid">
-      {modules.map((module, index) => (
-        <a class={`atlas-module atlas-module--${module.tone}`} href={`${prefix}/${module.slug}/`}>
-          <div class="atlas-module__top"><span>{module.number}</span><span>{module.count}</span></div>
-          <div class="atlas-module__glyph" aria-hidden="true">
-            <span class="glyph-line glyph-line--one"></span><span class="glyph-line glyph-line--two"></span><span class="glyph-line glyph-line--three"></span><span class="glyph-dot glyph-dot--one"></span><span class="glyph-dot glyph-dot--two"></span><span class="glyph-dot glyph-dot--three"></span>
-          </div>
-          <p class="atlas-module__eyebrow">{copy.stage} {index + 1}</p>
-          <h3>{module.title}</h3>
-          <p class="atlas-module__subtitle">{module.subtitle}</p>
-          <p class="atlas-module__detail">{module.detail}</p>
-          <span class="atlas-module__link">{copy.explore} <span aria-hidden="true">↗</span></span>
+<div class="atlas-home" data-learning-progress data-locale={locale}>
+  <section class="learning-hero" aria-labelledby="_top">
+    <div class="learning-hero__copy">
+      <p class="atlas-kicker">{t.eyebrow}</p>
+      <h1 id="_top">{t.title}</h1>
+      <p class="learning-hero__lede">{t.intro}</p>
+      <p class="learning-hero__scope">{t.scope} · {Math.round(totalMinutes / 60)}h</p>
+      <div class="learning-actions">
+        <a class="atlas-action atlas-action--primary" href={firstPath} data-resume-link data-label-start={t.start} data-label-continue={t.continue} data-label-review={t.review}>
+          <span data-resume-label>{t.start}</span><span aria-hidden="true">→</span>
         </a>
-      ))}
+        <a class="atlas-action atlas-action--quiet" href="#learning-path">{t.explore}</a>
+      </div>
+    </div>
+    <div class="learning-hero__summary" aria-label={locale === 'en' ? 'Course progress' : 'Progreso del curso'}>
+      <span class="learning-hero__number" data-course-percent>0%</span>
+      <ProgressSummary locale={locale} />
+      <p data-progress-personalized hidden>{locale === 'en' ? 'Your progress is saved on this device.' : 'Tu avance se guarda en este dispositivo.'}</p>
     </div>
   </section>
 
-  <section class="atlas-section atlas-signals" aria-labelledby="signals-title">
-    <div class="atlas-section__heading atlas-section__heading--signals">
-      <div>
-        <p class="atlas-kicker">{copy.cards}</p>
-        <h2 id="signals-title">{copy.cardsTitle}</h2>
-      </div>
-      <div class="atlas-filter-row" role="group" aria-label={locale === 'en' ? 'Filter atlas content' : 'Filtrar contenido del atlas'}>
-        <label>
-          <span class="sr-only">{locale === 'en' ? 'Content type' : 'Tipo de contenido'}</span>
-          <select data-atlas-filter="type">
-            <option value="all">{copy.all}</option>
-            <option value="concept">{locale === 'en' ? 'Concepts' : 'Conceptos'}</option>
-            <option value="tool">{locale === 'en' ? 'Tools' : 'Herramientas'}</option>
-            <option value="lab">Labs</option>
-          </select>
-        </label>
-        <label>
-          <span class="sr-only">{locale === 'en' ? 'Level' : 'Nivel'}</span>
-          <select data-atlas-filter="level">
-            <option value="all">{locale === 'en' ? 'All levels' : 'Todos los niveles'}</option>
-            <option value="beginner">{locale === 'en' ? 'Beginner' : 'Inicial'}</option>
-            <option value="intermediate">{locale === 'en' ? 'Intermediate' : 'Intermedio'}</option>
-          </select>
-        </label>
-        <button class="atlas-filter-reset" type="button" data-atlas-reset>{copy.reset}</button>
-      </div>
-    </div>
-    <div class="atlas-card-grid" data-atlas-cards>
-      {cards.map((card, index) => (
-        <a class="atlas-card" data-atlas-card data-type={card.type} data-level={card.level} data-module={card.module} href={card.href}>
-          <div class="atlas-card__top"><span class={`atlas-badge atlas-badge--${card.type}`}>{card.label}</span><span class="atlas-card__number">0{index + 1}</span></div>
-          <h3>{card.title}</h3>
-          <p>{card.text}</p>
-          <span class="atlas-card__arrow" aria-hidden="true">↗</span>
-        </a>
-      ))}
-    </div>
-    <p class="atlas-filter-empty" data-atlas-empty role="status" aria-live="polite" hidden>{copy.empty}</p>
+  <section class="atlas-section learning-route" id="learning-path" aria-labelledby="learning-path-title">
+    <header class="atlas-section__heading">
+      <div><p class="atlas-kicker">{t.path}</p><h2 id="learning-path-title">{t.pathIntro}</h2></div>
+    </header>
+    <ol class="learning-module-list">
+      {learningModules.map((module) => {
+        const moduleMinutes = module.steps.reduce((sum, step) => sum + step.minutes, 0);
+        return (
+          <li class={`learning-module learning-module--${module.id}`} data-module-id={module.id}>
+            <div class="learning-module__header">
+              <span class="learning-module__index">0{module.order}</span>
+              <div><h3>{module.label[locale]}</h3><p>{module.outcome[locale]}</p></div>
+              <span class="learning-module__meta">{module.steps.length} {t.steps} · {moduleMinutes} {t.minutes}</span>
+            </div>
+            <ProgressSummary moduleId={module.id} locale={locale} compact />
+            <ol class="learning-step-list">
+              {module.steps.map((step) => (
+                <li data-progress-step={step.id} data-progress-state="pending">
+                  <a href={getLocalizedStepPath(step, locale)}>
+                    <span class="learning-step__status" aria-hidden="true" data-progress-status>○</span>
+                    <span><strong>{step.label[locale]}</strong><small>{step.minutes} {t.minutes}</small></span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+            <a class="learning-module__link" href={getLocalizedStepPath(module.steps[0], locale)}>{t.open} <span aria-hidden="true">→</span></a>
+          </li>
+        );
+      })}
+    </ol>
   </section>
 
-  <section class="atlas-section atlas-bottom-grid" aria-label={locale === 'en' ? 'Atlas principles' : 'Principios del atlas'}>
-    <div class="atlas-principle atlas-principle--dark">
-      <p class="atlas-kicker">{copy.signal}</p>
-      <h2>{copy.signalBody}</h2>
-      <div class="atlas-principle__diagram" aria-hidden="true"><span>input</span><i></i><span>decision</span><i></i><span>feedback</span></div>
+  <section class="atlas-section learning-entry" aria-labelledby="learning-entry-title">
+    <header class="atlas-section__heading"><div><p class="atlas-kicker">{t.entry}</p><h2 id="learning-entry-title">{locale === 'en' ? 'One goal, three useful starting points.' : 'Un objetivo, tres puntos de partida útiles.'}</h2></div></header>
+    <div class="learning-entry__grid">
+      <a href={firstPath}><span>01</span><h3>{t.zero}</h3><p>{t.zeroBody}</p></a>
+      <a href={labPath} data-lab-link><span>02</span><h3>{t.lab}</h3><p>{t.labBody}</p></a>
+      <a href={firstPath} data-resume-link><span>03</span><h3 data-resume-label>{t.resume}</h3><p>{t.resumeBody}</p></a>
     </div>
-    <div class="atlas-principle atlas-principle--paper">
-      <p class="atlas-kicker">{copy.local}</p>
-      <h2>{copy.localBody}</h2>
-      <div class="atlas-principle__terminal" aria-hidden="true"><span>$ atlas lab --start</span><strong>✓ environment ready</strong><span class="terminal-cursor">_</span></div>
-    </div>
+  </section>
+
+  <section class="atlas-section learning-method" aria-labelledby="learning-method-title">
+    <header><p class="atlas-kicker">{t.method}</p><h2 id="learning-method-title">{locale === 'en' ? 'A repeatable way to learn systems.' : 'Una forma repetible de aprender sistemas.'}</h2></header>
+    <ol><li><span>01</span><h3>{t.understand}</h3><p>{t.understandBody}</p></li><li><span>02</span><h3>{t.practice}</h3><p>{t.practiceBody}</p></li><li><span>03</span><h3>{t.verify}</h3><p>{t.verifyBody}</p></li></ol>
   </section>
 </div>
 
 <script>
-  const initAtlasFilters = () => {
-    const root = document.querySelector<HTMLElement>('[data-atlas-home]');
-    if (!root || root.dataset.atlasReady === 'true') return;
-    root.dataset.atlasReady = 'true';
-
-    const filters = Array.from(root.querySelectorAll<HTMLSelectElement>('[data-atlas-filter]'));
-    const cards = Array.from(root.querySelectorAll<HTMLElement>('[data-atlas-card]'));
-    const empty = root.querySelector<HTMLElement>('[data-atlas-empty]');
-
-    const applyFilters = () => {
-      const selectedType = root.querySelector<HTMLSelectElement>('[data-atlas-filter="type"]')?.value ?? 'all';
-      const selectedLevel = root.querySelector<HTMLSelectElement>('[data-atlas-filter="level"]')?.value ?? 'all';
-      let visible = 0;
-
-      cards.forEach((card) => {
-        const matchesType = selectedType === 'all' || card.dataset.type === selectedType;
-        const matchesLevel = selectedLevel === 'all' || card.dataset.level === selectedLevel;
-        const show = matchesType && matchesLevel;
-        card.hidden = !show;
-        if (show) visible += 1;
-      });
-
-      if (empty) empty.hidden = visible !== 0;
-    };
-
-    filters.forEach((filter) => filter.addEventListener('change', applyFilters));
-    root.querySelector('[data-atlas-reset]')?.addEventListener('click', () => {
-      filters.forEach((filter) => { filter.value = 'all'; });
-      applyFilters();
-    });
-  };
-
-  initAtlasFilters();
-  document.addEventListener('astro:page-load', initAtlasFilters);
+  import { initLearningProgress } from '../scripts/learning-progress';
+  initLearningProgress();
+  document.addEventListener('astro:page-load', initLearningProgress);
 </script>

@@ -5,8 +5,14 @@ type: concept
 level: beginner
 module: delivery
 tools: [docker, github-actions, ci-cd]
-estimatedTime: 2 horas
-prerequisites: [git-model, networking]
+estimatedTime: 10 minutos
+prerequisites: [collaboration.git-model, foundations.networking]
+learningObjectives:
+  - Relacionar commit, validación, paquete y verificación en una ruta de entrega.
+  - Identificar la evidencia que debe producir cada etapa de una pipeline.
+takeaways:
+  - Una pipeline reduce incertidumbre al convertir pasos en comprobaciones repetibles.
+  - Un artefacto entregable necesita identidad, contrato y evidencia de funcionamiento.
 ---
 
 ## Entregar es reducir incertidumbre
@@ -15,8 +21,9 @@ Una pipeline no existe para verse automatizada. Existe para convertir una intenc
 
 ## La cadena de entrega
 
-```text
-commit → check → build → package → publish → verify
+```mermaid
+flowchart LR
+  Co["commit"] --> Ch["check"] --> Bu["build"] --> Pk["package"] --> Pu["publish"] --> V["verify"]
 ```
 
 Docker hace visible el paquete. GitHub Actions hace repetible el recorrido. El feedback de cada etapa debe llegar rápido y explicar qué falló.

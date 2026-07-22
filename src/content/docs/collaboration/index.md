@@ -5,15 +5,28 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git, github]
-estimatedTime: 2 horas
-prerequisites: [linux-cli]
+estimatedTime: 10 minutos
+prerequisites: [foundations.linux-cli]
+learningObjectives:
+  - Explicar cómo Git convierte cambios locales en una historia revisable.
+  - Reconocer los acuerdos que permiten colaborar sin perder contexto.
+takeaways:
+  - Entregar un cambio también exige comunicar su intención y su historia.
+  - Los cambios pequeños, revisables y reversibles reducen el riesgo del equipo.
 ---
 
 ## Entregar también es coordinar
 
 Un cambio de software no termina cuando funciona en tu máquina. Debe tener una historia que otra persona pueda leer, un lugar claro para revisar la intención y una forma de volver atrás.
 
-Git aporta el mapa local. La colaboración añade acuerdos: ramas pequeñas, commits con propósito, revisión y una rama principal protegida.
+Git aporta el mapa local; la colaboración añade acuerdos: ramas pequeñas, commits con propósito, revisión y una rama principal protegida.
+
+## De tu máquina al estado compartido
+
+```mermaid
+flowchart LR
+  L["cambio local"] --> B["rama"] --> PR["pull request"] --> Rev["revisión + CI"] --> Main["main protegida"]
+```
 
 ## El recorrido
 

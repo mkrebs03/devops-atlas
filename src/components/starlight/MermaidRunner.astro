@@ -1,0 +1,52 @@
+---
+// Renders ```mermaid code blocks as diagrams. To avoid touching the Markdown remark
+// pipeline (which would displace Starlight's asides), we read Expressive Code's output
+// for `mermaid`-tagged blocks client-side and swap in the rendered SVG. Mermaid is
+// code-split and only fetched when a diagram is present.
+---
+<script>
+  async function renderMermaid() {
+    const blocks = Array.from(
+      document.querySelectorAll('pre[data-language="mermaid"]:not([data-mermaid-done])'),
+    ) as HTMLElement[];
+    if (blocks.length === 0) return;
+
+    const { default: mermaid } = await import('mermaid');
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: 'dark',
+      fontFamily: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif",
+      themeVariables: {
+        primaryColor: '#121f1b',
+        primaryBorderColor: '#3b5248',
+        primaryTextColor: '#ecebdf',
+        lineColor: '#808e83',
+        secondaryColor: '#14302c',
+        tertiaryColor: '#0a120f',
+      },
+    });
+
+    for (const pre of blocks) {
+      pre.dataset.mermaidDone = 'true';
+      // Expressive Code splits the source across .ec-line rows; rejoin with newlines.
+      const lines = Array.from(pre.querySelectorAll('.ec-line')).map((l) => l.textContent ?? '');
+      const source = (lines.length ? lines.join('\n') : pre.textContent ?? '').trim();
+      const figure = pre.closest('.expressive-code') ?? pre;
+      try {
+        const id = 'atlas-mermaid-' + Math.random().toString(36).slice(2);
+        const { svg } = await mermaid.render(id, source);
+        const container = document.createElement('div');
+        container.className = 'atlas-diagram';
+        container.setAttribute('role', 'img');
+        container.innerHTML = svg;
+        figure.replaceWith(container);
+      } catch {
+        // Leave the Expressive Code block in place (shows the source) if rendering fails.
+      }
+    }
+  }
+
+  renderMermaid();
+  document.addEventListener('astro:page-load', renderMermaid);
+</script>

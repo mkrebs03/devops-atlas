@@ -5,15 +5,28 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git, github]
-estimatedTime: 2 hours
-prerequisites: [linux-cli]
+estimatedTime: 10 minutes
+prerequisites: [foundations.linux-cli]
+learningObjectives:
+  - Explain how Git turns local changes into a reviewable history.
+  - Recognize the agreements that make collaboration possible without losing context.
+takeaways:
+  - Delivering a change also requires communicating its intent and history.
+  - Small, reviewable, and reversible changes reduce risk for the team.
 ---
 
 ## Delivery is also coordination
 
 A software change does not end when it works on your machine. It needs a history another person can read, a place to review intent and a way to go back.
 
-Git provides the local map. Collaboration adds agreements: small branches, purposeful commits, review and a protected main branch.
+Git provides the local map; collaboration adds agreements: small branches, purposeful commits, review and a protected main branch.
+
+## From your machine to the shared state
+
+```mermaid
+flowchart LR
+  L["local change"] --> B["branch"] --> PR["pull request"] --> Rev["review + CI"] --> Main["protected main"]
+```
 
 ## The route
 

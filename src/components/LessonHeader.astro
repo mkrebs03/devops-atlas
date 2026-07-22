@@ -1,0 +1,24 @@
+---
+import { getLearningModule, getLearningStep, getLocalizedStepPath, learningSteps } from '../data/learning-path.mjs';
+import CourseNav from './CourseNav.astro';
+interface Props { step: any; data: any; locale: 'es' | 'en'; }
+const { step, data, locale } = Astro.props;
+const module = getLearningModule(step.module)!;
+const typeLabels = locale === 'en' ? { overview: 'Overview', concept: 'Concept', tool: 'Tool', lab: 'Lab' } : { overview: 'Panorama', concept: 'Concepto', tool: 'Herramienta', lab: 'Laboratorio' };
+const prerequisites = step.prerequisites.map((id: string) => getLearningStep(id)).filter(Boolean);
+---
+<header class="lesson-header" data-learning-progress data-locale={locale} data-current-step={step.id} data-progress-step={step.id} data-progress-state="pending">
+  <CourseNav current={step} locale={locale} />
+  <div class="lesson-header__context">
+    <span class={`lesson-kind lesson-kind--${step.kind}`}>{typeLabels[step.kind as keyof typeof typeLabels]}</span>
+    <span>{module.label[locale]}</span><span>{step.order} / {learningSteps.length}</span><span>{data.estimatedTime}</span>
+  </div>
+  <h1 id="_top">{data.title}</h1>
+  <p class="lesson-header__description">{data.description}</p>
+  {prerequisites.length > 0 && <p class="lesson-header__prerequisites"><strong>{locale === 'en' ? 'Before this:' : 'Antes de comenzar:'}</strong> {prerequisites.map((item: any, index: number) => <><a href={getLocalizedStepPath(item, locale)}>{item.label[locale]}</a>{index < prerequisites.length - 1 ? ', ' : ''}</>)}</p>}
+  <section class="lesson-objectives" aria-labelledby="lesson-objectives-title">
+    <p id="lesson-objectives-title">{locale === 'en' ? 'By the end, you will be able to' : 'Al terminar podrás'}</p>
+    <ul>{data.learningObjectives?.map((objective: string) => <li>{objective}</li>)}</ul>
+  </section>
+  <div class="lesson-header__progress"><span data-progress-status data-label-pending={locale === 'en' ? 'Pending' : 'Pendiente'} data-label-current={locale === 'en' ? 'In progress' : 'En curso'} data-label-completed={locale === 'en' ? 'Completed' : 'Completada'}>{locale === 'en' ? 'Pending' : 'Pendiente'}</span><div class="atlas-progress-track"><span class="atlas-progress-fill" style={`--atlas-progress:${Math.round((step.order - 1) / learningSteps.length * 100)}%`}></span></div></div>
+</header>

@@ -1,0 +1,18 @@
+---
+import { getLocalizedStepPath } from '../data/learning-path.mjs';
+interface Props { step: any; next?: any; takeaways?: string[]; locale: 'es' | 'en'; }
+const { step, next, takeaways = [], locale } = Astro.props;
+const t = locale === 'en'
+  ? { title: 'What to take with you', complete: 'Mark as completed', undo: 'Mark as pending', next: 'Next step', done: 'You reached the end of the route.', route: 'Review the learning route' }
+  : { title: 'Ideas para llevar contigo', complete: 'Marcar como completada', undo: 'Marcar como pendiente', next: 'Siguiente etapa', done: 'Llegaste al final de la ruta.', route: 'Revisar la ruta de aprendizaje' };
+---
+<section class="lesson-completion" data-learning-progress data-locale={locale} data-current-step={step.id}>
+  <div><p class="atlas-kicker">{t.title}</p><ul>{takeaways.map((item) => <li>{item}</li>)}</ul></div>
+  <button type="button" hidden data-progress-control={step.id} data-label-complete={t.complete} data-label-undo={t.undo}>{t.complete}</button>
+  {next ? <a class="lesson-next" href={getLocalizedStepPath(next, locale)}><span>{t.next}</span><strong>{next.label[locale]}</strong><small>{locale === 'en' ? 'Continue building on this lesson' : 'Continúa construyendo sobre esta lección'} →</small></a> : <a class="lesson-next" href={`${locale === 'en' ? '/en/' : '/'}#learning-path`}><span>{t.done}</span><strong>{t.route}</strong></a>}
+</section>
+<script>
+  import { initLearningProgress } from '../scripts/learning-progress';
+  initLearningProgress();
+  document.addEventListener('astro:page-load', initLearningProgress);
+</script>
