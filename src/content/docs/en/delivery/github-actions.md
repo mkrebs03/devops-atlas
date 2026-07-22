@@ -6,7 +6,13 @@ level: beginner
 module: delivery
 tools: [github-actions, ci-cd, yaml]
 estimatedTime: 35 minutes
-prerequisites: [github-flow]
+prerequisites: [collaboration.github-flow]
+learningObjectives:
+  - Interpret events, jobs, and steps in a GitHub Actions workflow.
+  - Design validation that produces fast and understandable feedback.
+takeaways:
+  - A workflow turns the validation path into an executable promise.
+  - Each stage should fail with enough evidence to guide the correction.
 ---
 
 ## A workflow is an executable promise

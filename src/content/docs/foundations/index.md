@@ -5,8 +5,14 @@ type: concept
 level: beginner
 module: foundations
 tools: [linux, terminal, networking]
-estimatedTime: 2 horas
+estimatedTime: 10 minutos
 prerequisites: []
+learningObjectives:
+  - Identificar las señales básicas de una máquina y una red antes de cambiar el sistema.
+  - Ordenar preguntas de diagnóstico para investigar un fallo con evidencia.
+takeaways:
+  - Observar el sistema antes de actuar reduce cambios innecesarios.
+  - Máquina, proceso y red forman un mapa común para investigar problemas.
 ---
 
 ## La primera habilidad: observar

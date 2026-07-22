@@ -6,7 +6,13 @@ level: beginner
 module: foundations
 tools: [python, curl, ss, terminal]
 estimatedTime: 25 minutos
-prerequisites: [linux-cli, networking]
+prerequisites: [foundations.linux-cli, foundations.networking]
+learningObjectives:
+  - Iniciar un servidor local e identificar el puerto donde escucha.
+  - Verificar por separado la conexión y la respuesta HTTP de una aplicación.
+takeaways:
+  - Un proceso escuchando y una respuesta HTTP correcta son evidencias distintas.
+  - Combinar herramientas pequeñas permite reproducir una investigación de red.
 ---
 
 ## Objetivo

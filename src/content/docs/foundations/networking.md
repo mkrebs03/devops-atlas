@@ -6,7 +6,13 @@ level: beginner
 module: foundations
 tools: [dns, http, curl, ss]
 estimatedTime: 35 minutos
-prerequisites: [linux-cli]
+prerequisites: [foundations.linux-cli]
+learningObjectives:
+  - Seguir una petición desde DNS hasta la respuesta HTTP.
+  - Distinguir fallos de resolución, conexión, puerto y aplicación.
+takeaways:
+  - Cada frontera de red ofrece una señal concreta que puedes comprobar.
+  - DNS, TCP y HTTP responden preguntas diferentes dentro de la misma ruta.
 ---
 
 ## Una petición es una ruta

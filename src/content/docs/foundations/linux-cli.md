@@ -7,6 +7,12 @@ module: foundations
 tools: [linux, bash, terminal]
 estimatedTime: 30 minutos
 prerequisites: []
+learningObjectives:
+  - Explicar cómo la shell conecta programas mediante entradas y salidas.
+  - Inspeccionar archivos, permisos y procesos con comandos repetibles.
+takeaways:
+  - La terminal convierte observaciones y cambios en instrucciones reproducibles.
+  - Verificar ubicación, selección y permisos evita operaciones destructivas accidentales.
 ---
 
 ## La terminal no es magia

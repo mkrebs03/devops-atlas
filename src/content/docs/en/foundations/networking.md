@@ -6,7 +6,13 @@ level: beginner
 module: foundations
 tools: [dns, http, curl, ss]
 estimatedTime: 35 minutes
-prerequisites: [linux-cli]
+prerequisites: [foundations.linux-cli]
+learningObjectives:
+  - Follow a request from DNS resolution to the HTTP response.
+  - Distinguish failures in resolution, connection, port, and application behavior.
+takeaways:
+  - Each network boundary provides a concrete signal you can check.
+  - DNS, TCP, and HTTP answer different questions along the same route.
 ---
 
 ## A request is a route

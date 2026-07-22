@@ -6,7 +6,13 @@ level: beginner
 module: collaboration
 tools: [git]
 estimatedTime: 25 minutos
-prerequisites: [git-model]
+prerequisites: [collaboration.git-model]
+learningObjectives:
+  - Crear un cambio aislado en una rama y revisar su diff antes de integrarlo.
+  - Practicar una forma segura de deshacer el cambio sin perder trabajo.
+takeaways:
+  - Revisar el grafo y el diff antes de integrar hace visible el alcance real.
+  - Git permite volver atrás con operaciones explícitas y verificables.
 ---
 
 ## Objetivo

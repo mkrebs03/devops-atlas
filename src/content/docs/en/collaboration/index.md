@@ -5,8 +5,14 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git, github]
-estimatedTime: 2 hours
-prerequisites: [linux-cli]
+estimatedTime: 10 minutes
+prerequisites: [foundations.linux-cli]
+learningObjectives:
+  - Explain how Git turns local changes into a reviewable history.
+  - Recognize the agreements that make collaboration possible without losing context.
+takeaways:
+  - Delivering a change also requires communicating its intent and history.
+  - Small, reviewable, and reversible changes reduce risk for the team.
 ---
 
 ## Delivery is also coordination

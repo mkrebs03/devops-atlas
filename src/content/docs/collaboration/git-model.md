@@ -6,7 +6,13 @@ level: beginner
 module: collaboration
 tools: [git]
 estimatedTime: 35 minutos
-prerequisites: [linux-cli]
+prerequisites: [foundations.linux-cli]
+learningObjectives:
+  - Relacionar commits, ramas y HEAD dentro del grafo de Git.
+  - Usar el diff y el historial para explicar una decisión de código.
+takeaways:
+  - Una rama es una referencia móvil y un commit es una instantánea conectada.
+  - El diff es la unidad mínima para revisar y conversar sobre un cambio.
 ---
 
 ## Tres objetos que explican casi todo

@@ -6,7 +6,13 @@ level: beginner
 module: delivery
 tools: [docker, containers, nginx]
 estimatedTime: 40 minutos
-prerequisites: [linux-cli, networking]
+prerequisites: [foundations.linux-cli, foundations.networking]
+learningObjectives:
+  - Distinguir una imagen inmutable de un contenedor en ejecución.
+  - Definir el contrato de proceso, puerto, configuración y datos de un contenedor.
+takeaways:
+  - Una imagen empaqueta capas y un contenedor ejecuta un proceso bajo condiciones concretas.
+  - Puertos, volúmenes y configuración deben formar un contrato observable.
 ---
 
 ## Imagen y contenedor no son sinónimos

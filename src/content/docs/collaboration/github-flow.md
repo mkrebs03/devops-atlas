@@ -6,7 +6,13 @@ level: beginner
 module: collaboration
 tools: [git, github, pull-requests]
 estimatedTime: 30 minutos
-prerequisites: [git-model]
+prerequisites: [collaboration.git-model]
+learningObjectives:
+  - Recorrer GitHub Flow desde una rama hasta la integración del cambio.
+  - Preparar un pull request que haga visible la intención y la evidencia.
+takeaways:
+  - Las ramas de trabajo aíslan una intención concreta durante poco tiempo.
+  - Un pull request útil facilita comprender, verificar y revertir un cambio.
 ---
 
 ## El flujo en cinco movimientos

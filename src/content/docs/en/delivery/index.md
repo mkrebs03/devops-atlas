@@ -5,8 +5,14 @@ type: concept
 level: beginner
 module: delivery
 tools: [docker, github-actions, ci-cd]
-estimatedTime: 2 hours
-prerequisites: [git-model, networking]
+estimatedTime: 10 minutes
+prerequisites: [collaboration.git-model, foundations.networking]
+learningObjectives:
+  - Relate commit, validation, packaging, and verification in a delivery route.
+  - Identify the evidence each pipeline stage should produce.
+takeaways:
+  - A pipeline reduces uncertainty by turning steps into repeatable checks.
+  - A deliverable artifact needs an identity, a contract, and evidence that it works.
 ---
 
 ## Delivery reduces uncertainty

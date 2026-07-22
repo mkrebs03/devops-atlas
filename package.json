@@ -11,7 +11,7 @@
     "dev": "ASTRO_DEV_BACKGROUND=0 astro dev",
     "build": "pnpm run check && pnpm run validate:content && astro build",
     "check": "astro check",
-    "validate:content": "node scripts/validate-content.mjs",
+    "validate:content": "node scripts/test-frontmatter-parser.mjs && node scripts/validate-content.mjs",
     "preview": "astro preview",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui"

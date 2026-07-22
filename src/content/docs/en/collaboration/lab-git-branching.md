@@ -6,7 +6,13 @@ level: beginner
 module: collaboration
 tools: [git]
 estimatedTime: 25 minutes
-prerequisites: [git-model]
+prerequisites: [collaboration.git-model]
+learningObjectives:
+  - Create an isolated change on a branch and inspect its diff before integration.
+  - Practise a safe way to undo the change without losing work.
+takeaways:
+  - Reviewing the graph and diff before integration reveals the real scope.
+  - Git supports going back through explicit and verifiable operations.
 ---
 
 ## Goal

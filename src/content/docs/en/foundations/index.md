@@ -5,8 +5,14 @@ type: concept
 level: beginner
 module: foundations
 tools: [linux, terminal, networking]
-estimatedTime: 2 hours
+estimatedTime: 10 minutes
 prerequisites: []
+learningObjectives:
+  - Identify the basic signals of a machine and network before changing the system.
+  - Order diagnostic questions to investigate a failure with evidence.
+takeaways:
+  - Observing the system before acting reduces unnecessary changes.
+  - Machine, process, and network form a shared map for investigating problems.
 ---
 
 ## The first skill: observe

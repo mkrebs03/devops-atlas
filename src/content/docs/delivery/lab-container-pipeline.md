@@ -6,7 +6,13 @@ level: beginner
 module: delivery
 tools: [docker, nginx, curl]
 estimatedTime: 35 minutos
-prerequisites: [docker, networking]
+prerequisites: [delivery.docker, foundations.networking]
+learningObjectives:
+  - Construir una imagen reproducible que contenga un sitio estático.
+  - Ejecutar el contenedor y verificar su contrato mediante una petición HTTP.
+takeaways:
+  - Construir, ejecutar y verificar son etapas separadas de la entrega.
+  - Una comprobación HTTP confirma que el artefacto responde como se espera.
 ---
 
 ## Objetivo

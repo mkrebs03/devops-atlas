@@ -6,7 +6,13 @@ level: beginner
 module: delivery
 tools: [docker, nginx, curl]
 estimatedTime: 35 minutes
-prerequisites: [docker, networking]
+prerequisites: [delivery.docker, foundations.networking]
+learningObjectives:
+  - Build a reproducible image that contains a static site.
+  - Run the container and verify its contract through an HTTP request.
+takeaways:
+  - Building, running, and verifying are separate delivery stages.
+  - An HTTP check confirms that the artifact responds as expected.
 ---
 
 ## Goal

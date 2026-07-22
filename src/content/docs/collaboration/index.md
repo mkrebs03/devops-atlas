@@ -5,8 +5,14 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git, github]
-estimatedTime: 2 horas
-prerequisites: [linux-cli]
+estimatedTime: 10 minutos
+prerequisites: [foundations.linux-cli]
+learningObjectives:
+  - Explicar cómo Git convierte cambios locales en una historia revisable.
+  - Reconocer los acuerdos que permiten colaborar sin perder contexto.
+takeaways:
+  - Entregar un cambio también exige comunicar su intención y su historia.
+  - Los cambios pequeños, revisables y reversibles reducen el riesgo del equipo.
 ---
 
 ## Entregar también es coordinar

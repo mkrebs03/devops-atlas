@@ -6,7 +6,13 @@ level: beginner
 module: collaboration
 tools: [git, github, pull-requests]
 estimatedTime: 30 minutes
-prerequisites: [git-model]
+prerequisites: [collaboration.git-model]
+learningObjectives:
+  - Follow GitHub Flow from a working branch through integration.
+  - Prepare a pull request that makes intent and evidence visible.
+takeaways:
+  - Working branches isolate one concrete intention for a short time.
+  - A useful pull request makes a change easier to understand, verify, and revert.
 ---
 
 ## The flow in five movements

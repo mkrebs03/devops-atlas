@@ -6,7 +6,13 @@ level: beginner
 module: delivery
 tools: [docker, containers, nginx]
 estimatedTime: 40 minutes
-prerequisites: [linux-cli, networking]
+prerequisites: [foundations.linux-cli, foundations.networking]
+learningObjectives:
+  - Distinguish an immutable image from a running container.
+  - Define the process, port, configuration, and data contract of a container.
+takeaways:
+  - An image packages layers while a container runs a process under concrete conditions.
+  - Ports, volumes, and configuration should form an observable contract.
 ---
 
 ## An image and a container are not synonyms

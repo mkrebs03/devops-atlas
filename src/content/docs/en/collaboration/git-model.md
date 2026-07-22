@@ -6,7 +6,13 @@ level: beginner
 module: collaboration
 tools: [git]
 estimatedTime: 35 minutes
-prerequisites: [linux-cli]
+prerequisites: [foundations.linux-cli]
+learningObjectives:
+  - Relate commits, branches, and HEAD within the Git graph.
+  - Use the diff and history to explain a code decision.
+takeaways:
+  - A branch is a moving reference and a commit is a connected snapshot.
+  - The diff is the smallest unit for reviewing and discussing a change.
 ---
 
 ## Three objects explain most of it
