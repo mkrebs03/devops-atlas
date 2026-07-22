@@ -19,7 +19,14 @@ takeaways:
 
 Un cambio de software no termina cuando funciona en tu máquina. Debe tener una historia que otra persona pueda leer, un lugar claro para revisar la intención y una forma de volver atrás.
 
-Git aporta el mapa local. La colaboración añade acuerdos: ramas pequeñas, commits con propósito, revisión y una rama principal protegida.
+Git aporta el mapa local; la colaboración añade acuerdos: ramas pequeñas, commits con propósito, revisión y una rama principal protegida.
+
+## De tu máquina al estado compartido
+
+```mermaid
+flowchart LR
+  L["cambio local"] --> B["rama"] --> PR["pull request"] --> Rev["revisión + CI"] --> Main["main protegida"]
+```
 
 ## El recorrido
 
