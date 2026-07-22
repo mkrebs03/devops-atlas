@@ -194,6 +194,62 @@ html[data-has-sidebar] .pagination-links .link-title {
   letter-spacing: 0.02em;
 }
 
+/* Diagrams (Mermaid) render into a dark chart figure, consistent in both themes. */
+html[data-has-sidebar] .sl-markdown-content pre.mermaid:not(:where(.not-content *)) {
+  display: grid;
+  place-items: center;
+  margin-block: 1.75rem;
+  padding: var(--atlas-space-5);
+  border: 1px solid var(--atlas-border-strong);
+  border-radius: var(--atlas-radius-sm);
+  background: var(--atlas-code-surface);
+  color: var(--atlas-ink-muted);
+  font-family: var(--atlas-font-mono);
+  font-size: var(--sl-text-sm);
+  line-height: 1.5;
+  overflow-x: auto;
+}
+html[data-has-sidebar] .sl-markdown-content pre.mermaid svg { max-width: 100%; height: auto; }
+
+/* Self-check: a native <details> styled as a field prompt (? → ✓ when revealed). */
+html[data-has-sidebar] .sl-markdown-content details:not(:where(.not-content *)) {
+  margin-block: 1.5rem;
+  border: 1px solid var(--atlas-border-strong);
+  border-radius: var(--atlas-radius-sm);
+  background: var(--atlas-surface-raised);
+}
+html[data-has-sidebar] .sl-markdown-content details > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid transparent;
+  color: var(--atlas-ink);
+  font-family: var(--atlas-font-mono);
+  font-size: var(--sl-text-sm);
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  list-style: none;
+}
+html[data-has-sidebar] .sl-markdown-content details > summary::-webkit-details-marker { display: none; }
+html[data-has-sidebar] .sl-markdown-content details > summary::before {
+  content: '?';
+  flex: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  display: grid;
+  place-items: center;
+  color: var(--atlas-primary-ink);
+  background: var(--atlas-primary);
+  border-radius: var(--atlas-radius-sm);
+  font-weight: 700;
+}
+html[data-has-sidebar] .sl-markdown-content details[open] > summary { border-bottom-color: var(--atlas-border); }
+html[data-has-sidebar] .sl-markdown-content details[open] > summary::before { content: '\2713'; }
+html[data-has-sidebar] .sl-markdown-content details > :not(summary) { padding-inline: 1rem; }
+html[data-has-sidebar] .sl-markdown-content details > :not(summary):first-of-type { padding-top: 0.9rem; }
+html[data-has-sidebar] .sl-markdown-content details > :not(summary):last-child { padding-bottom: 0.9rem; }
+
 @media (max-width: 40rem) {
   html[data-has-sidebar] .sl-markdown-content {
     font-size: 1rem;

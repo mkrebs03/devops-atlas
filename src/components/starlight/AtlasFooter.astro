@@ -1,6 +1,7 @@
 ---
 import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
 import LessonCompletion from '../LessonCompletion.astro';
+import MermaidRunner from './MermaidRunner.astro';
 import { getLearningStepByPath, learningSteps } from '../../data/learning-path.mjs';
 const { entry, lang } = Astro.locals.starlightRoute;
 const isSplash = entry.data.template === 'splash';
@@ -10,3 +11,4 @@ const next = step ? learningSteps.find((item) => item.order === step.order + 1) 
 ---
 {step && <LessonCompletion step={step} next={next} takeaways={entry.data.takeaways} locale={locale} />}
 {!isSplash && !step && <DefaultFooter />}
+{!isSplash && <MermaidRunner />}

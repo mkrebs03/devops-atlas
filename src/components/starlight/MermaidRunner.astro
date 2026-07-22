@@ -1,0 +1,44 @@
+---
+// Lazily renders any <pre class="mermaid"> on the page. Mermaid is code-split and only
+// fetched when a diagram is present, so pages without diagrams pay nothing.
+---
+<script>
+  async function renderMermaid() {
+    const nodes = Array.from(
+      document.querySelectorAll('pre.mermaid:not([data-mermaid-done])'),
+    ) as HTMLElement[];
+    if (nodes.length === 0) return;
+
+    const { default: mermaid } = await import('mermaid');
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: 'dark',
+      fontFamily: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif",
+      themeVariables: {
+        primaryColor: '#121f1b',
+        primaryBorderColor: '#3b5248',
+        primaryTextColor: '#ecebdf',
+        lineColor: '#808e83',
+        secondaryColor: '#14302c',
+        tertiaryColor: '#0a120f',
+      },
+    });
+
+    for (const node of nodes) {
+      const source = node.textContent ?? '';
+      node.dataset.mermaidDone = 'true';
+      try {
+        const id = 'atlas-mermaid-' + Math.random().toString(36).slice(2);
+        const { svg } = await mermaid.render(id, source);
+        node.innerHTML = svg;
+      } catch {
+        // Leave the source text in place if rendering fails.
+        node.dataset.mermaidDone = 'error';
+      }
+    }
+  }
+
+  renderMermaid();
+  document.addEventListener('astro:page-load', renderMermaid);
+</script>

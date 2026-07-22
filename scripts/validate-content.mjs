@@ -9,7 +9,7 @@ import { parseFrontmatter } from './frontmatter-parser.mjs';
 const root = path.resolve('src/content/docs');
 const allowed = {
   type: new Set(['concept', 'tool', 'lab']),
-  level: new Set(['beginner', 'intermediate']),
+  level: new Set(['beginner', 'intermediate', 'advanced']),
   module: new Set(['foundations', 'collaboration', 'delivery']),
 };
 

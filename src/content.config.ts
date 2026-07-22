@@ -5,7 +5,7 @@ import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 
 const moduleSchema = z.enum(['foundations', 'collaboration', 'delivery']);
 const typeSchema = z.enum(['concept', 'tool', 'lab']);
-const levelSchema = z.enum(['beginner', 'intermediate']);
+const levelSchema = z.enum(['beginner', 'intermediate', 'advanced']);
 
 export const collections = {
   docs: defineCollection({
