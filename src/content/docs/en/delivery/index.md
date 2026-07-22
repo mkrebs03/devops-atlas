@@ -19,8 +19,11 @@ takeaways:
 
 A pipeline does not exist to look automated. It turns a small intention into evidence: code can be installed, tested, packaged and published under known conditions.
 
-```text
-commit → check → build → package → publish → verify
+## The delivery chain
+
+```mermaid
+flowchart LR
+  Co["commit"] --> Ch["check"] --> Bu["build"] --> Pk["package"] --> Pu["publish"] --> V["verify"]
 ```
 
 Docker makes the package visible. GitHub Actions makes the route repeatable. Feedback from each stage should arrive quickly and explain what failed.

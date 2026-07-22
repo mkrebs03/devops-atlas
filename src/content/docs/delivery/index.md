@@ -21,8 +21,9 @@ Una pipeline no existe para verse automatizada. Existe para convertir una intenc
 
 ## La cadena de entrega
 
-```text
-commit → check → build → package → publish → verify
+```mermaid
+flowchart LR
+  Co["commit"] --> Ch["check"] --> Bu["build"] --> Pk["package"] --> Pu["publish"] --> V["verify"]
 ```
 
 Docker hace visible el paquete. GitHub Actions hace repetible el recorrido. El feedback de cada etapa debe llegar rápido y explicar qué falló.
