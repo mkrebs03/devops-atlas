@@ -75,6 +75,9 @@ jobs:
     needs: publish
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: read
 
     steps:
       - name: Checkout deployment files
@@ -108,12 +111,11 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
           GHCR_USER: ${{ secrets.GHCR_USER }}
-          GHCR_READ_TOKEN: ${{ secrets.GHCR_READ_TOKEN }}
+          GHCR_READ_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:sha-$GITHUB_SHA"
-          printf '%s' "$GHCR_READ_TOKEN" | ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" "docker login ghcr.io --username '$GHCR_USER' --password-stdin"
-          ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" "printf 'ATLAS_IMAGE=$IMAGE\\n' > /opt/devops-atlas/.env && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml pull && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml up -d --remove-orphans"
+          printf '%s' "$GHCR_READ_TOKEN" | ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" "docker login ghcr.io --username '$GHCR_USER' --password-stdin && printf 'ATLAS_IMAGE=$IMAGE\\n' > /opt/devops-atlas/.env && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml pull && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml up -d --remove-orphans && docker logout ghcr.io"
 
       - name: Check public site
         env:

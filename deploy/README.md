@@ -4,7 +4,7 @@ The production host expects:
 
 - Docker Engine with Compose v2.
 - The existing Caddy container attached to the external `caddy-net` network.
-- A read-only GHCR token available to the deployment user.
+- For manual deployments, a read-only GHCR token available to the deployment user. The GitHub Actions workflow uses its ephemeral `GITHUB_TOKEN` instead.
 - A DNS record for the chosen `devops` subdomain pointing to the VPS.
 
 Create `/opt/devops-atlas/.env` with the image to run:
