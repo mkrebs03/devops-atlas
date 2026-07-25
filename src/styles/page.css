@@ -197,21 +197,45 @@
 
 /* ---------- diagrams ----------------------------------------------------- */
 
-/* MermaidRunner swaps the code block for this container once the SVG is ready.
+/* The Mermaid source is the diagram before scripting swaps it: hiding it keeps
+   a block of DSL from flashing in the middle of the prose on every load. The
+   runner reveals it again if rendering fails, and a <noscript> rule reveals it
+   when nothing is going to render at all. */
+.expressive-code:has(pre[data-language='mermaid']) { display: none; }
+.expressive-code[data-mermaid-failed] { display: block; }
+
+/* MermaidRunner swaps the code block for this figure once the SVG is ready.
    Mermaid sizes the SVG from its own layout, which is wider than the measure
    as soon as a flow has a few nodes; cap it and let it scroll from the same
    left edge as the prose rather than sitting loose in the column. */
 .atlas-diagram {
-  margin-block: var(--atlas-space-4);
-  overflow-x: auto;
+  margin: var(--atlas-space-5) 0;
 }
+.atlas-diagram__canvas { overflow-x: auto; }
 .atlas-diagram svg {
   display: block;
   max-width: 100%;
-  /* min-width beats max-width, so this is the floor: past it the diagram
-     scrolls rather than scaling its labels down to nothing on a phone. */
-  min-width: 32rem;
+  /* min-width beats max-width, so this is the floor: a diagram narrower than the
+     column keeps the size it was drawn at, and a wider one scrolls once the
+     column drops below the floor instead of scaling its labels down to nothing. */
+  min-width: min(var(--atlas-diagram-width, 0px), 32rem);
   height: auto;
+}
+
+/* Mermaid's palette comes from the tokens, but its geometry does not: square
+   corners and hairlines are ours to set, so a node matches every other box on
+   the page rather than looking like something pasted in. */
+.atlas-diagram .node rect,
+.atlas-diagram .cluster rect {
+  rx: var(--atlas-radius);
+  ry: var(--atlas-radius);
+}
+.atlas-diagram .node :is(rect, polygon, circle, path),
+.atlas-diagram .cluster rect {
+  stroke-width: var(--atlas-hairline);
+}
+.atlas-diagram .edgeLabel {
+  font-size: var(--atlas-size-2xs);
 }
 
 /* ---------- tables ------------------------------------------------------- */

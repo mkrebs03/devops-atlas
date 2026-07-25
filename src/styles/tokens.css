@@ -86,6 +86,16 @@
   --atlas-code-bg:   #141414;
   --atlas-code-text: #D8D6C8;
 
+  /* Diagrams. Mermaid draws the geometry; these decide what it looks like, and
+     they are read as plain colours at render time — no alpha, because Mermaid
+     derives shades from them. A diagram stays neutral: coral is spent on links
+     and state, and a flow chart is neither. */
+  --atlas-diagram-node:        #252525;
+  --atlas-diagram-node-border: #3D3D3D;
+  --atlas-diagram-text:        #D1CFC0;
+  --atlas-diagram-line:        #6E6C64;
+  --atlas-diagram-label:       #A9A79A;
+
   --sl-color-accent:      var(--atlas-coral);
   --sl-color-accent-low:  var(--atlas-coral-soft);
   --sl-color-accent-high: var(--atlas-coral);
@@ -131,6 +141,13 @@
 
   --atlas-code-bg:   #1B1B1B;
   --atlas-code-text: #D8D6C8;
+
+  /* Paper counterparts of the diagram colours; see the dark block above. */
+  --atlas-diagram-node:        #FFFFFF;
+  --atlas-diagram-node-border: #C6C1B3;
+  --atlas-diagram-text:        #23221E;
+  --atlas-diagram-line:        #8F8C81;
+  --atlas-diagram-label:       #6B6860;
 
   --sl-color-accent:      var(--atlas-coral-ink);
   --sl-color-accent-low:  var(--atlas-coral-soft);

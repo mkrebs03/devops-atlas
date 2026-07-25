@@ -1,51 +1,162 @@
 ---
-// Renders ```mermaid code blocks as diagrams. To avoid touching the Markdown remark
-// pipeline (which would displace Starlight's asides), we read Expressive Code's output
-// for `mermaid`-tagged blocks client-side and swap in the rendered SVG. Mermaid is
-// code-split and only fetched when a diagram is present.
+/*
+  Renders ```mermaid code blocks as diagrams. To avoid touching the Markdown remark
+  pipeline (which would displace Starlight's asides), we read Expressive Code's output
+  for `mermaid`-tagged blocks client-side and swap in the rendered SVG. Mermaid is
+  code-split and only fetched when a diagram is present.
+
+  Mermaid is the layout engine and nothing else: every colour and font it uses is
+  read from the identity tokens at render time, so a diagram belongs to the page
+  instead of arriving with a palette of its own. Mermaid bakes those colours into
+  the SVG it emits and there is no way to restyle an arbitrary diagram type after
+  the fact, so switching the theme re-renders rather than recolours.
+*/
 ---
+
+{/* Rendering is the only thing that reveals the diagram, so without scripting the
+    source has to stay visible — it is the diagram, in the notation it was written in. */}
+<noscript>
+  <style>
+    .expressive-code:has(pre[data-language='mermaid']) { display: block; }
+  </style>
+</noscript>
+
 <script>
+  type MermaidApi = (typeof import('mermaid'))['default'];
+
+  let mermaidModule: Promise<MermaidApi> | null = null;
+  const loadMermaid = () => (mermaidModule ??= import('mermaid').then((m) => m.default));
+
+  /** The identity layer, resolved to the plain colours Mermaid derives its shades from. */
+  function themeVariables() {
+    const styles = getComputedStyle(document.documentElement);
+    const token = (name: string) => styles.getPropertyValue(name).trim();
+
+    const node = token('--atlas-diagram-node');
+    const border = token('--atlas-diagram-node-border');
+    const text = token('--atlas-diagram-text');
+    const line = token('--atlas-diagram-line');
+    const label = token('--atlas-diagram-label');
+    const ground = token('--atlas-bg');
+
+    return {
+      darkMode: document.documentElement.dataset.theme === 'dark',
+      background: ground,
+      fontFamily: token('--atlas-font'),
+      fontSize: '14px',
+
+      primaryColor: node,
+      primaryBorderColor: border,
+      primaryTextColor: text,
+      secondaryColor: node,
+      secondaryBorderColor: border,
+      secondaryTextColor: text,
+      tertiaryColor: ground,
+      tertiaryBorderColor: border,
+      tertiaryTextColor: label,
+
+      mainBkg: node,
+      nodeBorder: border,
+      nodeTextColor: text,
+      textColor: text,
+      titleColor: text,
+
+      lineColor: line,
+      edgeLabelBackground: ground,
+      labelColor: label,
+      clusterBkg: ground,
+      clusterBorder: border,
+    };
+  }
+
+  /** Reading order of the node labels: the diagram as a sentence, for search and screen readers. */
+  function describe(root: ParentNode) {
+    const labels = Array.from(root.querySelectorAll('.nodeLabel'))
+      .map((node) => (node.textContent ?? '').trim())
+      .filter(Boolean);
+    return labels.join(' → ');
+  }
+
+  let sequence = 0;
+
+  async function draw(figure: HTMLElement, source: string) {
+    const mermaid = await loadMermaid();
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: 'strict',
+      theme: 'base',
+      themeVariables: themeVariables(),
+      flowchart: { curve: 'linear', nodeSpacing: 30, rankSpacing: 46, padding: 10 },
+    });
+
+    const { svg } = await mermaid.render(`atlas-mermaid-${(sequence += 1)}`, source);
+
+    const canvas = document.createElement('div');
+    canvas.className = 'atlas-diagram__canvas';
+    canvas.setAttribute('role', 'img');
+    canvas.innerHTML = svg;
+
+    // Mermaid states the diagram's own width as an inline max-width. Publish it so
+    // the stylesheet can hold a scrolling floor for a wide flow without stretching
+    // a tall, narrow one past the size it was drawn at.
+    const drawn = (canvas.firstElementChild as SVGElement | null)?.style.maxWidth;
+    if (drawn) figure.style.setProperty('--atlas-diagram-width', drawn);
+
+    const caption = document.createElement('figcaption');
+    caption.className = 'sr-only';
+    caption.id = `atlas-diagram-${sequence}`;
+    caption.textContent = describe(canvas);
+    canvas.setAttribute('aria-labelledby', caption.id);
+
+    figure.replaceChildren(canvas, caption);
+  }
+
+  /** Expressive Code splits the source across .ec-line rows; rejoin with newlines. */
+  function readSource(pre: HTMLElement) {
+    const lines = Array.from(pre.querySelectorAll('.ec-line')).map((l) => l.textContent ?? '');
+    return (lines.length ? lines.join('\n') : (pre.textContent ?? '')).trim();
+  }
+
   async function renderMermaid() {
     const blocks = Array.from(
       document.querySelectorAll('pre[data-language="mermaid"]:not([data-mermaid-done])'),
     ) as HTMLElement[];
-    if (blocks.length === 0) return;
-
-    const { default: mermaid } = await import('mermaid');
-    mermaid.initialize({
-      startOnLoad: false,
-      securityLevel: 'strict',
-      theme: 'dark',
-      fontFamily: "'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif",
-      themeVariables: {
-        primaryColor: '#121f1b',
-        primaryBorderColor: '#3b5248',
-        primaryTextColor: '#ecebdf',
-        lineColor: '#808e83',
-        secondaryColor: '#14302c',
-        tertiaryColor: '#0a120f',
-      },
-    });
 
     for (const pre of blocks) {
       pre.dataset.mermaidDone = 'true';
-      // Expressive Code splits the source across .ec-line rows; rejoin with newlines.
-      const lines = Array.from(pre.querySelectorAll('.ec-line')).map((l) => l.textContent ?? '');
-      const source = (lines.length ? lines.join('\n') : pre.textContent ?? '').trim();
-      const figure = pre.closest('.expressive-code') ?? pre;
+      const frame = (pre.closest('.expressive-code') ?? pre) as HTMLElement;
+      const source = readSource(pre);
+
+      const figure = document.createElement('figure');
+      figure.className = 'atlas-diagram';
+      figure.dataset.source = source;
+
       try {
-        const id = 'atlas-mermaid-' + Math.random().toString(36).slice(2);
-        const { svg } = await mermaid.render(id, source);
-        const container = document.createElement('div');
-        container.className = 'atlas-diagram';
-        container.setAttribute('role', 'img');
-        container.innerHTML = svg;
-        figure.replaceWith(container);
+        await draw(figure, source);
+        frame.replaceWith(figure);
       } catch {
         // Leave the Expressive Code block in place (shows the source) if rendering fails.
+        frame.dataset.mermaidFailed = 'true';
       }
     }
   }
+
+  /** Mermaid writes its palette into the SVG, so a theme change means drawing again. */
+  async function redrawForTheme() {
+    const figures = Array.from(document.querySelectorAll('.atlas-diagram[data-source]'));
+    for (const figure of figures as HTMLElement[]) {
+      try {
+        await draw(figure, figure.dataset.source ?? '');
+      } catch {
+        // Keep the diagram that is already on screen rather than blanking it.
+      }
+    }
+  }
+
+  new MutationObserver(redrawForTheme).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['data-theme'],
+  });
 
   renderMermaid();
   document.addEventListener('astro:page-load', renderMermaid);
