@@ -24,8 +24,7 @@ const text = Object.freeze({
     inThisModule: 'En este módulo',
     usedIn: 'Aparece en',
     toolsIntro: 'Cada herramienta y término del Atlas, con las páginas donde se explica.',
-    noAccount: 'Gratis · sin cuenta · sin seguimiento',
-    readingOrder: 'Orden de lectura sugerido. Puedes entrar por donde quieras.',
+    readingOrder: 'Páginas del módulo',
   }),
   en: Object.freeze({
     searchLabel: 'Search',
@@ -47,8 +46,7 @@ const text = Object.freeze({
     inThisModule: 'In this module',
     usedIn: 'Appears in',
     toolsIntro: 'Every tool and term in the Atlas, with the pages that explain it.',
-    noAccount: 'Free · no account · no tracking',
-    readingOrder: 'Suggested reading order. Start wherever you like.',
+    readingOrder: 'Module pages',
   }),
 });
 
