@@ -3,6 +3,8 @@
 /* ---------- title block -------------------------------------------------- */
 
 .atlas-title {
+  max-width: 56rem;
+  margin-inline: auto;
   margin-bottom: var(--atlas-space-6);
 }
 
@@ -69,11 +71,14 @@
 /* ---------- prose -------------------------------------------------------- */
 
 .sl-markdown-content {
+  max-width: 56rem;
+  margin-inline: auto;
   font-size: var(--atlas-size-md);
   line-height: 1.65;
 }
 .sl-markdown-content p,
-.sl-markdown-content li { max-width: var(--atlas-measure); }
+.sl-markdown-content li,
+.sl-markdown-content .starlight-aside { max-width: var(--atlas-measure); }
 
 /* No rule under headings: hierarchy is carried by size, weight, and the space
    above them. A divider every two paragraphs reads as noise, not structure. */
@@ -213,6 +218,8 @@
 /* ---------- foot of the page --------------------------------------------- */
 
 .atlas-related {
+  max-width: 56rem;
+  margin-inline: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   gap: var(--atlas-space-5);
@@ -243,6 +250,8 @@
 .atlas-related__tools li { display: inline-flex; margin-inline-end: var(--atlas-space-3); }
 
 .atlas-seq {
+  max-width: 56rem;
+  margin-inline: auto;
   display: flex;
   justify-content: space-between;
   gap: var(--atlas-space-4);
