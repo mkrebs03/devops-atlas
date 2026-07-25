@@ -55,7 +55,7 @@
   /* --- Starlight bridge ---------------------------------------------------- */
   --sl-font: var(--atlas-font);
   --sl-font-mono: var(--atlas-font-mono);
-  --sl-content-width: 48rem;
+  --sl-content-width: 56rem;
   --sl-sidebar-width: 17.5rem;
   --sl-nav-height: 3.75rem;
   --sl-text-code: 0.8125rem;
