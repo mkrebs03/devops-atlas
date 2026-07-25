@@ -124,7 +124,12 @@
 
     for (const pre of blocks) {
       pre.dataset.mermaidDone = 'true';
-      const frame = (pre.closest('.expressive-code') ?? pre) as HTMLElement;
+      // Expressive Code injects its stylesheet and script inside the first
+      // .expressive-code wrapper on the page, so swap the frame within the wrapper
+      // rather than the wrapper itself: taking the wrapper out would strip the
+      // frame styles from every code block on the page along with it.
+      const block = (pre.closest('.expressive-code') ?? pre) as HTMLElement;
+      const frame = (pre.closest('figure') ?? pre) as HTMLElement;
       const source = readSource(pre);
 
       const figure = document.createElement('figure');
@@ -136,7 +141,7 @@
         frame.replaceWith(figure);
       } catch {
         // Leave the Expressive Code block in place (shows the source) if rendering fails.
-        frame.dataset.mermaidFailed = 'true';
+        block.dataset.mermaidFailed = 'true';
       }
     }
   }

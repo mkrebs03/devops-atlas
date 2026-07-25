@@ -18,6 +18,12 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'DevOps Atlas',
+      // The code box stays dark in both themes (--atlas-code-bg), so pin syntax
+      // highlighting to one dark theme. Starlight's default pair swaps to a light
+      // palette under [data-theme='light'] and would put light ink on the dark box.
+      expressiveCode: {
+        themes: ['starlight-dark'],
+      },
       defaultLocale: 'root',
       locales: {
         root: {
