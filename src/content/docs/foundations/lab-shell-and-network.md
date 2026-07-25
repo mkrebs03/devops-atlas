@@ -1,11 +1,10 @@
 ---
-title: Lab · investigar una aplicación local
+title: Práctica · investigar una aplicación local
 description: Levanta un servidor pequeño, encuentra su puerto y verifica su respuesta.
-type: lab
+type: practice
 level: beginner
 module: foundations
 tools: [python, curl, ss, terminal]
-estimatedTime: 25 minutos
 prerequisites: [foundations.linux-cli, foundations.networking]
 learningObjectives:
   - Iniciar un servidor local e identificar el puerto donde escucha.

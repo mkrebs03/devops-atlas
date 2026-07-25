@@ -5,7 +5,6 @@ type: concept
 level: intermediate
 module: deployment
 tools: [ci-cd, deployment]
-estimatedTime: 10 minutes
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Relate continuous integration and continuous delivery along one route.

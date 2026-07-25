@@ -1,11 +1,10 @@
 ---
-title: Lab · pipeline local
+title: Práctica · pipeline local
 description: Construye una imagen estática, ejecútala, observa la caché de capas y verifica su contrato HTTP.
-type: lab
+type: practice
 level: beginner
 module: delivery
 tools: [docker, nginx, curl]
-estimatedTime: 35 minutos
 prerequisites: [delivery.docker, foundations.networking]
 learningObjectives:
   - Construir una imagen reproducible que contenga un sitio estático.

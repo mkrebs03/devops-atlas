@@ -1,0 +1,332 @@
+/* Reading a page: title block, prose, code, tables, and the foot of the page. */
+
+/* ---------- title block -------------------------------------------------- */
+
+.atlas-title {
+  margin-bottom: var(--atlas-space-6);
+}
+
+.atlas-title__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--atlas-space-3);
+  margin: 0 0 var(--atlas-space-3);
+  font-size: var(--atlas-size-xs);
+}
+
+.atlas-title__module {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--atlas-space-2);
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--atlas-text);
+}
+.atlas-title__module:hover { color: var(--atlas-link); }
+
+.atlas-title__no {
+  font-family: var(--atlas-font-mono);
+  font-size: var(--atlas-size-2xs);
+  color: var(--atlas-text-3);
+}
+
+.atlas-title__kind,
+.atlas-title__level {
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  border-radius: var(--atlas-radius);
+  padding: 0.1rem 0.4rem;
+  color: var(--atlas-text-2);
+  font-size: var(--atlas-size-2xs);
+  letter-spacing: 0.04em;
+}
+
+.atlas-title h1 {
+  font-size: var(--atlas-size-2xl);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.atlas-title__desc {
+  margin: var(--atlas-space-3) 0 0;
+  max-width: var(--atlas-measure);
+  color: var(--atlas-text-2);
+  font-size: var(--atlas-size-lg);
+  line-height: 1.5;
+}
+
+.atlas-title__before {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-3);
+  margin: var(--atlas-space-4) 0 0;
+  font-size: var(--atlas-size-xs);
+  color: var(--atlas-text-3);
+}
+.atlas-title__before a { color: var(--atlas-link); }
+
+/* ---------- prose -------------------------------------------------------- */
+
+.sl-markdown-content {
+  font-size: var(--atlas-size-md);
+  line-height: 1.65;
+}
+.sl-markdown-content p,
+.sl-markdown-content li { max-width: var(--atlas-measure); }
+
+/* No rule under headings: hierarchy is carried by size, weight, and the space
+   above them. A divider every two paragraphs reads as noise, not structure. */
+.sl-markdown-content h2 {
+  font-size: var(--atlas-size-xl);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.sl-markdown-content h3 {
+  font-size: var(--atlas-size-lg);
+  font-weight: 600;
+}
+.sl-markdown-content h2 + *,
+.sl-markdown-content h3 + * { margin-top: var(--atlas-space-3); }
+
+/* The heading anchor: small, optically centred on the heading, and only
+   present once the heading is hovered or the link itself is focused. */
+/* The space above a heading belongs to the wrapper, not the heading: otherwise
+   the anchor centres against the margin box and sits high. */
+.sl-heading-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--atlas-space-2);
+}
+.sl-heading-wrapper > :is(h1, h2, h3, h4, h5, h6) { margin-block: 0; }
+.sl-heading-wrapper.level-h2 { margin-top: var(--atlas-space-7); }
+.sl-heading-wrapper.level-h3 { margin-top: var(--atlas-space-6); }
+.sl-heading-wrapper.level-h4 { margin-top: var(--atlas-space-5); }
+.sl-markdown-content > .sl-heading-wrapper:first-child { margin-top: 0; }
+.sl-heading-wrapper + * { margin-top: var(--atlas-space-3); }
+.sl-heading-wrapper .sl-anchor-link {
+  flex: none;                      /* never let the heading squeeze the icon */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0.15rem;
+  border-radius: var(--atlas-radius);
+  color: var(--atlas-text-3);
+  opacity: 0;
+  transition: opacity 0.12s ease, color 0.12s ease, background-color 0.12s ease;
+}
+.sl-heading-wrapper .sl-anchor-icon { display: inline-flex; }
+.sl-heading-wrapper .sl-anchor-icon svg {
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  display: block;
+}
+.sl-heading-wrapper:hover .sl-anchor-link,
+.sl-heading-wrapper .sl-anchor-link:focus-visible { opacity: 1; }
+.sl-heading-wrapper .sl-anchor-link:hover {
+  color: var(--atlas-accent);
+  background: var(--atlas-surface-2);
+}
+
+.sl-markdown-content a { text-underline-offset: 3px; }
+
+/* ---------- code and terminal output ------------------------------------- */
+
+.sl-markdown-content :not(pre) > code {
+  font-family: var(--atlas-font-mono);
+  font-size: 0.8em;
+  background: var(--atlas-surface-2);
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  border-radius: var(--atlas-radius);
+  padding: 0.05em 0.3em;
+}
+
+/* Expressive Code owns the code blocks; it is themed through its own variables
+   so the frame, its terminal title bar, and the code body stay one object. */
+.expressive-code {
+  margin-block: var(--atlas-space-4);
+
+  --ec-brdRad: var(--atlas-radius);
+  --ec-brdCol: var(--atlas-border);
+  --ec-brdWd: var(--atlas-hairline);
+  --ec-frm-frameBoxShdCssVal: none;
+  --ec-frm-edBg: var(--atlas-code-bg);
+  --ec-frm-trmBg: var(--atlas-code-bg);
+  --ec-frm-trmTtbBg: var(--atlas-code-bg);
+  --ec-frm-trmTtbFg: var(--atlas-text-3);
+  --ec-frm-trmTtbBrdBtmCol: var(--atlas-border);
+  --ec-frm-edTabBarBg: var(--atlas-code-bg);
+  --ec-frm-edTabBarBrdBtmCol: var(--atlas-border);
+  --ec-frm-edActTabBg: var(--atlas-code-bg);
+  --ec-frm-edActTabFg: var(--atlas-code-text);
+  --ec-frm-edActTabIndTopCol: var(--atlas-coral);
+  --ec-codeFontFml: var(--atlas-font-mono);
+  --ec-codeFontSize: var(--sl-text-code);
+  --ec-codeLineHt: 1.75;
+  --ec-uiFontFml: var(--atlas-font);
+}
+
+/* Plain fenced blocks that Expressive Code does not wrap. */
+.sl-markdown-content > pre {
+  margin-block: var(--atlas-space-4);
+  overflow-x: auto;                /* long commands scroll, the page never does */
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  background: var(--atlas-code-bg);
+  color: var(--atlas-code-text);
+  border-radius: var(--atlas-radius);
+  font-family: var(--atlas-font-mono);
+  font-size: var(--sl-text-code);
+  line-height: 1.7;
+}
+
+/* ---------- tables ------------------------------------------------------- */
+
+.sl-markdown-content table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: var(--atlas-size-sm);
+}
+.sl-markdown-content th,
+.sl-markdown-content td {
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  padding: var(--atlas-space-2) var(--atlas-space-3);
+  vertical-align: top;
+}
+.sl-markdown-content th {
+  background: var(--atlas-surface);
+  text-align: start;
+  font-size: var(--atlas-size-2xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---------- foot of the page --------------------------------------------- */
+
+.atlas-related {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--atlas-space-5);
+  margin-top: var(--atlas-space-7);
+  padding-top: var(--atlas-space-4);
+  border-top: var(--atlas-hairline) solid var(--atlas-border);
+}
+.atlas-related h2 {
+  margin: 0 0 var(--atlas-space-2);
+  font-size: var(--atlas-size-2xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--atlas-text-3);
+  font-weight: 600;
+}
+.atlas-related ul { list-style: none; margin: 0; padding: 0; }
+.atlas-related li {
+  padding-block: 0.2rem;
+  font-size: var(--atlas-size-xs);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-2);
+  align-items: baseline;
+}
+.atlas-related li span { color: var(--atlas-text-3); font-size: var(--atlas-size-2xs); }
+.atlas-related a { color: var(--atlas-link); text-decoration: none; }
+.atlas-related a:hover { text-decoration: underline; }
+.atlas-related__tools li { display: inline-flex; margin-inline-end: var(--atlas-space-3); }
+
+.atlas-seq {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--atlas-space-4);
+  margin-top: var(--atlas-space-5);
+}
+.atlas-seq__link {
+  flex: 1 1 0;
+  display: grid;
+  gap: 0.15rem;
+  padding: var(--atlas-space-3) var(--atlas-space-4);
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  border-radius: var(--atlas-radius);
+  text-decoration: none;
+  color: var(--atlas-text);
+}
+.atlas-seq__link:hover { border-color: var(--atlas-border-strong); background: var(--atlas-surface-2); }
+.atlas-seq__link span {
+  font-size: var(--atlas-size-2xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--atlas-text-3);
+}
+.atlas-seq__link b { font-size: var(--atlas-size-sm); font-weight: 600; }
+.atlas-seq__link--next { text-align: end; }
+
+/* ---------- the A–Z ------------------------------------------------------ */
+
+.atlas-tools__jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-2);
+  margin-block: 0 var(--atlas-space-5);
+}
+.atlas-tools__jump a {
+  font-family: var(--atlas-font-mono);
+  font-size: var(--atlas-size-2xs);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--atlas-radius);
+  background: var(--atlas-surface);
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  text-decoration: none;
+  color: var(--atlas-text-2);
+}
+.atlas-tools__jump a:hover {
+  background: var(--atlas-surface-3);
+  color: var(--atlas-text);
+}
+
+.atlas-tools__group h2 {
+  font-family: var(--atlas-font-mono);
+  font-size: var(--atlas-size-md);
+  color: var(--atlas-accent);
+  margin: var(--atlas-space-6) 0 var(--atlas-space-3);
+  padding-bottom: var(--atlas-space-2);
+  border-bottom: var(--atlas-hairline) solid var(--atlas-border);
+}
+.atlas-tools__group dl { margin: 0; }
+
+.atlas-tools__entry {
+  display: grid;
+  grid-template-columns: minmax(7rem, 12rem) 1fr;
+  gap: var(--atlas-space-4);
+  padding: var(--atlas-space-3) 0;
+  border-bottom: var(--atlas-hairline) solid var(--atlas-border);
+  scroll-margin-top: 5rem;
+}
+.atlas-tools__entry dt {
+  font-family: var(--atlas-font-mono);
+  font-weight: 600;
+  font-size: var(--atlas-size-sm);
+}
+.atlas-tools__entry dd { margin: 0; }
+.atlas-tools__label {
+  display: block;
+  font-size: var(--atlas-size-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--atlas-text-3);
+  margin-bottom: var(--atlas-space-1);
+}
+.atlas-tools__entry ul { list-style: none; margin: 0; padding: 0; }
+.atlas-tools__entry li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-2);
+  align-items: baseline;
+  padding-block: 0.15rem;
+  font-size: var(--atlas-size-xs);
+}
+.atlas-tools__entry li span { color: var(--atlas-text-3); font-size: var(--atlas-size-2xs); }
+
+@media (max-width: 50rem) {
+  .atlas-tools__entry { grid-template-columns: 1fr; gap: var(--atlas-space-2); }
+}

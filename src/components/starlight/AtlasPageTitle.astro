@@ -1,12 +1,47 @@
 ---
+/*
+  The title carries orientation, not state: which module this page belongs to,
+  what kind of page it is, and what is worth knowing first. No progress.
+*/
 import DefaultPageTitle from '@astrojs/starlight/components/PageTitle.astro';
-import LessonHeader from '../LessonHeader.astro';
-import { getLearningStepByPath } from '../../data/learning-path.mjs';
+import { getModule, getPage, getPageByPath, getLocalizedPath } from '../../data/curriculum.mjs';
+import { localeOf, t } from '../../data/ui-text.mjs';
 
 const { entry, lang } = Astro.locals.starlightRoute;
 const isSplash = entry.data.template === 'splash';
-const step = getLearningStepByPath(Astro.url.pathname);
-const locale = lang === 'en' ? 'en' : 'es';
+const locale = localeOf(lang);
+const copy = t(locale);
+const page = getPageByPath(Astro.url.pathname);
+const module = page ? getModule(page.module) : undefined;
+const before = (page?.prerequisites ?? [])
+  .map((id) => getPage(id))
+  .filter((item) => item !== undefined);
 ---
 
-{step ? <LessonHeader step={step} data={entry.data} locale={locale} /> : !isSplash && <DefaultPageTitle />}
+{isSplash ? null : (
+  <div class="atlas-title">
+    {page && module && (
+      <p class="atlas-title__meta">
+        <a class="atlas-title__module" href={getLocalizedPath(`${module.id}.overview`, locale)}>
+          <span class="atlas-title__no">{String(module.order).padStart(2, '0')}</span>
+          {module.label[locale]}
+        </a>
+        <span class="atlas-title__kind">{copy.kind[page.kind]}</span>
+        {entry.data.level && <span class="atlas-title__level">{copy.level[entry.data.level]}</span>}
+      </p>
+    )}
+
+    <DefaultPageTitle />
+
+    {entry.data.description && <p class="atlas-title__desc">{entry.data.description}</p>}
+
+    {before.length > 0 && (
+      <p class="atlas-title__before">
+        <span>{copy.before}:</span>
+        {before.map((item) => (
+          <a href={getLocalizedPath(item, locale)}>{item.label[locale]}</a>
+        ))}
+      </p>
+    )}
+  </div>
+)}

@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: foundations
 tools: [dns, http, tls, curl, ss]
-estimatedTime: 35 minutes
 prerequisites: [foundations.linux-cli]
 learningObjectives:
   - Follow a request from DNS resolution to the HTTP response, including TLS.

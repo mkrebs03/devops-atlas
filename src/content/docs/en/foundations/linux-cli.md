@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: foundations
 tools: [linux, bash, terminal]
-estimatedTime: 30 minutes
 prerequisites: []
 learningObjectives:
   - Explain how the shell connects programs through input, output and pipes.

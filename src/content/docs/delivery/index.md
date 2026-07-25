@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: delivery
 tools: [docker, github-actions, ci-cd]
-estimatedTime: 10 minutos
 prerequisites: [collaboration.git-model, foundations.networking]
 learningObjectives:
   - Relacionar commit, validación, paquete y verificación en una ruta de entrega.

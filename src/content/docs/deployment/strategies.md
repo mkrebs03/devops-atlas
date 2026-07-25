@@ -5,7 +5,6 @@ type: concept
 level: advanced
 module: deployment
 tools: [deployment, kubernetes]
-estimatedTime: 35 minutos
 prerequisites: [deployment.pipeline]
 learningObjectives:
   - Comparar recreate, rolling, blue-green y canary por riesgo y costo.

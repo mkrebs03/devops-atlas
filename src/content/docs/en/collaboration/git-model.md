@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git]
-estimatedTime: 35 minutes
 prerequisites: [foundations.linux-cli]
 learningObjectives:
   - Relate commits, branches, and HEAD within the Git graph.

@@ -5,7 +5,6 @@ type: concept
 level: intermediate
 module: deployment
 tools: [ci-cd, deployment]
-estimatedTime: 10 minutos
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Relacionar integración continua y entrega continua en un mismo recorrido.

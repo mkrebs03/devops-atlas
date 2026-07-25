@@ -1,0 +1,13 @@
+{
+  "version": "0.0.1",
+  "autoPort": true,
+  "configurations": [
+    {
+      "name": "atlas",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["exec", "astro", "dev"],
+      "port": 4322,
+      "autoPort": true
+    }
+  ]
+}

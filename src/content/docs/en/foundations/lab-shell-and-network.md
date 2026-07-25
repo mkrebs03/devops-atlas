@@ -1,11 +1,10 @@
 ---
-title: Lab · investigate a local application
+title: Practice · investigate a local application
 description: Start a small server, find its port and verify its response.
-type: lab
+type: practice
 level: beginner
 module: foundations
 tools: [python, curl, ss, terminal]
-estimatedTime: 25 minutes
 prerequisites: [foundations.linux-cli, foundations.networking]
 learningObjectives:
   - Start a local server and identify the port where it listens.

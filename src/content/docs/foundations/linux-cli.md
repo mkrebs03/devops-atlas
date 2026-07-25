@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: foundations
 tools: [linux, bash, terminal]
-estimatedTime: 30 minutos
 prerequisites: []
 learningObjectives:
   - Explicar cómo la shell conecta programas mediante entradas, salidas y tuberías.

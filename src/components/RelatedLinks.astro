@@ -1,0 +1,60 @@
+---
+/*
+  Cross-links derived from shared tools, plus the rest of this page's module.
+  Nothing hand-maintained: both lists come from content that already exists.
+*/
+import { getModule, getLocalizedPath, getRelatedPages } from '../data/curriculum.mjs';
+import { toolsByPageId } from '../lib/tools.mjs';
+import { t } from '../data/ui-text.mjs';
+
+interface Props { page: import('../data/curriculum.mjs').Page; locale: 'es' | 'en' }
+
+const { page, locale } = Astro.props;
+const copy = t(locale);
+const byPage = await toolsByPageId();
+const related = getRelatedPages(page, byPage)
+  .filter((item) => item.module !== page.module)
+  .slice(0, 4);
+const module = getModule(page.module);
+const siblings = (module?.pages ?? []).filter((item) => item.id !== page.id);
+const tools = byPage.get(page.id) ?? [];
+const base = locale === 'en' ? '/en/' : '/';
+---
+
+<aside class="atlas-related">
+  {module && (
+    <section>
+      <h2>{copy.inThisModule}</h2>
+      <ul>
+        {siblings.map((item) => (
+          <li><a href={getLocalizedPath(item, locale)}>{item.label[locale]}</a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {related.length > 0 && (
+    <section>
+      <h2>{copy.related}</h2>
+      <ul>
+        {related.map((item) => (
+          <li>
+            <a href={getLocalizedPath(item, locale)}>{item.label[locale]}</a>
+            <span>{getModule(item.module)?.label[locale]}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {tools.length > 0 && (
+    <section>
+      <h2>{copy.tools}</h2>
+      <ul class="atlas-related__tools">
+        {tools.map((tool) => (
+          <li><a href={`${base}tools/#${tool.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{tool}</a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+</aside>

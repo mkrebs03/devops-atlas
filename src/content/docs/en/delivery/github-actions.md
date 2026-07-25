@@ -5,7 +5,6 @@ type: tool
 level: beginner
 module: delivery
 tools: [github-actions, ci-cd, yaml]
-estimatedTime: 35 minutes
 prerequisites: [collaboration.github-flow]
 learningObjectives:
   - Interpret events, jobs, and steps in a GitHub Actions workflow.

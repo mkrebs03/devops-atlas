@@ -5,7 +5,6 @@ type: tool
 level: beginner
 module: collaboration
 tools: [git, github, pull-requests]
-estimatedTime: 30 minutes
 prerequisites: [collaboration.git-model]
 learningObjectives:
   - Follow GitHub Flow from a working branch through integration.

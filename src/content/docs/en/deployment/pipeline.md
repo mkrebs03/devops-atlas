@@ -5,7 +5,6 @@ type: concept
 level: intermediate
 module: deployment
 tools: [ci-cd, deployment, docker]
-estimatedTime: 30 minutes
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Distinguish continuous integration, continuous delivery, and continuous deployment.

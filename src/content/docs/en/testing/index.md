@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: testing
 tools: [testing, ci]
-estimatedTime: 10 minutes
 prerequisites: [collaboration.github-flow]
 learningObjectives:
   - Explain why automated tests turn confidence into evidence.

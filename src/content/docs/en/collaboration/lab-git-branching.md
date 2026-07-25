@@ -1,11 +1,10 @@
 ---
-title: Lab · safe branches
+title: Practice · safe branches
 description: Practise a small branch, review its diff, resolve a conflict and undo it without losing the work.
-type: lab
+type: practice
 level: beginner
 module: collaboration
 tools: [git]
-estimatedTime: 25 minutes
 prerequisites: [collaboration.git-model]
 learningObjectives:
   - Create an isolated change on a branch and inspect its diff before integration.
