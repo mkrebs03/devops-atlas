@@ -1,14 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {
-  learningModules,
-  learningSteps,
-} from '../src/data/learning-path.mjs';
+import { modules, pages } from '../src/data/curriculum.mjs';
 import { parseFrontmatter } from './frontmatter-parser.mjs';
 
 const root = path.resolve('src/content/docs');
 const allowed = {
-  type: new Set(['concept', 'tool', 'lab']),
+  type: new Set(['concept', 'tool', 'practice', 'cheatsheet']),
   level: new Set(['beginner', 'intermediate', 'advanced']),
   module: new Set(['foundations', 'collaboration', 'delivery', 'testing', 'deployment']),
 };
@@ -48,9 +45,15 @@ for (const file of files) {
     continue;
   }
 
-  for (const required of ['title', 'description', 'type', 'level', 'module']) {
-    if (typeof frontmatter[required] !== 'string' || !frontmatter[required].trim()) {
-      errors.push(`${relative}: missing ${required}`);
+  // Standalone pages (the index, the A–Z) only owe a title and a description;
+  // module pages owe the full taxonomy, checked again per curriculum entry.
+  const isModulePage = /^(?:en\/)?(?:foundations|collaboration|delivery|testing|deployment)\//.test(relative);
+  const required = isModulePage
+    ? ['title', 'description', 'type', 'level', 'module']
+    : ['title', 'description'];
+  for (const field of required) {
+    if (typeof frontmatter[field] !== 'string' || !frontmatter[field].trim()) {
+      errors.push(`${relative}: missing ${field}`);
     }
   }
 
@@ -69,59 +72,60 @@ const ids = new Set();
 const orders = new Set();
 const paths = new Set();
 const moduleOrders = new Set();
-for (const module of learningModules) {
-  if (!allowed.module.has(module.id)) errors.push(`learning path: invalid module ${module.id}`);
-  if (moduleOrders.has(module.order)) errors.push(`learning path: duplicate module order ${module.order}`);
+for (const module of modules) {
+  if (!allowed.module.has(module.id)) errors.push(`curriculum: invalid module ${module.id}`);
+  if (moduleOrders.has(module.order)) errors.push(`curriculum: duplicate module order ${module.order}`);
   moduleOrders.add(module.order);
   if (module.order < 1 || !Number.isInteger(module.order)) {
-    errors.push(`learning path: invalid module order for ${module.id}`);
+    errors.push(`curriculum: invalid module order for ${module.id}`);
   }
-  for (const step of module.steps) {
-    if (ids.has(step.id)) errors.push(`learning path: duplicate id ${step.id}`);
-    if (orders.has(step.order)) errors.push(`learning path: duplicate order ${step.order}`);
-    if (paths.has(step.relativePath)) errors.push(`learning path: duplicate path ${step.relativePath}`);
-    ids.add(step.id);
-    orders.add(step.order);
-    paths.add(step.relativePath);
-    if (step.module !== module.id) errors.push(`learning path: ${step.id} belongs to invalid module ${step.module}`);
-    if (!step.id.startsWith(`${step.module}.`)) errors.push(`learning path: ${step.id} is not namespaced by its module`);
-    if (!step.relativePath.startsWith(`${step.module}/`)) errors.push(`learning path: ${step.id} has invalid path ${step.relativePath}`);
-    if (!Number.isInteger(step.order) || step.order < 1) errors.push(`learning path: invalid order for ${step.id}`);
-    if (!Number.isInteger(step.minutes) || step.minutes < 1) errors.push(`learning path: invalid minutes for ${step.id}`);
-  }
-}
-
-for (let index = 0; index < learningSteps.length; index += 1) {
-  if (learningSteps[index].order !== index + 1) {
-    errors.push(`learning path: ${learningSteps[index].id} must occupy route position ${index + 1}`);
+  for (const item of module.pages) {
+    if (ids.has(item.id)) errors.push(`curriculum: duplicate id ${item.id}`);
+    if (orders.has(item.order)) errors.push(`curriculum: duplicate order ${item.order}`);
+    if (paths.has(item.relativePath)) errors.push(`curriculum: duplicate path ${item.relativePath}`);
+    ids.add(item.id);
+    orders.add(item.order);
+    paths.add(item.relativePath);
+    if (item.module !== module.id) errors.push(`curriculum: ${item.id} belongs to invalid module ${item.module}`);
+    if (!item.id.startsWith(`${item.module}.`)) errors.push(`curriculum: ${item.id} is not namespaced by its module`);
+    if (!item.relativePath.startsWith(`${item.module}/`)) errors.push(`curriculum: ${item.id} has invalid path ${item.relativePath}`);
+    if (!Number.isInteger(item.order) || item.order < 1) errors.push(`curriculum: invalid order for ${item.id}`);
   }
 }
 
-for (const step of learningSteps) {
-  for (const prerequisite of step.prerequisites) {
-    const prerequisiteStep = learningSteps.find((candidate) => candidate.id === prerequisite);
-    if (!prerequisiteStep) errors.push(`learning path: ${step.id} references unknown prerequisite ${prerequisite}`);
-    else if (prerequisiteStep.order >= step.order) errors.push(`learning path: ${step.id} prerequisite ${prerequisite} must appear earlier`);
+for (let index = 0; index < pages.length; index += 1) {
+  if (pages[index].order !== index + 1) {
+    errors.push(`curriculum: ${pages[index].id} must occupy reading position ${index + 1}`);
+  }
+}
+
+for (const item of pages) {
+  // Prerequisites are advisory ("worth knowing first"), but they must still
+  // point at real pages that come earlier in the suggested reading order.
+  for (const prerequisite of item.prerequisites) {
+    const target = pages.find((candidate) => candidate.id === prerequisite);
+    if (!target) errors.push(`curriculum: ${item.id} references unknown prerequisite ${prerequisite}`);
+    else if (target.order >= item.order) errors.push(`curriculum: ${item.id} prerequisite ${prerequisite} must appear earlier`);
   }
 
   const paired = {};
   for (const locale of ['es', 'en']) {
-    const relative = canonicalFile(step.relativePath, locale);
+    const relative = canonicalFile(item.relativePath, locale);
     const frontmatter = documents.get(relative);
     if (!frontmatter) {
-      errors.push(`${relative}: missing canonical ${locale.toUpperCase()} page for ${step.id}`);
+      errors.push(`${relative}: missing canonical ${locale.toUpperCase()} page for ${item.id}`);
       continue;
     }
     paired[locale] = frontmatter;
 
-    for (const field of ['title', 'description', 'type', 'level', 'module', 'estimatedTime']) {
+    for (const field of ['title', 'description', 'type', 'level', 'module']) {
       if (typeof frontmatter[field] !== 'string' || !frontmatter[field].trim()) {
-        errors.push(`${relative}: canonical step ${step.id} requires ${field}`);
+        errors.push(`${relative}: canonical page ${item.id} requires ${field}`);
       }
     }
     for (const field of ['tools', 'prerequisites', 'learningObjectives', 'takeaways']) {
       if (!Array.isArray(frontmatter[field])) {
-        errors.push(`${relative}: canonical step ${step.id} requires ${field} array`);
+        errors.push(`${relative}: canonical page ${item.id} requires ${field} array`);
       }
     }
     for (const field of ['learningObjectives', 'takeaways']) {
@@ -130,38 +134,34 @@ for (const step of learningSteps) {
       )) errors.push(`${relative}: ${field} must contain non-empty text`);
     }
 
-    if (frontmatter.module !== step.module) {
-      errors.push(`${relative}: module must be ${step.module} for ${step.id}`);
+    if (frontmatter.module !== item.module) {
+      errors.push(`${relative}: module must be ${item.module} for ${item.id}`);
     }
-    const expectedType = step.kind === 'overview' ? 'concept' : step.kind;
+    const expectedType = item.kind === 'overview' ? 'concept' : item.kind;
     if (frontmatter.type !== expectedType) {
-      errors.push(`${relative}: type must be ${expectedType} for ${step.id}`);
-    }
-    const expectedTime = `${step.minutes} ${locale === 'en' ? 'minutes' : 'minutos'}`;
-    if (frontmatter.estimatedTime !== expectedTime) {
-      errors.push(`${relative}: estimatedTime must be ${expectedTime} for ${step.id}`);
+      errors.push(`${relative}: type must be ${expectedType} for ${item.id}`);
     }
     if (Array.isArray(frontmatter.prerequisites) && (
-      frontmatter.prerequisites.length !== step.prerequisites.length
-      || frontmatter.prerequisites.some((value, index) => value !== step.prerequisites[index])
-    )) errors.push(`${relative}: prerequisites must use canonical IDs: [${step.prerequisites.join(', ')}]`);
+      frontmatter.prerequisites.length !== item.prerequisites.length
+      || frontmatter.prerequisites.some((value, index) => value !== item.prerequisites[index])
+    )) errors.push(`${relative}: prerequisites must use canonical IDs: [${item.prerequisites.join(', ')}]`);
   }
 
   for (const field of ['learningObjectives', 'takeaways']) {
     if (Array.isArray(paired.es?.[field]) && Array.isArray(paired.en?.[field])
       && paired.es[field].length !== paired.en[field].length) {
-      errors.push(`${canonicalFile(step.relativePath, 'en')}: ${field} count must match its Spanish counterpart`);
+      errors.push(`${canonicalFile(item.relativePath, 'en')}: ${field} count must match its Spanish counterpart`);
     }
   }
 }
 
-const canonicalFiles = new Set(learningSteps.flatMap((step) => [
-  canonicalFile(step.relativePath, 'es'),
-  canonicalFile(step.relativePath, 'en'),
+const canonicalFiles = new Set(pages.flatMap((item) => [
+  canonicalFile(item.relativePath, 'es'),
+  canonicalFile(item.relativePath, 'en'),
 ]));
 for (const relative of documents.keys()) {
   if (/^(?:en\/)?(?:foundations|collaboration|delivery|testing|deployment)\//.test(relative) && !canonicalFiles.has(relative)) {
-    errors.push(`${relative}: module page is not referenced by the canonical learning path`);
+    errors.push(`${relative}: module page is not listed in the curriculum`);
   }
 }
 
@@ -171,4 +171,4 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Content validation passed: ${files.length} Markdown pages checked; ${learningSteps.length} bilingual step pairs verified.`);
+console.log(`Content validation passed: ${files.length} Markdown pages checked; ${pages.length} bilingual page pairs verified.`);

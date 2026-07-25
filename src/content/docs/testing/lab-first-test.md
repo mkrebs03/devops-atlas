@@ -1,11 +1,10 @@
 ---
-title: Lab · tu primera prueba
+title: Práctica · tu primera prueba
 description: Escribe una prueba que falle, hazla pasar, y córrela como lo haría CI.
-type: lab
+type: practice
 level: beginner
 module: testing
 tools: [node, testing]
-estimatedTime: 25 minutos
 prerequisites: [testing.pyramid]
 learningObjectives:
   - Escribir una prueba de unidad que falle por la razón correcta.

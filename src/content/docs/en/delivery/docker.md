@@ -5,7 +5,6 @@ type: tool
 level: beginner
 module: delivery
 tools: [docker, containers, nginx]
-estimatedTime: 40 minutes
 prerequisites: [foundations.linux-cli, foundations.networking]
 learningObjectives:
   - Distinguish an immutable image from a running container.

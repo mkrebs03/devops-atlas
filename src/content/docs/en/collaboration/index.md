@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git, github]
-estimatedTime: 10 minutes
 prerequisites: [foundations.linux-cli]
 learningObjectives:
   - Explain how Git turns local changes into a reviewable history.

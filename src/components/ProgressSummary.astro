@@ -1,8 +1,0 @@
----
-interface Props { moduleId?: string; locale: 'es' | 'en'; compact?: boolean; }
-const { moduleId, locale, compact = false } = Astro.props;
----
-<div class:list={['progress-summary', { 'progress-summary--compact': compact }]} data-progress-summary data-progress-module={moduleId}>
-  <div class="progress-summary__labels"><span data-progress-count>{locale === 'en' ? '0 completed' : '0 completadas'}</span><span data-progress-percent>0%</span></div>
-  <div class="atlas-progress-track" aria-hidden="true"><span class="atlas-progress-fill" data-progress-fill></span></div>
-</div>

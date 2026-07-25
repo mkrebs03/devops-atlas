@@ -1,11 +1,10 @@
 ---
-title: Lab · ramas seguras
+title: Práctica · ramas seguras
 description: Practica una rama pequeña, revisa su diff, resuelve un conflicto y vuelve atrás sin perder el trabajo.
-type: lab
+type: practice
 level: beginner
 module: collaboration
 tools: [git]
-estimatedTime: 25 minutos
 prerequisites: [collaboration.git-model]
 learningObjectives:
   - Crear un cambio aislado en una rama y revisar su diff antes de integrarlo.

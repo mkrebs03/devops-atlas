@@ -5,7 +5,6 @@ type: tool
 level: beginner
 module: delivery
 tools: [docker, containers, nginx]
-estimatedTime: 40 minutos
 prerequisites: [foundations.linux-cli, foundations.networking]
 learningObjectives:
   - Distinguir una imagen inmutable de un contenedor en ejecución.

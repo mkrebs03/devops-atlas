@@ -5,7 +5,6 @@ type: concept
 level: intermediate
 module: testing
 tools: [testing]
-estimatedTime: 30 minutos
 prerequisites: [foundations.linux-cli]
 learningObjectives:
   - Distinguir pruebas de unidad, integración y extremo a extremo.

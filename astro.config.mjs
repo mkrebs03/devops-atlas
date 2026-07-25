@@ -1,14 +1,14 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { learningModules } from './src/data/learning-path.mjs';
+import { modules } from './src/data/curriculum.mjs';
 
-const learningSidebar = learningModules.map((module) => ({
+const moduleSidebar = modules.map((module) => ({
   label: module.sidebarLabel.es,
   translations: { en: module.sidebarLabel.en },
-  items: module.steps.map((step) => ({
-    label: step.label.es,
-    translations: { en: step.label.en },
-    link: `/${step.relativePath}`,
+  items: module.pages.map((page) => ({
+    label: page.label.es,
+    translations: { en: page.label.en },
+    link: `/${page.relativePath}`,
   })),
 }));
 
@@ -33,9 +33,8 @@ export default defineConfig({
         './src/styles/fonts.css',
         './src/styles/tokens.css',
         './src/styles/shell.css',
-        './src/styles/learning-path.css',
-        './src/styles/lesson.css',
-        './src/styles/progress.css',
+        './src/styles/page.css',
+        './src/styles/landing.css',
       ],
       components: {
         Header: './src/components/starlight/AtlasHeader.astro',
@@ -44,13 +43,11 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: 'Ruta de aprendizaje',
-          translations: { en: 'Learning route' },
-          items: [
-            { label: 'Inicio', translations: { en: 'Start here' }, link: '/' },
-            ...learningSidebar,
-          ],
+          label: 'Herramientas A–Z',
+          translations: { en: 'Tools A–Z' },
+          link: '/tools/',
         },
+        ...moduleSidebar,
       ],
     }),
   ],

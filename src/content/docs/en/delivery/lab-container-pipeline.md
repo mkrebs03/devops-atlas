@@ -1,11 +1,10 @@
 ---
-title: Lab · local pipeline
+title: Practice · local pipeline
 description: Build a static image, run it, observe the layer cache and verify its HTTP contract.
-type: lab
+type: practice
 level: beginner
 module: delivery
 tools: [docker, nginx, curl]
-estimatedTime: 35 minutes
 prerequisites: [delivery.docker, foundations.networking]
 learningObjectives:
   - Build a reproducible image that contains a static site.

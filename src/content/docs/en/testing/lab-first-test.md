@@ -1,11 +1,10 @@
 ---
-title: Lab · your first test
+title: Practice · your first test
 description: Write a failing test, make it pass, and run it the way CI would.
-type: lab
+type: practice
 level: beginner
 module: testing
 tools: [node, testing]
-estimatedTime: 25 minutes
 prerequisites: [testing.pyramid]
 learningObjectives:
   - Write a unit test that fails for the right reason.

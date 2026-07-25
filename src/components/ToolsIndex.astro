@@ -1,0 +1,55 @@
+---
+/*
+  A–Z of every tool named in page frontmatter, with the pages that cover it.
+  Generated, so it can never drift from the content.
+*/
+import { getLocalizedPath, getModule } from '../data/curriculum.mjs';
+import { toolIndex } from '../lib/tools.mjs';
+import { t } from '../data/ui-text.mjs';
+
+interface Props { locale: 'es' | 'en' }
+type Entry = Awaited<ReturnType<typeof toolIndex>>[number];
+
+const { locale } = Astro.props;
+const copy = t(locale);
+const entries = await toolIndex(locale);
+const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+/** Group by first letter so the page reads as an index, not a flat list. */
+const groups = entries.reduce<Record<string, Entry[]>>((acc, entry) => {
+  const letter = entry.name[0].toUpperCase();
+  (acc[letter] ??= []).push(entry);
+  return acc;
+}, {});
+const letters = Object.keys(groups).sort((a, b) => a.localeCompare(b, locale));
+---
+
+<div class="atlas-tools">
+  <nav class="atlas-tools__jump" aria-label="A–Z">
+    {letters.map((letter) => <a href={`#letter-${letter.toLowerCase()}`}>{letter}</a>)}
+  </nav>
+
+  {letters.map((letter) => (
+    <section class="atlas-tools__group">
+      <h2 id={`letter-${letter.toLowerCase()}`}>{letter}</h2>
+      <dl>
+        {groups[letter].map((entry) => (
+          <div class="atlas-tools__entry" id={slug(entry.name)}>
+            <dt>{entry.name}</dt>
+            <dd>
+              <span class="atlas-tools__label">{copy.usedIn}</span>
+              <ul>
+                {entry.pages.map((page) => (
+                  <li>
+                    <a href={getLocalizedPath(page, locale)}>{page.label[locale]}</a>
+                    <span>{getModule(page.module)?.label[locale]}</span>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  ))}
+</div>

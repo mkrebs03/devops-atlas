@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: foundations
 tools: [linux, terminal, networking]
-estimatedTime: 10 minutos
 prerequisites: []
 learningObjectives:
   - Identificar las señales básicas de una máquina y una red antes de cambiar el sistema.

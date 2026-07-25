@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git]
-estimatedTime: 35 minutos
 prerequisites: [foundations.linux-cli]
 learningObjectives:
   - Relacionar commits, ramas y HEAD dentro del grafo de Git.

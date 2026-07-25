@@ -5,7 +5,6 @@ type: concept
 level: intermediate
 module: testing
 tools: [testing]
-estimatedTime: 30 minutes
 prerequisites: [foundations.linux-cli]
 learningObjectives:
   - Distinguish unit, integration, and end-to-end tests.

@@ -1,11 +1,10 @@
 ---
-title: Lab · promover y revertir
+title: Práctica · promover y revertir
 description: Corre dos versiones, cambia el tráfico a la nueva y vuelve atrás, un blue-green local.
-type: lab
+type: practice
 level: intermediate
 module: deployment
 tools: [docker, nginx, curl]
-estimatedTime: 30 minutos
 prerequisites: [deployment.pipeline]
 learningObjectives:
   - Ejecutar dos versiones de un servicio e intercambiar cuál recibe tráfico.

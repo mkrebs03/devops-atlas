@@ -1,27 +1,41 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('DevOps Atlas', () => {
-  test('presents the guided route', async ({ page }) => {
+  test('the landing shows every module and its pages', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByRole('heading', { name: /Entiende el recorrido/i })).toBeVisible();
-    await expect(page.locator('[data-module-id]')).toHaveCount(5);
-    await expect(page.locator('[data-progress-step]')).toHaveCount(20);
-    await expect(page.getByText('ATLAS / 001')).toHaveCount(0);
-    await expect(page.getByText(/VALPARAÍSO/)).toHaveCount(0);
-  });
-
-  test('serves the equivalent English route', async ({ page }) => {
-    await page.goto('/en/');
-    await expect(page.getByRole('heading', { name: /Understand the path/i })).toBeVisible();
-    await expect(page.getByText('Foundations', { exact: true }).first()).toBeVisible();
-    await expect(page.locator('h1:visible')).toHaveCount(1);
-  });
-
-  test('opens the first learning step', async ({ page }) => {
-    await page.goto('/');
-    await page.getByRole('link', { name: /Comenzar la ruta/i }).click();
+    await expect(page.locator('.landing__display')).toBeVisible();
+    await expect(page.locator('.mcard')).toHaveCount(5);
+    await expect(page.locator('.mcard__pages li')).toHaveCount(20);
+    await page.locator('.landing__cta').click();
     await expect(page).toHaveURL(/\/foundations\/$/);
-    await expect(page.getByRole('heading', { name: 'Fundamentos', exact: true })).toBeVisible();
-    await expect(page.getByText('Al terminar podrás', { exact: true })).toBeVisible();
+  });
+
+  test('stores no reader state', async ({ page }) => {
+    await page.goto('/foundations/networking/');
+    const keys = await page.evaluate(() => Object.keys(window.localStorage)
+      .filter((key) => key.startsWith('devops-atlas')));
+    expect(keys).toEqual([]);
+  });
+
+  test('a page carries orientation and cross-links', async ({ page }) => {
+    await page.goto('/foundations/networking/');
+    await expect(page.locator('.atlas-title__module')).toContainText('Fundamentos');
+    await expect(page.locator('.atlas-related section')).not.toHaveCount(0);
+    await expect(page.locator('.atlas-seq__link--next')).toBeVisible();
+  });
+
+  test('the A–Z lists tools with the pages that cover them', async ({ page }) => {
+    await page.goto('/tools/');
+    await expect(page.getByRole('heading', { name: 'Herramientas A–Z' })).toBeVisible();
+    await expect(page.locator('.atlas-tools__entry').first()).toBeVisible();
+    await page.locator('.atlas-tools__entry a').first().click();
+    await expect(page).toHaveURL(/\/(foundations|collaboration|delivery|testing|deployment)\//);
+  });
+
+  test('serves the equivalent English index', async ({ page }) => {
+    await page.goto('/en/');
+    await expect(page.locator('.mcard')).toHaveCount(5);
+    await expect(page.getByRole('heading', { name: 'Foundations', exact: true })).toBeVisible();
+    await expect(page.locator('h1:visible')).toHaveCount(1);
   });
 });

@@ -5,7 +5,6 @@ type: tool
 level: beginner
 module: collaboration
 tools: [git, github, pull-requests]
-estimatedTime: 30 minutos
 prerequisites: [collaboration.git-model]
 learningObjectives:
   - Recorrer GitHub Flow desde una rama hasta la integración del cambio.

@@ -1,11 +1,10 @@
 ---
-title: Lab · promote and roll back
+title: Practice · promote and roll back
 description: Run two versions, switch traffic to the new one and go back, a local blue-green.
-type: lab
+type: practice
 level: intermediate
 module: deployment
 tools: [docker, nginx, curl]
-estimatedTime: 30 minutes
 prerequisites: [deployment.pipeline]
 learningObjectives:
   - Run two versions of a service and swap which one receives traffic.

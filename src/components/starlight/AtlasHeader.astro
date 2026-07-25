@@ -1,16 +1,97 @@
 ---
-import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
+/*
+  Three zones, not a row of leftovers: the wordmark (which is the way home),
+  search taking the whole free middle, and a controls cluster on the end.
+
+  Both controls are shown, not hidden in menus: the language pair because
+  Spanish and English are peers, and the theme because two states need one
+  gesture. First visit follows the system; pressing the toggle wins after that.
+*/
 import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from '@astrojs/starlight/components/SiteTitle.astro';
-import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import { localeOf, t } from '../../data/ui-text.mjs';
+
 const { lang } = Astro.locals.starlightRoute;
-const home = lang === 'en' ? '/en/' : '/';
+const locale = localeOf(lang);
+const copy = t(locale);
+const base = locale === 'en' ? '/en/' : '/';
+
+/* The counterpart page in the other language: the same path, prefix swapped. */
+const path = Astro.url.pathname;
+const esHref = path.replace(/^\/en(?=\/|$)/, '') || '/';
+const enHref = path.startsWith('/en/') || path === '/en' ? path : `/en${path}`;
 ---
+
 <div class="atlas-header">
-  <div class="atlas-header__brand"><SiteTitle /><a class="atlas-header__mobile-brand" href={home}>Atlas</a><span>{lang === 'en' ? 'Learn systems by following the change' : 'Aprende sistemas siguiendo el cambio'}</span></div>
-  <nav class="atlas-header__nav" aria-label={lang === 'en' ? 'Main navigation' : 'Navegación principal'}>
-    <a href={`${home}#learning-path`}>{lang === 'en' ? 'Learning path' : 'Ruta'}</a>
-    <Search />
-  </nav>
-  <div class="atlas-header__preferences"><ThemeSelect /><LanguageSelect /></div>
+  <div class="atlas-header__brand"><SiteTitle /></div>
+
+  <div class="atlas-header__search"><Search /></div>
+
+  <div class="atlas-header__end">
+    <a class="atlas-header__link" href={`${base}tools/`}>{copy.tools}</a>
+
+    <div class="atlas-langs" role="group" aria-label={locale === 'en' ? 'Language' : 'Idioma'}>
+      <a href={esHref} lang="es" aria-current={locale === 'es' ? 'true' : undefined}>ES</a>
+      <a href={enHref} lang="en" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
+    </div>
+
+    <button
+      class="atlas-theme"
+      type="button"
+      data-atlas-theme-toggle
+      aria-pressed="false"
+      title={locale === 'en' ? 'Switch theme' : 'Cambiar tema'}
+    >
+      <span class="atlas-theme__icon atlas-theme__icon--sun" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+        </svg>
+      </span>
+      <span class="atlas-theme__icon atlas-theme__icon--moon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z" />
+        </svg>
+      </span>
+      <span class="sr-only" data-atlas-theme-label>{locale === 'en' ? 'Switch theme' : 'Cambiar tema'}</span>
+    </button>
+  </div>
 </div>
+
+<script>
+  /*
+    Starlight's own inline script already applied the stored or system theme
+    before paint; this only flips it and writes the same key, so no flash and
+    no second source of truth. Nothing about the reader is stored — only this
+    display preference.
+  */
+  const KEY = 'starlight-theme';
+  const current = () =>
+    document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+
+  const sync = () => {
+    const isLight = current() === 'light';
+    for (const button of document.querySelectorAll('[data-atlas-theme-toggle]')) {
+      button.setAttribute('aria-pressed', String(isLight));
+    }
+  };
+
+  const apply = (theme: 'light' | 'dark') => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem(KEY, theme);
+    } catch {
+      /* private mode: the choice simply lasts for this page view */
+    }
+    // Keep Starlight's own picker (used on mobile) in step when present.
+    (window as any).StarlightThemeProvider?.updatePickers?.(theme);
+    sync();
+  };
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement | null;
+    if (!target?.closest('[data-atlas-theme-toggle]')) return;
+    apply(current() === 'light' ? 'dark' : 'light');
+  });
+
+  sync();
+</script>

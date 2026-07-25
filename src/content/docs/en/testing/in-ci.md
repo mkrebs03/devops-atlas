@@ -5,7 +5,6 @@ type: tool
 level: intermediate
 module: testing
 tools: [ci-cd, github-actions, testing]
-estimatedTime: 30 minutes
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Run tests and lint automatically on every change with CI.

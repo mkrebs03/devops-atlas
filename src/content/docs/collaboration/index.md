@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git, github]
-estimatedTime: 10 minutos
 prerequisites: [foundations.linux-cli]
 learningObjectives:
   - Explicar cómo Git convierte cambios locales en una historia revisable.

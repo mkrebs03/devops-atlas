@@ -1,14 +1,41 @@
 ---
+/*
+  Foot of a reference page: where else this material connects. Cross-links come
+  from shared `tools` frontmatter, so they are derived from the content itself
+  rather than hand-maintained. Prev/next is a suggestion, never a gate.
+*/
 import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
-import LessonCompletion from '../LessonCompletion.astro';
 import MermaidRunner from './MermaidRunner.astro';
-import { getLearningStepByPath, learningSteps } from '../../data/learning-path.mjs';
+import RelatedLinks from '../RelatedLinks.astro';
+import { getNeighbours, getPageByPath, getLocalizedPath } from '../../data/curriculum.mjs';
+import { localeOf, t } from '../../data/ui-text.mjs';
+
 const { entry, lang } = Astro.locals.starlightRoute;
 const isSplash = entry.data.template === 'splash';
-const step = getLearningStepByPath(Astro.url.pathname);
-const locale = lang === 'en' ? 'en' : 'es';
-const next = step ? learningSteps.find((item) => item.order === step.order + 1) : undefined;
+const locale = localeOf(lang);
+const copy = t(locale);
+const page = getPageByPath(Astro.url.pathname);
+const { previous, next } = page ? getNeighbours(page) : {};
 ---
-{step && <LessonCompletion step={step} next={next} takeaways={entry.data.takeaways} locale={locale} />}
-{!isSplash && !step && <DefaultFooter />}
+
+{page && <RelatedLinks page={page} locale={locale} />}
+
+{page && (previous || next) && (
+  <nav class="atlas-seq" aria-label={copy.readingOrder}>
+    {previous ? (
+      <a class="atlas-seq__link atlas-seq__link--prev" href={getLocalizedPath(previous, locale)}>
+        <span>{copy.previous}</span>
+        <b>{previous.label[locale]}</b>
+      </a>
+    ) : <span />}
+    {next && (
+      <a class="atlas-seq__link atlas-seq__link--next" href={getLocalizedPath(next, locale)}>
+        <span>{copy.next}</span>
+        <b>{next.label[locale]}</b>
+      </a>
+    )}
+  </nav>
+)}
+
+{!isSplash && !page && <DefaultFooter />}
 {!isSplash && <MermaidRunner />}

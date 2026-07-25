@@ -5,7 +5,6 @@ type: concept
 level: beginner
 module: testing
 tools: [testing, ci]
-estimatedTime: 10 minutos
 prerequisites: [collaboration.github-flow]
 learningObjectives:
   - Explicar por qué las pruebas automáticas convierten la confianza en evidencia.
