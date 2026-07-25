@@ -270,6 +270,3 @@ starlight-toc a[aria-current='true']::before {
    the mobile menu still renders them, where a native control is the right one. */
 starlight-theme-select select,
 starlight-lang-select select { font-size: var(--atlas-size-xs); }
-
-/* Splash pages host the landing; it manages its own measure. */
-.atlas-tools { max-width: 58rem; }

@@ -77,8 +77,7 @@
   line-height: 1.65;
 }
 .sl-markdown-content p,
-.sl-markdown-content li,
-.sl-markdown-content .starlight-aside { max-width: var(--atlas-measure); }
+.sl-markdown-content li { max-width: var(--atlas-measure); }
 
 /* No rule under headings: hierarchy is carried by size, weight, and the space
    above them. A divider every two paragraphs reads as noise, not structure. */
