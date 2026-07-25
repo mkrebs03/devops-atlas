@@ -175,13 +175,6 @@
   --ec-uiFontFml: var(--atlas-font);
 }
 
-/* EC's own overflow-x:auto ships in a cascade layer; our unlayered rules win
-   the cascade regardless of specificity and were leaving it unset (visible),
-   letting wide lines push past the frame and scroll the whole page. */
-.expressive-code pre {
-  overflow-x: auto;
-}
-
 /* Plain fenced blocks that Expressive Code does not wrap. */
 .sl-markdown-content > pre {
   margin-block: var(--atlas-space-4);
