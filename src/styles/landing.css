@@ -1,5 +1,9 @@
 /* The landing: its own surface. Quiet ground, one coral, no shadows. */
 
+/* The landing is a cover, not a page of prose: it opts out of the reading
+   measure that page.css imposes on every other band, and sets its own frame. */
+.sl-markdown-content:has(> .landing) { max-width: none; }
+
 .landing {
   max-width: 64rem;
   margin-inline: auto;

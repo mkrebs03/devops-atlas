@@ -214,6 +214,20 @@ header.header {
 
 /* ---------- page frame --------------------------------------------------- */
 
+/* Past ~1900px there is more room than the layout needs, and Starlight splits
+   the surplus between the content pane and the table-of-contents rail: both
+   keep growing, the pane flushes its container against the rail, and the
+   reading column ends up with a wide dead gutter on the sidebar side and a
+   thin one on the other. Stop the pair growing at the width where the layout
+   already has its designed proportions — content plus rail, no surplus — and
+   centre it in what the sidebar leaves. Every gutter then stays equal. */
+@media (min-width: 72rem) {
+  .main-frame > .lg\:sl-flex {
+    max-width: calc(var(--sl-content-width) + var(--sl-sidebar-width));
+    margin-inline: auto;
+  }
+}
+
 .content-panel { border-top-color: var(--atlas-border); }
 .content-panel + .content-panel { border-top: var(--atlas-hairline) solid var(--atlas-border); }
 main { padding-bottom: var(--atlas-space-8); }

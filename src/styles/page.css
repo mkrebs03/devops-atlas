@@ -1,9 +1,15 @@
-/* Reading a page: title block, prose, code, tables, and the foot of the page. */
+/* Reading a page: title block, prose, code, tables, and the foot of the page.
+
+   One column, one pair of edges. Every band of the page — title, prose, code,
+   tables, diagrams, callouts, the foot — is capped at --atlas-measure and
+   centred, so nothing hangs left of anything else. Content too wide for the
+   measure scrolls inside its own box; it never widens the column, because a
+   column that grows around its widest object leaves the prose off-centre. */
 
 /* ---------- title block -------------------------------------------------- */
 
 .atlas-title {
-  max-width: 56rem;
+  max-width: var(--atlas-measure);
   margin-inline: auto;
   margin-bottom: var(--atlas-space-6);
 }
@@ -52,7 +58,6 @@
 
 .atlas-title__desc {
   margin: var(--atlas-space-3) 0 0;
-  max-width: var(--atlas-measure);
   color: var(--atlas-text-2);
   font-size: var(--atlas-size-lg);
   line-height: 1.5;
@@ -71,13 +76,11 @@
 /* ---------- prose -------------------------------------------------------- */
 
 .sl-markdown-content {
-  max-width: 56rem;
+  max-width: var(--atlas-measure);
   margin-inline: auto;
   font-size: var(--atlas-size-md);
   line-height: 1.65;
 }
-.sl-markdown-content p,
-.sl-markdown-content li { max-width: var(--atlas-measure); }
 
 /* No rule under headings: hierarchy is carried by size, weight, and the space
    above them. A divider every two paragraphs reads as noise, not structure. */
@@ -192,6 +195,25 @@
   line-height: 1.7;
 }
 
+/* ---------- diagrams ----------------------------------------------------- */
+
+/* MermaidRunner swaps the code block for this container once the SVG is ready.
+   Mermaid sizes the SVG from its own layout, which is wider than the measure
+   as soon as a flow has a few nodes; cap it and let it scroll from the same
+   left edge as the prose rather than sitting loose in the column. */
+.atlas-diagram {
+  margin-block: var(--atlas-space-4);
+  overflow-x: auto;
+}
+.atlas-diagram svg {
+  display: block;
+  max-width: 100%;
+  /* min-width beats max-width, so this is the floor: past it the diagram
+     scrolls rather than scaling its labels down to nothing on a phone. */
+  min-width: 32rem;
+  height: auto;
+}
+
 /* ---------- tables ------------------------------------------------------- */
 
 .sl-markdown-content table {
@@ -217,7 +239,7 @@
 /* ---------- foot of the page --------------------------------------------- */
 
 .atlas-related {
-  max-width: 56rem;
+  max-width: var(--atlas-measure);
   margin-inline: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
@@ -249,7 +271,7 @@
 .atlas-related__tools li { display: inline-flex; margin-inline-end: var(--atlas-space-3); }
 
 .atlas-seq {
-  max-width: 56rem;
+  max-width: var(--atlas-measure);
   margin-inline: auto;
   display: flex;
   justify-content: space-between;
