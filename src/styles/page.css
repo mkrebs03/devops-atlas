@@ -162,8 +162,12 @@
   --ec-frm-edBg: var(--atlas-code-bg);
   --ec-frm-trmBg: var(--atlas-code-bg);
   --ec-frm-trmTtbBg: var(--atlas-code-bg);
-  --ec-frm-trmTtbFg: var(--atlas-text-3);
+  /* The box is dark in both themes, so everything that sits on it is keyed to the
+     code ink. A theme token would invert against the box under light. */
+  --ec-frm-trmTtbFg: #D8D6C8A6;
   --ec-frm-trmTtbBrdBtmCol: var(--atlas-border);
+  --ec-sbThumbCol: #D8D6C82E;
+  --ec-sbThumbHoverCol: #D8D6C866;
   --ec-frm-edTabBarBg: var(--atlas-code-bg);
   --ec-frm-edTabBarBrdBtmCol: var(--atlas-border);
   --ec-frm-edActTabBg: var(--atlas-code-bg);
