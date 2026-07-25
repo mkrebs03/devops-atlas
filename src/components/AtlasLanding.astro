@@ -20,33 +20,30 @@ const practiceCount = pages.filter((page) => page.kind === 'practice').length;
 const words = en
   ? {
       display: ['Learn DevOps', 'by reading how it', 'actually behaves.'],
-      lede: 'A bilingual reference for developers moving into DevOps: concepts explained to build a mental model, tools documented as they behave, and walkthroughs you run on your own machine. No account, no progress bars, no claims it cannot back.',
+      lede: 'A DevOps reference for developers who already code: concepts explained to build a mental model, tools documented as they behave, and walkthroughs you run on your own machine.',
       start: 'Start with Foundations',
       browse: 'Browse tools A–Z',
       whatInside: 'What is inside',
       sample: 'What a page looks like',
       sampleLede: 'Pages separate the boundaries a request crosses, then show the evidence that tells them apart — real commands, real output.',
       sampleCaption: 'From Foundations · Essential networking',
-      pairs: 'bilingual page pairs',
-      openSource: 'Free and open. Spanish and English are peers, and the build refuses to ship one without the other.',
+      openSource: 'Free and open. Every page exists in Spanish and English.',
     }
   : {
       display: ['Aprende DevOps', 'leyendo cómo se', 'comporta de verdad.'],
-      lede: 'Referencia bilingüe para quien ya programa y quiere entrar a DevOps: conceptos explicados para construir un modelo mental, herramientas documentadas como se comportan y prácticas que ejecutas en tu propia máquina. Sin cuenta, sin barras de progreso, sin promesas que no puede sostener.',
+      lede: 'Referencia de DevOps para quien ya programa: conceptos explicados para construir un modelo mental, herramientas documentadas como se comportan y prácticas que ejecutas en tu propia máquina.',
       start: 'Empezar por Fundamentos',
       browse: 'Ver herramientas A–Z',
       whatInside: 'Qué hay dentro',
       sample: 'Cómo se ve una página',
       sampleLede: 'Las páginas separan las fronteras que atraviesa una petición y muestran la evidencia que las distingue: comandos reales, salida real.',
       sampleCaption: 'De Fundamentos · Redes esenciales',
-      pairs: 'pares bilingües',
-      openSource: 'Libre y abierto. Español e inglés son pares: la compilación se niega a publicar uno sin el otro.',
+      openSource: 'Libre y abierto. Cada página existe en español y en inglés.',
     };
 ---
 
 <div class="landing">
   <section class="landing__hero">
-    <p class="landing__eyebrow">{copy.noAccount}</p>
     <h1 class="landing__display">
       {words.display.map((line) => <span>{line}</span>)}
     </h1>
@@ -59,7 +56,6 @@ const words = en
       <div><dt>{modules.length}</dt><dd>{copy.modules.toLowerCase()}</dd></div>
       <div><dt>{pages.length}</dt><dd>{copy.pages}</dd></div>
       <div><dt>{practiceCount}</dt><dd>{en ? 'walkthroughs' : 'prácticas'}</dd></div>
-      <div><dt>20</dt><dd>{words.pairs}</dd></div>
     </dl>
   </section>
 
