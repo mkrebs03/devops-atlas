@@ -41,6 +41,6 @@ flowchart LR
 Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en porciones pequeñas, y puede revertir en minutos.
 :::
 
-## Resultado esperado
+## Qué puedes hacer con esto
 
-Al terminar podrás describir un pipeline de entrega, elegir una estrategia de despliegue según el riesgo, saber qué mirar en los minutos siguientes, y practicar una promoción con rollback.
+Con estas páginas puedes describir un pipeline de entrega, elegir una estrategia de despliegue según el riesgo, saber qué mirar en los minutos siguientes y practicar una promoción con rollback.

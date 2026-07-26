@@ -66,6 +66,8 @@ Peor: hay contenido que **depende** de lo que falta.
 
 **Arreglo:** subir esa idea a la landing y a `que-es-devops`, y que cada índice de módulo abra con una línea de "vienes de X, esto te prepara para Y".
 
+> **Hecho.** Los cinco índices abren con **Dónde estás**: qué te dejó el módulo anterior y qué añade este. Fundamentos dice que es el punto de partida y que todo lo demás da por supuesto saber mirar una máquina; Pruebas conserva la frase original —"en Fundamentos aprendiste a observar; en Colaboración, a revisar; en Entrega, a empaquetar"— ascendida a esa misma posición. La idea ya estaba en la landing y en qué es DevOps (A1 y A2).
+
 ---
 
 ## B · La página de Linux es sobre la terminal, no sobre Linux
@@ -127,7 +129,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 
 - ~~`delivery/docker.md:85` y `:99` — **Caddy** aparece dos veces, sin presentación.~~ **Hecho:** ahora la sección habla de "un proxy inverso" y enlaza a `deployment/proxy`, donde Caddy se presenta junto a nginx y Traefik. La red del ejemplo pasó de `caddy-net` a `edge`.
 - ~~`delivery/docker.md:88` — bloque YAML de **Docker Compose** sin una sola línea que introduzca qué es Compose.~~ **Hecho:** una frase lo presenta como la forma de describir varios contenedores y su red en lugar de encadenar `docker run`.
-- `delivery/index.md:39` y `delivery/lab-container-pipeline.md:91` — **VPS** mencionada dos veces como si fuera el destino conocido del despliegue. Es la arquitectura del autor, no un concepto presentado.
+- ~~`delivery/index.md:39` y `delivery/lab-container-pipeline.md:91` — **VPS** mencionada dos veces como si fuera el destino conocido del despliegue.~~ **Hecho:** las dos apariciones dicen ahora "el servidor", que es el concepto que la frase necesitaba. VPS sobrevive solo en `foundations/linux`, donde sí está presentada: es una de las cuatro formas de conseguir un entorno Linux.
 
 **Arreglo:** o se generalizan (proxy inverso, servidor), o se introducen de verdad.
 
@@ -136,8 +138,9 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 ## E · Otros huecos de concepto por módulo
 
 **Fundamentos · redes** (`foundations/networking.md`)
-- ~~No se explica qué es una IP.~~ ~~"Puerto" se usa sin definirse realmente.~~ Hechos, junto con **socket** y **firewall** (ver C). Sigue sin cubrirse la diferencia entre dirección local y pública, ni gateway/subred.
-- Falta proxy inverso y balanceador, que después hacen falta en Entrega y Despliegue (ver A3).
+- ~~No se explica qué es una IP.~~ ~~"Puerto" se usa sin definirse realmente.~~ Hechos, junto con **socket** y **firewall** (ver C).
+- ~~Sigue sin cubrirse la diferencia entre dirección local y pública, ni gateway/subred.~~ **Hecho.** Sección nueva **No toda dirección se alcanza desde fuera**, entre DNS y conexión: los rangos privados con dónde aparece cada uno —incluida la red por defecto de Docker—, la máscara de subred como la frontera que decide si el destino se alcanza directo o por el **gateway**, `ip addr` / `ip route` para verlo, y las dos confusiones que explica: por qué un servicio en `192.168.1.40:3000` no es alcanzable desde internet, y por qué "escucha en el puerto 3000" no significa nada sin decir en qué red. Tres entradas nuevas de glosario: dirección privada, gateway, subred.
+- ~~Falta proxy inverso y balanceador, que después hacen falta en Entrega y Despliegue (ver A3).~~ **Resuelto** en `deployment/proxy`.
 
 **Colaboración · Git** (`collaboration/git-model.md`) — **hecho.** La página abre ahora con "Por qué Git": qué responde un control de versiones, las dos decisiones que lo impusieron (distribuido y ramas baratas, que es lo que hace posible el flujo del resto del módulo), Git frente a GitHub como herramienta frente a plataforma, y qué es un repositorio con `init` y `clone`. El área de preparación entró antes, con las definiciones (ver C).
 
@@ -158,7 +161,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 
 3. ~~**Kubernetes figura como herramienta del Atlas sin contenido.**~~ **Arreglado.** `deployment/strategies.md` declaraba `tools: [deployment, kubernetes]`, así que el A–Z listaba Kubernetes apuntando a una página que solo lo menciona en un enlace externo — la única afirmación del sitio que no se podía respaldar. Ahora declara `[deployment, nginx]`, que es lo que la página realmente usa.
 
-4. **Tensión curso/wiki en la redacción.** Cada índice cierra con "Resultado esperado · Al terminar podrás…" y el frontmatter usa `learningObjectives`. Posicionamiento decidido (`PRODUCT.md:21`) es wiki de referencia, no curso. La página lee como curso y navega como wiki; parte de la confusión de propósito que notaste sale de ahí.
+4. ~~**Tensión curso/wiki en la redacción.**~~ **Arreglado.** Cada índice cerraba con "Resultado esperado · Al terminar podrás…", que promete una línea de meta que en un wiki no existe: nadie "termina" una referencia. Los cinco cierran ahora con **Qué puedes hacer con esto · Con estas páginas puedes…** en presente, que dice lo mismo sin suponer un recorrido completo. `learningObjectives` se queda: no se le muestra nunca al lector —es metadata interna que `scripts/validate-content.mjs` usa para exigir paridad ES/EN—, y renombrarlo tocaría 44 archivos, el esquema, el validador y tres documentos para no cambiar nada de lo que se lee.
 
 5. ~~**Grafo de prerrequisitos incoherente.**~~ **Arreglado.** `testing/pyramid.md` declaraba un prerrequisito de Fundamentos que la página no necesita: entender la pirámide de pruebas no exige saber shell. Ahora no declara ninguno, que es la verdad, y los prerrequisitos que sí se muestran al lector son reales.
 
@@ -179,5 +182,9 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 5. ~~**A3 (segunda mitad)** — proxy inverso / balanceo y observabilidad.~~ **Hecho.**
 6. ~~**D + F** — limpiar Caddy/VPS/Compose, unificar nomenclatura, quitar `kubernetes` del frontmatter, alinear prerrequisitos.~~ **Hecho.**
 7. ~~**E** — "por qué Git", "por qué contenedores", IP/puertos, ángulo DevOps de Pruebas.~~ **Hecho.**
+8. ~~**A4** — la columna vertebral en cada índice de módulo.~~ **Hecho.**
+9. ~~**E (resto) + F4** — direccionamiento privado/gateway en redes, y quitar la voz de curso de los cierres de índice.~~ **Hecho.**
+
+Con esto no queda ningún hallazgo abierto de la auditoría.
 
 Todo cambio se replica en `src/content/docs/en/`; `scripts/validate-content.mjs` exige paridad de objetivos y takeaways.

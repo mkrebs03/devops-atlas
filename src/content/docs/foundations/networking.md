@@ -8,10 +8,12 @@ tools: [dns, http, tls, curl, ss]
 prerequisites: [foundations.terminal]
 learningObjectives:
   - Seguir una petición desde DNS hasta la respuesta HTTP, incluido TLS.
+  - Distinguir una dirección privada de una pública y saber por dónde sale el tráfico.
   - Distinguir fallos de resolución, conexión, puerto y aplicación.
   - Leer un código de estado y las cabeceras como parte del contrato HTTP.
 takeaways:
   - Cada frontera de red ofrece una señal concreta que puedes comprobar.
+  - Una dirección privada solo significa algo dentro de su red; el gateway es la salida.
   - DNS, TCP, TLS y HTTP responden preguntas diferentes dentro de la misma ruta.
   - Un código de estado dice tanto como el cuerpo de la respuesta.
 ---
@@ -43,6 +45,26 @@ cat /etc/hosts                # ¿hay un override local?
 ```
 
 Si el nombre no resuelve, depurar la aplicación es prematuro: todavía no sabes a qué máquina le estás hablando.
+
+## No toda dirección se alcanza desde fuera
+
+Una IP resuelta no siempre es una IP alcanzable. Buena parte de las direcciones que verás a diario son **privadas**: válidas dentro de una red concreta y sin significado fuera de ella.
+
+| Rango | Dónde aparece |
+| --- | --- |
+| `10.0.0.0/8` | redes de empresa y nubes privadas |
+| `172.16.0.0/12` | redes de Docker por defecto |
+| `192.168.0.0/16` | routers domésticos y de oficina |
+| `127.0.0.0/8` | la propia máquina (`localhost`) |
+
+El sufijo `/24` es la **máscara de subred**: dice cuántos bits iniciales de la dirección identifican a la red y cuántos quedan para las máquinas de dentro. `192.168.1.40/24` significa "todo lo que empiece por `192.168.1.` está en mi red". Esa frontera decide el siguiente salto: si el destino cae dentro, la máquina le habla directo; si cae fuera, entrega el paquete al **gateway** —la puerta de salida hacia el resto de las redes—, que es a donde apunta la ruta por defecto.
+
+```bash
+ip addr     # ¿qué direcciones y máscaras tiene esta máquina?
+ip route    # ¿cuál es el gateway por defecto?
+```
+
+De ahí salen dos confusiones frecuentes. Un servicio que responde en `192.168.1.40:3000` desde tu portátil no es alcanzable desde internet: esa dirección no existe fuera de tu red, y lo que el mundo ve es la IP pública del router, que traduce entre ambas. Y un contenedor tiene su propia dirección privada dentro de la red de Docker, así que "escucha en el puerto 3000" solo significa algo si dices en qué red escucha.
 
 ## Conexión: puertos, sockets y TLS
 

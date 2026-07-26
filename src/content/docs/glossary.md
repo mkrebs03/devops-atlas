@@ -31,6 +31,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Contenedor** — Un proceso creado a partir de una imagen, con su propio entorno de ejecución. Es desechable; sus datos no deberían serlo. → [Docker sin magia](/delivery/docker/)
 
+**Dirección privada** — Una IP válida solo dentro de una red concreta —`10.x`, `172.16–31.x`, `192.168.x`— y sin significado fuera de ella. → [Redes esenciales](/foundations/networking/)
+
 **Distribución** — Un sistema Linux completo: el núcleo empaquetado con programas base, gestor de paquetes y política de versiones. Debian, Ubuntu, Alpine. → [Linux](/foundations/linux/)
 
 **DNS** — El sistema que traduce un nombre en direcciones. No transporta tu petición; solo dice a dónde ir. → [Redes esenciales](/foundations/networking/)
@@ -38,6 +40,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 **Entorno** — Una instalación completa del sistema con su propia configuración y sus propios datos: desarrollo, staging, producción. → [Entrega](/delivery/)
 
 **Firewall** — Un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Explica por qué una conexión se queda colgada en vez de ser rechazada. → [Redes esenciales](/foundations/networking/)
+
+**Gateway** — La puerta de salida de una red: a donde una máquina entrega los paquetes cuyo destino cae fuera de su subred. → [Redes esenciales](/foundations/networking/)
 
 **Grupo** — Una identidad compartida que permite a varios usuarios acceder a las mismas cosas. La terna del medio en los permisos de un archivo. → [Linux](/foundations/linux/)
 
@@ -92,6 +96,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 **SHA** — La huella criptográfica del contenido. Como identificador de imagen, garantiza que siempre son exactamente los mismos bytes. → [Docker sin magia](/delivery/docker/)
 
 **Socket** — La pareja IP + puerto: la dirección real a la que se conecta un cliente. → [Redes esenciales](/foundations/networking/)
+
+**Subred** — El tramo de direcciones que cuentan como "mi red". La máscara (`/24`) marca dónde termina, y con eso si un destino se alcanza directo o por el gateway. → [Redes esenciales](/foundations/networking/)
 
 **TLS** — La capa que cifra la conexión y prueba que el servidor es quien dice ser. La `s` de HTTPS. → [Redes esenciales](/foundations/networking/)
 

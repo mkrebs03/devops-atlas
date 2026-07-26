@@ -8,10 +8,12 @@ tools: [dns, http, tls, curl, ss]
 prerequisites: [foundations.terminal]
 learningObjectives:
   - Follow a request from DNS resolution to the HTTP response, including TLS.
+  - Tell a private address from a public one and know where traffic leaves through.
   - Distinguish failures in resolution, connection, port, and application behavior.
   - Read a status code and headers as part of the HTTP contract.
 takeaways:
   - Each network boundary provides a concrete signal you can check.
+  - A private address only means something inside its own network; the gateway is the way out.
   - DNS, TCP, TLS, and HTTP answer different questions along the same route.
   - A status code says as much as the response body.
 ---
@@ -43,6 +45,26 @@ cat /etc/hosts                # is there a local override?
 ```
 
 If the name does not resolve, debugging the application is premature: you do not yet know which machine you are talking to.
+
+## Not every address is reachable from outside
+
+A resolved IP is not always a reachable IP. Many of the addresses you will see day to day are **private**: valid inside one particular network and meaningless outside it.
+
+| Range | Where it shows up |
+| --- | --- |
+| `10.0.0.0/8` | company networks and private clouds |
+| `172.16.0.0/12` | default Docker networks |
+| `192.168.0.0/16` | home and office routers |
+| `127.0.0.0/8` | the machine itself (`localhost`) |
+
+The `/24` suffix is the **subnet mask**: it says how many leading bits of the address identify the network and how many are left for the machines inside it. `192.168.1.40/24` means "anything starting with `192.168.1.` is on my network". That boundary decides the next hop: if the destination falls inside, the machine talks to it directly; if it falls outside, it hands the packet to the **gateway** —the way out towards every other network— which is what the default route points at.
+
+```bash
+ip addr     # which addresses and masks does this machine have?
+ip route    # which is the default gateway?
+```
+
+Two common confusions come from this. A service answering on `192.168.1.40:3000` from your laptop is not reachable from the internet: that address does not exist outside your network, and what the world sees is the router's public IP, which translates between the two. And a container has its own private address inside the Docker network, so "it listens on port 3000" only means something once you say on which network it listens.
 
 ## Connection: ports, sockets and TLS
 

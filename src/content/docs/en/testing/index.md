@@ -41,6 +41,6 @@ flowchart LR
 If a test always passes, even when you break the code, it is not testing what you think. A good test fails when the behaviour changes.
 :::
 
-## Expected outcome
+## What you can do with this
 
-You will be able to distinguish test levels, decide what to automate in CI, and write a first test that fails for the right reason.
+These pages let you distinguish test levels, decide what to automate in CI, and write a first test that fails for the right reason.

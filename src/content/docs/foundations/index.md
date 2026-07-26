@@ -48,6 +48,6 @@ flowchart LR
 Recorrer el sistema de afuera hacia adentro —DNS → conexión → puerto → proceso → archivo → configuración— reduce la tentación de cambiar cinco cosas a la vez.
 :::
 
-## Resultado esperado
+## Qué puedes hacer con esto
 
-Al terminar podrás describir el recorrido de una petición, encontrar un proceso y verificar una conexión con herramientas locales. Ese vocabulario será la base de Git, Docker y CI/CD.
+Con estas páginas puedes describir el recorrido de una petición, encontrar un proceso y verificar una conexión con herramientas locales. Ese vocabulario es la base de Git, Docker y CI/CD.

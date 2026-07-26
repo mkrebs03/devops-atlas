@@ -48,6 +48,6 @@ flowchart LR
 Walking the system from the outside in —DNS → connection → port → process → file → configuration— reduces the temptation to change five things at once.
 :::
 
-## Expected outcome
+## What you can do with this
 
-You will be able to describe a request path, find a process and verify a connection using local tools. That vocabulary becomes the foundation for Git, Docker and CI/CD.
+These pages let you describe a request path, find a process and verify a connection using local tools. That vocabulary is the foundation for Git, Docker and CI/CD.

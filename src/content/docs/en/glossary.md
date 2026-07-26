@@ -35,6 +35,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Firewall** — A filter that decides which connections are accepted before they reach the process. It explains why a connection hangs instead of being refused. → [Essential networking](/en/foundations/networking/)
 
+**Gateway** — A network's way out: where a machine hands packets whose destination falls outside its own subnet. → [Essential networking](/en/foundations/networking/)
+
 **Group** — A shared identity that lets several users reach the same things. The middle triplet in a file's permissions. → [Linux](/en/foundations/linux/)
 
 **Health check** — The periodic check a balancer makes to know whether an instance can serve, and to pull it out of rotation if it cannot. → [Reverse proxy and load balancing](/en/deployment/proxy/)
@@ -65,6 +67,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Port** — The number that decides which of a machine's programs each connection enters. → [Essential networking](/en/foundations/networking/)
 
+**Private address** — An IP valid only inside one particular network —`10.x`, `172.16–31.x`, `192.168.x`— and meaningless outside it. → [Essential networking](/en/foundations/networking/)
+
 **Production** — The environment where the real users are. The only one where a failure happens to somebody. → [Delivery](/en/delivery/)
 
 **Protected branch** — A branch with rules: require review, require CI to pass, forbid direct pushes. It turns the team's agreements into something enforced. → [GitHub Flow](/en/collaboration/github-flow/)
@@ -92,6 +96,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 **Socket** — The IP + port pair: the real address a client connects to. → [Essential networking](/en/foundations/networking/)
 
 **Staging area** — The intermediate step between your files and the commit, where `git add` places what you actually want to keep. It is why there are two different diffs. → [The Git model](/en/collaboration/git-model/)
+
+**Subnet** — The stretch of addresses that count as "my network". The mask (`/24`) marks where it ends, and with it whether a destination is reached directly or through the gateway. → [Essential networking](/en/foundations/networking/)
 
 **TLS** — The layer that encrypts the connection and proves the server is who it claims to be. The `s` in HTTPS. → [Essential networking](/en/foundations/networking/)
 

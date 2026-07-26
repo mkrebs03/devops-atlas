@@ -47,6 +47,6 @@ Docker hace visible el paquete. GitHub Actions hace repetible el recorrido. El f
 El servidor no debería ser el primer lugar donde descubres que la aplicación no compila. El servidor recibe artefactos que ya atravesaron controles baratos y repetibles.
 :::
 
-## Resultado esperado
+## Qué puedes hacer con esto
 
-Al terminar podrás construir una imagen local, describir las etapas de una pipeline y distinguir entre código fuente, artefacto y entorno de ejecución.
+Con estas páginas puedes construir una imagen local, describir las etapas de una pipeline y distinguir entre código fuente, artefacto y entorno de ejecución.

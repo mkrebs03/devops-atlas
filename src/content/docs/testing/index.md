@@ -41,6 +41,6 @@ flowchart LR
 Si una prueba pasa siempre, aunque rompas el código, no está probando lo que crees. Una buena prueba falla cuando el comportamiento cambia.
 :::
 
-## Resultado esperado
+## Qué puedes hacer con esto
 
-Al terminar podrás distinguir los niveles de prueba, decidir qué automatizar en CI y escribir una primera prueba que falle por la razón correcta.
+Con estas páginas puedes distinguir los niveles de prueba, decidir qué automatizar en CI y escribir una primera prueba que falle por la razón correcta.

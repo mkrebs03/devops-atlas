@@ -42,6 +42,6 @@ flowchart LR
 Un buen historial no registra cada movimiento del teclado. Registra decisiones pequeñas, coherentes y reversibles.
 :::
 
-## Resultado esperado
+## Qué puedes hacer con esto
 
-Al terminar podrás crear una rama con intención, mantenerla actualizada, explicar un diff y abrir un cambio que otra persona pueda revisar sin reconstruir tu contexto desde cero.
+Con estas páginas puedes crear una rama con intención, mantenerla actualizada, explicar un diff y abrir un cambio que otra persona pueda revisar sin reconstruir tu contexto desde cero.

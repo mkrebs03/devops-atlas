@@ -42,6 +42,6 @@ flowchart LR
 A useful history does not record every keystroke. It records decisions that are small, coherent and reversible.
 :::
 
-## Expected outcome
+## What you can do with this
 
-You will be able to create an intentional branch, keep it current, explain a diff and open a change another person can review without rebuilding your context from scratch.
+These pages let you create an intentional branch, keep it current, explain a diff and open a change another person can review without rebuilding your context from scratch.

@@ -47,6 +47,6 @@ Docker makes the package visible. GitHub Actions makes the route repeatable. Fee
 The server should not be the first place where you discover that the application does not build. The server receives artifacts that already passed cheap, repeatable controls.
 :::
 
-## Expected outcome
+## What you can do with this
 
-You will be able to build a local image, describe pipeline stages and distinguish source code, artifact and runtime environment.
+These pages let you build a local image, describe pipeline stages and distinguish source code, artifact and runtime environment.

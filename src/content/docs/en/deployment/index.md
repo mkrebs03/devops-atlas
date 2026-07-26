@@ -41,6 +41,6 @@ flowchart LR
 A mature team does not pray before a yearly deploy. It deploys often, in small portions, and can roll back in minutes.
 :::
 
-## Expected outcome
+## What you can do with this
 
-You will be able to describe a delivery pipeline, choose a deployment strategy by risk, know what to watch in the minutes that follow, and practise a promotion with rollback.
+These pages let you describe a delivery pipeline, choose a deployment strategy by risk, know what to watch in the minutes that follow, and practise a promotion with rollback.
