@@ -130,7 +130,9 @@
   border-radius: var(--atlas-radius);
   color: var(--atlas-text-3);
   opacity: 0;
-  transition: opacity 0.12s ease, color 0.12s ease, background-color 0.12s ease;
+  transition-property: opacity, color, background-color;
+  transition-duration: var(--atlas-dur-fast);
+  transition-timing-function: var(--atlas-ease);
 }
 .sl-heading-wrapper .sl-anchor-icon { display: inline-flex; }
 .sl-heading-wrapper .sl-anchor-icon svg {

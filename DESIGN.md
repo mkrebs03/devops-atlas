@@ -98,10 +98,37 @@ itself never scrolls sideways.
 - Code blocks are Expressive Code, themed through its own `--ec-*` variables so
   the frame, its terminal title bar, and the code body stay a single object.
 
+## Motion
+
+Movement covers the seam between two states and does nothing else. It is there
+when a change would otherwise read as a glitch — the sidebar arriving on a
+phone, the search panel opening, the current item moving down the table of
+contents as you scroll, the theme icon changing which state it offers — and it
+is absent everywhere else. Nothing enters on scroll, nothing parallaxes, nothing
+moves to draw attention to itself.
+
+- Three durations and one curve, all in `src/styles/tokens.css`: `120ms` for an
+  item in a list, `150ms` for a control, `220ms` for a surface that arrives
+  whole, on a decelerated curve that answers immediately and settles.
+- Only colour, opacity, and small translations move. There is no elevation to
+  animate and no blur to fade — the search backdrop dims the page rather than
+  blurring it, for the same reason the header does not.
+- Nothing travels further than the edge it belongs to: the mobile sidebar comes
+  in from its own edge by a fraction of its width, the search panel by half a
+  line.
+- In-page jumps scroll rather than teleport, so a heading's position stays
+  legible relative to the one you left.
+- Keyboard focus draws a coral ring offset from the control. It is the one
+  place the accent marks something no other cue is carrying.
+- `prefers-reduced-motion` is honoured in the token layer: the durations
+  collapse and every animation on the page, including those that arrive with
+  Starlight, Expressive Code, and Pagefind, becomes instant. No stylesheet
+  downstream repeats that rule.
+
 ## Where the identity lives
 
-`src/styles/tokens.css` holds every colour, size, and rhythm decision and also
-feeds Starlight's own `--sl-color-*` variables. `shell.css` (chrome),
+`src/styles/tokens.css` holds every colour, size, rhythm, and timing decision
+and also feeds Starlight's own `--sl-color-*` variables. `shell.css` (chrome),
 `page.css` (reading surface and A–Z), and `landing.css` (landing only) consume
 those tokens and add no raw values of their own. Changing the world means
 rewriting those files — not the components or the content.

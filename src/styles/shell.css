@@ -3,6 +3,12 @@
   with borders at the edge of visibility; nothing is a raised panel.
 */
 
+/* Every in-page jump — a table-of-contents item, a heading anchor, a letter in
+   the A–Z — carries the reader instead of teleporting them, so they keep the
+   thread of where the new heading sits relative to the old one. Starlight's
+   scroll-padding-top already lands the target clear of the fixed header. */
+html { scroll-behavior: smooth; }
+
 body {
   font-family: var(--atlas-font);
   background: var(--atlas-bg);
@@ -10,6 +16,19 @@ body {
   font-size: var(--atlas-size-md);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* Keyboard focus is the one place the accent marks something the page cannot
+   also say with colour alone, so it gets the coral and a gap of its own rather
+   than the browser's default ring, which all but disappears against the dark
+   ground. It is also the one thing here that never animates: a ring that fades
+   in reads as the page deciding whether it heard the key. `:where()` keeps this
+   at zero specificity, so anywhere a control already states its own focus
+   treatment, that one still wins. */
+:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--atlas-accent);
+  outline-offset: 2px;
+  border-radius: var(--atlas-radius);
 }
 
 /* ---------- header ------------------------------------------------------- */
@@ -64,6 +83,49 @@ header.header {
   color: var(--atlas-text-3);
 }
 
+/* The search panel is a native <dialog>, so it goes from `display: none` to
+   modal in one frame unless `display` and `overlay` are handed to the
+   transition; `@starting-style` supplies the frame it opens from. Where the
+   browser has neither, the panel simply appears, as it does today.
+
+   Starlight blurs the backdrop. The ground behind stays legible instead: this
+   world carries itself on colour, and the header already turns that same blur
+   off for the same reason. */
+site-search dialog {
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  transition-property: opacity, transform, overlay, display;
+  transition-duration: var(--atlas-dur-slow);
+  transition-timing-function: var(--atlas-ease);
+  transition-behavior: allow-discrete;
+}
+site-search dialog[open] {
+  opacity: 1;
+  transform: none;
+}
+@starting-style {
+  site-search dialog[open] {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+}
+
+site-search dialog::backdrop {
+  opacity: 0;
+  /* blur(0), not `none`: the minifier prunes a filter set back to its initial
+     value, and Starlight's blur would come through underneath it. */
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  transition-property: opacity, overlay, display;
+  transition-duration: var(--atlas-dur-slow);
+  transition-timing-function: var(--atlas-ease);
+  transition-behavior: allow-discrete;
+}
+site-search dialog[open]::backdrop { opacity: 1; }
+@starting-style {
+  site-search dialog[open]::backdrop { opacity: 0; }
+}
+
 .atlas-header__end {
   display: flex;
   align-items: center;
@@ -75,7 +137,7 @@ header.header {
   color: var(--atlas-text-3);
   text-decoration: none;
   white-space: nowrap;
-  transition: color 0.15s ease;
+  transition: color var(--atlas-dur-base) var(--atlas-ease);
 }
 .atlas-header__link:hover { color: var(--atlas-text); }
 
@@ -96,7 +158,9 @@ header.header {
   letter-spacing: 0.04em;
   color: var(--atlas-text-3);
   text-decoration: none;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition-property: background-color, color;
+  transition-duration: var(--atlas-dur-base);
+  transition-timing-function: var(--atlas-ease);
 }
 .atlas-langs a:hover { color: var(--atlas-text); }
 .atlas-langs a[aria-current] {
@@ -116,17 +180,31 @@ header.header {
   background: var(--atlas-surface);
   color: var(--atlas-text-2);
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition-property: background-color, color, border-color;
+  transition-duration: var(--atlas-dur-base);
+  transition-timing-function: var(--atlas-ease);
 }
 .atlas-theme:hover {
   background: var(--atlas-surface-3);
   color: var(--atlas-text);
   border-color: var(--atlas-border-strong);
 }
-.atlas-theme__icon { grid-area: 1 / 1; display: grid; place-items: center; }
+/* Both icons sit in the same grid cell, so the one that is leaving and the one
+   that is arriving cross rather than swap: the button reads as one control
+   changing state, not as two icons taking turns. Hidden by opacity, not
+   `display`, or there is nothing to cross — both are aria-hidden either way. */
+.atlas-theme__icon {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  transition: opacity var(--atlas-dur-base) var(--atlas-ease);
+}
 .atlas-theme__icon svg { width: 1rem; height: 1rem; }
 :root[data-theme='dark'] .atlas-theme__icon--moon,
-:root[data-theme='light'] .atlas-theme__icon--sun { display: none; }
+:root[data-theme='light'] .atlas-theme__icon--sun {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .sr-only {
   position: absolute;
@@ -148,6 +226,27 @@ header.header {
 .sidebar-pane {
   border-inline-end: var(--atlas-hairline) solid var(--atlas-border);
   background: var(--atlas-bg);
+}
+
+/* Below the desktop breakpoint the sidebar is a panel the reader summons, and
+   Starlight flips it in on `visibility` alone. It comes in from the edge it
+   lives on instead, so it reads as the same rail arriving rather than a new
+   surface. The pane is already fixed, so nothing around it moves; the travel
+   is a fraction of its width, in keeping with a world of hairlines. */
+@media (max-width: 49.9999rem) {
+  .sidebar-pane {
+    opacity: 0;
+    transform: translateX(-0.75rem);
+    /* `visibility` rides along so Starlight's own flip to `hidden` waits for the
+       fade instead of cutting it off halfway. */
+    transition-property: opacity, transform, visibility;
+    transition-duration: var(--atlas-dur-slow);
+    transition-timing-function: var(--atlas-ease);
+  }
+  [data-mobile-menu-expanded] .sidebar-pane {
+    opacity: 1;
+    transform: none;
+  }
 }
 .sidebar-content {
   padding: var(--atlas-space-5) var(--atlas-space-4);
@@ -197,7 +296,9 @@ header.header {
   border-radius: var(--atlas-radius);
   color: var(--atlas-text-2);
   padding: 0.35rem var(--atlas-space-3);
-  transition: background-color 0.12s ease, color 0.12s ease;
+  transition-property: background-color, color;
+  transition-duration: var(--atlas-dur-fast);
+  transition-timing-function: var(--atlas-ease);
 }
 .sidebar-content a:hover { background: var(--atlas-surface-2); color: var(--atlas-text); }
 
@@ -273,14 +374,21 @@ starlight-toc a,
   color: var(--atlas-text-3);
   padding: 0.3rem var(--atlas-space-2);
   border-radius: var(--atlas-radius);
-  transition: color 0.12s ease, background-color 0.12s ease;
+  transition-property: color, background-color;
+  transition-duration: var(--atlas-dur-fast);
+  transition-timing-function: var(--atlas-ease);
 }
 starlight-toc a:hover,
 .atlas-toc a:hover { color: var(--atlas-text); background: var(--atlas-surface-2); }
 starlight-toc a[aria-current='true'],
 .atlas-toc a[aria-current='true'] { color: var(--atlas-text); font-weight: 600; }
-starlight-toc a[aria-current='true']::before,
-.atlas-toc a[aria-current='true']::before {
+
+/* The marker is drawn on every item and revealed on the current one, rather
+   than generated only where it shows: a pseudo-element that does not exist
+   yet has nothing to transition from, and this one moves on every scroll.
+   Drawn, it grows out of the rail into place as the reading position passes. */
+starlight-toc a::before,
+.atlas-toc a::before {
   content: '';
   position: absolute;
   inset-block: 0.3rem;
@@ -288,6 +396,16 @@ starlight-toc a[aria-current='true']::before,
   width: 2px;
   border-radius: 2px;
   background: var(--atlas-coral);
+  opacity: 0;
+  transform: scaleY(0.35);
+  transition-property: opacity, transform;
+  transition-duration: var(--atlas-dur-fast);
+  transition-timing-function: var(--atlas-ease);
+}
+starlight-toc a[aria-current='true']::before,
+.atlas-toc a[aria-current='true']::before {
+  opacity: 1;
+  transform: none;
 }
 
 /* Starlight reserves a panel for the page title; the landing draws its own,

@@ -5,6 +5,8 @@
   (docs.zen-browser.app). Its character is colour, not shape: a near-black
   ground, warm bone text instead of white, borders at the edge of visibility,
   one coral accent spent sparingly, 6px radii, and no shadows anywhere.
+  Movement belongs to the same restraint: it covers the seam between two
+  states and is absent everywhere else.
 
   Dark is the default and the designed state. The light theme is a real
   counterpart — warm paper, same coral — not an inverted afterthought.
@@ -51,6 +53,18 @@
   --atlas-radius-lg: 10px;
   --atlas-hairline: 1px;
   --atlas-rule: 1px;
+
+  /* --- motion -------------------------------------------------------------- */
+  /* Movement here covers the seam between two states; it never announces
+     itself. Three durations, keyed to how much of the screen changes hands:
+     an item in a list, a control, a surface that arrives whole. */
+  --atlas-dur-fast: 120ms;   /* sidebar and ToC items, the heading anchor */
+  --atlas-dur-base: 150ms;   /* controls, cards, the focus ring */
+  --atlas-dur-slow: 220ms;   /* the mobile sidebar and the search dialog */
+
+  /* Decelerated, not `ease`. `ease` ramps up first, which over 120ms of colour
+     reads as the control hesitating before it answers. */
+  --atlas-ease: cubic-bezier(0.2, 0, 0, 1);
 
   /* --- Starlight bridge ---------------------------------------------------- */
   --sl-font: var(--atlas-font);
@@ -171,4 +185,32 @@
   --sl-color-hairline:       var(--atlas-border);
   --sl-color-hairline-light: var(--atlas-border);
   --sl-color-hairline-shade: var(--atlas-border);
+}
+
+/* ------------------------------------------------------ reduced motion ---- */
+
+/* Honoured once, in the layer that owns the decision: collapsing the durations
+   here settles every rule written against them, so no stylesheet downstream
+   carries its own copy of this media query. The sweep after it is for the
+   transitions this project does not author — Starlight's disclosure carets,
+   Expressive Code's copy button, Pagefind's chrome — which arrive with literal
+   timings. 1ms rather than 0s, so anything listening for `transitionend`
+   still hears it. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --atlas-dur-fast: 1ms;
+    --atlas-dur-base: 1ms;
+    --atlas-dur-slow: 1ms;
+  }
+
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
 }
