@@ -174,11 +174,20 @@ header.header {
   color: var(--atlas-text);
 }
 
-/* Nested items hang off a rail, so depth is legible without indentation guesswork. */
+/* Nested items hang off a rail, so depth is legible without indentation guesswork.
+   Starlight already puts its own border-inline-start on every `li` here
+   (SidebarSublist.astro); left alone it doubles up with the rail below as
+   two near-parallel hairlines, so it's zeroed out in favour of one rail on
+   the `ul` itself. */
 .sidebar-content ul ul {
   border-inline-start: var(--atlas-hairline) solid var(--atlas-border);
   margin-inline-start: var(--atlas-space-3);
   padding-inline-start: var(--atlas-space-2);
+}
+.sidebar-content ul ul li {
+  border-inline-start: 0;
+  margin-inline-start: 0;
+  padding-inline-start: 0;
 }
 
 .sidebar-content a {
