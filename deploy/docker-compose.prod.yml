@@ -3,6 +3,8 @@ services:
     image: ${ATLAS_IMAGE:?ATLAS_IMAGE is required}
     container_name: devops-atlas
     restart: unless-stopped
+    mem_limit: 128m
+    cpus: "0.5"
     read_only: true
     security_opt:
       - no-new-privileges:true

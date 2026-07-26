@@ -2,14 +2,14 @@
 title: The testing pyramid
 description: Unit, integration and end-to-end tests, and how to pick the right level.
 type: concept
-level: intermediate
+level: beginner
 module: testing
 tools: [node]
 prerequisites: []
 learningObjectives:
   - Distinguish unit, integration, and end-to-end tests.
   - Choose the test level by the cost and confidence it provides.
-  - Recognize a flaky test and why it slows the team down.
+  - Recognise a flaky test and why it slows the team down.
 takeaways:
   - Many fast tests and few slow ones keep feedback quick.
   - Each test level answers a different question about the system.
@@ -36,9 +36,12 @@ The pyramid shape is not decorative: you want **many** unit tests (fast) and **f
 - **Readable**: its name says which behaviour it protects.
 
 ```js
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+
 // a unit test: the name describes the expected behaviour
 test('sum ignores null values', () => {
-  expect(sum([1, null, 2])).toBe(3);
+  assert.equal(sum([1, null, 2]), 3);
 });
 ```
 

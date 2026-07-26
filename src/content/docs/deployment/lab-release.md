@@ -20,7 +20,7 @@ takeaways:
 
 Vas a correr dos versiones de un sitio (azul y verde), verificar la nueva en aislamiento, cambiar el tráfico a la nueva y revertir, un blue-green en tu máquina.
 
-En un sistema real, quien cambia el tráfico es un [proxy inverso](../proxy/) y el cambio no interrumpe nada. Aquí el papel del proxy lo hace el puerto 8080: apagas el contenedor que lo ocupa y arrancas otro en su lugar. La secuencia de decisiones es la misma —verificar en aislamiento, cambiar, verificar, poder volver—, pero hay un instante de corte que en producción no habría.
+En un sistema real, quien cambia el tráfico es un [proxy inverso](/deployment/proxy/) y el cambio no interrumpe nada. Aquí el papel del proxy lo hace el puerto 8080: apagas el contenedor que lo ocupa y arrancas otro en su lugar. La secuencia de decisiones es la misma —verificar en aislamiento, cambiar, verificar, poder volver—, pero hay un instante de corte que en producción no habría.
 
 ## Requisitos
 
@@ -79,7 +79,7 @@ La afirmación comprobable: pudiste servir la nueva versión y volver a la anter
 ## Comprueba lo que entendiste
 
 <details>
-<summary>En el paso 2 la verde corre en 8081 pero los usuarios siguen en 8080. Por qué es útil?</summary>
+<summary>En el paso 2 la verde corre en 8081 pero los usuarios siguen en 8080. ¿Por qué es útil?</summary>
 
 Porque puedes verificar la versión nueva en aislamiento —sin que ningún usuario la vea— antes de darle tráfico. Si algo está mal, lo descubres en 8081 y nunca llega a producción. Ese es el corazón del blue-green.
 

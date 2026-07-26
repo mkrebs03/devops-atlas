@@ -23,6 +23,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Commit** — A snapshot of the project that points at its predecessor. The smallest unit of history. → [The Git model](/en/collaboration/git-model/)
 
+**Conflict** — The moment two branches change the same line and Git stops so that you decide. Not an error: a delegated decision. → [The Git model](/en/collaboration/git-model/)
+
 **Container** — A process created from an image, with its own runtime environment. It is disposable; its data should not be. → [Docker without magic](/en/delivery/docker/)
 
 **Coverage** — The percentage of your code that the tests execute. It measures lines travelled, not behaviour verified. → [Tests in CI](/en/testing/in-ci/)
@@ -31,17 +33,27 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **DNS** — The system that translates a name into addresses. It does not carry your request; it only says where to go. → [Essential networking](/en/foundations/networking/)
 
+**Docker Compose** — The file that describes several containers and the network they share, instead of chaining `docker run` commands. → [Docker without magic](/en/delivery/docker/)
+
+**End-to-end test (E2E)** — Tests the system the way a person uses it. Slow and valuable: it answers whether the whole route works. → [The testing pyramid](/en/testing/pyramid/)
+
 **Environment** — A complete installation of the system with its own configuration and data: development, staging, production. → [Delivery](/en/delivery/)
 
 **Firewall** — A filter that decides which connections are accepted before they reach the process. It explains why a connection hangs instead of being refused. → [Essential networking](/en/foundations/networking/)
+
+**Flaky test** — A test that fails for reasons unrelated to behaviour: a timeout, a changed selector, a random value. It costs more than it protects. → [The testing pyramid](/en/testing/pyramid/)
 
 **Gateway** — A network's way out: where a machine hands packets whose destination falls outside its own subnet. → [Essential networking](/en/foundations/networking/)
 
 **Group** — A shared identity that lets several users reach the same things. The middle triplet in a file's permissions. → [Linux](/en/foundations/linux/)
 
+**HEAD** — The reference that says where you are working right now: the commit the next one will be built on. → [The Git model](/en/collaboration/git-model/)
+
 **Health check** — The periodic check a balancer makes to know whether an instance can serve, and to pull it out of rotation if it cannot. → [Reverse proxy and load balancing](/en/deployment/proxy/)
 
 **Image** — An immutable package of layers that containers are created from. Identified by tag, and in production by SHA. → [Docker without magic](/en/delivery/docker/)
+
+**Integration test** — Tests that several pieces cooperate, for example code plus a database. It answers whether they fit together. → [The testing pyramid](/en/testing/pyramid/)
 
 **IP** — A machine's address on the network: the number packets must be sent to in order to arrive. → [Essential networking](/en/foundations/networking/)
 
@@ -77,11 +89,17 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Rebase** — Reapplying your commits onto another base to get a linear history. It rewrites identifiers, so it belongs to private history. → [The Git model](/en/collaboration/git-model/)
 
+**Recreate** — A deployment strategy that switches the old version off and the new one on. Simple, but with downtime. → [Deployment strategies](/en/deployment/strategies/)
+
 **Registry** — The remote repository where images are published and from which servers pull them. Docker Hub, GHCR, your cloud's own. → [Docker without magic](/en/delivery/docker/)
+
+**Remote** — A reference to another copy of the repository. `fetch` brings its information; `pull` combines it with your local branch. → [The Git model](/en/collaboration/git-model/)
 
 **Reverse proxy** — The server that receives all traffic and distributes it among your services. Where the TLS certificate and the routing decision live. → [Reverse proxy and load balancing](/en/deployment/proxy/)
 
 **Rollback** — Going back to the previous version. What makes a deployment reversible, and what is worth rehearsing before you need it. → [Deployment strategies](/en/deployment/strategies/)
+
+**Rolling** — A deployment strategy that replaces instances a few at a time: no downtime, but two versions coexist for a while. → [Deployment strategies](/en/deployment/strategies/)
 
 **Runner** — The machine that executes a job. Created clean and destroyed when it ends, so nothing survives between runs. → [GitHub Actions](/en/delivery/github-actions/)
 
@@ -102,6 +120,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 **TLS** — The layer that encrypts the connection and proves the server is who it claims to be. The `s` in HTTPS. → [Essential networking](/en/foundations/networking/)
 
 **Trace** — One request's path across every service it passes through, with the time spent on each leg. → [Observability](/en/deployment/observability/)
+
+**Unit test** — Tests one function or module in isolation. Fast, precise and cheap: the base of the pyramid. → [The testing pyramid](/en/testing/pyramid/)
 
 **Volume** — Storage that lives outside the container and survives its deletion. Where the data you cannot lose goes. → [Docker without magic](/en/delivery/docker/)
 

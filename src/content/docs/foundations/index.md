@@ -39,10 +39,10 @@ flowchart LR
 
 | Señal | Pregunta útil | Página |
 | --- | --- | --- |
-| Sistema | ¿Dónde vive la configuración y quién puede tocarla? | [Linux](./linux/) |
-| Proceso | ¿Qué se está ejecutando y quién lo inició? | [La terminal](./terminal/#observar-procesos) |
-| Red | ¿La aplicación escucha y puede ser alcanzada? | [Redes esenciales](./networking/) |
-| Práctica | ¿Puedo reproducir una investigación? | [Práctica · shell y red](./lab-shell-and-network/) |
+| Sistema | ¿Dónde vive la configuración y quién puede tocarla? | [Linux](/foundations/linux/) |
+| Proceso | ¿Qué se está ejecutando y quién lo inició? | [La terminal](/foundations/terminal/#observar-procesos) |
+| Red | ¿La aplicación escucha y puede ser alcanzada? | [Redes esenciales](/foundations/networking/) |
+| Práctica | ¿Puedo reproducir una investigación? | [Práctica · shell y red](/foundations/lab-shell-and-network/) |
 
 :::tip[Cambia el orden de tus preguntas]
 Recorrer el sistema de afuera hacia adentro —DNS → conexión → puerto → proceso → archivo → configuración— reduce la tentación de cambiar cinco cosas a la vez.

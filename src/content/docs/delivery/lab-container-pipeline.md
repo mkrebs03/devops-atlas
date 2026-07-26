@@ -72,7 +72,7 @@ docker image inspect atlas-lab:local --format '{{.Id}}'
 | --- | --- | --- |
 | `Connection refused` | El contenedor no arrancó o el puerto no está publicado | `docker ps` |
 | `404 Not Found` | El archivo no quedó en la ruta que sirve nginx | `docker exec atlas-lab ls /usr/share/nginx/html` |
-| La build falla | Error en el Dockerfile o el contexto | lee la línea que reporta `docker build` |
+| El build falla | Error en el Dockerfile o el contexto | lee la línea que reporta `docker build` |
 
 ## Verificación
 
@@ -81,14 +81,14 @@ La afirmación comprobable es: el contenedor sirve el artefacto que construí, y
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Reconstruyes tras cambiar solo index.html y la capa FROM aparece como CACHED. Es correcto?</summary>
+<summary>Reconstruyes tras cambiar solo index.html y la capa FROM aparece como CACHED. ¿Es correcto?</summary>
 
 Sí: la instrucción `FROM nginx:alpine` no cambió, así que Docker reutiliza esa capa y solo rehace el `COPY` del archivo modificado. Esa reutilización es justo lo que hace rápidas las reconstrucciones.
 
 </details>
 
 :::note[Una imagen es un artefacto]
-Una pipeline real no debería depender de archivos que existan por casualidad en el servidor. Construye el artefacto una vez, identifica su versión y promueve esa misma versión.
+Un pipeline real no debería depender de archivos que existan por casualidad en el servidor. Construye el artefacto una vez, identifica su versión y promueve esa misma versión.
 :::
 
 ## Limpieza

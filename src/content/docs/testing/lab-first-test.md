@@ -84,7 +84,7 @@ La afirmación comprobable es: la prueba falló antes de existir la implementaci
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Escribiste la prueba y pasó a la primera, sin tocar el código. Qué deberías sospechar?</summary>
+<summary>Escribiste la prueba y pasó a la primera, sin tocar el código. ¿Qué deberías sospechar?</summary>
 
 Que la prueba no está afirmando lo que crees: si pasa sin implementación, no protege ese comportamiento. Ajústala hasta que falle por la razón correcta, y recién entonces implementa.
 

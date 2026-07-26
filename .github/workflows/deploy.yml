@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -20,15 +24,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.29.3
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: 22
           cache: pnpm
@@ -46,8 +48,33 @@ jobs:
       - name: Validate source
         run: pnpm run build
 
+      - name: Resolve Playwright version
+        id: playwright
+        run: |
+          version="$(grep -om1 "'@playwright/test@[0-9][^']*'" pnpm-lock.yaml | sed "s/^.*test@//; s/'\$//")"
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+
+      - name: Install Chromium
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Install Chromium system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium
+
+      - name: Run smoke tests against the built site
+        run: pnpm run test:e2e
+
       - name: Login to GHCR
-        uses: docker/login-action@v3
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -55,22 +82,22 @@ jobs:
 
       - name: Extract Docker metadata
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051 # v5.10.0
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=sha,format=long,prefix=sha-
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3.7.0
         with:
           platforms: arm64
 
       - name: Set up Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
 
       - name: Build and push image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
         with:
           context: .
           push: true
@@ -92,7 +119,7 @@ jobs:
 
     steps:
       - name: Checkout deployment files
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           sparse-checkout: |
             deploy/docker-compose.prod.yml
@@ -118,14 +145,17 @@ jobs:
           scp -i "$HOME/.ssh/devops-atlas" deploy/docker-compose.prod.yml deploy/nginx.conf "$VPS_USER@$VPS_HOST:/opt/devops-atlas/"
 
       - name: Pull and restart the versioned image
+        id: swap
         env:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
-          GHCR_USER: ${{ secrets.GHCR_USER }}
+          GHCR_USER: ${{ github.actor }}
           GHCR_READ_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:sha-$GITHUB_SHA"
+          PREVIOUS="$(ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" "grep -sm1 '^ATLAS_IMAGE=' /opt/devops-atlas/.env | cut -d= -f2- || true")"
+          echo "previous-image=$PREVIOUS" >> "$GITHUB_OUTPUT"
           printf '%s' "$GHCR_READ_TOKEN" | ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" "docker login ghcr.io --username '$GHCR_USER' --password-stdin && printf 'ATLAS_IMAGE=$IMAGE\\n' > /opt/devops-atlas/.env && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml pull && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml up -d --remove-orphans && docker logout ghcr.io"
 
       - name: Check public site
@@ -133,3 +163,14 @@ jobs:
           PUBLIC_SITE_URL: ${{ env.PUBLIC_SITE_URL }}
         run: |
           curl --fail --retry 5 --retry-delay 5 --silent --show-error "$PUBLIC_SITE_URL/healthz"
+
+      - name: Roll back to the previous image
+        if: failure() && steps.swap.outputs.previous-image != ''
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          PREVIOUS_IMAGE: ${{ steps.swap.outputs.previous-image }}
+        shell: bash
+        run: |
+          echo "Health check failed: restoring $PREVIOUS_IMAGE"
+          ssh -i "$HOME/.ssh/devops-atlas" "$VPS_USER@$VPS_HOST" "printf 'ATLAS_IMAGE=%s\\n' '$PREVIOUS_IMAGE' > /opt/devops-atlas/.env && docker compose --env-file /opt/devops-atlas/.env -f /opt/devops-atlas/docker-compose.prod.yml up -d --remove-orphans"

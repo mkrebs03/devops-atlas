@@ -8,7 +8,7 @@ tools: [github-actions, yaml]
 prerequisites: [collaboration.github-flow]
 learningObjectives:
   - Interpretar eventos, jobs y pasos dentro de un workflow de GitHub Actions.
-  - Diseñar una validación con lint, tests y build que dé feedback rápido.
+  - Diseñar una validación con lint, pruebas y build que dé feedback rápido.
   - Separar la validación en pull requests del despliegue tras integrar en main.
 takeaways:
   - Un workflow convierte el camino de validación en una promesa ejecutable.
@@ -31,11 +31,11 @@ flowchart LR
   B --> P["publish (solo main)"]
 ```
 
-## Validar con lint, tests y build
+## Validar con lint, pruebas y build
 
 Un buen pipeline no solo compila: revisa formato, tipos y comportamiento antes de empaquetar.
 
-El **lint** es la comprobación más barata de todas: un programa lee el código sin ejecutarlo y señala lo que rompe una convención o huele a error —una variable sin usar, un `await` que falta, una importación que ya no existe—. Tarda segundos, así que va primero.
+El **lint** es la comprobación más barata de todas: un programa lee el código sin ejecutarlo y señala lo que rompe una convención o huele a error —una variable sin usar, un `await` que falta, una importación que ya no existe—. Tarda segundos, así que su veredicto llega primero.
 
 ```yaml
 name: Validate Atlas
@@ -45,6 +45,17 @@ on:
     branches: [main]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.29.3 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint        # formato y convenciones
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +71,7 @@ jobs:
       - run: pnpm run test:e2e    # comportamiento
 
   build:
-    needs: test                   # espera a que test pase
+    needs: [lint, test]           # espera a que lint y test pasen
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -72,7 +83,7 @@ jobs:
       - run: pnpm run build
 ```
 
-`cache: pnpm` reutiliza dependencias entre ejecuciones; `needs: test` hace que `build` espere. Cada paso debe decir qué garantiza y qué evidencia deja.
+`cache: pnpm` reutiliza dependencias entre ejecuciones; `lint` y `test` corren en paralelo y `needs: [lint, test]` hace que `build` espere a ambos. Cada paso debe decir qué garantiza y qué evidencia deja.
 
 ## Validar no es desplegar
 
@@ -109,14 +120,14 @@ permissions:
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Quieres que build solo corra si test pasa. Qué usas?</summary>
+<summary>Quieres que build solo corra si test pasa. ¿Qué usas?</summary>
 
 `needs: test` en el job build. Por defecto los jobs corren en paralelo; `needs` declara una dependencia y hace que build espere a que test termine con éxito.
 
 </details>
 
 <details>
-<summary>Tu deploy corre en cada pull request. Cómo lo limitas a main?</summary>
+<summary>Tu deploy corre en cada pull request. ¿Cómo lo limitas a main?</summary>
 
 Con una condición en el job, `if: github.ref == 'refs/heads/main'`, idealmente combinada con un `environment` que exija aprobación. La validación corre en cada PR; el despliegue, solo tras integrar.
 

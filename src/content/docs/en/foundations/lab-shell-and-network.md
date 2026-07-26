@@ -82,7 +82,7 @@ The lab ends with a checkable assertion: **"the process listens on the port I ch
 <details>
 <summary>curl returns "Connection refused". What should you NOT debug yet?</summary>
 
-The application. "Connection refused" means nothing was listening on that port, so there was never an HTTP request to analyze. Confirm first with `ss -lnt` that the process listens where you think it does.
+The application. "Connection refused" means nothing was listening on that port, so there was never an HTTP request to analyse. Confirm first with `ss -lnt` that the process listens where you think it does.
 
 </details>
 

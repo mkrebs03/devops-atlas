@@ -22,12 +22,15 @@
 const BODY_CLASS = 'atlas-details__body';
 const OPEN_BODY = `<div class="${BODY_CLASS}">`;
 
-/* Raw-string pass. `depth` carries across nodes because a single <details> is
-   split over several of them, with the markdown-rendered body in between. */
+/* Raw-string pass. The state carries across nodes because a single <details>
+   is split over several of them, with the markdown-rendered body in between.
+   `open` counts the <details> seen open so far and `depth` the bodies opened,
+   so a </summary> inside an HTML comment or without any opening before it
+   cannot inject a body, and a </details> only closes a body of its own. */
 function rewriteRaw(value, state) {
   let out = '';
   let rest = value;
-  const token = /<\/summary\s*>|<\/details\s*>/i;
+  const token = /<!--|-->|<details\b[^>]*>|<\/details\s*>|<\/summary\s*>/i;
 
   for (let match = rest.match(token); match; match = rest.match(token)) {
     const at = match.index;
@@ -35,16 +38,36 @@ function rewriteRaw(value, state) {
     out += rest.slice(0, at);
     rest = rest.slice(at + tag.length);
 
-    if (/summary/i.test(tag)) {
-      out += tag + OPEN_BODY;
-      state.depth += 1;
-    } else {
-      // Only close a body this pass actually opened; a stray </details> stays as
-      // written rather than emitting an orphan </div>.
-      if (state.depth > 0) {
+    if (state.inComment) {
+      // Commented-out markup is not markup; pass it through untouched.
+      out += tag;
+      if (tag === '-->') state.inComment = false;
+    } else if (tag === '<!--') {
+      out += tag;
+      state.inComment = true;
+    } else if (/^<details/i.test(tag)) {
+      out += tag;
+      state.open += 1;
+    } else if (/^<\/summary/i.test(tag)) {
+      out += tag;
+      // Only open a body inside a <details> still waiting for one; a stray
+      // </summary> with no opening before it stays as written.
+      if (state.open > state.depth) {
+        out += OPEN_BODY;
+        state.depth += 1;
+      }
+    } else if (/^<\/details/i.test(tag)) {
+      // Only close a body this pass actually opened, and never one that
+      // belongs to an outer <details> (depth < open means the innermost
+      // details never got a body).
+      if (state.depth > 0 && state.depth >= state.open) {
         out += '</div>';
         state.depth -= 1;
       }
+      if (state.open > 0) state.open -= 1;
+      out += tag;
+    } else {
+      // A stray --> outside any comment; leave it as written.
       out += tag;
     }
   }
@@ -75,7 +98,7 @@ function wrapElement(node) {
 
 export function rehypeDetailsBody() {
   return (tree) => {
-    const state = { depth: 0 };
+    const state = { depth: 0, open: 0, inComment: false };
 
     const walk = (node) => {
       if (!node || typeof node !== 'object') return;

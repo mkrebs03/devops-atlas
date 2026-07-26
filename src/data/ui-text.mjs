@@ -1,17 +1,21 @@
 // @ts-check
-/** Interface strings. Spanish and English are peers; neither is a fallback. */
+/** Interface strings. Spanish and English are peers; neither is a fallback.
+ *
+ * Division of labour: src/content/i18n/es.json holds only the keys Starlight
+ * itself consumes (search dialog, stock footer, skip links…); this file holds
+ * every string rendered by the project's own components.
+ */
 
 /** @typedef {'es' | 'en'} Locale */
 
 const text = Object.freeze({
   es: Object.freeze({
-    searchLabel: 'Buscar',
-    searchPlaceholder: 'Buscar una página, herramienta o comando',
-    index: 'Índice',
     tools: 'Herramientas A–Z',
     modules: 'Módulos',
     pages: 'páginas',
-    module: 'Módulo',
+    practices: 'prácticas',
+    language: 'Idioma',
+    switchTheme: 'Cambiar tema',
     kind: Object.freeze({
       overview: 'Panorama', concept: 'Concepto', tool: 'Herramienta',
       practice: 'Práctica', cheatsheet: 'Chuleta',
@@ -23,17 +27,15 @@ const text = Object.freeze({
     previous: 'Anterior',
     inThisModule: 'En este módulo',
     usedIn: 'Aparece en',
-    toolsIntro: 'Cada herramienta y tecnología del Atlas, con las páginas donde se usa.',
     readingOrder: 'Páginas del módulo',
   }),
   en: Object.freeze({
-    searchLabel: 'Search',
-    searchPlaceholder: 'Search a page, tool, or command',
-    index: 'Index',
     tools: 'Tools A–Z',
     modules: 'Modules',
     pages: 'pages',
-    module: 'Module',
+    practices: 'practices',
+    language: 'Language',
+    switchTheme: 'Switch theme',
     kind: Object.freeze({
       overview: 'Overview', concept: 'Concept', tool: 'Tool',
       practice: 'Practice', cheatsheet: 'Cheatsheet',
@@ -45,7 +47,6 @@ const text = Object.freeze({
     previous: 'Previous',
     inThisModule: 'In this module',
     usedIn: 'Appears in',
-    toolsIntro: 'Every tool and technology in the Atlas, with the pages that use it.',
     readingOrder: 'Module pages',
   }),
 });

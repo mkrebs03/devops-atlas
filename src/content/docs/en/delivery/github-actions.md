@@ -35,7 +35,7 @@ flowchart LR
 
 A good pipeline does not only compile: it checks formatting, types and behaviour before packaging.
 
-**Lint** is the cheapest check of all: a program reads the code without running it and flags whatever breaks a convention or smells like a bug — an unused variable, a missing `await`, an import that no longer exists. It takes seconds, so it goes first.
+**Lint** is the cheapest check of all: a program reads the code without running it and flags whatever breaks a convention or smells like a bug — an unused variable, a missing `await`, an import that no longer exists. It takes seconds, so its verdict arrives first.
 
 ```yaml
 name: Validate Atlas
@@ -45,6 +45,17 @@ on:
     branches: [main]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.29.3 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint        # formatting and conventions
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -60,7 +71,7 @@ jobs:
       - run: pnpm run test:e2e    # behaviour
 
   build:
-    needs: test                   # waits for test to pass
+    needs: [lint, test]           # waits for lint and test to pass
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -72,7 +83,7 @@ jobs:
       - run: pnpm run build
 ```
 
-`cache: pnpm` reuses dependencies across runs; `needs: test` makes `build` wait. Every step should say what it guarantees and which evidence it leaves.
+`cache: pnpm` reuses dependencies across runs; `lint` and `test` run in parallel and `needs: [lint, test]` makes `build` wait for both. Every step should say what it guarantees and which evidence it leaves.
 
 ## Validation is not deployment
 

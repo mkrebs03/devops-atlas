@@ -58,9 +58,11 @@ header.header {
   white-space: nowrap;
 }
 
-/* Search is primary: it owns the middle column outright. */
+/* Search is primary: it owns the middle column outright. `site-search` rides
+   in the selector for specificity: this is a plain stylesheet, so it has to
+   outrank the scoped styles Search.astro ships with. */
 .atlas-header__search { min-width: 0; }
-.atlas-header__search :global(button) {
+.atlas-header__search site-search button {
   width: 100%;
   justify-content: flex-start;
   gap: var(--atlas-space-3);
@@ -72,14 +74,14 @@ header.header {
   padding-block: 0.4rem;
   box-shadow: none;
 }
-.atlas-header__search :global(button:hover) {
+.atlas-header__search site-search button:hover {
   background: var(--atlas-surface-2);
   border-color: var(--atlas-border-strong);
   color: var(--atlas-text-2);
 }
-.atlas-header__search :global(kbd) {
+.atlas-header__search site-search kbd {
   background: var(--atlas-surface-2);
-  border-radius: 4px;
+  border-radius: var(--atlas-radius-sm);
   color: var(--atlas-text-3);
 }
 
@@ -152,8 +154,8 @@ site-search dialog[open]::backdrop { opacity: 1; }
 }
 .atlas-langs a {
   padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: var(--atlas-size-2xs);
+  border-radius: var(--atlas-radius-sm);
+  font-size: var(--atlas-size-xs);
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--atlas-text-3);
@@ -217,8 +219,8 @@ site-search dialog[open]::backdrop { opacity: 1; }
   .atlas-header__link { display: none; }
 }
 @media (max-width: 44rem) {
-  .atlas-header { gap: var(--atlas-space-3); }
-  .atlas-header__brand { display: none; }
+  /* The wordmark is the only way home, so it stays; search cedes the width. */
+  .atlas-header { gap: var(--atlas-space-2); }
 }
 
 /* ---------- sidebar ------------------------------------------------------ */
@@ -257,7 +259,7 @@ site-search dialog[open]::backdrop { opacity: 1; }
    without needing a rule between groups. */
 .sidebar-content ul.top-level > li > details > summary,
 .sidebar-content ul.top-level > li > span.large {
-  font-size: var(--atlas-size-2xs);
+  font-size: var(--atlas-size-xs);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -349,7 +351,7 @@ site-search dialog[open]::backdrop { opacity: 1; }
   inset-inline-start: calc(var(--atlas-space-2) * -1 - 1px);
   width: 2px;
   border-radius: 2px;
-  background: var(--atlas-coral);
+  background: var(--atlas-accent);
 }
 
 /* Starlight draws a rule between top-level groups; spacing does that job here. */
@@ -381,7 +383,7 @@ main { padding-bottom: var(--atlas-space-8); }
 .right-sidebar-panel { padding: var(--atlas-space-5) var(--atlas-space-4); }
 
 .right-sidebar-panel h2 {
-  font-size: var(--atlas-size-2xs);
+  font-size: var(--atlas-size-xs);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -390,15 +392,14 @@ main { padding-bottom: var(--atlas-space-8); }
 }
 
 /* The same rail as the sidebar, so both columns read as one system.
-   `starlight-toc` is Starlight's own mobile ToC; `.atlas-toc` is the
-   desktop replacement in AtlasTableOfContents.astro. */
-starlight-toc ul,
+   `.atlas-toc` is the desktop replacement in AtlasTableOfContents.astro.
+   (Starlight's mobile ToC renders as `mobile-starlight-toc` and keeps its
+   stock dropdown for now; restyling that component is future work.) */
 .atlas-toc ul {
   list-style: none;
   border-inline-start: var(--atlas-hairline) solid var(--atlas-border);
   padding-inline-start: var(--atlas-space-2);
 }
-starlight-toc a,
 .atlas-toc a {
   position: relative;
   display: block;
@@ -411,16 +412,13 @@ starlight-toc a,
   transition-duration: var(--atlas-dur-fast);
   transition-timing-function: var(--atlas-ease);
 }
-starlight-toc a:hover,
 .atlas-toc a:hover { color: var(--atlas-text); background: var(--atlas-surface-2); }
-starlight-toc a[aria-current='true'],
 .atlas-toc a[aria-current='true'] { color: var(--atlas-text); font-weight: 600; }
 
 /* The marker is drawn on every item and revealed on the current one, rather
    than generated only where it shows: a pseudo-element that does not exist
    yet has nothing to transition from, and this one moves on every scroll.
    Drawn, it grows out of the rail into place as the reading position passes. */
-starlight-toc a::before,
 .atlas-toc a::before {
   content: '';
   position: absolute;
@@ -428,14 +426,13 @@ starlight-toc a::before,
   inset-inline-start: calc(var(--atlas-space-2) * -1 - 1px);
   width: 2px;
   border-radius: 2px;
-  background: var(--atlas-coral);
+  background: var(--atlas-accent);
   opacity: 0;
   transform: scaleY(0.35);
   transition-property: opacity, transform;
   transition-duration: var(--atlas-dur-fast);
   transition-timing-function: var(--atlas-ease);
 }
-starlight-toc a[aria-current='true']::before,
 .atlas-toc a[aria-current='true']::before {
   opacity: 1;
   transform: none;

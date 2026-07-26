@@ -16,7 +16,7 @@ takeaways:
   - Una compuerta de aprobación convierte el despliegue en una decisión explícita.
 ---
 
-## Tres CD que no son lo mismo
+## CI, CD y CD: tres siglas que no son lo mismo
 
 - **Integración continua**: cada cambio se integra y valida seguido.
 - **Entrega continua**: el artefacto queda siempre listo para desplegar; el paso a producción es un botón.
@@ -54,14 +54,14 @@ Lo que cambia entre entornos es la configuración (variables, secretos, URLs), n
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Tu pipeline compila la imagen en staging y otra vez en producción. Qué riesgo introduces?</summary>
+<summary>Tu pipeline compila la imagen en staging y otra vez en producción. ¿Qué riesgo introduces?</summary>
 
 Que no estás desplegando lo que probaste: dos builds pueden diferir por dependencias, caché o momento. Construye una sola imagen, identifícala por su SHA y promueve esa misma a cada entorno; la config cambia, el artefacto no.
 
 </details>
 
 <details>
-<summary>Cuál es la diferencia entre entrega continua y despliegue continuo?</summary>
+<summary>¿Cuál es la diferencia entre entrega continua y despliegue continuo?</summary>
 
 La compuerta. En entrega continua el artefacto queda listo y una persona aprueba el paso a producción; en despliegue continuo ese paso es automático cuando todas las comprobaciones pasan.
 

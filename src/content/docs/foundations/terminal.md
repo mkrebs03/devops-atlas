@@ -29,7 +29,7 @@ printf 'hola\n' > saludo.txt   # redirige stdout a un archivo
 comando 2> errores.txt         # redirige solo stderr
 ```
 
-La salida también es una interfaz. Antes de ejecutar un comando destructivo, mira dónde estás, qué archivos selecciona y con qué usuario lo estás haciendo. Si necesitas repasar cómo se leen dueño y permisos, están en [Linux](./linux/#usuarios-grupos-y-permisos).
+La salida también es una interfaz. Antes de ejecutar un comando destructivo, mira dónde estás, qué archivos selecciona y con qué usuario lo estás haciendo. Si necesitas repasar cómo se leen dueño y permisos, están en [Linux](/foundations/linux/#usuarios-grupos-y-permisos).
 
 ## Composición con tuberías
 
@@ -54,7 +54,7 @@ ss -lntup         # ¿qué escucha, en qué puerto y quién?
 
 Esos dos comandos responden preguntas distintas. `ps` dice qué se está ejecutando; `ss` dice qué está *accesible*. Un proceso puede estar vivo y no escuchar en ningún puerto, y ahí ya sabes que el problema no es que "la aplicación esté caída".
 
-Cuando el proceso que investigas está gestionado por el sistema, `systemctl status` y `journalctl` te dan lo mismo con más contexto —lo tienes en [Linux · servicios](./linux/#servicios-lo-que-el-sistema-arranca-por-ti).
+Cuando el proceso que investigas está gestionado por el sistema, `systemctl status` y `journalctl` te dan lo mismo con más contexto —lo tienes en [Linux · servicios](/foundations/linux/#servicios-lo-que-el-sistema-arranca-por-ti).
 
 ## Modelo mental: el bucle de diagnóstico
 

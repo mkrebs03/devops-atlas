@@ -9,7 +9,7 @@ prerequisites: [foundations.terminal]
 learningObjectives:
   - Follow a request from DNS resolution to the HTTP response, including TLS.
   - Tell a private address from a public one and know where traffic leaves through.
-  - Distinguish failures in resolution, connection, port, and application behavior.
+  - Distinguish failures in resolution, connection, port, and application behaviour.
   - Read a status code and headers as part of the HTTP contract.
 takeaways:
   - Each network boundary provides a concrete signal you can check.
@@ -55,7 +55,7 @@ A resolved IP is not always a reachable IP. Many of the addresses you will see d
 | `10.0.0.0/8` | company networks and private clouds |
 | `172.16.0.0/12` | default Docker networks |
 | `192.168.0.0/16` | home and office routers |
-| `127.0.0.0/8` | the machine itself (`localhost`) |
+| `127.0.0.0/8` | *loopback*: the machine itself (`localhost`) — not private, it never leaves onto the network |
 
 The `/24` suffix is the **subnet mask**: it says how many leading bits of the address identify the network and how many are left for the machines inside it. `192.168.1.40/24` means "anything starting with `192.168.1.` is on my network". That boundary decides the next hop: if the destination falls inside, the machine talks to it directly; if it falls outside, it hands the packet to the **gateway** —the way out towards every other network— which is what the default route points at.
 
@@ -87,7 +87,7 @@ When a URL fails, check resolution (DNS) first, then connection (TCP/TLS), and f
 
 ## The HTTP contract
 
-An HTTP response communicates far more than a body. The **status code** summarizes what happened:
+An HTTP response communicates far more than a body. The **status code** summarises what happened:
 
 | Family | Meaning | Example |
 | --- | --- | --- |

@@ -55,7 +55,7 @@ Una IP resuelta no siempre es una IP alcanzable. Buena parte de las direcciones 
 | `10.0.0.0/8` | redes de empresa y nubes privadas |
 | `172.16.0.0/12` | redes de Docker por defecto |
 | `192.168.0.0/16` | routers domésticos y de oficina |
-| `127.0.0.0/8` | la propia máquina (`localhost`) |
+| `127.0.0.0/8` | *loopback*: la propia máquina (`localhost`) — no es privada, nunca sale a la red |
 
 El sufijo `/24` es la **máscara de subred**: dice cuántos bits iniciales de la dirección identifican a la red y cuántos quedan para las máquinas de dentro. `192.168.1.40/24` significa "todo lo que empiece por `192.168.1.` está en mi red". Esa frontera decide el siguiente salto: si el destino cae dentro, la máquina le habla directo; si cae fuera, entrega el paquete al **gateway** —la puerta de salida hacia el resto de las redes—, que es a donde apunta la ruta por defecto.
 

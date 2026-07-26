@@ -2,6 +2,24 @@ function syntaxError(filename, lineNumber, message) {
   return new Error(`${filename}:${lineNumber}: ${message}`);
 }
 
+/* Real YAML drops a trailing ` # comment`; keep parity so the validator sees
+   the same value the site renders. A `#` inside quotes is text, not a comment. */
+function stripTrailingComment(value) {
+  let quote;
+  for (let index = 0; index < value.length; index += 1) {
+    const character = value[index];
+    if (quote) {
+      if (quote === '"' && character === '\\') index += 1;
+      else if (character === quote) quote = undefined;
+    } else if (character === "'" || character === '"') {
+      quote = character;
+    } else if (character === '#' && (index === 0 || /\s/.test(value[index - 1]))) {
+      return value.slice(0, index).trimEnd();
+    }
+  }
+  return value;
+}
+
 function parseScalar(rawValue, filename, lineNumber, { arrayItem = false } = {}) {
   const value = rawValue.trim();
   if (!value) throw syntaxError(filename, lineNumber, 'scalar values must be non-empty');
@@ -36,12 +54,21 @@ function parseScalar(rawValue, filename, lineNumber, { arrayItem = false } = {})
     throw syntaxError(filename, lineNumber, 'unterminated quoted scalar');
   }
 
-  const withoutWordApostrophes = value.replace(/([\p{L}\p{N}])'(?=[\p{L}\p{N}])/gu, '$1');
+  // Apostrophes inside a word ("it's") or closing one ("admins'") are text,
+  // not quoting; anything else looks like a quote gone wrong.
+  const withoutWordApostrophes = value
+    .replace(/([\p{L}\p{N}])'(?=[\p{L}\p{N}])/gu, '$1')
+    .replace(/([\p{L}\p{N}])'(?=\s|$)/gu, '$1');
   if (value.includes('"') || withoutWordApostrophes.includes("'")) {
     throw syntaxError(filename, lineNumber, 'quotes must wrap an entire scalar value');
   }
   if (arrayItem && value.includes(':')) {
     throw syntaxError(filename, lineNumber, 'unquoted colon in an array item is not supported; quote it as text');
+  }
+  // YAML reads `key: text: more` as a nested mapping; the site would fail on
+  // it later, so fail here with the same advice the array case gives.
+  if (!arrayItem && (/:\s/.test(value) || value.endsWith(':'))) {
+    throw syntaxError(filename, lineNumber, 'unquoted colon in a scalar value is not supported; quote it as text');
   }
   if (arrayItem && /[\[\]{}]/.test(value)) {
     throw syntaxError(filename, lineNumber, 'nested arrays or objects are not supported');
@@ -122,7 +149,11 @@ export function parseFrontmatter(source, filename) {
       if (!pendingArray) {
         throw syntaxError(filename, lineNumber, 'array item has no parent field');
       }
-      const item = parseScalar(arrayItem[1], filename, lineNumber, { arrayItem: true });
+      const rawItem = stripTrailingComment(arrayItem[1]);
+      if (/^-\s/.test(rawItem)) {
+        throw syntaxError(filename, lineNumber, 'nested lists are not supported');
+      }
+      const item = parseScalar(rawItem, filename, lineNumber, { arrayItem: true });
       data[pendingArray].push(item);
       continue;
     }
@@ -136,7 +167,7 @@ export function parseFrontmatter(source, filename) {
     const [, key, raw = ''] = field;
     if (Object.hasOwn(data, key)) throw syntaxError(filename, lineNumber, `duplicate field ${key}`);
 
-    const value = raw.trim();
+    const value = stripTrailingComment(raw.trim());
     if (!value) {
       data[key] = [];
       pendingArray = key;

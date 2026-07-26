@@ -33,10 +33,10 @@ flowchart LR
 
 | Momento | Pregunta | Página |
 | --- | --- | --- |
-| Modelo | ¿Qué representa un commit? | [El modelo de Git](./git-model/) |
-| Cambio | ¿Cómo trabajo sin pisar la rama principal? | [GitHub Flow](./github-flow/) |
-| Revisión | ¿Qué debe poder entender otra persona? | [GitHub Flow](./github-flow/) |
-| Práctica | ¿Puedo crear y deshacer un cambio seguro? | [Práctica · ramas seguras](./lab-git-branching/) |
+| Modelo | ¿Qué representa un commit? | [El modelo de Git](/collaboration/git-model/) |
+| Cambio | ¿Cómo trabajo sin pisar la rama principal? | [GitHub Flow](/collaboration/github-flow/) |
+| Revisión | ¿Qué debe poder entender otra persona? | [GitHub Flow](/collaboration/github-flow/) |
+| Práctica | ¿Puedo crear y deshacer un cambio seguro? | [Práctica · ramas seguras](/collaboration/lab-git-branching/) |
 
 :::note[El historial es una interfaz]
 Un buen historial no registra cada movimiento del teclado. Registra decisiones pequeñas, coherentes y reversibles.

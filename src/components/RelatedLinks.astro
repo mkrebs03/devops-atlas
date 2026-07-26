@@ -4,7 +4,7 @@
   Nothing hand-maintained: both lists come from content that already exists.
 */
 import { getModule, getLocalizedPath, getRelatedPages } from '../data/curriculum.mjs';
-import { toolsByPageId } from '../lib/tools.mjs';
+import { displayName, toolAnchor, toolsByPageId } from '../lib/tools.mjs';
 import { t } from '../data/ui-text.mjs';
 
 interface Props { page: import('../data/curriculum.mjs').Page; locale: 'es' | 'en' }
@@ -52,7 +52,7 @@ const base = locale === 'en' ? '/en/' : '/';
       <h2>{copy.tools}</h2>
       <ul class="atlas-related__tools">
         {tools.map((tool) => (
-          <li><a href={`${base}tools/#${tool.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{tool}</a></li>
+          <li><a href={`${base}tools/#${toolAnchor(tool)}`}>{displayName(tool)}</a></li>
         ))}
       </ul>
     </section>

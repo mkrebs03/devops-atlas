@@ -75,9 +75,9 @@ This is where it connects to the rest of the module. A deployment does not end w
 - p95 and p99 latency: did it degrade?
 - Saturation: does the new version consume far more for the same work?
 
-That is exactly what "if the metrics stay healthy" meant in a [canary](./strategies/): not a hunch, but those three numbers compared between the two versions serving traffic at once. If they get worse, you pull the canary before it reaches everybody else.
+That is exactly what "if the metrics stay healthy" meant in a [canary](/en/deployment/strategies/): not a hunch, but those three numbers compared between the two versions serving traffic at once. If they get worse, you pull the canary before it reaches everybody else.
 
-A **health check** — the one you met at [the proxy](./proxy/) — only answers "can it serve?". Observability answers "is it serving well?". Neither replaces the other.
+A **health check** — the one you met at [the proxy](/en/deployment/proxy/) — only answers "can it serve?". Observability answers "is it serving well?". Neither replaces the other.
 
 ## Alerts: page on symptoms, not on causes
 
@@ -86,7 +86,7 @@ An alert should mean: *somebody is suffering something, and there is something t
 - **On symptoms**: "5% of requests to `/checkout` are failing" or "the p99 went from 300 ms to 3 s". It is happening to someone.
 - **Not on causes**: "CPU is at 80%". That may be perfectly normal, and if it is not, latency will say so.
 
-And every alert needs somebody who can act and something to do. An alert nobody can act on gets ignored, and once a team learns to ignore one, it starts ignoring the rest — the same mechanism by which a [flaky test](../testing/pyramid/) ends up destroying trust in the whole suite.
+And every alert needs somebody who can act and something to do. An alert nobody can act on gets ignored, and once a team learns to ignore one, it starts ignoring the rest — the same mechanism by which a [flaky test](/en/testing/pyramid/) ends up destroying trust in the whole suite.
 
 ## The three signals work together
 
@@ -100,7 +100,7 @@ flowchart LR
   L --> D["cause"]
 ```
 
-It is the same diagnostic loop as [the terminal](../foundations/terminal/), at system scale: locate, measure, filter, act, verify. The tools change, the method does not.
+It is the same diagnostic loop as [the terminal](/en/foundations/terminal/), at system scale: locate, measure, filter, act, verify. The tools change, the method does not.
 
 ## Check your understanding
 

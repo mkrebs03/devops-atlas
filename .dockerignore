@@ -2,7 +2,16 @@ node_modules
 dist
 .astro
 .git
+.github
+.claude
+.impeccable
 .superpowers
+Dockerfile
+README.md
+PRODUCT.md
+DESIGN.md
+CONTENT-AUDIT.md
+AGENTS.md
 playwright-report
 test-results
 *.log

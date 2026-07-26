@@ -1,5 +1,7 @@
 # Auditoría de contenido — Atlas
 
+> **Nota de cierre (2026-07-26).** Documento histórico de la auditoría de contenido, cerrado en esta fecha. Registra el estado del contenido en el momento de la revisión; sus cifras y estados internos pueden no corresponder al repositorio actual y no se corrigen retroactivamente.
+
 Revisión completa de las 22 páginas ES (`src/content/docs/`), la landing (`src/components/AtlasLanding.astro`) y la taxonomía (`src/data/curriculum.mjs`).
 Los hallazgos aplican igual a `src/content/docs/en/`: son problemas de contenido, no de traducción, y arreglar uno obliga a arreglar su par.
 

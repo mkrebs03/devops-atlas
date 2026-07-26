@@ -3,9 +3,12 @@ FROM --platform=$BUILDPLATFORM node:22-bookworm-slim AS build
 ENV COREPACK_HOME=/corepack
 WORKDIR /app
 
-RUN corepack enable && corepack prepare pnpm@10.29.3 --activate
-
 COPY package.json pnpm-lock.yaml ./
+
+# corepack install reads the pnpm version from package.json#packageManager,
+# keeping this Dockerfile out of the version-pinning business.
+RUN corepack enable && corepack install
+
 RUN pnpm install --frozen-lockfile
 
 COPY . .
@@ -15,7 +18,7 @@ ENV PUBLIC_SITE_URL=${PUBLIC_SITE_URL}
 
 RUN pnpm run build
 
-FROM nginx:alpine
+FROM nginx:1.30-alpine
 
 COPY deploy/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html

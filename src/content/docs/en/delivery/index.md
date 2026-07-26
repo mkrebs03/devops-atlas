@@ -39,9 +39,9 @@ Docker makes the package visible. GitHub Actions makes the route repeatable. Fee
 
 | Signal | What you will learn | Page |
 | --- | --- | --- |
-| Package | What it means to encapsulate an application | [Docker without magic](./docker/) |
-| Workflow | How to express an automated check | [GitHub Actions](./github-actions/) |
-| Evidence | How to verify a local image | [Practice · local pipeline](./lab-container-pipeline/) |
+| Package | What it means to encapsulate an application | [Docker without magic](/en/delivery/docker/) |
+| Workflow | How to express an automated check | [GitHub Actions](/en/delivery/github-actions/) |
+| Evidence | How to verify a local image | [Practice · local pipeline](/en/delivery/lab-container-pipeline/) |
 
 :::note[Deployment starts before the server]
 The server should not be the first place where you discover that the application does not build. The server receives artifacts that already passed cheap, repeatable controls.

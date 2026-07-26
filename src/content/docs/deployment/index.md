@@ -31,11 +31,11 @@ flowchart LR
 
 | Momento | Pregunta | Página |
 | --- | --- | --- |
-| Pipeline | ¿Cómo pasa un artefacto de build a release? | [Del build al release](./pipeline/) |
-| Tráfico | ¿Quién decide a qué instancia llega cada petición? | [Proxy inverso y balanceo](./proxy/) |
-| Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](./strategies/) |
-| Evidencia | ¿Cómo sé que la versión nueva se comporta bien? | [Observabilidad](./observability/) |
-| Práctica | ¿Puedo promover y revertir una versión? | [Práctica · promover y revertir](./lab-release/) |
+| Pipeline | ¿Cómo pasa un artefacto de build a release? | [Del build al release](/deployment/pipeline/) |
+| Tráfico | ¿Quién decide a qué instancia llega cada petición? | [Proxy inverso y balanceo](/deployment/proxy/) |
+| Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](/deployment/strategies/) |
+| Evidencia | ¿Cómo sé que la versión nueva se comporta bien? | [Observabilidad](/deployment/observability/) |
+| Práctica | ¿Puedo promover y revertir una versión? | [Práctica · promover y revertir](/deployment/lab-release/) |
 
 :::note[Desplegar no es un evento, es una capacidad]
 Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en porciones pequeñas, y puede revertir en minutos.

@@ -20,7 +20,7 @@ takeaways:
 
 Run two versions of a site (blue and green), verify the new one in isolation, switch traffic to it and roll back, a blue-green on your machine.
 
-In a real system the thing that switches traffic is a [reverse proxy](../proxy/), and the switch interrupts nothing. Here port 8080 plays the proxy's part: you stop the container holding it and start another in its place. The sequence of decisions is the same — verify in isolation, switch, verify, be able to go back — but there is a moment of interruption that production would not have.
+In a real system the thing that switches traffic is a [reverse proxy](/en/deployment/proxy/), and the switch interrupts nothing. Here port 8080 plays the proxy's part: you stop the container holding it and start another in its place. The sequence of decisions is the same — verify in isolation, switch, verify, be able to go back — but there is a moment of interruption that production would not have.
 
 ## Requirements
 

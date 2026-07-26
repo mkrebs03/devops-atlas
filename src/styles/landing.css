@@ -55,10 +55,10 @@
 }
 .landing__cta {
   background: var(--atlas-coral);
-  color: #171717;                 /* the reference's own on-coral ink */
+  color: var(--atlas-on-coral);   /* the reference's own on-coral ink */
   border: var(--atlas-hairline) solid var(--atlas-coral);
 }
-.landing__cta:hover { background: #FF8168; border-color: #FF8168; }
+.landing__cta:hover { background: var(--atlas-coral-hover); border-color: var(--atlas-coral-hover); }
 .landing__ghost {
   border: var(--atlas-hairline) solid var(--atlas-border);
   color: var(--atlas-text);
@@ -159,7 +159,7 @@
 .mcard__no {
   font-family: var(--atlas-font-mono);
   font-size: var(--atlas-size-2xs);
-  color: var(--atlas-coral);
+  color: var(--atlas-accent);
   letter-spacing: 0.08em;
 }
 .mcard h3 {
@@ -242,7 +242,7 @@
   border-bottom: var(--atlas-hairline) solid var(--atlas-border);
   font-family: var(--atlas-font-mono);
   font-size: var(--atlas-size-2xs);
-  color: #8A887C;
+  color: var(--atlas-term-dim);
 }
 .term__dot {
   width: 8px; height: 8px; border-radius: 50%;
@@ -257,9 +257,9 @@
   line-height: 1.85;
   color: var(--atlas-code-text);
 }
-.term__p   { color: #8A887C; }
-.term__o   { color: #A9A79A; }
-.term__ok  { color: #9CCFA6; }
+.term__p   { color: var(--atlas-term-dim); }
+.term__o   { color: var(--atlas-bone-dim); }
+.term__ok  { color: var(--atlas-term-ok); }
 .term__err { color: var(--atlas-coral); }
 
 /* ---------- foot --------------------------------------------------------- */

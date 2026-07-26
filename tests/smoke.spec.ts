@@ -11,16 +11,23 @@ test.describe('DevOps Atlas', () => {
     await expect(page).toHaveURL(/\/what-is-devops\/$/);
   });
 
-  test('stores no reader state', async ({ page }) => {
+  test('stores no reader state beyond the theme choice', async ({ page }) => {
     await page.goto('/foundations/networking/');
-    const keys = await page.evaluate(() => Object.keys(window.localStorage)
-      .filter((key) => key.startsWith('devops-atlas')));
-    expect(keys).toEqual([]);
+    await page.locator('[data-atlas-theme-toggle]').first().click();
+    const keys = await page.evaluate(() => Object.keys(window.localStorage));
+    expect(keys).toEqual(['starlight-theme']);
   });
 
   test('a page carries orientation and cross-links', async ({ page }) => {
     await page.goto('/foundations/networking/');
     await expect(page.locator('.atlas-title__module')).toContainText('Fundamentos');
+    await expect(page.locator('.atlas-related section')).not.toHaveCount(0);
+    await expect(page.locator('.atlas-seq__link--next')).toBeVisible();
+  });
+
+  test('the English mirror carries the same orientation and cross-links', async ({ page }) => {
+    await page.goto('/en/foundations/networking/');
+    await expect(page.locator('.atlas-title__module')).toContainText('Foundations');
     await expect(page.locator('.atlas-related section')).not.toHaveCount(0);
     await expect(page.locator('.atlas-seq__link--next')).toBeVisible();
   });
@@ -38,5 +45,33 @@ test.describe('DevOps Atlas', () => {
     await expect(page.locator('.mcard')).toHaveCount(modules.length);
     await expect(page.getByRole('heading', { name: 'Foundations', exact: true })).toBeVisible();
     await expect(page.locator('h1:visible')).toHaveCount(1);
+  });
+
+  test('an unknown route answers with a real 404', async ({ page }) => {
+    const response = await page.goto('/this-page-does-not-exist/');
+    expect(response?.status()).toBe(404);
+  });
+
+  test('the retired linux-cli slugs redirect to terminal', async ({ page }) => {
+    await page.goto('/foundations/linux-cli/');
+    await expect(page).toHaveURL(/\/foundations\/terminal\/$/);
+    await page.goto('/en/foundations/linux-cli/');
+    await expect(page).toHaveURL(/\/en\/foundations\/terminal\/$/);
+  });
+
+  test('mermaid blocks render as diagrams', async ({ page }) => {
+    await page.goto('/foundations/networking/');
+    await expect(page.locator('figure.atlas-diagram svg').first()).toBeVisible({ timeout: 15_000 });
+  });
+
+  test('search finds a known term', async ({ page }) => {
+    // Pagefind only indexes the built output: dev mode has no index to query.
+    test.skip(!process.env.CI, 'Search runs against the built site (astro preview in CI)');
+    await page.goto('/');
+    await page.locator('button[data-open-modal]').click();
+    const input = page.locator('.pagefind-ui__search-input');
+    await expect(input).toBeVisible();
+    await input.fill('Docker');
+    await expect(page.locator('.pagefind-ui__result-link').first()).toBeVisible({ timeout: 15_000 });
   });
 });

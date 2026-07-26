@@ -30,7 +30,7 @@ const enHref = path.startsWith('/en/') || path === '/en' ? path : `/en${path}`;
   <div class="atlas-header__end">
     <a class="atlas-header__link" href={`${base}tools/`}>{copy.tools}</a>
 
-    <div class="atlas-langs" role="group" aria-label={locale === 'en' ? 'Language' : 'Idioma'}>
+    <div class="atlas-langs" role="group" aria-label={copy.language}>
       <a href={esHref} lang="es" aria-current={locale === 'es' ? 'true' : undefined}>ES</a>
       <a href={enHref} lang="en" aria-current={locale === 'en' ? 'true' : undefined}>EN</a>
     </div>
@@ -40,7 +40,7 @@ const enHref = path.startsWith('/en/') || path === '/en' ? path : `/en${path}`;
       type="button"
       data-atlas-theme-toggle
       aria-pressed="false"
-      title={locale === 'en' ? 'Switch theme' : 'Cambiar tema'}
+      title={copy.switchTheme}
     >
       <span class="atlas-theme__icon atlas-theme__icon--sun" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
@@ -52,7 +52,7 @@ const enHref = path.startsWith('/en/') || path === '/en' ? path : `/en${path}`;
           <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z" />
         </svg>
       </span>
-      <span class="sr-only" data-atlas-theme-label>{locale === 'en' ? 'Switch theme' : 'Cambiar tema'}</span>
+      <span class="sr-only" data-atlas-theme-label>{copy.switchTheme}</span>
     </button>
   </div>
 </div>

@@ -1,7 +1,10 @@
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import starlight from '@astrojs/starlight';
 import { modules } from './src/data/curriculum.mjs';
 import { rehypeDetailsBody } from './plugins/rehype-details-body.mjs';
+import { rehypeTableWrap } from './plugins/rehype-table-wrap.mjs';
 
 const moduleSidebar = modules.map((module) => ({
   label: module.sidebarLabel.es,
@@ -13,8 +16,29 @@ const moduleSidebar = modules.map((module) => ({
   })),
 }));
 
+/*
+  Astro only reads .env files after this config has been evaluated, so `site`
+  has to load its own — otherwise a PUBLIC_SITE_URL set in .env, as the README
+  documents, would be silently ignored. Vite's loadEnv is the usual tool, but
+  `vite` is not importable from here under pnpm's strict layout without
+  declaring it a dependency, so the file is read by hand.
+*/
+const dotEnv = (() => {
+  try {
+    return Object.fromEntries(
+      readFileSync(new URL('.env', import.meta.url), 'utf8')
+        .split(/\r?\n/)
+        .map((line) => line.match(/^\s*([\w.]+)\s*=\s*(.*?)\s*$/))
+        .filter((match) => match !== null)
+        .map(([, key, value]) => [key, value.replace(/^(['"])(.*)\1$/, '$2')]),
+    );
+  } catch {
+    return {};
+  }
+})();
+
 export default defineConfig({
-  site: process.env.PUBLIC_SITE_URL ?? 'http://localhost:4321',
+  site: dotEnv.PUBLIC_SITE_URL ?? process.env.PUBLIC_SITE_URL ?? 'http://localhost:4321',
   output: 'static',
   // "Linux y terminal" was split into a page about the system and a page about
   // the shell. Anyone holding the old link lands on the shell half.
@@ -24,8 +48,21 @@ export default defineConfig({
   },
   markdown: {
     // Gives every <details> in the content a single body element, which is what
-    // lets it open by growing rather than in one frame. See the plugin.
-    rehypePlugins: [rehypeDetailsBody],
+    // lets it open by growing rather than in one frame, and wraps every table so
+    // a wide one scrolls in place instead of stretching the page. See each plugin.
+    processor: unified({
+      rehypePlugins: [rehypeDetailsBody, rehypeTableWrap],
+    }),
+  },
+  vite: {
+    build: {
+      // Mermaid minifies to a ~650 kB chunk (plus cytoscape and katex), past
+      // the bundler's 500 kB warning. It is fetched with a dynamic import()
+      // only on pages that actually contain a diagram (see MermaidRunner), so
+      // the size is deliberate: raise the warning limit instead of re-splitting
+      // a dependency that is already split.
+      chunkSizeWarningLimit: 700,
+    },
   },
   integrations: [
     starlight({

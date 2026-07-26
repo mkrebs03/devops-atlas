@@ -75,9 +75,9 @@ Aquí es donde esto se conecta con el resto del módulo. Un despliegue no termin
 - Latencia p95 y p99: ¿se degradó?
 - Saturación: ¿la versión nueva consume mucho más para lo mismo?
 
-Eso es exactamente lo que significaba "si las métricas están sanas" en un [canary](./strategies/): no una corazonada, sino esos tres números comparados entre las dos versiones que están sirviendo tráfico a la vez. Si empeoran, retiras el canary antes de que le llegue al resto de la gente.
+Eso es exactamente lo que significaba "si las métricas están sanas" en un [canary](/deployment/strategies/): no una corazonada, sino esos tres números comparados entre las dos versiones que están sirviendo tráfico a la vez. Si empeoran, retiras el canary antes de que le llegue al resto de la gente.
 
-Un **chequeo de salud** —el que ya viste en [el proxy](./proxy/)— responde solo a "¿puede atender?". La observabilidad responde a "¿está atendiendo bien?". No se sustituyen.
+Un **chequeo de salud** —el que ya viste en [el proxy](/deployment/proxy/)— responde solo a "¿puede atender?". La observabilidad responde a "¿está atendiendo bien?". No se sustituyen.
 
 ## Alertas: avisa de síntomas, no de causas
 
@@ -86,7 +86,7 @@ Una alerta debería significar: *alguien está sufriendo algo, y hay algo que ha
 - **Sobre síntomas**: "el 5% de las peticiones a `/checkout` falla" o "el p99 pasó de 300 ms a 3 s". Le pasa a alguien.
 - **No sobre causas**: "la CPU está al 80%". Puede ser perfectamente normal, y si no lo es, ya lo dirá la latencia.
 
-Y cada alerta necesita a alguien que pueda actuar y algo que hacer. Una alerta que no se puede accionar se ignora, y una vez que el equipo aprende a ignorar una, empieza a ignorar el resto —el mismo mecanismo por el que una [prueba frágil](../testing/pyramid/) acaba destruyendo la confianza en toda la suite.
+Y cada alerta necesita a alguien que pueda actuar y algo que hacer. Una alerta que no se puede accionar se ignora, y una vez que el equipo aprende a ignorar una, empieza a ignorar el resto —el mismo mecanismo por el que una [prueba frágil](/testing/pyramid/) acaba destruyendo la confianza en toda la suite.
 
 ## Las tres señales trabajan juntas
 
@@ -100,7 +100,7 @@ flowchart LR
   L --> D["causa"]
 ```
 
-Es el mismo bucle de diagnóstico de [la terminal](../foundations/terminal/), a escala de sistema: ubicar, medir, filtrar, actuar, verificar. Cambia la herramienta, no el método.
+Es el mismo bucle de diagnóstico de [la terminal](/foundations/terminal/), a escala de sistema: ubicar, medir, filtrar, actuar, verificar. Cambia la herramienta, no el método.
 
 ## Comprueba lo que entendiste
 

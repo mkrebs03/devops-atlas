@@ -11,14 +11,14 @@ Use Node 20.11–25 and pnpm 10.29.3 (see `.node-version` and `package.json`).
 - `pnpm install --frozen-lockfile` installs the exact locked dependencies.
 - `pnpm dev` starts the local Astro server at `http://localhost:4321`.
 - `pnpm run check` performs Astro and TypeScript checks.
-- `pnpm run validate:content` validates documentation frontmatter and unique slugs.
+- `pnpm run validate:content` validates documentation frontmatter, ES/EN file parity, and unique slugs.
 - `pnpm run build` runs all source/content checks and creates the static production build.
 - `pnpm run test:e2e` runs Chromium smoke tests; `pnpm run test:e2e:ui` opens Playwright's UI.
 - `pnpm preview` serves the generated build locally.
 
 ## Coding Style & Content Conventions
 
-Use two-space indentation, single quotes in TypeScript/JavaScript, and semicolons, matching existing files. Prefer descriptive kebab-case documentation names such as `lab-container-pipeline.md`; use PascalCase for Astro components, for example `AtlasIndex.astro`. Every Markdown page requires `title`, `description`, `type`, `level`, and `module` frontmatter. Allowed values are enforced in `scripts/validate-content.mjs`. Frontmatter is parsed by a minimal YAML subset (`scripts/frontmatter-parser.mjs`), so avoid double quotes and colons inside `learningObjectives`/`takeaways` values. Canonical module pages additionally require `tools`, `prerequisites`, `learningObjectives`, and `takeaways`, with matching Spanish/English objective and takeaway counts. Diagrams are authored as `mermaid` fenced code blocks and rendered client-side (see `src/components/starlight/MermaidRunner.astro`). Keep Spanish and English navigation and content counterparts synchronized when changing user-facing material.
+Use two-space indentation, single quotes in TypeScript/JavaScript, and semicolons, matching existing files. Prefer descriptive kebab-case documentation names such as `lab-container-pipeline.md`; use PascalCase for Astro components, for example `AtlasLanding.astro`. Every Markdown page requires `title` and `description` frontmatter; module pages also require `type`, `level`, and `module`. Allowed values are enforced in `scripts/validate-content.mjs`. Frontmatter is parsed by a minimal YAML subset (`scripts/frontmatter-parser.mjs`): quote any value that contains a colon, and avoid nested lists, objects, and multiline scalars. Canonical module pages additionally require `tools`, `prerequisites`, `learningObjectives`, and `takeaways`, with matching Spanish/English objective and takeaway counts and identical `level` and `tools` across locales. Diagrams are authored as `mermaid` fenced code blocks and rendered client-side (see `src/components/starlight/MermaidRunner.astro`). Keep Spanish and English navigation and content counterparts synchronized when changing user-facing material — the validator requires an English counterpart file for every Spanish page and vice versa.
 
 ## Testing Guidelines
 

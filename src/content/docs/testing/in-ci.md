@@ -57,14 +57,14 @@ Casi siempre es una diferencia de entorno: una dependencia no fijada, una variab
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Tienes 95% de cobertura pero los bugs siguen llegando a producción. Cómo es posible?</summary>
+<summary>Tienes 95% de cobertura pero los bugs siguen llegando a producción. ¿Cómo es posible?</summary>
 
 La cobertura solo dice qué líneas se ejecutaron, no si las afirmaste correctamente. Puedes ejecutar código sin comprobar su resultado. Revisa que cada prueba tenga afirmaciones significativas sobre el comportamiento, no solo que pase por ahí.
 
 </details>
 
 <details>
-<summary>Una prueba pasa en tu máquina y falla en CI. Cuál es la primera sospecha?</summary>
+<summary>Una prueba pasa en tu máquina y falla en CI. ¿Cuál es la primera sospecha?</summary>
 
 Una diferencia de entorno: dependencias no fijadas (usa un lockfile y `npm ci`), variables de entorno ausentes, o datos que existían solo en tu máquina. CI corre limpio y por eso expone esos supuestos.
 

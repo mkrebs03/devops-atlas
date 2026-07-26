@@ -4,7 +4,7 @@ description: The piece that receives traffic before your application does, and w
 type: concept
 level: intermediate
 module: deployment
-tools: [nginx, caddy, http]
+tools: [nginx, caddy, traefik, http]
 prerequisites: [foundations.networking]
 learningObjectives:
   - Explain what a reverse proxy solves compared with exposing the application directly.
@@ -66,15 +66,15 @@ When one instance cannot keep up, or when you do not want its death to be the se
 
 ```nginx
 upstream app {
-  server app-1:8080;
-  server app-2:8080;
-  server app-3:8080;
+  server app-1:8080 max_fails=3 fail_timeout=30s;
+  server app-2:8080 max_fails=3 fail_timeout=30s;
+  server app-3:8080 max_fails=3 fail_timeout=30s;
 }
 ```
 
 The default split is by turns (*round robin*): one each, in order. You can also spread by fewest active connections, or pin a client to a specific instance.
 
-But what actually makes a balancer useful is the **health check**: every few seconds it asks each instance whether it is well — usually by requesting an endpoint such as `/health` — and **pulls out of rotation** whichever fails to answer. Without that, a balancer keeps sending traffic to a dead instance and one request in three fails.
+But what actually makes a balancer useful is the **health check**, and there are two ways to do it. The **passive check** is the one in the block above: open source nginx asks nothing; it watches real requests and, once an instance accumulates `max_fails` failures within the `fail_timeout` window, it **pulls it out of rotation** for that window before trying again. The **active check** does not wait for a real request to fail: the balancer probes an endpoint such as `/health` every few seconds and pulls whichever instance fails to answer — that is how NGINX Plus, HAProxy, Traefik and the cloud load balancers work. Without one of the two, a balancer keeps sending traffic to a dead instance and one request in three fails.
 
 ```bash
 curl -s http://127.0.0.1:8080/health

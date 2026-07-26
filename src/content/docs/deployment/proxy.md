@@ -4,7 +4,7 @@ description: La pieza que recibe el tráfico antes que tu aplicación, y sin la 
 type: concept
 level: intermediate
 module: deployment
-tools: [nginx, caddy, http]
+tools: [nginx, caddy, traefik, http]
 prerequisites: [foundations.networking]
 learningObjectives:
   - Explicar qué resuelve un proxy inverso frente a exponer la aplicación directamente.
@@ -66,15 +66,15 @@ Cuando una sola instancia no da abasto, o cuando no quieres que su caída sea la
 
 ```nginx
 upstream app {
-  server app-1:8080;
-  server app-2:8080;
-  server app-3:8080;
+  server app-1:8080 max_fails=3 fail_timeout=30s;
+  server app-2:8080 max_fails=3 fail_timeout=30s;
+  server app-3:8080 max_fails=3 fail_timeout=30s;
 }
 ```
 
 El reparto por defecto es por turnos (*round robin*): una a cada una, en orden. También se puede repartir por menos conexiones activas, o fijar un cliente a una instancia concreta.
 
-Pero lo que de verdad convierte al balanceador en algo útil es el **chequeo de salud**: cada pocos segundos pregunta a cada instancia si está bien —normalmente pidiendo un endpoint como `/health`— y **retira de la rotación** a la que no responde. Sin eso, un balanceador sigue enviando tráfico a una instancia muerta y una de cada tres peticiones falla.
+Pero lo que de verdad convierte al balanceador en algo útil es el **chequeo de salud**, y hay dos maneras de hacerlo. El **chequeo pasivo** es el del bloque de arriba: nginx open source no pregunta nada; observa las peticiones reales y, cuando una instancia acumula `max_fails` fallos dentro de la ventana de `fail_timeout`, la **retira de la rotación** durante esa ventana antes de volver a intentarlo. El **chequeo activo** no espera a que falle una petición de verdad: el balanceador sondea cada pocos segundos un endpoint como `/health` y retira a la instancia que no responde —así trabajan NGINX Plus, HAProxy, Traefik y los balanceadores de nube—. Sin uno de los dos, el balanceador sigue enviando tráfico a una instancia muerta y una de cada tres peticiones falla.
 
 ```bash
 curl -s http://127.0.0.1:8080/health

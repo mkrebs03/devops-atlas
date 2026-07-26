@@ -120,14 +120,14 @@ git log --oneline HEAD..origin/main   # ¿qué trae origin que aún no tengo?
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Trabajas en una rama que solo tú tienes. Para actualizarla con main, merge o rebase?</summary>
+<summary>Trabajas en una rama que solo tú tienes. Para actualizarla con main, ¿merge o rebase?</summary>
 
 Rebase es válido: la historia es privada, así que reescribirla no afecta a nadie y obtienes una línea limpia sobre la que seguir. Si la rama ya está compartida, prefiere merge para no reescribir commits que otras personas tienen.
 
 </details>
 
 <details>
-<summary>Git se detuvo con CONFLICT. Qué NO deberías hacer?</summary>
+<summary>Git se detuvo con CONFLICT. ¿Qué NO deberías hacer?</summary>
 
 No borres las marcas `<<<<<<<` a ciegas ni fuerces el merge. Abre el archivo, decide qué versión o combinación es correcta, quita las marcas, y recién entonces `git add` del archivo resuelto antes de continuar.
 

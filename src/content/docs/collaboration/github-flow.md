@@ -41,7 +41,7 @@ Un pull request no es solo un botón de merge. Es una superficie para explicar:
 3. Cómo se verificó.
 4. Qué riesgo queda pendiente.
 
-Un **issue** es la unidad con la que se registra un trabajo pendiente —un fallo reportado, una mejora acordada— con su discusión y su número. Vincula el issue que motiva el cambio (por ejemplo, con `Closes #42`, que además lo cierra al integrar) para que ese contexto viaje con el código. La descripción y el diff deben permitir una revisión específica: "el endpoint devuelve 503 cuando falta la dependencia, y el test cubre ese caso" ayuda más que "se ve bien".
+Un **issue** es la unidad con la que se registra un trabajo pendiente —un fallo reportado, una mejora acordada— con su discusión y su número. Vincula el issue que motiva el cambio (por ejemplo, con `Closes #42`, que además lo cierra al integrar) para que ese contexto viaje con el código. La descripción y el diff deben permitir una revisión específica: "el endpoint devuelve 503 cuando falta la dependencia, y la prueba cubre ese caso" ayuda más que "se ve bien".
 
 ## Revisar es leer con intención
 
@@ -55,7 +55,7 @@ Pedir cambios no es un rechazo, es parte de la conversación. Un PR pequeño se 
 
 ## CI y ramas protegidas
 
-**CI** son las siglas de integración continua: cada cambio propuesto se integra y se valida automáticamente en un servidor limpio, no solo en la máquina de quien lo escribió. Esa automatización elimina las comprobaciones repetitivas —formato, tipos, tests y build—. Cuando una comprobación falla, su estado debe ser accionable y apuntar a una evidencia.
+**CI** son las siglas de integración continua: cada cambio propuesto se integra y se valida automáticamente en un servidor limpio, no solo en la máquina de quien lo escribió. Esa automatización elimina las comprobaciones repetitivas —formato, tipos, pruebas y build—. Cuando una comprobación falla, su estado debe ser accionable y apuntar a una evidencia.
 
 Una **rama protegida** convierte esos acuerdos en reglas: exigir al menos una revisión, exigir que CI pase e impedir empujar directo a `main`. Así, la única puerta hacia el estado compartido es un cambio revisado y verificado.
 
@@ -66,14 +66,14 @@ Un pull request que cambia comportamiento, renombra archivos y reformatea todo e
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Tu PR toca 40 archivos: la feature y un reformateo masivo. Por qué es un problema?</summary>
+<summary>Tu PR toca 40 archivos: la feature y un reformateo masivo. ¿Por qué es un problema?</summary>
 
 Porque mezcla dos intenciones y la revisión pierde señal: los cambios reales quedan escondidos entre miles de líneas de formato. Sepáralos en dos PR (o dos commits claros) para que cada decisión se pueda revisar y revertir por separado.
 
 </details>
 
 <details>
-<summary>CI falla en tu PR y la rama está protegida. Puedes hacer merge igual?</summary>
+<summary>CI falla en tu PR y la rama está protegida. ¿Puedes hacer merge igual?</summary>
 
 No, y ese es el punto: la protección exige que las comprobaciones pasen antes de integrar a main. Arregla la causa —el estado debería apuntar a la evidencia— y vuelve a ejecutar; recién entonces se habilita el merge.
 

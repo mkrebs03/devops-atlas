@@ -4,7 +4,7 @@ description: Understand images, containers, layers and volumes through their con
 type: tool
 level: beginner
 module: delivery
-tools: [docker, nginx]
+tools: [docker, nginx, docker-compose]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Explain what a container isolates, and how it differs from a virtual machine.
@@ -42,7 +42,7 @@ flowchart LR
 
 ```bash
 docker build -t atlas-web:local .
-docker run --rm -p 8080:80 atlas-web:local
+docker run --rm -p 8080:8080 atlas-web:local
 ```
 
 The tag helps you find an image; it does not make `latest` a reliable version: `latest` is a name someone can repoint at a different image tomorrow. Production uses an **immutable** identifier instead, usually the **SHA**: the cryptographic fingerprint of the image's content. Change the content and the fingerprint changes, so `sha-abc123` always means exactly the same bytes.
@@ -59,7 +59,6 @@ WORKDIR /app                           # working directory
 COPY package.json pnpm-lock.yaml ./    # dependencies first
 RUN corepack enable && pnpm install --frozen-lockfile
 COPY . .                               # then the code
-RUN pnpm run build                     # produces /app/dist
 EXPOSE 8080
 CMD ["node", "server.js"]              # the process the container starts
 ```
@@ -77,8 +76,10 @@ One stage compiles and another, minimal one runs. The final image does not carry
 ```dockerfile
 FROM node:22-alpine AS build
 WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && pnpm install --frozen-lockfile
 COPY . .
-RUN corepack enable && pnpm install --frozen-lockfile && pnpm run build
+RUN pnpm run build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html

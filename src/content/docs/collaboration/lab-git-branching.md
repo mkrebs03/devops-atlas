@@ -55,7 +55,8 @@ Haz que dos ramas cambien la misma línea:
 
 ```bash
 printf 'timeout = 45\n' > config.txt
-git commit -am 'chore: add config with timeout 45'
+git add config.txt             # archivo nuevo: -a no lo incluiría
+git commit -m 'chore: add config with timeout 45'
 git switch -c feat/timeout
 printf 'timeout = 60\n' > config.txt
 git commit -am 'chore: raise timeout to 60'
@@ -78,7 +79,7 @@ Resolver el conflicto es tomar la decisión que Git no puede tomar por ti.
 ## Paso 4 · deshacer con seguridad
 
 ```bash
-git revert HEAD                 # crea un commit que deshace el anterior
+git revert -m 1 HEAD            # deshace el merge (-m 1 conserva la línea de main)
 git log --oneline --graph --decorate --all
 ```
 
@@ -93,7 +94,7 @@ El historial debe mostrar los merges y el revert como commits explícitos, y `gi
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Resolviste el conflicto pero olvidaste git add del archivo. Puedes cerrar el merge?</summary>
+<summary>Resolviste el conflicto pero olvidaste git add del archivo. ¿Puedes cerrar el merge?</summary>
 
 No: mientras el archivo siga marcado como no resuelto, Git no te deja completar el merge. Haz `git add config.txt` para marcarlo como resuelto y luego `git commit` para cerrar la integración.
 

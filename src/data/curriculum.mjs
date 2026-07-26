@@ -8,9 +8,19 @@
  * reading order, never a gate, and the site stores no reader state.
  */
 
+/**
+ * The taxonomy enums, in one place. `src/content.config.ts` builds its zod
+ * enums from these and `scripts/validate-content.mjs` checks against them,
+ * so adding a module or a level here is the whole change.
+ */
+export const MODULE_IDS = /** @type {const} */ (['foundations', 'collaboration', 'delivery', 'testing', 'deployment']);
+/** Frontmatter `type` values. `overview` is a curriculum kind, not a frontmatter type. */
+export const PAGE_TYPES = /** @type {const} */ (['concept', 'tool', 'practice', 'cheatsheet']);
+export const LEVELS = /** @type {const} */ (['beginner', 'intermediate', 'advanced']);
+
 /** @typedef {'es' | 'en'} Locale */
-/** @typedef {'foundations' | 'collaboration' | 'delivery' | 'testing' | 'deployment'} ModuleId */
-/** @typedef {'overview' | 'concept' | 'tool' | 'practice' | 'cheatsheet'} PageKind */
+/** @typedef {typeof MODULE_IDS[number]} ModuleId */
+/** @typedef {'overview' | typeof PAGE_TYPES[number]} PageKind */
 /** @typedef {{ es: string, en: string }} LocalizedText */
 /**
  * @typedef {Readonly<{
@@ -82,7 +92,7 @@ export const modules = Object.freeze([
         id: 'foundations.lab-shell-and-network', module: 'foundations', order: 5,
         relativePath: 'foundations/lab-shell-and-network/', kind: 'practice',
         prerequisites: ['foundations.terminal', 'foundations.networking'],
-        label: { es: 'Práctica · shell y red', en: 'Practice · shell and network' },
+        label: { es: 'Práctica · investigar una aplicación local', en: 'Practice · investigate a local application' },
       }),
     ]),
   }),
@@ -95,7 +105,7 @@ export const modules = Object.freeze([
       es: 'Convertir cambios individuales en decisiones revisables y compartidas.',
       en: 'Turning individual changes into reviewable, shared decisions.',
     }),
-    tools: Object.freeze(['Git', 'GitHub Flow']),
+    tools: Object.freeze(['Git', 'GitHub']),
     pages: Object.freeze([
       page({
         id: 'collaboration.overview', module: 'collaboration', order: 6,
@@ -129,7 +139,7 @@ export const modules = Object.freeze([
       es: 'Empaquetar, automatizar y comprobar cambios con confianza.',
       en: 'Packaging, automating, and checking changes with confidence.',
     }),
-    tools: Object.freeze(['Docker', 'GitHub Actions', 'nginx']),
+    tools: Object.freeze(['Docker', 'Docker Compose', 'GitHub Actions', 'nginx']),
     pages: Object.freeze([
       page({
         id: 'delivery.overview', module: 'delivery', order: 10,
@@ -163,7 +173,7 @@ export const modules = Object.freeze([
       es: 'Convertir la confianza en evidencia con pruebas automáticas.',
       en: 'Turning confidence into evidence with automated tests.',
     }),
-    tools: Object.freeze(['Node.js', 'node:test', 'CI']),
+    tools: Object.freeze(['Node.js', 'GitHub Actions']),
     pages: Object.freeze([
       page({
         id: 'testing.overview', module: 'testing', order: 14,
@@ -197,7 +207,7 @@ export const modules = Object.freeze([
       es: 'Llevar un artefacto a producción y poder revertirlo.',
       en: 'Taking an artifact to production — and being able to roll it back.',
     }),
-    tools: Object.freeze(['nginx', 'Caddy', 'Prometheus']),
+    tools: Object.freeze(['nginx', 'Caddy', 'Traefik', 'Prometheus']),
     pages: Object.freeze([
       page({
         id: 'deployment.overview', module: 'deployment', order: 18,

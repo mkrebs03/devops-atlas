@@ -2,10 +2,13 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
 import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
+import { LEVELS, MODULE_IDS, PAGE_TYPES } from './data/curriculum.mjs';
 
-const moduleSchema = z.enum(['foundations', 'collaboration', 'delivery', 'testing', 'deployment']);
-const typeSchema = z.enum(['concept', 'tool', 'practice', 'cheatsheet']);
-const levelSchema = z.enum(['beginner', 'intermediate', 'advanced']);
+// The taxonomy enums live in curriculum.mjs; building the schemas from the
+// same arrays keeps schema, curriculum and validator from drifting apart.
+const moduleSchema = z.enum(MODULE_IDS);
+const typeSchema = z.enum(PAGE_TYPES);
+const levelSchema = z.enum(LEVELS);
 
 export const collections = {
   docs: defineCollection({

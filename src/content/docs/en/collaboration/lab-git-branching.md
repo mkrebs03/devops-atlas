@@ -55,7 +55,8 @@ Make two branches change the same line:
 
 ```bash
 printf 'timeout = 45\n' > config.txt
-git commit -am 'chore: add config with timeout 45'
+git add config.txt             # new file: -a would not include it
+git commit -m 'chore: add config with timeout 45'
 git switch -c feat/timeout
 printf 'timeout = 60\n' > config.txt
 git commit -am 'chore: raise timeout to 60'
@@ -78,7 +79,7 @@ Resolving the conflict is making the decision Git cannot make for you.
 ## Step 4 · undo safely
 
 ```bash
-git revert HEAD                 # creates a commit that undoes the previous one
+git revert -m 1 HEAD            # undoes the merge (-m 1 keeps the main line)
 git log --oneline --graph --decorate --all
 ```
 

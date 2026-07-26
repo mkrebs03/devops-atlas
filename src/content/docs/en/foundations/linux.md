@@ -99,7 +99,7 @@ The system answers that question in that order and applies **only** the first ca
 
 ```bash
 ls -l server.log
-# -rw-r--r-- 1 deploy web 2048 jul 22 09:14 server.log
+# -rw-r--r-- 1 deploy web 2048 Jul 22 09:14 server.log
 ```
 
 Left to right: type and **permissions**, link count, **owner** (`deploy`), **group** (`web`), size, date, and name. Permissions are read as three `rwx` triplets — read, write, execute — for owner, group, and everyone else: here `rw-` for `deploy`, `r--` for the `web` group, `r--` for all the rest.

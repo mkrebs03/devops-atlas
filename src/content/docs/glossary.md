@@ -29,6 +29,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Compuerta de aprobación** — El punto donde una persona autoriza explícitamente el paso a producción. Es lo único que separa entrega continua de despliegue continuo. → [Del build al release](/deployment/pipeline/)
 
+**Conflicto** — El momento en que dos ramas cambian la misma línea y Git se detiene para que decidas tú. No es un error: es una decisión delegada. → [El modelo de Git](/collaboration/git-model/)
+
 **Contenedor** — Un proceso creado a partir de una imagen, con su propio entorno de ejecución. Es desechable; sus datos no deberían serlo. → [Docker sin magia](/delivery/docker/)
 
 **Dirección privada** — Una IP válida solo dentro de una red concreta —`10.x`, `172.16–31.x`, `192.168.x`— y sin significado fuera de ella. → [Redes esenciales](/foundations/networking/)
@@ -37,6 +39,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **DNS** — El sistema que traduce un nombre en direcciones. No transporta tu petición; solo dice a dónde ir. → [Redes esenciales](/foundations/networking/)
 
+**Docker Compose** — El archivo que describe varios contenedores y la red que comparten, en lugar de encadenar comandos `docker run`. → [Docker sin magia](/delivery/docker/)
+
 **Entorno** — Una instalación completa del sistema con su propia configuración y sus propios datos: desarrollo, staging, producción. → [Entrega](/delivery/)
 
 **Firewall** — Un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Explica por qué una conexión se queda colgada en vez de ser rechazada. → [Redes esenciales](/foundations/networking/)
@@ -44,6 +48,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 **Gateway** — La puerta de salida de una red: a donde una máquina entrega los paquetes cuyo destino cae fuera de su subred. → [Redes esenciales](/foundations/networking/)
 
 **Grupo** — Una identidad compartida que permite a varios usuarios acceder a las mismas cosas. La terna del medio en los permisos de un archivo. → [Linux](/foundations/linux/)
+
+**HEAD** — La referencia que indica dónde estás trabajando ahora: el commit sobre el que se construirá el siguiente. → [El modelo de Git](/collaboration/git-model/)
 
 **Imagen** — Un paquete inmutable de capas del que se crean contenedores. Se identifica por etiqueta, y en producción por SHA. → [Docker sin magia](/delivery/docker/)
 
@@ -71,7 +77,15 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Proxy inverso** — El servidor que recibe todo el tráfico y lo reparte entre tus servicios. Donde vive el certificado TLS y la decisión de enrutado. → [Proxy inverso y balanceo](/deployment/proxy/)
 
+**Prueba de extremo a extremo (E2E)** — Prueba el sistema como lo usa una persona. Lenta y valiosa: responde si el recorrido completo funciona. → [La pirámide de pruebas](/testing/pyramid/)
+
 **Prueba de humo** — La comprobación mínima de que una versión está viva: responde el endpoint de salud, carga la página, conecta con la base de datos. → [Del build al release](/deployment/pipeline/)
+
+**Prueba de integración** — Prueba que varias piezas colaboran entre sí, por ejemplo código más base de datos. Responde si encajan. → [La pirámide de pruebas](/testing/pyramid/)
+
+**Prueba de unidad** — Prueba una función o módulo aislado. Rápida, precisa y barata: la base de la pirámide. → [La pirámide de pruebas](/testing/pyramid/)
+
+**Prueba frágil** — Una prueba que falla por razones ajenas al comportamiento: un timeout, un selector que cambió, un dato aleatorio. Cuesta más de lo que protege. → [La pirámide de pruebas](/testing/pyramid/)
 
 **Puerto** — El número que decide a cuál de los programas de una máquina entra cada conexión. → [Redes esenciales](/foundations/networking/)
 
@@ -83,9 +97,15 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Rebase** — Reaplicar tus commits sobre otra base para obtener una historia lineal. Reescribe identificadores, así que se usa en historia privada. → [El modelo de Git](/collaboration/git-model/)
 
+**Recreate** — Estrategia de despliegue que apaga la versión vieja y enciende la nueva. Simple, pero con downtime. → [Estrategias de despliegue](/deployment/strategies/)
+
 **Registro de imágenes** — El repositorio remoto donde se publican las imágenes y del que las descargan los servidores. Docker Hub, GHCR, el de tu nube. → [Docker sin magia](/delivery/docker/)
 
+**Remoto** — Una referencia a otra copia del repositorio. `fetch` trae su información; `pull` la combina con tu rama local. → [El modelo de Git](/collaboration/git-model/)
+
 **Rollback** — Volver a la versión anterior. Lo que hace reversible un despliegue, y lo que conviene ensayar antes de necesitarlo. → [Estrategias de despliegue](/deployment/strategies/)
+
+**Rolling** — Estrategia de despliegue que reemplaza instancias de a poco: sin downtime, pero con dos versiones conviviendo un rato. → [Estrategias de despliegue](/deployment/strategies/)
 
 **Runner** — La máquina que ejecuta un job. Se crea limpia y se destruye al terminar, así que nada sobrevive entre ejecuciones. → [GitHub Actions](/delivery/github-actions/)
 

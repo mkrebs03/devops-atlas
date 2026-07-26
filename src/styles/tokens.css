@@ -18,9 +18,15 @@
   --atlas-bone-dim:  #A9A79A;
 
   /* --- accent: coral. Links, current state, primary action. Nothing else. -- */
-  --atlas-coral:      #F76F53;
-  --atlas-coral-ink:  #A63F27;   /* AA text on paper (4.5:1 on --atlas-bg) */
-  --atlas-coral-soft: #F76F531F;
+  --atlas-coral:       #F76F53;
+  --atlas-coral-hover: #FF8168;   /* the CTA lifting under the pointer */
+  --atlas-coral-ink:   #A63F27;   /* AA text on paper (4.5:1 on --atlas-bg) */
+  --atlas-coral-soft:  #F76F531F;
+  --atlas-on-coral:    #171717;   /* ink on a coral fill — dark in both themes */
+
+  /* --- the landing terminal: a dark box in both themes --------------------- */
+  --atlas-term-dim: #8A887C;      /* prompt and window chrome */
+  --atlas-term-ok:  #9CCFA6;      /* the one green: output that says it worked */
 
   /* --- type --------------------------------------------------------------- */
   --atlas-font: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -34,7 +40,6 @@
   --atlas-size-lg:  1.125rem;
   --atlas-size-xl:  1.375rem;
   --atlas-size-2xl: 1.875rem;   /* page title */
-  --atlas-size-3xl: 2.25rem;
   --atlas-size-4xl: clamp(2.75rem, 7vw, 4.75rem);  /* landing display only */
 
   --atlas-measure: 72ch;
@@ -49,14 +54,14 @@
   --atlas-space-7: 3rem;
   --atlas-space-8: 4.5rem;
 
+  --atlas-radius-sm: 4px;   /* chips nested inside a radius: kbd hint, language pair */
   --atlas-radius: 6px;
   --atlas-radius-lg: 10px;
   --atlas-hairline: 1px;
-  --atlas-rule: 1px;
 
   /* --- motion -------------------------------------------------------------- */
   /* Movement here covers the seam between two states; it never announces
-     itself. Three durations, keyed to how much of the screen changes hands:
+     itself. Four durations, keyed to how much of the screen changes hands:
      an item in a list, a control, a surface that arrives whole. */
   --atlas-dur-fast:   120ms;   /* sidebar and ToC items, the heading anchor */
   --atlas-dur-base:   150ms;   /* controls, cards, the focus ring */
@@ -79,7 +84,7 @@
   --sl-content-width: 76rem;
   --sl-sidebar-width: 17.5rem;
   --sl-nav-height: 3.75rem;
-  --sl-text-code: 0.8125rem;
+  --sl-text-code: 0.875rem;
   --sl-shadow-sm: none;
   --sl-shadow-md: none;
   --sl-shadow-lg: none;
@@ -101,7 +106,6 @@
   --atlas-text-3: #D1CFC0A6;
 
   --atlas-accent: var(--atlas-coral);
-  --atlas-accent-soft: var(--atlas-coral-soft);
   --atlas-link:   var(--atlas-coral);
 
   --atlas-code-bg:   #141414;
@@ -157,7 +161,6 @@
   --atlas-text-3: #6B6860;
 
   --atlas-accent: var(--atlas-coral-ink);
-  --atlas-accent-soft: var(--atlas-coral-soft);
   --atlas-link:   var(--atlas-coral-ink);
 
   --atlas-code-bg:   #1B1B1B;

@@ -4,7 +4,7 @@
   Generated, so it can never drift from the content.
 */
 import { getLocalizedPath, getModule } from '../data/curriculum.mjs';
-import { toolIndex } from '../lib/tools.mjs';
+import { toolAnchor, toolIndex } from '../lib/tools.mjs';
 import { t } from '../data/ui-text.mjs';
 
 interface Props { locale: 'es' | 'en' }
@@ -13,7 +13,6 @@ type Entry = Awaited<ReturnType<typeof toolIndex>>[number];
 const { locale } = Astro.props;
 const copy = t(locale);
 const entries = await toolIndex(locale);
-const slug = (value: string) => value.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 /** Group by first letter so the page reads as an index, not a flat list. */
 const groups = entries.reduce<Record<string, Entry[]>>((acc, entry) => {
@@ -34,7 +33,7 @@ const letters = Object.keys(groups).sort((a, b) => a.localeCompare(b, locale));
       <h2 id={`letter-${letter.toLowerCase()}`}>{letter}</h2>
       <dl>
         {groups[letter].map((entry) => (
-          <div class="atlas-tools__entry" id={slug(entry.name)}>
+          <div class="atlas-tools__entry" id={toolAnchor(entry.key)}>
             <dt>{entry.name}</dt>
             <dd>
               <span class="atlas-tools__label">{copy.usedIn}</span>

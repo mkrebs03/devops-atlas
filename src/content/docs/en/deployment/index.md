@@ -8,7 +8,7 @@ tools: [nginx, docker]
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Relate continuous integration and continuous delivery along one route.
-  - Recognize what makes a deployment safe or risky.
+  - Recognise what makes a deployment safe or risky.
 takeaways:
   - Deploying often and in small portions reduces the risk of each change.
   - Being able to roll back fast matters more than never failing.
@@ -31,11 +31,11 @@ flowchart LR
 
 | Moment | Question | Page |
 | --- | --- | --- |
-| Pipeline | How does an artifact go from build to release? | [From build to release](./pipeline/) |
-| Traffic | Who decides which instance each request reaches? | [Reverse proxy and load balancing](./proxy/) |
-| Strategy | How do I change the version without taking the service down? | [Deployment strategies](./strategies/) |
-| Evidence | How do I know the new version behaves well? | [Observability](./observability/) |
-| Practice | Can I promote and roll back a version? | [Practice · promote and roll back](./lab-release/) |
+| Pipeline | How does an artifact go from build to release? | [From build to release](/en/deployment/pipeline/) |
+| Traffic | Who decides which instance each request reaches? | [Reverse proxy and load balancing](/en/deployment/proxy/) |
+| Strategy | How do I change the version without taking the service down? | [Deployment strategies](/en/deployment/strategies/) |
+| Evidence | How do I know the new version behaves well? | [Observability](/en/deployment/observability/) |
+| Practice | Can I promote and roll back a version? | [Practice · promote and roll back](/en/deployment/lab-release/) |
 
 :::note[Deploying is not an event, it is a capability]
 A mature team does not pray before a yearly deploy. It deploys often, in small portions, and can roll back in minutes.

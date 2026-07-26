@@ -89,4 +89,40 @@ items:
   /block-map\.md:3: unquoted colon in an array item is not supported/,
 );
 
+const commented = parseFrontmatter(`---
+title: Hello # a trailing comment
+tools: [plain, "kept # inside quotes"] # another
+items:
+  - first # noted
+---
+`, 'comments.md');
+assert.equal(commented.title, 'Hello');
+assert.deepEqual(commented.tools, ['plain', 'kept # inside quotes']);
+assert.deepEqual(commented.items, ['first']);
+
+assert.throws(
+  () => parseFrontmatter(`---
+summary: Observe: then act
+---
+`, 'scalar-map.md'),
+  /scalar-map\.md:2: unquoted colon in a scalar value is not supported/,
+);
+
+assert.throws(
+  () => parseFrontmatter(`---
+items:
+  - - nested item
+---
+`, 'nested-list.md'),
+  /nested-list\.md:3: nested lists are not supported/,
+);
+
+assert.equal(
+  parseFrontmatter(`---
+title: The admins' handbook
+---
+`, 'possessive.md').title,
+  "The admins' handbook",
+);
+
 console.log('Frontmatter parser assertions passed.');

@@ -8,7 +8,7 @@ tools: [git, github]
 prerequisites: [foundations.terminal]
 learningObjectives:
   - Explain how Git turns local changes into a reviewable history.
-  - Recognize the agreements that make collaboration possible without losing context.
+  - Recognise the agreements that make collaboration possible without losing context.
 takeaways:
   - Delivering a change also requires communicating its intent and history.
   - Small, reviewable, and reversible changes reduce risk for the team.
@@ -33,10 +33,10 @@ flowchart LR
 
 | Moment | Question | Page |
 | --- | --- | --- |
-| Model | What does a commit represent? | [The Git model](./git-model/) |
-| Change | How do I work without stepping on main? | [GitHub Flow](./github-flow/) |
-| Review | What should another person understand? | [GitHub Flow](./github-flow/) |
-| Practice | Can I create and undo a safe change? | [Practice · safe branches](./lab-git-branching/) |
+| Model | What does a commit represent? | [The Git model](/en/collaboration/git-model/) |
+| Change | How do I work without stepping on main? | [GitHub Flow](/en/collaboration/github-flow/) |
+| Review | What should another person understand? | [GitHub Flow](/en/collaboration/github-flow/) |
+| Practice | Can I create and undo a safe change? | [Practice · safe branches](/en/collaboration/lab-git-branching/) |
 
 :::note[History is an interface]
 A useful history does not record every keystroke. It records decisions that are small, coherent and reversible.

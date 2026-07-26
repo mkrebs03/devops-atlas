@@ -8,9 +8,9 @@ tools: [docker, github-actions]
 prerequisites: [collaboration.git-model, foundations.networking]
 learningObjectives:
   - Relacionar commit, validación, paquete y verificación en una ruta de entrega.
-  - Identificar la evidencia que debe producir cada etapa de una pipeline.
+  - Identificar la evidencia que debe producir cada etapa de un pipeline.
 takeaways:
-  - Una pipeline reduce incertidumbre al convertir pasos en comprobaciones repetibles.
+  - Un pipeline reduce incertidumbre al convertir pasos en comprobaciones repetibles.
   - Un artefacto entregable necesita identidad, contrato y evidencia de funcionamiento.
 ---
 
@@ -18,7 +18,7 @@ takeaways:
 
 ## Entregar es reducir incertidumbre
 
-Una pipeline no existe para verse automatizada. Existe para convertir una intención pequeña en evidencia: el código se puede instalar, probar, empaquetar y publicar bajo condiciones conocidas.
+Un pipeline no existe para verse automatizado. Existe para convertir una intención pequeña en evidencia: el código se puede instalar, probar, empaquetar y publicar bajo condiciones conocidas.
 
 ## Tres palabras que vas a leer mucho
 
@@ -39,9 +39,9 @@ Docker hace visible el paquete. GitHub Actions hace repetible el recorrido. El f
 
 | Señal | Qué vas a aprender | Página |
 | --- | --- | --- |
-| Paquete | Qué significa encapsular una aplicación | [Docker sin magia](./docker/) |
-| Workflow | Cómo expresar una comprobación automática | [GitHub Actions](./github-actions/) |
-| Evidencia | Cómo verificar una imagen local | [Práctica · pipeline local](./lab-container-pipeline/) |
+| Paquete | Qué significa encapsular una aplicación | [Docker sin magia](/delivery/docker/) |
+| Workflow | Cómo expresar una comprobación automática | [GitHub Actions](/delivery/github-actions/) |
+| Evidencia | Cómo verificar una imagen local | [Práctica · pipeline local](/delivery/lab-container-pipeline/) |
 
 :::note[El despliegue empieza antes del servidor]
 El servidor no debería ser el primer lugar donde descubres que la aplicación no compila. El servidor recibe artefactos que ya atravesaron controles baratos y repetibles.
@@ -49,4 +49,4 @@ El servidor no debería ser el primer lugar donde descubres que la aplicación n
 
 ## Qué puedes hacer con esto
 
-Con estas páginas puedes construir una imagen local, describir las etapas de una pipeline y distinguir entre código fuente, artefacto y entorno de ejecución.
+Con estas páginas puedes construir una imagen local, describir las etapas de un pipeline y distinguir entre código fuente, artefacto y entorno de ejecución.

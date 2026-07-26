@@ -29,7 +29,7 @@ printf 'hello\n' > greeting.txt # redirect stdout to a file
 command 2> errors.txt           # redirect stderr only
 ```
 
-Output is an interface too. Before running a destructive command, check where you are, which files it selects, and which user you are doing it as. If you need to review how owner and permissions are read, they are in [Linux](./linux/#users-groups-and-permissions).
+Output is an interface too. Before running a destructive command, check where you are, which files it selects, and which user you are doing it as. If you need to review how owner and permissions are read, they are in [Linux](/en/foundations/linux/#users-groups-and-permissions).
 
 ## Composition with pipes
 
@@ -54,7 +54,7 @@ ss -lntup         # what is listening, on which port, and who owns it?
 
 Those two commands answer different questions. `ps` says what is running; `ss` says what is *reachable*. A process can be alive and listening on no port at all, and right there you know the problem is not that "the application is down".
 
-When the process you are investigating is managed by the system, `systemctl status` and `journalctl` give you the same thing with more context — that is in [Linux · services](./linux/#services-what-the-system-starts-for-you).
+When the process you are investigating is managed by the system, `systemctl status` and `journalctl` give you the same thing with more context — that is in [Linux · services](/en/foundations/linux/#services-what-the-system-starts-for-you).
 
 ## Mental model: the diagnostic loop
 

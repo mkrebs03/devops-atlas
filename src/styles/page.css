@@ -45,7 +45,7 @@
   border-radius: var(--atlas-radius);
   padding: 0.1rem 0.4rem;
   color: var(--atlas-text-2);
-  font-size: var(--atlas-size-2xs);
+  font-size: var(--atlas-size-xs);
   letter-spacing: 0.04em;
 }
 
@@ -203,7 +203,7 @@
 
 .sl-markdown-content :not(pre) > code {
   font-family: var(--atlas-font-mono);
-  font-size: 0.8em;
+  font-size: 0.875em;
   background: var(--atlas-surface-2);
   border: var(--atlas-hairline) solid var(--atlas-border);
   border-radius: var(--atlas-radius);
@@ -223,7 +223,8 @@
   --ec-frm-trmBg: var(--atlas-code-bg);
   --ec-frm-trmTtbBg: var(--atlas-code-bg);
   /* The box is dark in both themes, so everything that sits on it is keyed to the
-     code ink. A theme token would invert against the box under light. */
+     code ink: alpha steps of --atlas-code-text (#D8D6C8). A theme token would
+     invert against the box under light. */
   --ec-frm-trmTtbFg: #D8D6C8A6;
   --ec-frm-trmTtbBrdBtmCol: var(--atlas-border);
   --ec-sbThumbCol: #D8D6C82E;
@@ -297,9 +298,12 @@
 
 /* ---------- tables ------------------------------------------------------- */
 
+/* A rehype plugin wraps every content table in .atlas-table-wrap: the wrapper
+   takes the horizontal scroll, so the table itself keeps `display: table` —
+   and with it the table semantics screen readers navigate by. */
+.atlas-table-wrap { overflow-x: auto; }
 .sl-markdown-content table {
-  display: block;
-  overflow-x: auto;
+  display: table;
   border-collapse: collapse;
   font-size: var(--atlas-size-sm);
 }
@@ -312,7 +316,7 @@
 .sl-markdown-content th {
   background: var(--atlas-surface);
   text-align: start;
-  font-size: var(--atlas-size-2xs);
+  font-size: var(--atlas-size-xs);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -331,7 +335,7 @@
 }
 .atlas-related h2 {
   margin: 0 0 var(--atlas-space-2);
-  font-size: var(--atlas-size-2xs);
+  font-size: var(--atlas-size-xs);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--atlas-text-3);
@@ -346,7 +350,7 @@
   gap: var(--atlas-space-2);
   align-items: baseline;
 }
-.atlas-related li span { color: var(--atlas-text-3); font-size: var(--atlas-size-2xs); }
+.atlas-related li span { color: var(--atlas-text-3); font-size: var(--atlas-size-xs); }
 .atlas-related a { color: var(--atlas-link); text-decoration: none; }
 .atlas-related a:hover { text-decoration: underline; }
 .atlas-related__tools li { display: inline-flex; margin-inline-end: var(--atlas-space-3); }
@@ -371,13 +375,46 @@
 }
 .atlas-seq__link:hover { border-color: var(--atlas-border-strong); background: var(--atlas-surface-2); }
 .atlas-seq__link span {
-  font-size: var(--atlas-size-2xs);
+  font-size: var(--atlas-size-xs);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--atlas-text-3);
 }
 .atlas-seq__link b { font-size: var(--atlas-size-sm); font-weight: 600; }
 .atlas-seq__link--next { text-align: end; }
+
+/* The pages outside the curriculum — glossary, tools, what-is-devops — still
+   render Starlight's stock pagination. Restated here in the .atlas-seq grammar:
+   small caps label over a 15px title, hairline border, no oversized arrows. */
+.pagination-links {
+  max-width: var(--atlas-measure);
+  margin-inline: auto;
+}
+.pagination-links a {
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  border-radius: var(--atlas-radius);
+  padding: var(--atlas-space-3) var(--atlas-space-4);
+  box-shadow: none;
+  color: var(--atlas-text);
+}
+.pagination-links a:hover {
+  border-color: var(--atlas-border-strong);
+  background: var(--atlas-surface-2);
+}
+.pagination-links svg { display: none; }
+.pagination-links a > span {
+  font-size: var(--atlas-size-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--atlas-text-3);
+}
+.pagination-links .link-title {
+  font-size: var(--atlas-size-sm);
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--atlas-text);
+}
 
 /* ---------- the A–Z ------------------------------------------------------ */
 
@@ -428,7 +465,7 @@
 .atlas-tools__entry dd { margin: 0; }
 .atlas-tools__label {
   display: block;
-  font-size: var(--atlas-size-2xs);
+  font-size: var(--atlas-size-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--atlas-text-3);
@@ -443,7 +480,7 @@
   padding-block: 0.15rem;
   font-size: var(--atlas-size-xs);
 }
-.atlas-tools__entry li span { color: var(--atlas-text-3); font-size: var(--atlas-size-2xs); }
+.atlas-tools__entry li span { color: var(--atlas-text-3); font-size: var(--atlas-size-xs); }
 
 @media (max-width: 50rem) {
   .atlas-tools__entry { grid-template-columns: 1fr; gap: var(--atlas-space-2); }

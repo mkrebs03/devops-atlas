@@ -16,7 +16,7 @@ takeaways:
   - An approval gate turns deployment into an explicit decision.
 ---
 
-## Three CDs that are not the same
+## CI, CD, and CD: three acronyms that are not the same thing
 
 - **Continuous integration**: every change is integrated and validated often.
 - **Continuous delivery**: the artifact is always ready to deploy; the move to production is a button.
@@ -45,7 +45,7 @@ Each environment answers a question: does it start? does it pass smoke tests? do
 
 A **smoke test** is the minimum check that a version is alive: the health endpoint answers, the front page loads, the database connects. It does not replace the test suite; it only rules out having deployed something that does not even start.
 
-An **approval gate** —for example, a protected `environment` in GitHub Actions— makes explicit who authorizes the final step.
+An **approval gate** —for example, a protected `environment` in GitHub Actions— makes explicit who authorises the final step.
 
 :::tip[Config per environment, single artifact]
 What changes between environments is the configuration (variables, secrets, URLs), not the binary. Same artifact, different config: that way what you tested is what runs.

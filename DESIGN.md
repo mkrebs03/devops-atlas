@@ -150,14 +150,20 @@ its actions already in place.
 `src/styles/tokens.css` holds every colour, size, rhythm, and timing decision
 and also feeds Starlight's own `--sl-color-*` variables. `shell.css` (chrome),
 `page.css` (reading surface and A–Z), and `landing.css` (landing only) consume
-those tokens and add no raw values of their own. Changing the world means
-rewriting those files — not the components or the content.
+those tokens and add no raw colour values of their own, with one documented
+exception: the Expressive Code chrome in `page.css` uses alpha steps of the
+code ink (`#D8D6C8`), because the code box stays dark in both themes and a
+theme token would invert against it. Changing the world means rewriting those
+files — not the components or the content.
 
 ## Constraints
 
 Bilingual ES/EN parity, WCAG-AA, ≥14px meaningful text, static Astro + Starlight,
 no backend, **no reader state** (the only stored value is the theme preference,
 under Starlight's `starlight-theme` key), self-hosted OFL
-fonts (no CDN at runtime), and full function with JavaScript disabled — search
-and Mermaid diagrams are the only JS-dependent enhancements, and neither may
-block reading or navigation.
+fonts (no CDN at runtime), and reading and desktop navigation that work with
+JavaScript disabled. Search, Mermaid diagrams, and the theme toggle are
+progressive enhancements, and none may block reading or navigation. One honest
+inheritance from the framework: Starlight's mobile menu needs JS to open, so
+phone-width navigation is the exception to the no-JS rule — not a choice of
+this design.

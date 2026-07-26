@@ -20,14 +20,14 @@ takeaways:
 
 Actualizar significa reemplazar la versión que sirve tráfico. Cómo lo haces decide cuánta gente ve un fallo si algo sale mal.
 
-Las cuatro estrategias que siguen son formas distintas de hacer una misma operación: cambiar a dónde apunta el tráfico. Quien la ejecuta es el proxy o el balanceador que tienes delante, así que conviene tener claro [qué hace esa pieza](./proxy/) antes de elegir.
+Las cuatro estrategias que siguen son formas distintas de hacer una misma operación: cambiar a dónde apunta el tráfico. Quien la ejecuta es el proxy o el balanceador que tienes delante, así que conviene tener claro [qué hace esa pieza](/deployment/proxy/) antes de elegir.
 
 ## Cuatro estrategias
 
 - **Recreate**: apaga la vieja, enciende la nueva. Simple, pero hay downtime.
 - **Rolling**: reemplaza instancias de a poco. Sin downtime, pero conviven dos versiones un rato.
 - **Blue-green**: dos entornos completos (azul actual, verde nuevo); cambias el tráfico de golpe y puedes volver al azul al instante.
-- **Canary**: la versión nueva recibe primero una fracción del tráfico; si [las métricas](./observability/) están sanas, subes; si no, la retiras.
+- **Canary**: la versión nueva recibe primero una fracción del tráfico; si [las métricas](/deployment/observability/) están sanas, subes; si no, la retiras.
 
 ```mermaid
 flowchart LR
@@ -58,14 +58,14 @@ Cambiar código es reversible; borrar una columna, no. Diseña cambios de esquem
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Un servicio de pagos necesita cero downtime y contener el impacto de un fallo. Qué estrategia?</summary>
+<summary>Un servicio de pagos necesita cero downtime y contener el impacto de un fallo. ¿Qué estrategia?</summary>
 
 Canary: expones la versión nueva a una fracción del tráfico y observas métricas antes de subir. Si algo falla, solo afecta a ese porcentaje y retiras el canary. Blue-green también evita downtime, pero canary limita mejor el radio de impacto.
 
 </details>
 
 <details>
-<summary>Tu rollback de código funciona, pero el despliegue borró una columna de la base. Qué salió mal?</summary>
+<summary>Tu rollback de código funciona, pero el despliegue borró una columna de la base. ¿Qué salió mal?</summary>
 
 La migración no era compatible hacia atrás. El código revierte, pero el dato no vuelve solo. Haz los cambios de esquema en pasos compatibles (agrega antes de quitar) para que un rollback de código no deje la base inconsistente.
 
