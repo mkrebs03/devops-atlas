@@ -31,7 +31,9 @@ docker build -t atlas-web:local .
 docker run --rm -p 8080:80 atlas-web:local
 ```
 
-The tag helps you find an image; it does not make `latest` a reliable version. In production, use an immutable identifier such as a SHA.
+The tag helps you find an image; it does not make `latest` a reliable version: `latest` is a name someone can repoint at a different image tomorrow. Production uses an **immutable** identifier instead, usually the **SHA**: the cryptographic fingerprint of the image's content. Change the content and the fingerprint changes, so `sha-abc123` always means exactly the same bytes.
+
+Images are not copied between machines by hand: they are published to a **registry** (Docker Hub, GitHub Container Registry, your cloud's own), which works as a remote repository for images. `docker push` uploads and `docker pull` downloads, and that is how an artifact built in CI reaches the server.
 
 ## Writing a Dockerfile
 

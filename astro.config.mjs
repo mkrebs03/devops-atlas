@@ -65,6 +65,11 @@ export default defineConfig({
           translations: { en: 'Tools A–Z' },
           link: '/tools/',
         },
+        {
+          label: 'Glosario',
+          translations: { en: 'Glossary' },
+          link: '/glossary/',
+        },
         ...moduleSidebar,
       ],
     }),

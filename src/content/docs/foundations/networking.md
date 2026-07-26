@@ -33,6 +33,8 @@ Un fallo vive en una de esas fronteras, no en todas a la vez. La regla es recorr
 
 ## DNS traduce, no transporta
 
+Una **IP** es la dirección de una máquina en la red: el número al que hay que enviar los paquetes para que lleguen. Los nombres existen porque esas direcciones cambian, se reparten entre varias máquinas y nadie las memoriza.
+
 DNS convierte un nombre en registros: una IP en un registro `A` (o `AAAA` para IPv6), un alias en un `CNAME`. No transporta tu petición; solo te dice a dónde ir.
 
 ```bash
@@ -44,7 +46,9 @@ Si el nombre no resuelve, depurar la aplicación es prematuro: todavía no sabes
 
 ## Conexión: puertos, sockets y TLS
 
-Un puerto identifica el punto de entrada de un proceso dentro de una máquina. Ver un puerto abierto no prueba que la aplicación funcione, pero no verlo descarta parte del camino.
+Una máquina tiene una IP y muchos programas corriendo a la vez. El **puerto** es el número que decide a cuál de ellos entra cada conexión: 80 para HTTP, 443 para HTTPS, y el que tú elijas para tu aplicación. La pareja IP + puerto es lo que se llama un **socket**, y es la dirección real a la que se conecta un cliente.
+
+Ver un puerto abierto no prueba que la aplicación funcione, pero no verlo descarta parte del camino.
 
 ```bash
 ss -lnt                                  # ¿qué escucha localmente?
@@ -52,6 +56,8 @@ curl -v https://example.com 2>&1 | head  # narra resolución, TCP y TLS
 ```
 
 `curl -v` cuenta la ruta paso a paso: resuelve la IP, abre TCP contra el puerto 443, presenta el **certificado** TLS y solo entonces envía la petición HTTP. `127.0.0.1` acepta tráfico local; `0.0.0.0` puede aceptar tráfico de varias interfaces y exige más cuidado. TLS existe para dos cosas: cifrar la conexión y probar que el servidor es quien dice ser.
+
+Entre el cliente y ese puerto suele haber un **firewall**: un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Distingue un síntoma que confunde a mucha gente: si nadie escucha, la máquina rechaza y ves `Connection refused` de inmediato; si un firewall descarta el paquete en silencio, no ves nada y la conexión se queda colgada hasta agotar el tiempo.
 
 :::note[Una capa cada vez]
 Cuando una URL falla, comprueba primero resolución (DNS), luego conexión (TCP/TLS) y por último la aplicación (HTTP). Un timeout y un `404` no son el mismo problema.

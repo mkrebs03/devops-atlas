@@ -43,10 +43,10 @@ git show --stat HEAD
 
 ## El diff es la unidad de conversación
 
-Antes de guardar un commit, revisa qué cambió:
+Un commit no recoge todo lo que tocaste: recoge lo que decidiste incluir. Entre tus archivos y el commit hay un paso intermedio, el **área de preparación**, donde `git add` va colocando los cambios que sí quieres guardar. Por eso existen dos diffs distintos:
 
 ```bash
-git diff           # cambios que aún no están preparados
+git diff           # lo que cambiaste y aún no preparaste
 git diff --cached  # exactamente lo que entrará en el próximo commit
 ```
 

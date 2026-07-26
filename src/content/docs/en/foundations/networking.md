@@ -33,6 +33,8 @@ A failure lives on one of those boundaries, not all at once. The rule is to walk
 
 ## DNS translates, it does not transport
 
+An **IP** is a machine's address on the network: the number packets have to be sent to in order to arrive. Names exist because those addresses change, get spread across several machines, and nobody memorises them.
+
 DNS turns a name into records: an IP in an `A` record (or `AAAA` for IPv6), an alias in a `CNAME`. It does not carry your request; it only tells you where to go.
 
 ```bash
@@ -44,7 +46,9 @@ If the name does not resolve, debugging the application is premature: you do not
 
 ## Connection: ports, sockets and TLS
 
-A port identifies a process entry point within a machine. Seeing an open port does not prove the application works, but not seeing it rules out part of the path.
+A machine has one IP and many programs running at once. The **port** is the number that decides which of them a connection enters: 80 for HTTP, 443 for HTTPS, and whichever you pick for your application. The IP + port pair is what is called a **socket**, and it is the real address a client connects to.
+
+Seeing an open port does not prove the application works, but not seeing it rules out part of the path.
 
 ```bash
 ss -lnt                                  # what is listening locally?
@@ -52,6 +56,8 @@ curl -v https://example.com 2>&1 | head  # narrates resolution, TCP and TLS
 ```
 
 `curl -v` tells the story step by step: it resolves the IP, opens TCP to port 443, presents the TLS **certificate** and only then sends the HTTP request. `127.0.0.1` accepts local traffic only; `0.0.0.0` may accept traffic from several interfaces and deserves more care. TLS exists for two reasons: to encrypt the connection and to prove the server is who it claims to be.
+
+Between the client and that port there is usually a **firewall**: a filter that decides which connections are accepted before they reach the process. It explains a symptom that confuses many people: if nothing is listening, the machine refuses and you see `Connection refused` straight away; if a firewall drops the packet silently, you see nothing and the connection hangs until it times out.
 
 :::note[One layer at a time]
 When a URL fails, check resolution (DNS) first, then connection (TCP/TLS), and finally the application (HTTP). A timeout and a `404` are different problems.

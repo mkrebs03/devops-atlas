@@ -31,7 +31,9 @@ docker build -t atlas-web:local .
 docker run --rm -p 8080:80 atlas-web:local
 ```
 
-La etiqueta ayuda a encontrar una imagen; no convierte `latest` en una versión confiable. Para producción, usa un identificador inmutable como un SHA.
+La etiqueta ayuda a encontrar una imagen; no convierte `latest` en una versión confiable: `latest` es un nombre que alguien puede reapuntar a otra imagen mañana. Para producción se usa un identificador **inmutable**, y lo habitual es el **SHA**: la huella criptográfica del contenido de la imagen. Si el contenido cambia, la huella cambia, así que `sha-abc123` siempre significa exactamente los mismos bytes.
+
+Las imágenes no se copian a mano entre máquinas: se publican en un **registro** (Docker Hub, GitHub Container Registry, el registro de tu nube), que funciona como un repositorio remoto de imágenes. `docker push` sube y `docker pull` baja, y esa es la vía por la que un artefacto construido en CI llega al servidor.
 
 ## Escribir un Dockerfile
 

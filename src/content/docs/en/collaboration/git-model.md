@@ -43,10 +43,10 @@ git show --stat HEAD
 
 ## The diff is the unit of conversation
 
-Before saving a commit, review what changed:
+A commit does not pick up everything you touched: it picks up what you chose to include. Between your files and the commit there is an intermediate step, the **staging area**, where `git add` places the changes you actually want to keep. That is why there are two different diffs:
 
 ```bash
-git diff           # changes that are not staged yet
+git diff           # what you changed and have not staged
 git diff --cached  # exactly what will enter the next commit
 ```
 

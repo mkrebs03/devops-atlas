@@ -41,7 +41,7 @@ A pull request is not only a merge button. It is a surface for explaining:
 3. How the change was verified.
 4. Which risk remains.
 
-Link the issue that motivates it (for example, with `Closes #42`) so the context travels with the change. The description and diff should make a review specific: "the endpoint returns 503 when the dependency is missing, and the test covers that case" helps more than "looks good".
+An **issue** is the unit that records outstanding work — a reported bug, an agreed improvement — with its discussion and its number. Link the issue that motivates the change (for example, with `Closes #42`, which also closes it on merge) so that context travels with the code. The description and diff should make a review specific: "the endpoint returns 503 when the dependency is missing, and the test covers that case" helps more than "looks good".
 
 ## Reviewing is reading with intent
 
@@ -55,7 +55,7 @@ Requesting changes is not a rejection, it is part of the conversation. A small P
 
 ## CI and protected branches
 
-Automation removes repetitive checks: formatting, types, tests and builds. When a check fails, its status should be actionable and point to evidence.
+**CI** stands for continuous integration: every proposed change is integrated and validated automatically on a clean server, not only on the machine of whoever wrote it. That automation removes the repetitive checks — formatting, types, tests, and builds. When a check fails, its status should be actionable and point to evidence.
 
 A **protected branch** turns those agreements into rules: require at least one review, require CI to pass and prevent pushing directly to `main`. That way the only gate into the shared state is a change that was reviewed and verified.
 

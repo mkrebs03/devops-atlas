@@ -104,6 +104,17 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 
 **Arreglo propuesto:** dos frentes. (1) Definir en el lugar donde primero hace falta — casi todos caben en una frase. (2) Una página de **glosario** de conceptos, distinta del A–Z de herramientas, que hoy no existe.
 
+> **Hecho.** Los trece términos quedan definidos donde primero aparecen:
+> - `delivery/index.md` abre con **pipeline**, **artefacto** y **entorno** (con producción y staging dentro).
+> - `delivery/github-actions.md` define **runner** al presentar los jobs, **lint** al ordenar las comprobaciones, y **secreto** separado de **permisos**, que antes iban en el mismo párrafo.
+> - `delivery/docker.md` explica por qué `latest` no es fiable, qué es un **SHA** y qué es un **registro de imágenes** —que era de dónde salía el `ghcr.io` sin presentar.
+> - `deployment/pipeline.md` define **prueba de humo**.
+> - `collaboration/git-model.md` nombra el **área de preparación** y con eso explica por qué hay dos diffs.
+> - `collaboration/github-flow.md` define **issue** y **CI** en su primera aparición, tres módulos antes de donde estaba.
+> - `foundations/networking.md` define **IP**, **puerto**, **socket** y **firewall** —este último explica de paso por qué una conexión se cuelga en vez de ser rechazada, que era una fila sin respaldo en la tabla del lab.
+>
+> Y hay página nueva de **[glosario](/glossary/)** en ambos idiomas, enlazada en la barra lateral junto al A–Z: 37 términos, una línea cada uno y el enlace a donde se explica completo. Queda claro el reparto: el A–Z lista herramientas, el glosario lista conceptos.
+
 ---
 
 ## D · Referencias sueltas heredadas del despliegue del propio autor
@@ -119,8 +130,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 ## E · Otros huecos de concepto por módulo
 
 **Fundamentos · redes** (`foundations/networking.md`)
-- No se explica qué es una IP, ni la diferencia entre local y pública, ni gateway/subred.
-- "Puerto" se usa en una línea sin definirse realmente ("identifica el punto de entrada de un proceso").
+- ~~No se explica qué es una IP.~~ ~~"Puerto" se usa sin definirse realmente.~~ Hechos, junto con **socket** y **firewall** (ver C). Sigue sin cubrirse la diferencia entre dirección local y pública, ni gateway/subred.
 - Falta proxy inverso y balanceador, que después hacen falta en Entrega y Despliegue (ver A3).
 
 **Colaboración · Git** (`collaboration/git-model.md`)
@@ -165,7 +175,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 1. ~~**A1** — página "Qué es DevOps" + ciclo de vida.~~ **Hecho.**
 2. ~~**A2** — landing: propósito, audiencia, cómo usar el sitio, qué falta todavía.~~ **Hecho.**
 3. ~~**B** — partir Linux en `linux` + `terminal`.~~ **Hecho.**
-4. **C** — definiciones en sitio + página de glosario.
+4. ~~**C** — definiciones en sitio + página de glosario.~~ **Hecho.**
 5. **A3 (segunda mitad)** — página de proxy inverso / balanceo; cierra el hueco de Despliegue.
 6. **D + F** — limpiar Caddy/VPS/Compose, unificar nomenclatura, quitar `kubernetes` del frontmatter, alinear prerrequisitos.
 7. **E** — "por qué Git", "por qué contenedores", IP/puertos, ángulo DevOps de Pruebas.

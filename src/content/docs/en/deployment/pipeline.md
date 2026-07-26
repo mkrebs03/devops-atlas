@@ -43,6 +43,8 @@ docker push registry/app:sha-abc123
 
 Each environment answers a question: does it start? does it pass smoke tests? does it behave with realistic data? Production should not be the first place a version runs.
 
+A **smoke test** is the minimum check that a version is alive: the health endpoint answers, the front page loads, the database connects. It does not replace the test suite; it only rules out having deployed something that does not even start.
+
 An **approval gate** —for example, a protected `environment` in GitHub Actions— makes explicit who authorizes the final step.
 
 :::tip[Config per environment, single artifact]

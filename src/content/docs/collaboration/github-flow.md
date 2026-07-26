@@ -41,7 +41,7 @@ Un pull request no es solo un botón de merge. Es una superficie para explicar:
 3. Cómo se verificó.
 4. Qué riesgo queda pendiente.
 
-Vincula el issue que lo motiva (por ejemplo, con `Closes #42`) para que el contexto viaje con el cambio. La descripción y el diff deben permitir una revisión específica: "el endpoint devuelve 503 cuando falta la dependencia, y el test cubre ese caso" ayuda más que "se ve bien".
+Un **issue** es la unidad con la que se registra un trabajo pendiente —un fallo reportado, una mejora acordada— con su discusión y su número. Vincula el issue que motiva el cambio (por ejemplo, con `Closes #42`, que además lo cierra al integrar) para que ese contexto viaje con el código. La descripción y el diff deben permitir una revisión específica: "el endpoint devuelve 503 cuando falta la dependencia, y el test cubre ese caso" ayuda más que "se ve bien".
 
 ## Revisar es leer con intención
 
@@ -55,7 +55,7 @@ Pedir cambios no es un rechazo, es parte de la conversación. Un PR pequeño se 
 
 ## CI y ramas protegidas
 
-La automatización elimina comprobaciones repetitivas: formato, tipos, tests y build. Cuando una comprobación falla, su estado debe ser accionable y apuntar a una evidencia.
+**CI** son las siglas de integración continua: cada cambio propuesto se integra y se valida automáticamente en un servidor limpio, no solo en la máquina de quien lo escribió. Esa automatización elimina las comprobaciones repetitivas —formato, tipos, tests y build—. Cuando una comprobación falla, su estado debe ser accionable y apuntar a una evidencia.
 
 Una **rama protegida** convierte esos acuerdos en reglas: exigir al menos una revisión, exigir que CI pase e impedir empujar directo a `main`. Así, la única puerta hacia el estado compartido es un cambio revisado y verificado.
 

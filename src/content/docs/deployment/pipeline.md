@@ -43,6 +43,8 @@ docker push registry/app:sha-abc123
 
 Cada entorno responde una pregunta: ¿arranca?, ¿pasa las pruebas de humo?, ¿se comporta con datos realistas? Producción no debería ser el primer lugar donde una versión se ejecuta.
 
+Una **prueba de humo** es la comprobación mínima de que la versión está viva: responde el endpoint de salud, carga la página principal, conecta con la base de datos. No sustituye a la suite de pruebas; solo descarta que hayas desplegado algo que ni siquiera arranca.
+
 Una **compuerta de aprobación** —por ejemplo, un `environment` protegido en GitHub Actions— hace explícito quién autoriza el paso final.
 
 :::tip[Config por entorno, artefacto único]

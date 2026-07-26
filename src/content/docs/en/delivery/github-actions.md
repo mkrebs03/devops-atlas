@@ -20,6 +20,8 @@ takeaways:
 
 GitHub Actions describes what happens in response to repository events (`push`, `pull_request`, tags). A workflow is made of **jobs** —which run on separate machines and in parallel— and each job of **steps** in order.
 
+That machine is called a **runner**. `runs-on: ubuntu-latest` asks for a freshly created Linux virtual machine, destroyed once the job ends: nothing survives from one run to the next, which is why every workflow has to install what it needs.
+
 ```mermaid
 flowchart LR
   E["event: push / PR"] --> L["lint"]
@@ -32,6 +34,8 @@ flowchart LR
 ## Validate with lint, tests and build
 
 A good pipeline does not only compile: it checks formatting, types and behaviour before packaging.
+
+**Lint** is the cheapest check of all: a program reads the code without running it and flags whatever breaks a convention or smells like a bug — an unused variable, a missing `await`, an import that no longer exists. It takes seconds, so it goes first.
 
 ```yaml
 name: Validate Atlas
@@ -92,7 +96,9 @@ A CI error is a user experience. Short messages, reproducible commands and visib
 
 ## Secrets and permissions
 
-Secrets belong in GitHub, not in the YAML or the repository. Give each job the minimum it needs: read code to validate and write packages only in the job that publishes.
+A **secret** is a value that grants access to something: a token, an API key, the password the pipeline uses to reach the server. They live stored in GitHub, never in the YAML or the repository — anyone who clones the code would carry them away — and the workflow receives them as variables that the run log masks.
+
+**Permissions** are the other half: give each job the minimum it needs: read code to validate and write packages only in the job that publishes.
 
 ```yaml
 permissions:
