@@ -32,6 +32,7 @@ flowchart LR
 | Pipeline | How does an artifact go from build to release? | [From build to release](./pipeline/) |
 | Traffic | Who decides which instance each request reaches? | [Reverse proxy and load balancing](./proxy/) |
 | Strategy | How do I change the version without taking the service down? | [Deployment strategies](./strategies/) |
+| Evidence | How do I know the new version behaves well? | [Observability](./observability/) |
 | Practice | Can I promote and roll back a version? | [Lab · promote and roll back](./lab-release/) |
 
 :::note[Deploying is not an event, it is a capability]
@@ -40,4 +41,4 @@ A mature team does not pray before a yearly deploy. It deploys often, in small p
 
 ## Expected outcome
 
-You will be able to describe a delivery pipeline, choose a deployment strategy by risk, and practise a promotion with rollback.
+You will be able to describe a delivery pipeline, choose a deployment strategy by risk, know what to watch in the minutes that follow, and practise a promotion with rollback.

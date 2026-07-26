@@ -54,10 +54,11 @@ Peor: hay contenido que **depende** de lo que falta.
 
 **Arreglo propuesto:** sección "Qué falta todavía" en la landing, honesta y fechada; y una página de proxy inverso / balanceo en Fundamentos o Despliegue, que es la pieza que hace falta para cerrar el módulo 5.
 
-> **Hecho, salvo observabilidad.** La declaración de alcance está en la landing y en la página de qué es DevOps (ver A1 y A2).
+> **Hecho.** La declaración de alcance está en la landing y en la página de qué es DevOps (ver A1 y A2).
 > La pieza que faltaba es `deployment/proxy` (orden 20, antes de estrategias): un solo 443 para muchos servicios, qué resuelve un proxy inverso —enrutado, terminación TLS, superficie mínima, reglas y logs en un punto—, balanceo entre instancias, el chequeo de salud como lo que lo hace útil, y una tabla que enlaza cada estrategia con lo que cambia en el proxy. Cierra con drenaje de conexiones y por qué el estado en memoria rompe el balanceo.
 > `strategies` ahora depende de esa página y lo dice en su primer párrafo; `lab-release` explica que el puerto 8080 hace de proxy y que por eso hay un corte que en producción no habría; el índice del módulo gana la fila "Tráfico".
-> **Sigue pendiente:** canary dice "si las métricas están sanas" y no hay página de observabilidad. Es el hueco de contenido más grande que queda.
+> El otro hueco era canary diciendo "si las métricas están sanas" sin ninguna página detrás. Lo cubre `deployment/observability` (orden 22): monitorizar frente a observar, las tres señales con qué pregunta responde y qué cuesta cada una, las cuatro señales doradas medidas en la frontera del usuario, por qué el promedio miente y se usan percentiles, qué comparar entre versión nueva y vieja en los primeros minutos —que es literalmente lo que significaba "métricas sanas"—, y alertas sobre síntomas en vez de sobre causas. La línea del canary ahora enlaza ahí.
+> Con eso, las afirmaciones de alcance de la landing y de qué es DevOps ya no listan observabilidad como ausente.
 
 ### A4 · La columna vertebral aparece una sola vez, en el módulo 4
 
@@ -151,7 +152,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 - El módulo está bien escrito pero no dice **qué tiene de DevOps**. Para un lector que ya programa y ya escribe tests, el ángulo distintivo (la prueba como compuerta del pipeline) solo aparece en `in-ci`, no en el índice.
 
 **Despliegue** (`deployment/`)
-- Sin observabilidad ni mecanismo de tráfico, el módulo describe decisiones que el lector no puede ejecutar ni verificar (ver A3).
+- ~~Sin observabilidad ni mecanismo de tráfico, el módulo describe decisiones que el lector no puede ejecutar ni verificar.~~ **Resuelto** con `deployment/proxy` y `deployment/observability` (ver A3).
 
 ---
 
@@ -181,7 +182,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 2. ~~**A2** — landing: propósito, audiencia, cómo usar el sitio, qué falta todavía.~~ **Hecho.**
 3. ~~**B** — partir Linux en `linux` + `terminal`.~~ **Hecho.**
 4. ~~**C** — definiciones en sitio + página de glosario.~~ **Hecho.**
-5. ~~**A3 (segunda mitad)** — página de proxy inverso / balanceo.~~ **Hecho.** Queda observabilidad, del mismo hueco.
+5. ~~**A3 (segunda mitad)** — proxy inverso / balanceo y observabilidad.~~ **Hecho.**
 6. **D + F** — limpiar Caddy/VPS/Compose, unificar nomenclatura, quitar `kubernetes` del frontmatter, alinear prerrequisitos.
 7. **E** — "por qué Git", "por qué contenedores", IP/puertos, ángulo DevOps de Pruebas.
 

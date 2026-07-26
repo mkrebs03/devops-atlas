@@ -197,7 +197,7 @@ export const modules = Object.freeze([
       es: 'Llevar un artefacto a producción y poder revertirlo.',
       en: 'Taking an artifact to production — and being able to roll it back.',
     }),
-    tools: Object.freeze(['nginx', 'Caddy', 'blue-green']),
+    tools: Object.freeze(['nginx', 'Caddy', 'Prometheus']),
     pages: Object.freeze([
       page({
         id: 'deployment.overview', module: 'deployment', order: 18,
@@ -221,7 +221,13 @@ export const modules = Object.freeze([
         prerequisites: ['deployment.proxy'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
       }),
       page({
-        id: 'deployment.lab-release', module: 'deployment', order: 22,
+        id: 'deployment.observability', module: 'deployment', order: 22,
+        relativePath: 'deployment/observability/', kind: 'concept',
+        prerequisites: ['deployment.proxy'],
+        label: { es: 'Observabilidad', en: 'Observability' },
+      }),
+      page({
+        id: 'deployment.lab-release', module: 'deployment', order: 23,
         relativePath: 'deployment/lab-release/', kind: 'practice',
         prerequisites: ['deployment.pipeline'],
         label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },

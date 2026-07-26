@@ -27,7 +27,7 @@ Las cuatro estrategias que siguen son formas distintas de hacer una misma operac
 - **Recreate**: apaga la vieja, enciende la nueva. Simple, pero hay downtime.
 - **Rolling**: reemplaza instancias de a poco. Sin downtime, pero conviven dos versiones un rato.
 - **Blue-green**: dos entornos completos (azul actual, verde nuevo); cambias el tráfico de golpe y puedes volver al azul al instante.
-- **Canary**: la versión nueva recibe primero una fracción del tráfico; si las métricas están sanas, subes; si no, la retiras.
+- **Canary**: la versión nueva recibe primero una fracción del tráfico; si [las métricas](./observability/) están sanas, subes; si no, la retiras.
 
 ```mermaid
 flowchart LR

@@ -27,7 +27,7 @@ The four strategies below are different ways of performing the same operation: c
 - **Recreate**: shut the old one down, start the new one. Simple, but there is downtime.
 - **Rolling**: replace instances gradually. No downtime, but two versions coexist for a while.
 - **Blue-green**: two full environments (blue current, green new); you switch traffic at once and can return to blue instantly.
-- **Canary**: the new version first receives a fraction of traffic; if metrics are healthy you ramp up, otherwise you withdraw it.
+- **Canary**: the new version first receives a fraction of traffic; if [the metrics](./observability/) are healthy you ramp up, otherwise you withdraw it.
 
 ```mermaid
 flowchart LR

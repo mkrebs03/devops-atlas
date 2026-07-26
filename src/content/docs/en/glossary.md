@@ -5,6 +5,8 @@ description: The terms used across the Atlas, defined in one line, each pointing
 
 Every term is defined where it is first needed inside its own page. This is the shortcut: the minimum definition to keep you reading, plus the link to where it is explained in full. For specific tools, use the [A–Z tools index](/en/tools/).
 
+**Alert** — An automated notice that somebody is suffering something and there is something to do. Defined on symptoms, not on causes. → [Observability](/en/deployment/observability/)
+
 **Approval gate** — The point where a person explicitly authorises the step into production. It is the only thing separating continuous delivery from continuous deployment. → [From build to release](/en/deployment/pipeline/)
 
 **Artifact** — The packaged result of a build: a container image, a `.jar`, a folder of static files. It is what gets deployed, and it is not the code it came from. → [Delivery](/en/delivery/)
@@ -49,7 +51,15 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Load balancing** — Spreading requests across several identical instances of the same service. → [Reverse proxy and load balancing](/en/deployment/proxy/)
 
+**Log** — The event-by-event record of what the system did. Structured and carrying a correlation id, it reconstructs one specific case. → [Observability](/en/deployment/observability/)
+
 **Merge** — Integrating one branch into another with a commit that joins both lines and keeps the history as it happened. → [The Git model](/en/collaboration/git-model/)
+
+**Metric** — A number measured over time: requests per second, errors per minute, milliseconds to respond. Cheap to keep and good for alerts. → [Observability](/en/deployment/observability/)
+
+**Observability** — Being able to answer questions you did not anticipate about what the system is doing, without deploying new code to find out. → [Observability](/en/deployment/observability/)
+
+**Percentile** — The value below which a given share of measurements falls. The p99 describes the worst real experience better than any average. → [Observability](/en/deployment/observability/)
 
 **Pipeline** — The automated sequence of stages a change travels from commit to published. → [Delivery](/en/delivery/)
 
@@ -84,6 +94,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 **Staging area** — The intermediate step between your files and the commit, where `git add` places what you actually want to keep. It is why there are two different diffs. → [The Git model](/en/collaboration/git-model/)
 
 **TLS** — The layer that encrypts the connection and proves the server is who it claims to be. The `s` in HTTPS. → [Essential networking](/en/foundations/networking/)
+
+**Trace** — One request's path across every service it passes through, with the time spent on each leg. → [Observability](/en/deployment/observability/)
 
 **Volume** — Storage that lives outside the container and survives its deletion. Where the data you cannot lose goes. → [Docker without magic](/en/delivery/docker/)
 

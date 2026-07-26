@@ -97,7 +97,7 @@ El título del puesto cambia —DevOps engineer, platform engineer, SRE— y cad
 
 ## Dónde encaja cada módulo
 
-Este Atlas te lleva desde leer una máquina hasta desplegar una versión y poder revertirla. Cada módulo se ocupa de un tramo del ciclo:
+Este Atlas te lleva desde leer una máquina hasta desplegar una versión, observar cómo se comporta y poder revertirla. Cada módulo se ocupa de un tramo del ciclo:
 
 | Etapa del ciclo | Dónde se cubre |
 | --- | --- |
@@ -105,9 +105,9 @@ Este Atlas te lleva desde leer una máquina hasta desplegar una versión y poder
 | Codificar y revisar en equipo | [02 · Colaboración](/collaboration/) |
 | Construir, empaquetar y automatizar | [03 · Entrega](/delivery/) |
 | Probar con evidencia | [04 · Pruebas](/testing/) |
-| Publicar, desplegar y revertir | [05 · Despliegue](/deployment/) |
+| Publicar, desplegar, observar y revertir | [05 · Despliegue](/deployment/) |
 
-**Lo que todavía no encontrarás aquí:** infraestructura como código, nubes públicas, Kubernetes, observabilidad (métricas, logs, trazas) y seguridad. Cuando una página necesita apoyarse en alguno de esos temas, lo dice y te enlaza a una fuente externa.
+**Lo que todavía no encontrarás aquí:** infraestructura como código, nubes públicas, Kubernetes y seguridad. Cuando una página necesita apoyarse en alguno de esos temas, lo dice y te enlaza a una fuente externa.
 
 :::caution[Prerrequisito]
 Este Atlas asume que ya programas: que sabes escribir código, usar un editor y leer un error. No enseña a programar desde cero.

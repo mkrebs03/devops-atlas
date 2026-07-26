@@ -97,7 +97,7 @@ Job titles differ — DevOps engineer, platform engineer, SRE — and each stres
 
 ## Where each module fits
 
-This Atlas takes you from reading a machine to shipping a version and being able to roll it back. Each module handles one stretch of the cycle:
+This Atlas takes you from reading a machine to shipping a version, watching how it behaves, and being able to roll it back. Each module handles one stretch of the cycle:
 
 | Stage of the cycle | Where it is covered |
 | --- | --- |
@@ -105,9 +105,9 @@ This Atlas takes you from reading a machine to shipping a version and being able
 | Coding and reviewing as a team | [02 · Collaboration](/en/collaboration/) |
 | Building, packaging, automating | [03 · Delivery](/en/delivery/) |
 | Testing with evidence | [04 · Testing](/en/testing/) |
-| Releasing, deploying, rolling back | [05 · Deployment](/en/deployment/) |
+| Releasing, deploying, observing, rolling back | [05 · Deployment](/en/deployment/) |
 
-**What you will not find here yet:** infrastructure as code, public clouds, Kubernetes, observability (metrics, logs, traces), and security. When a page needs to lean on one of those topics, it says so and links you to an outside source.
+**What you will not find here yet:** infrastructure as code, public clouds, Kubernetes, and security. When a page needs to lean on one of those topics, it says so and links you to an outside source.
 
 :::caution[Prerequisite]
 This Atlas assumes you already code: that you can write code, use an editor, and read an error. It does not teach programming from zero.

@@ -5,6 +5,8 @@ description: Los términos que aparecen en el Atlas, definidos en una línea y c
 
 Cada término está definido en el momento en que hace falta dentro de su página. Esto es el atajo: la definición mínima para no perder el hilo, y el enlace a donde se explica completo. Para herramientas concretas, usa el [índice de herramientas A–Z](/tools/).
 
+**Alerta** — Un aviso automático de que alguien está sufriendo algo y hay algo que hacer. Se define sobre síntomas, no sobre causas. → [Observabilidad](/deployment/observability/)
+
 **Área de preparación** — El paso intermedio entre tus archivos y el commit, donde `git add` coloca lo que sí quieres guardar. Explica por qué existen dos diffs distintos. → [El modelo de Git](/collaboration/git-model/)
 
 **Artefacto** — El resultado empaquetado de una construcción: una imagen de contenedor, un `.jar`, una carpeta de archivos estáticos. Es lo que se despliega, y no es el código del que salió. → [Entrega](/delivery/)
@@ -49,7 +51,15 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Lint** — La comprobación más barata: un programa lee el código sin ejecutarlo y marca lo que rompe una convención o huele a error. → [GitHub Actions](/delivery/github-actions/)
 
+**Log** — El registro evento a evento de lo que hizo el sistema. Estructurado y con un identificador de correlación, sirve para reconstruir un caso concreto. → [Observabilidad](/deployment/observability/)
+
 **Merge** — Integrar una rama en otra creando un commit que une ambas líneas y conserva la historia tal como ocurrió. → [El modelo de Git](/collaboration/git-model/)
+
+**Métrica** — Un número medido en el tiempo: peticiones por segundo, errores por minuto, milisegundos de respuesta. Barata de guardar y buena para alertas. → [Observabilidad](/deployment/observability/)
+
+**Observabilidad** — La propiedad de poder responder preguntas que no anticipaste sobre lo que está haciendo el sistema, sin desplegar código nuevo para averiguarlo. → [Observabilidad](/deployment/observability/)
+
+**Percentil** — El valor que deja por debajo a un porcentaje de las mediciones. El p99 describe la peor experiencia real mejor que cualquier promedio. → [Observabilidad](/deployment/observability/)
 
 **Pipeline** — La secuencia automática de etapas que recorre un cambio desde el commit hasta quedar publicado. → [Entrega](/delivery/)
 
@@ -84,6 +94,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 **Socket** — La pareja IP + puerto: la dirección real a la que se conecta un cliente. → [Redes esenciales](/foundations/networking/)
 
 **TLS** — La capa que cifra la conexión y prueba que el servidor es quien dice ser. La `s` de HTTPS. → [Redes esenciales](/foundations/networking/)
+
+**Traza** — El recorrido de una misma petición por todos los servicios que atraviesa, con el tiempo de cada tramo. → [Observabilidad](/deployment/observability/)
 
 **Volumen** — Almacenamiento que vive fuera del contenedor y sobrevive a su borrado. Donde van los datos que no puedes perder. → [Docker sin magia](/delivery/docker/)
 

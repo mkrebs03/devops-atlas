@@ -32,6 +32,7 @@ flowchart LR
 | Pipeline | ¿Cómo pasa un artefacto de build a release? | [Del build al release](./pipeline/) |
 | Tráfico | ¿Quién decide a qué instancia llega cada petición? | [Proxy inverso y balanceo](./proxy/) |
 | Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](./strategies/) |
+| Evidencia | ¿Cómo sé que la versión nueva se comporta bien? | [Observabilidad](./observability/) |
 | Práctica | ¿Puedo promover y revertir una versión? | [Lab · promover y revertir](./lab-release/) |
 
 :::note[Desplegar no es un evento, es una capacidad]
@@ -40,4 +41,4 @@ Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en por
 
 ## Resultado esperado
 
-Al terminar podrás describir un pipeline de entrega, elegir una estrategia de despliegue según el riesgo, y practicar una promoción con rollback.
+Al terminar podrás describir un pipeline de entrega, elegir una estrategia de despliegue según el riesgo, saber qué mirar en los minutos siguientes, y practicar una promoción con rollback.
