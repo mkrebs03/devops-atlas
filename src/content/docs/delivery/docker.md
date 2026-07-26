@@ -7,6 +7,7 @@ module: delivery
 tools: [docker, nginx]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
+  - Explicar qué aísla un contenedor y en qué se diferencia de una máquina virtual.
   - Distinguir una imagen inmutable de un contenedor en ejecución.
   - Escribir un Dockerfile aprovechando el orden de capas y una build multi-stage.
   - Definir el contrato de proceso, puerto, configuración y datos de un contenedor.
@@ -15,6 +16,19 @@ takeaways:
   - El orden de las instrucciones decide qué capas se reutilizan y cuánto tarda una build.
   - Puertos, volúmenes y configuración deben formar un contrato observable.
 ---
+
+## Por qué contenedores y no máquinas virtuales
+
+El problema que resuelven es viejo: "en mi máquina funciona". La aplicación depende de una versión de Node, de una librería del sistema, de una variable de entorno, de un archivo que alguien dejó en el servidor hace dos años. Nada de eso viaja con el código.
+
+Una **máquina virtual** lo resuelve llevándose la máquina entera: virtualiza el hardware y arranca su propio núcleo con su propio sistema operativo. Funciona, pero cuesta gigabytes y un arranque de minuto.
+
+Un **contenedor** se lleva solo lo que la aplicación necesita —sus archivos, sus dependencias, su configuración— y comparte el núcleo del sistema anfitrión. Lo que aísla no es hardware simulado: son funciones del propio Linux que le dan al proceso su propia vista del sistema de archivos, de la red y de la lista de procesos. Por eso pesa megabytes y arranca en milisegundos.
+
+Ese reparto tiene dos consecuencias prácticas:
+
+- Un contenedor es un proceso de Linux, así que necesita un núcleo Linux debajo. En macOS y Windows, Docker arranca una máquina virtual pequeña donde correrlos.
+- El aislamiento es más fino que el de una máquina virtual: comparten núcleo, así que separan menos. Para ejecutar código en el que no confías, la máquina virtual sigue siendo la frontera fuerte.
 
 ## Imagen y contenedor no son sinónimos
 

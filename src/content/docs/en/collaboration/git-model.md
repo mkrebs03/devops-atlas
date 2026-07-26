@@ -7,6 +7,7 @@ module: collaboration
 tools: [git]
 prerequisites: [foundations.terminal]
 learningObjectives:
+  - Explain what distributed version control gives you, and what a repository is.
   - Relate commits, branches, and HEAD within the Git graph.
   - Choose between merge and rebase to integrate a branch and resolve a simple conflict.
   - Use the diff, history, and gitignore to explain and scope a change.
@@ -15,6 +16,22 @@ takeaways:
   - Merge preserves the real history; rebase rewrites it to linearize it.
   - The diff is the smallest unit for reviewing and discussing a change.
 ---
+
+## Why Git
+
+Version control answers three questions no folder of dated backups can: what changed, who changed it, and why. Git won out over what came before on two concrete decisions:
+
+- **It is distributed.** Cloning a repository gives you the entire history, not a link to a server. You can read the log, branch, and commit with no connection, and there is no single copy whose loss is catastrophic.
+- **Branching is cheap.** Creating a branch writes a file holding one commit id; nothing is copied. That is what makes the rest of this module's workflow possible: one branch per change, reviewed on its own, thrown away once merged.
+
+And it is now the de facto standard: GitHub, GitLab, and the rest are services built **on top of** Git. Git is the tool running on your machine; GitHub is a place to host a copy and collaborate around it.
+
+A **repository** is a folder with a `.git` subdirectory inside it, holding the project's entire history. There are two ways to get one:
+
+```bash
+git init                                 # start a new one here
+git clone https://github.com/user/repo   # take a full copy of someone else's
+```
 
 ## Three objects explain most of it
 

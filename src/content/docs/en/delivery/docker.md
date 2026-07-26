@@ -7,6 +7,7 @@ module: delivery
 tools: [docker, nginx]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
+  - Explain what a container isolates, and how it differs from a virtual machine.
   - Distinguish an immutable image from a running container.
   - Write a Dockerfile that uses layer ordering and a multi-stage build.
   - Define the process, port, configuration, and data contract of a container.
@@ -15,6 +16,19 @@ takeaways:
   - Instruction order decides which layers are reused and how long a build takes.
   - Ports, volumes, and configuration should form an observable contract.
 ---
+
+## Why containers and not virtual machines
+
+The problem they solve is an old one: "it works on my machine". The application depends on a Node version, a system library, an environment variable, a file somebody left on the server two years ago. None of that travels with the code.
+
+A **virtual machine** solves it by taking the whole machine along: it virtualises hardware and boots its own kernel with its own operating system. It works, but it costs gigabytes and a minute of boot time.
+
+A **container** takes only what the application needs — its files, its dependencies, its configuration — and shares the host's kernel. What isolates it is not simulated hardware: it is features of Linux itself that give the process its own view of the filesystem, the network, and the process list. That is why it weighs megabytes and starts in milliseconds.
+
+That trade has two practical consequences:
+
+- A container is a Linux process, so it needs a Linux kernel underneath. On macOS and Windows, Docker boots a small virtual machine to run them in.
+- The isolation is thinner than a virtual machine's: sharing a kernel means separating less. For running code you do not trust, the virtual machine is still the strong boundary.
 
 ## An image and a container are not synonyms
 

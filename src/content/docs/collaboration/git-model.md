@@ -7,6 +7,7 @@ module: collaboration
 tools: [git]
 prerequisites: [foundations.terminal]
 learningObjectives:
+  - Explicar qué aporta un control de versiones distribuido y qué es un repositorio.
   - Relacionar commits, ramas y HEAD dentro del grafo de Git.
   - Elegir entre merge y rebase para integrar una rama y resolver un conflicto simple.
   - Usar el diff, el historial y gitignore para explicar y acotar un cambio.
@@ -15,6 +16,22 @@ takeaways:
   - Merge conserva la historia real; rebase la reescribe para linealizarla.
   - El diff es la unidad mínima para revisar y conversar sobre un cambio.
 ---
+
+## Por qué Git
+
+Un control de versiones responde tres preguntas que ningún respaldo con fechas en el nombre responde: qué cambió, quién lo cambió y por qué. Git se impuso sobre los anteriores por dos decisiones concretas:
+
+- **Es distribuido.** Al clonar un repositorio te llevas la historia completa, no un enlace a un servidor. Puedes ver el historial, crear ramas y hacer commits sin conexión, y no hay una única copia cuya pérdida sea catastrófica.
+- **Ramificar es barato.** Crear una rama es escribir un archivo con el identificador de un commit; no copia nada. Eso es lo que hace posible el flujo de trabajo del resto del módulo: una rama por cambio, revisada aparte y desechada al integrarse.
+
+Y hoy es el estándar de hecho: GitHub, GitLab y las demás plataformas son servicios construidos **sobre** Git. Git es la herramienta que corre en tu máquina; GitHub es un sitio donde alojar una copia y colaborar alrededor de ella.
+
+Un **repositorio** es una carpeta con un subdirectorio `.git` dentro, que contiene toda la historia del proyecto. Se crea de dos formas:
+
+```bash
+git init                                    # empezar uno nuevo aquí
+git clone https://github.com/usuario/repo   # traer una copia completa de otro
+```
 
 ## Tres objetos que explican casi todo
 

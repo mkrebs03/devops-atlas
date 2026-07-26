@@ -139,17 +139,11 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 - ~~No se explica qué es una IP.~~ ~~"Puerto" se usa sin definirse realmente.~~ Hechos, junto con **socket** y **firewall** (ver C). Sigue sin cubrirse la diferencia entre dirección local y pública, ni gateway/subred.
 - Falta proxy inverso y balanceador, que después hacen falta en Entrega y Despliegue (ver A3).
 
-**Colaboración · Git** (`collaboration/git-model.md`)
-- Mismo problema que Linux, en pequeño: **por qué Git** y no otro control de versiones, nunca se dice.
-- No se explica qué es un repositorio, ni `clone`, ni el área de preparación. El módulo abre en commits/ramas/HEAD asumiendo instalación y repo ya existentes.
-- No se dice qué es GitHub frente a Git (plataforma vs herramienta), aunque `github` está en el frontmatter de dos páginas.
+**Colaboración · Git** (`collaboration/git-model.md`) — **hecho.** La página abre ahora con "Por qué Git": qué responde un control de versiones, las dos decisiones que lo impusieron (distribuido y ramas baratas, que es lo que hace posible el flujo del resto del módulo), Git frente a GitHub como herramienta frente a plataforma, y qué es un repositorio con `init` y `clone`. El área de preparación entró antes, con las definiciones (ver C).
 
-**Entrega · Docker** (`delivery/docker.md`)
-- **Por qué contenedores** y no máquinas virtuales: no aparece. Tampoco el problema que resuelven ("funciona en mi máquina").
-- No se explica qué aísla un contenedor ni en qué se apoya, ni siquiera a nivel de modelo mental.
+**Entrega · Docker** (`delivery/docker.md`) — **hecho.** Sección nueva de apertura: el problema de "en mi máquina funciona", la máquina virtual que se lleva la máquina entera frente al contenedor que comparte núcleo, qué aísla realmente (funciones de Linux, no hardware simulado) y las dos consecuencias que se notan a diario: necesita un núcleo Linux debajo —de ahí la VM en macOS y Windows— y aísla menos que una máquina virtual.
 
-**Pruebas** (`testing/`)
-- El módulo está bien escrito pero no dice **qué tiene de DevOps**. Para un lector que ya programa y ya escribe tests, el ángulo distintivo (la prueba como compuerta del pipeline) solo aparece en `in-ci`, no en el índice.
+**Pruebas** (`testing/`) — **hecho.** El índice dice ahora qué cambia para quien ya escribe pruebas: la suite deja de ser una comprobación que corres cuando te acuerdas y pasa a ser una compuerta del camino de entrega, ejecutada sola en un entorno que no es el tuyo. Deja de ser un seguro personal y pasa a ser evidencia compartida.
 
 **Despliegue** (`deployment/`)
 - ~~Sin observabilidad ni mecanismo de tráfico, el módulo describe decisiones que el lector no puede ejecutar ni verificar.~~ **Resuelto** con `deployment/proxy` y `deployment/observability` (ver A3).
@@ -183,7 +177,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 3. ~~**B** — partir Linux en `linux` + `terminal`.~~ **Hecho.**
 4. ~~**C** — definiciones en sitio + página de glosario.~~ **Hecho.**
 5. ~~**A3 (segunda mitad)** — proxy inverso / balanceo y observabilidad.~~ **Hecho.**
-6. **D + F** — limpiar Caddy/VPS/Compose, unificar nomenclatura, quitar `kubernetes` del frontmatter, alinear prerrequisitos.
-7. **E** — "por qué Git", "por qué contenedores", IP/puertos, ángulo DevOps de Pruebas.
+6. ~~**D + F** — limpiar Caddy/VPS/Compose, unificar nomenclatura, quitar `kubernetes` del frontmatter, alinear prerrequisitos.~~ **Hecho.**
+7. ~~**E** — "por qué Git", "por qué contenedores", IP/puertos, ángulo DevOps de Pruebas.~~ **Hecho.**
 
 Todo cambio se replica en `src/content/docs/en/`; `scripts/validate-content.mjs` exige paridad de objetivos y takeaways.
