@@ -103,11 +103,20 @@
 .sl-heading-wrapper {
   display: flex;
   align-items: center;
-  gap: var(--atlas-space-2);
+  gap: 0.15em;
 }
 .sl-heading-wrapper > :is(h1, h2, h3, h4, h5, h6) { margin-block: 0; }
-.sl-heading-wrapper.level-h2 { margin-top: var(--atlas-space-7); }
-.sl-heading-wrapper.level-h3 { margin-top: var(--atlas-space-6); }
+/* Starlight reserves padding-inline-end on the heading itself for its
+   inline + negative-margin anchor technique. The flex + gap layout above
+   replaces that technique, so this leftover padding is dead space that
+   silently widens the gap no matter what the flex gap is set to. */
+.sl-heading-wrapper > :first-child { padding-inline-end: 0; }
+/* Starlight sizes the wrapper itself per heading level, which is what the
+   icon and gap below scale against (em). h2/h3 get a smaller font-size on
+   the heading element above, so the wrapper needs to match or the icon
+   scales against a font-size larger than what's actually on screen. */
+.sl-heading-wrapper.level-h2 { font-size: var(--atlas-size-xl); margin-top: var(--atlas-space-7); }
+.sl-heading-wrapper.level-h3 { font-size: var(--atlas-size-lg); margin-top: var(--atlas-space-6); }
 .sl-heading-wrapper.level-h4 { margin-top: var(--atlas-space-5); }
 .sl-markdown-content > .sl-heading-wrapper:first-child { margin-top: 0; }
 .sl-heading-wrapper + * { margin-top: var(--atlas-space-3); }
@@ -117,7 +126,7 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0.15rem;
+  padding: 0.15em;
   border-radius: var(--atlas-radius);
   color: var(--atlas-text-3);
   opacity: 0;
@@ -126,9 +135,14 @@
 .sl-heading-wrapper .sl-anchor-icon { display: inline-flex; }
 .sl-heading-wrapper .sl-anchor-icon svg {
   flex: none;
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 0.65em;
+  height: 0.65em;
   display: block;
+  /* Starlight's own rule centres the icon against line-height with a
+     translateY, tuned for its inline heading layout. The wrapper here is a
+     flex row with align-items: center instead, so that leftover transform
+     just knocks the icon off-centre — cancel it. */
+  transform: none;
 }
 .sl-heading-wrapper:hover .sl-anchor-link,
 .sl-heading-wrapper .sl-anchor-link:focus-visible { opacity: 1; }
