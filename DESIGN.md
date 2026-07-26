@@ -129,7 +129,10 @@ its actions already in place.
   the question that is still on screen. Its marker turns on the same clock as
   the body, and the answer sits one prose step below the question — the same
   gap as any paragraph, not the doubled one that clipping the content would
-  otherwise leave behind.
+  otherwise leave behind. The height travels as a grid track, and a track sizes
+  to one item, so `plugins/rehype-details-body.mjs` gives every disclosure in
+  the content a single body element at build time. Growing to a height of `auto`
+  would read better in the stylesheet and only moves in one engine.
 - Navigation between pages is a page load. A reading site is read one page at a
   time, and a router that keeps the shell alive would buy a fade at the cost of
   re-running the diagram renderer and the scroll spy on every link.

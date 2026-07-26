@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { modules } from './src/data/curriculum.mjs';
+import { rehypeDetailsBody } from './plugins/rehype-details-body.mjs';
 
 const moduleSidebar = modules.map((module) => ({
   label: module.sidebarLabel.es,
@@ -20,6 +21,11 @@ export default defineConfig({
   redirects: {
     '/foundations/linux-cli/': '/foundations/terminal/',
     '/en/foundations/linux-cli/': '/en/foundations/terminal/',
+  },
+  markdown: {
+    // Gives every <details> in the content a single body element, which is what
+    // lets it open by growing rather than in one frame. See the plugin.
+    rehypePlugins: [rehypeDetailsBody],
   },
   integrations: [
     starlight({

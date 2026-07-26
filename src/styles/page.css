@@ -159,23 +159,32 @@
 
 /* A question you answer yourself is worth reading twice, so the answer unfolds
    under it rather than appearing where the next paragraph used to be: the eye
-   keeps the question while the answer arrives. `interpolate-size` is what makes
-   a height of `auto` a transition endpoint; it is set on the disclosure, not the
-   document, so nothing else changes how it sizes. Browsers without
-   `::details-content` open it instantly, as before. */
-.sl-markdown-content details {
-  interpolate-size: allow-keywords;
-}
+   keeps the question while the answer arrives.
+
+   The height travels as a grid track, from `0fr` to `1fr`. Animating to a height
+   of `auto` would be the obvious way and reads better in source, but it needs
+   `interpolate-size`, which today only Chromium has — on every other engine the
+   disclosure would simply snap, which is most of the reason to do this at all.
+   A track interpolates everywhere. It sizes to one item, which is why the
+   content carries a body element (plugins/rehype-details-body.mjs): the children
+   of a pseudo-element cannot be selected, so the thing that has to collapse must
+   be real. */
 .sl-markdown-content details::details-content {
-  block-size: 0;
-  overflow: hidden;
-  transition-property: block-size, content-visibility;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition-property: grid-template-rows, content-visibility;
   transition-duration: var(--atlas-dur-expand);
   transition-timing-function: var(--atlas-ease-expand);
   transition-behavior: allow-discrete;
 }
 .sl-markdown-content details[open]::details-content {
-  block-size: auto;
+  grid-template-rows: 1fr;
+}
+/* A grid item floors at its own content unless told otherwise, so without this
+   the track never reaches 0 and nothing moves. */
+.sl-markdown-content details > .atlas-details__body {
+  min-height: 0;
+  overflow: hidden;
 }
 /* Starlight opens a gap under the summary because, unclipped, the answer's own
    top margin collapses into it. Clipping the content is what makes the height

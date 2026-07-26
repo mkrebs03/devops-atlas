@@ -267,23 +267,32 @@ site-search dialog[open]::backdrop { opacity: 1; }
 }
 
 /* Opening a group grows it open instead of snapping the rest of the rail down
-   the page, so the item you were looking at stays findable. `interpolate-size`
-   is what lets a height of `auto` be a transition endpoint at all; it is set on
-   the disclosure rather than the document so nothing else changes how it sizes.
-   Browsers without `::details-content` open the group instantly, as before. */
-.sidebar-content details {
-  interpolate-size: allow-keywords;
-}
+   the page, so the item you were looking at stays findable. The height travels
+   as a grid track rather than as a height of `auto`, which would need
+   `interpolate-size` and would therefore only move in Chromium; see the same
+   note in page.css. */
 .sidebar-content details::details-content {
-  block-size: 0;
-  overflow: hidden;
-  transition-property: block-size, content-visibility;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition-property: grid-template-rows, content-visibility;
   transition-duration: var(--atlas-dur-expand);
   transition-timing-function: var(--atlas-ease-expand);
   transition-behavior: allow-discrete;
 }
 .sidebar-content details[open]::details-content {
-  block-size: auto;
+  grid-template-rows: 1fr;
+}
+/* A track sizes to one item. Starlight puts its scroll-restore element beside
+   the list; `display: contents` keeps it in the DOM and doing its job while
+   leaving the list as the only thing in the grid. */
+.sidebar-content sl-sidebar-restore {
+  display: contents;
+}
+/* A grid item floors at its own content unless told otherwise, so without this
+   the track never reaches 0 and nothing moves. */
+.sidebar-content details > ul {
+  min-height: 0;
+  overflow: hidden;
 }
 /* Starlight turns the caret on its own clock. One gesture, one timing. */
 .sidebar-content .caret {
