@@ -84,21 +84,23 @@ Si borras el contenedor, el volumen `atlas-data` sigue ahí. Un contenedor es de
 
 ## Redes y nombres
 
-En una red Docker, los servicios se encuentran por nombre. No necesitas publicar cada puerto al host. Si Caddy y una aplicación comparten una red externa, Caddy enruta internamente al nombre del servicio.
+En una red Docker, los servicios se encuentran por nombre: un contenedor puede llamar a `http://atlas:8080` sin saber en qué IP está. Por eso no hace falta publicar cada puerto al host. El patrón habitual es poner delante un [proxy inverso](/deployment/proxy/): es el único que se expone al exterior y alcanza al resto por su nombre de servicio.
+
+Ese reparto se declara en un archivo de **Docker Compose**, que describe varios contenedores y la red que comparten en lugar de encadenar comandos `docker run`:
 
 ```yaml
 services:
   atlas:
     image: ghcr.io/example/devops-atlas:sha-abc123
-    networks: [caddy-net]
+    networks: [edge]        # sin "ports": nadie llega desde fuera
 
 networks:
-  caddy-net:
+  edge:                     # la red donde también vive el proxy
     external: true
 ```
 
 :::caution[Menos superficie, menos sorpresas]
-Un servicio que solo necesita ser accesible desde Caddy no debe publicar `80:80` al host. Expón únicamente lo que el contrato del sistema necesita.
+Un servicio que solo necesita ser accesible desde el proxy no debe publicar `80:80` al host. Expón únicamente lo que el contrato del sistema necesita.
 :::
 
 ## Comprueba lo que entendiste

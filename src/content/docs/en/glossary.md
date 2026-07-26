@@ -35,6 +35,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Group** — A shared identity that lets several users reach the same things. The middle triplet in a file's permissions. → [Linux](/en/foundations/linux/)
 
+**Health check** — The periodic check a balancer makes to know whether an instance can serve, and to pull it out of rotation if it cannot. → [Reverse proxy and load balancing](/en/deployment/proxy/)
+
 **Image** — An immutable package of layers that containers are created from. Identified by tag, and in production by SHA. → [Docker without magic](/en/delivery/docker/)
 
 **IP** — A machine's address on the network: the number packets must be sent to in order to arrive. → [Essential networking](/en/foundations/networking/)
@@ -44,6 +46,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 **Job** — One unit of a workflow, running on its own machine. Jobs run in parallel unless you declare dependencies with `needs`. → [GitHub Actions](/en/delivery/github-actions/)
 
 **Lint** — The cheapest check there is: a program reads the code without running it and flags whatever breaks a convention or smells like a bug. → [GitHub Actions](/en/delivery/github-actions/)
+
+**Load balancing** — Spreading requests across several identical instances of the same service. → [Reverse proxy and load balancing](/en/deployment/proxy/)
 
 **Merge** — Integrating one branch into another with a commit that joins both lines and keeps the history as it happened. → [The Git model](/en/collaboration/git-model/)
 
@@ -60,6 +64,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 **Rebase** — Reapplying your commits onto another base to get a linear history. It rewrites identifiers, so it belongs to private history. → [The Git model](/en/collaboration/git-model/)
 
 **Registry** — The remote repository where images are published and from which servers pull them. Docker Hub, GHCR, your cloud's own. → [Docker without magic](/en/delivery/docker/)
+
+**Reverse proxy** — The server that receives all traffic and distributes it among your services. Where the TLS certificate and the routing decision live. → [Reverse proxy and load balancing](/en/deployment/proxy/)
 
 **Rollback** — Going back to the previous version. What makes a deployment reversible, and what is worth rehearsing before you need it. → [Deployment strategies](/en/deployment/strategies/)
 

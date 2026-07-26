@@ -30,6 +30,7 @@ flowchart LR
 | Moment | Question | Page |
 | --- | --- | --- |
 | Pipeline | How does an artifact go from build to release? | [From build to release](./pipeline/) |
+| Traffic | Who decides which instance each request reaches? | [Reverse proxy and load balancing](./proxy/) |
 | Strategy | How do I change the version without taking the service down? | [Deployment strategies](./strategies/) |
 | Practice | Can I promote and roll back a version? | [Lab · promote and roll back](./lab-release/) |
 

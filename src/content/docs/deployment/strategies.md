@@ -4,8 +4,8 @@ description: Recreate, rolling, blue-green y canary, y cómo revertir cada una.
 type: concept
 level: advanced
 module: deployment
-tools: [deployment, kubernetes]
-prerequisites: [deployment.pipeline]
+tools: [deployment, nginx]
+prerequisites: [deployment.proxy]
 learningObjectives:
   - Comparar recreate, rolling, blue-green y canary por riesgo y costo.
   - Elegir una estrategia según la tolerancia a downtime y a fallos.
@@ -19,6 +19,8 @@ takeaways:
 ## Cambiar la versión sin tumbar el servicio
 
 Actualizar significa reemplazar la versión que sirve tráfico. Cómo lo haces decide cuánta gente ve un fallo si algo sale mal.
+
+Las cuatro estrategias que siguen son formas distintas de hacer una misma operación: cambiar a dónde apunta el tráfico. Quien la ejecuta es el proxy o el balanceador que tienes delante, así que conviene tener claro [qué hace esa pieza](./proxy/) antes de elegir.
 
 ## Cuatro estrategias
 

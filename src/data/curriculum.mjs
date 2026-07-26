@@ -197,7 +197,7 @@ export const modules = Object.freeze([
       es: 'Llevar un artefacto a producción y poder revertirlo.',
       en: 'Taking an artifact to production — and being able to roll it back.',
     }),
-    tools: Object.freeze(['Docker', 'nginx', 'blue-green']),
+    tools: Object.freeze(['nginx', 'Caddy', 'blue-green']),
     pages: Object.freeze([
       page({
         id: 'deployment.overview', module: 'deployment', order: 18,
@@ -210,12 +210,18 @@ export const modules = Object.freeze([
         prerequisites: ['delivery.github-actions'], label: { es: 'Del build al release', en: 'From build to release' },
       }),
       page({
-        id: 'deployment.strategies', module: 'deployment', order: 20,
-        relativePath: 'deployment/strategies/', kind: 'concept',
-        prerequisites: ['deployment.pipeline'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
+        id: 'deployment.proxy', module: 'deployment', order: 20,
+        relativePath: 'deployment/proxy/', kind: 'concept',
+        prerequisites: ['foundations.networking'],
+        label: { es: 'Proxy inverso y balanceo', en: 'Reverse proxy and load balancing' },
       }),
       page({
-        id: 'deployment.lab-release', module: 'deployment', order: 21,
+        id: 'deployment.strategies', module: 'deployment', order: 21,
+        relativePath: 'deployment/strategies/', kind: 'concept',
+        prerequisites: ['deployment.proxy'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
+      }),
+      page({
+        id: 'deployment.lab-release', module: 'deployment', order: 22,
         relativePath: 'deployment/lab-release/', kind: 'practice',
         prerequisites: ['deployment.pipeline'],
         label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },

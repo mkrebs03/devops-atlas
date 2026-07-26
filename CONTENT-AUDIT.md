@@ -54,6 +54,11 @@ Peor: hay contenido que **depende** de lo que falta.
 
 **Arreglo propuesto:** sección "Qué falta todavía" en la landing, honesta y fechada; y una página de proxy inverso / balanceo en Fundamentos o Despliegue, que es la pieza que hace falta para cerrar el módulo 5.
 
+> **Hecho, salvo observabilidad.** La declaración de alcance está en la landing y en la página de qué es DevOps (ver A1 y A2).
+> La pieza que faltaba es `deployment/proxy` (orden 20, antes de estrategias): un solo 443 para muchos servicios, qué resuelve un proxy inverso —enrutado, terminación TLS, superficie mínima, reglas y logs en un punto—, balanceo entre instancias, el chequeo de salud como lo que lo hace útil, y una tabla que enlaza cada estrategia con lo que cambia en el proxy. Cierra con drenaje de conexiones y por qué el estado en memoria rompe el balanceo.
+> `strategies` ahora depende de esa página y lo dice en su primer párrafo; `lab-release` explica que el puerto 8080 hace de proxy y que por eso hay un corte que en producción no habría; el índice del módulo gana la fila "Tráfico".
+> **Sigue pendiente:** canary dice "si las métricas están sanas" y no hay página de observabilidad. Es el hueco de contenido más grande que queda.
+
 ### A4 · La columna vertebral aparece una sola vez, en el módulo 4
 
 `testing/index.md:23` — *"En Fundamentos aprendiste a observar; en Colaboración, a revisar; en Entrega, a empaquetar."* Es la mejor frase del sitio para explicar la estructura, y está enterrada en la cuarta página índice. `foundations/index.md:47` intenta algo parecido (*"la base de Git, Docker y CI/CD"*) pero nombra herramientas, no los módulos que existen.
@@ -119,8 +124,8 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 
 ## D · Referencias sueltas heredadas del despliegue del propio autor
 
-- `delivery/docker.md:85` y `:99` — **Caddy** aparece dos veces, sin presentación, en un ejemplo de Compose. Es infraestructura del proyecto que se filtró al material. El lector no sabe qué es Caddy ni por qué se asume que está ahí.
-- `delivery/docker.md:88` — bloque YAML de **Docker Compose** (`services:`, `networks:`) sin una sola línea que introduzca qué es Compose ni en qué se diferencia de `docker run`. Es la primera y única vez que aparece Compose en todo el sitio.
+- ~~`delivery/docker.md:85` y `:99` — **Caddy** aparece dos veces, sin presentación.~~ **Hecho:** ahora la sección habla de "un proxy inverso" y enlaza a `deployment/proxy`, donde Caddy se presenta junto a nginx y Traefik. La red del ejemplo pasó de `caddy-net` a `edge`.
+- ~~`delivery/docker.md:88` — bloque YAML de **Docker Compose** sin una sola línea que introduzca qué es Compose.~~ **Hecho:** una frase lo presenta como la forma de describir varios contenedores y su red en lugar de encadenar `docker run`.
 - `delivery/index.md:39` y `delivery/lab-container-pipeline.md:91` — **VPS** mencionada dos veces como si fuera el destino conocido del despliegue. Es la arquitectura del autor, no un concepto presentado.
 
 **Arreglo:** o se generalizan (proxy inverso, servidor), o se introducen de verdad.
@@ -156,7 +161,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 
 2. **El A–Z mezcla herramientas con conceptos.** El índice se genera del frontmatter `tools:` y hoy contiene: `ci`, `ci-cd`, `containers`, `deployment`, `networking`, `terminal`, `testing`, `yaml`. Ninguno es una herramienta. La página promete "herramientas y términos" pero no distingue unos de otros.
 
-3. **Kubernetes figura como herramienta del Atlas sin contenido.** `deployment/strategies.md:7` declara `tools: [deployment, kubernetes]`, así que el A–Z lista Kubernetes apuntando a una página que solo lo menciona en un enlace externo. Es la única afirmación del sitio que no se puede respaldar — choca con la restricción dura de `PRODUCT.md:32`.
+3. ~~**Kubernetes figura como herramienta del Atlas sin contenido.**~~ **Arreglado.** `deployment/strategies.md` declaraba `tools: [deployment, kubernetes]`, así que el A–Z listaba Kubernetes apuntando a una página que solo lo menciona en un enlace externo — la única afirmación del sitio que no se podía respaldar. Ahora declara `[deployment, nginx]`, que es lo que la página realmente usa.
 
 4. **Tensión curso/wiki en la redacción.** Cada índice cierra con "Resultado esperado · Al terminar podrás…" y el frontmatter usa `learningObjectives`. Posicionamiento decidido (`PRODUCT.md:21`) es wiki de referencia, no curso. La página lee como curso y navega como wiki; parte de la confusión de propósito que notaste sale de ahí.
 
@@ -176,7 +181,7 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 2. ~~**A2** — landing: propósito, audiencia, cómo usar el sitio, qué falta todavía.~~ **Hecho.**
 3. ~~**B** — partir Linux en `linux` + `terminal`.~~ **Hecho.**
 4. ~~**C** — definiciones en sitio + página de glosario.~~ **Hecho.**
-5. **A3 (segunda mitad)** — página de proxy inverso / balanceo; cierra el hueco de Despliegue.
+5. ~~**A3 (segunda mitad)** — página de proxy inverso / balanceo.~~ **Hecho.** Queda observabilidad, del mismo hueco.
 6. **D + F** — limpiar Caddy/VPS/Compose, unificar nomenclatura, quitar `kubernetes` del frontmatter, alinear prerrequisitos.
 7. **E** — "por qué Git", "por qué contenedores", IP/puertos, ángulo DevOps de Pruebas.
 

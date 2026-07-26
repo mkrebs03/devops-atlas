@@ -9,11 +9,15 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Artefacto** — El resultado empaquetado de una construcción: una imagen de contenedor, un `.jar`, una carpeta de archivos estáticos. Es lo que se despliega, y no es el código del que salió. → [Entrega](/delivery/)
 
+**Balanceo de carga** — Repartir las peticiones entre varias instancias iguales del mismo servicio. → [Proxy inverso y balanceo](/deployment/proxy/)
+
 **Blue-green** — Estrategia de despliegue con dos entornos completos: uno sirve tráfico y el otro recibe la versión nueva; el cambio es instantáneo y la vuelta atrás también. → [Estrategias de despliegue](/deployment/strategies/)
 
 **Canary** — Estrategia de despliegue que expone la versión nueva a una fracción del tráfico y solo la extiende si las métricas se mantienen sanas. → [Estrategias de despliegue](/deployment/strategies/)
 
 **CD** — Entrega continua: el artefacto queda siempre listo para desplegar. Despliegue continuo: ese último paso además ocurre solo cuando las comprobaciones pasan. → [Del build al release](/deployment/pipeline/)
+
+**Chequeo de salud** — La comprobación periódica que hace un balanceador para saber si una instancia puede atender, y retirarla de rotación si no. → [Proxy inverso y balanceo](/deployment/proxy/)
 
 **CI** — Integración continua: cada cambio propuesto se integra y se valida automáticamente en un servidor limpio, no solo en la máquina de quien lo escribió. → [Pruebas en CI](/testing/in-ci/)
 
@@ -50,6 +54,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 **Pipeline** — La secuencia automática de etapas que recorre un cambio desde el commit hasta quedar publicado. → [Entrega](/delivery/)
 
 **Producción** — El entorno donde hay usuarios reales. El único donde un fallo le pasa a alguien. → [Entrega](/delivery/)
+
+**Proxy inverso** — El servidor que recibe todo el tráfico y lo reparte entre tus servicios. Donde vive el certificado TLS y la decisión de enrutado. → [Proxy inverso y balanceo](/deployment/proxy/)
 
 **Prueba de humo** — La comprobación mínima de que una versión está viva: responde el endpoint de salud, carga la página, conecta con la base de datos. → [Del build al release](/deployment/pipeline/)
 

@@ -30,6 +30,7 @@ flowchart LR
 | Momento | Pregunta | Página |
 | --- | --- | --- |
 | Pipeline | ¿Cómo pasa un artefacto de build a release? | [Del build al release](./pipeline/) |
+| Tráfico | ¿Quién decide a qué instancia llega cada petición? | [Proxy inverso y balanceo](./proxy/) |
 | Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](./strategies/) |
 | Práctica | ¿Puedo promover y revertir una versión? | [Lab · promover y revertir](./lab-release/) |
 
