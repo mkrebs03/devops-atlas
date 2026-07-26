@@ -96,10 +96,48 @@
   letter-spacing: -0.015em;
 }
 
+/* A section lede sits closer to its heading than the heading's default gap. */
+.landing__section > h2:has(+ .landing__intro) { margin-bottom: var(--atlas-space-2); }
+.landing__intro {
+  max-width: 62ch;
+  margin: 0 0 var(--atlas-space-4);
+  font-size: var(--atlas-size-sm);
+  line-height: 1.6;
+  color: var(--atlas-text-2);
+}
+
 .landing__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
   gap: var(--atlas-space-4);
+}
+
+/* Columns of plain text under a hairline — the same treatment as the facts
+   row, so "how to use it" reads as a note on the site, not as a third offer. */
+.landing__use {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--atlas-space-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.landing__use li {
+  margin-top: 0;
+  padding-top: var(--atlas-space-3);
+  border-top: var(--atlas-hairline) solid var(--atlas-border);
+}
+.landing__use h3 {
+  margin: 0;
+  font-size: var(--atlas-size-sm);
+  font-weight: 600;
+  color: var(--atlas-text);
+}
+.landing__use p {
+  margin: var(--atlas-space-2) 0 0;
+  font-size: var(--atlas-size-xs);
+  line-height: 1.6;
+  color: var(--atlas-text-2);
 }
 
 .mcard {
@@ -227,9 +265,12 @@
   padding-top: var(--atlas-space-4);
   border-top: var(--atlas-hairline) solid var(--atlas-border);
   font-size: var(--atlas-size-xs);
+  line-height: 1.6;
   color: var(--atlas-text-3);
   max-width: 60ch;
 }
+.landing__foot p { margin: 0; }
+.landing__foot p + p { margin-top: var(--atlas-space-3); }
 
 @media (max-width: 52rem) {
   .landing__sample { grid-template-columns: 1fr; }

@@ -1,10 +1,12 @@
 ---
 /*
   The landing is its own surface, not the docs index wearing a headline. It
-  answers three questions in order — what this is, what is inside, what a page
-  actually looks like — and then gets out of the way.
+  answers, in order: what this is, what is inside, what a page actually looks
+  like, how to use it and who it is for — and then says what is still missing
+  instead of letting the reader discover the gap on their own.
 
-  Every number and every sample below is real content from this repository.
+  Every number and every sample below is real content from this repository, and
+  the closing disclosure names exactly the topics this Atlas does not cover yet.
 */
 import { modules, pages, getLocalizedPath } from '../data/curriculum.mjs';
 import { t } from '../data/ui-text.mjs';
@@ -21,24 +23,60 @@ const words = en
   ? {
       display: ['Learn DevOps', 'by reading how it', 'actually behaves.'],
       lede: 'A DevOps reference for developers who already code: concepts explained to build a mental model, tools documented as they behave, and walkthroughs you run on your own machine.',
+      whatIs: 'What DevOps is',
       start: 'Start with Foundations',
       browse: 'Browse tools A–Z',
       whatInside: 'What is inside',
+      insideLede: 'Five modules that follow the path of a change: read the machine, collaborate on the code, package it, test it, and take it to production. Read them in order, or go straight to the one you need.',
       sample: 'What a page looks like',
       sampleLede: 'Pages separate the boundaries a request crosses, then show the evidence that tells them apart — real commands, real output.',
       sampleCaption: 'From Foundations · Essential networking',
-      openSource: 'Free and open. Every page exists in Spanish and English.',
+      howTo: 'How to use it',
+      use: [
+        {
+          title: 'In order, or by lookup',
+          body: 'Modules run 01 to 05 and each leans on the previous one. You can also come in through search or the A–Z index: every page states which module it belongs to and what is worth knowing first.',
+        },
+        {
+          title: 'For people who already code',
+          body: 'It assumes you can write code, use an editor, and read an error. It does not teach programming from zero — it starts where development courses usually stop.',
+        },
+        {
+          title: 'In Spanish and English',
+          body: 'Every page exists in full in both languages, not as a half-finished translation. Switch language whenever you like and carry on where you were.',
+        },
+      ],
+      missing: 'Right now the Atlas runs from reading a machine to shipping a version and rolling it back. What you will not find here yet: infrastructure as code, public clouds, Kubernetes, observability, or security.',
+      openSource: 'Free, no sign-up.',
     }
   : {
       display: ['Aprende DevOps', 'leyendo cómo se', 'comporta de verdad.'],
       lede: 'Referencia de DevOps para quien ya programa: conceptos explicados para construir un modelo mental, herramientas documentadas como se comportan y prácticas que ejecutas en tu propia máquina.',
+      whatIs: 'Qué es DevOps',
       start: 'Empezar por Fundamentos',
       browse: 'Ver herramientas A–Z',
       whatInside: 'Qué hay dentro',
+      insideLede: 'Cinco módulos que siguen el recorrido de un cambio: leer la máquina, colaborar sobre el código, empaquetarlo, probarlo y llevarlo a producción. Puedes leerlos en orden o entrar directo al que necesites.',
       sample: 'Cómo se ve una página',
       sampleLede: 'Las páginas separan las fronteras que atraviesa una petición y muestran la evidencia que las distingue: comandos reales, salida real.',
       sampleCaption: 'De Fundamentos · Redes esenciales',
-      openSource: 'Libre y abierto. Cada página existe en español y en inglés.',
+      howTo: 'Cómo usarlo',
+      use: [
+        {
+          title: 'En orden o suelto',
+          body: 'Los módulos van del 01 al 05 y cada uno se apoya en el anterior. También puedes entrar por el buscador o por el índice A–Z: cada página dice a qué módulo pertenece y qué conviene saber antes.',
+        },
+        {
+          title: 'Para quien ya programa',
+          body: 'Asume que sabes escribir código, usar un editor y leer un error. No enseña a programar desde cero: empieza donde suelen terminar los cursos de desarrollo.',
+        },
+        {
+          title: 'En español y en inglés',
+          body: 'Cada página existe completa en los dos idiomas, no como traducción a medias. Cambias de idioma cuando quieras y sigues donde estabas.',
+        },
+      ],
+      missing: 'Por ahora el Atlas llega desde leer una máquina hasta desplegar una versión y revertirla. Todavía no encontrarás aquí infraestructura como código, nubes públicas, Kubernetes, observabilidad ni seguridad.',
+      openSource: 'Gratis y sin registro.',
     };
 ---
 
@@ -49,7 +87,8 @@ const words = en
     </h1>
     <p class="landing__lede">{words.lede}</p>
     <p class="landing__actions">
-      <a class="landing__cta" href={getLocalizedPath('foundations.overview', locale)}>{words.start}</a>
+      <a class="landing__cta" href={`${base}what-is-devops/`}>{words.whatIs}</a>
+      <a class="landing__ghost" href={getLocalizedPath('foundations.overview', locale)}>{words.start}</a>
       <a class="landing__ghost" href={`${base}tools/`}>{words.browse}</a>
     </p>
     <dl class="landing__facts">
@@ -61,6 +100,7 @@ const words = en
 
   <section class="landing__section">
     <h2>{words.whatInside}</h2>
+    <p class="landing__intro">{words.insideLede}</p>
     <div class="landing__grid">
       {modules.map((module) => (
         <a class="mcard" href={getLocalizedPath(`${module.id}.overview`, locale)}>
@@ -100,5 +140,20 @@ const words = en
     </figure>
   </section>
 
-  <p class="landing__foot">{words.openSource}</p>
+  <section class="landing__section">
+    <h2>{words.howTo}</h2>
+    <ul class="landing__use">
+      {words.use.map((item) => (
+        <li>
+          <h3>{item.title}</h3>
+          <p>{item.body}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="landing__foot">
+    <p>{words.missing}</p>
+    <p>{words.openSource}</p>
+  </div>
 </div>
