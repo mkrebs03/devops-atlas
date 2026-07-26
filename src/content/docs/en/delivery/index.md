@@ -14,6 +14,8 @@ takeaways:
   - A deliverable artifact needs an identity, a contract, and evidence that it works.
 ---
 
+**Where you are:** in Collaboration a change became reviewable. Here it becomes installable: built, packaged, and checked on its own, the same way every time.
+
 ## Delivery reduces uncertainty
 
 A pipeline does not exist to look automated. It turns a small intention into evidence: code can be installed, tested, packaged and published under known conditions.

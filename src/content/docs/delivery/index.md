@@ -14,6 +14,8 @@ takeaways:
   - Un artefacto entregable necesita identidad, contrato y evidencia de funcionamiento.
 ---
 
+**Dónde estás:** en Colaboración, un cambio pasó a ser revisable. Aquí pasa a ser instalable: se construye, se empaqueta y se comprueba solo, igual cada vez.
+
 ## Entregar es reducir incertidumbre
 
 Una pipeline no existe para verse automatizada. Existe para convertir una intención pequeña en evidencia: el código se puede instalar, probar, empaquetar y publicar bajo condiciones conocidas.

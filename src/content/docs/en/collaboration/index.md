@@ -14,6 +14,8 @@ takeaways:
   - Small, reviewable, and reversible changes reduce risk for the team.
 ---
 
+**Where you are:** in Foundations you learned to read a machine. Here the change stops being only yours: a team enters, and with it the need for your work to be reviewable, explainable, and undoable.
+
 ## Delivery is also coordination
 
 A software change does not end when it works on your machine. It needs a history another person can read, a place to review intent and a way to go back.

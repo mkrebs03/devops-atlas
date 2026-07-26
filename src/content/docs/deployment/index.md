@@ -14,6 +14,8 @@ takeaways:
   - Poder revertir rápido importa más que no fallar nunca.
 ---
 
+**Dónde estás:** ya tienes un artefacto probado. Queda el último tramo, y el más visible: ponerlo delante de usuarios reales sin cortar el servicio, saber cómo se está comportando y poder volver atrás.
+
 ## De integrar a entregar
 
 Ya construyes un artefacto y lo pruebas en CI. Desplegar es el último tramo: llevar ese artefacto a las manos de una persona, bajo condiciones controladas y con una salida de emergencia.

@@ -14,11 +14,11 @@ takeaways:
   - El valor de una prueba está en el feedback rápido, no en el número de pruebas.
 ---
 
+**Dónde estás:** en Fundamentos aprendiste a observar; en Colaboración, a revisar; en Entrega, a empaquetar. Probar cierra el círculo: convierte "creo que funciona" en "puedo demostrar que funciona".
+
 ## Probar es afirmar con evidencia
 
 Una prueba automática es una afirmación ejecutable: dado cierto input, el sistema responde de cierta forma. Cuando falla, no discutes opiniones; lees una evidencia concreta y reproducible.
-
-En Fundamentos aprendiste a observar; en Colaboración, a revisar; en Entrega, a empaquetar. Probar cierra el círculo: convierte "creo que funciona" en "puedo demostrar que funciona".
 
 ## El recorrido
 

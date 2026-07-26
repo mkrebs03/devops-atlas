@@ -14,6 +14,8 @@ takeaways:
   - Los cambios pequeños, revisables y reversibles reducen el riesgo del equipo.
 ---
 
+**Dónde estás:** en Fundamentos aprendiste a leer una máquina. Aquí el cambio deja de ser solo tuyo: entra un equipo, y con él la necesidad de que tu trabajo se pueda revisar, explicar y deshacer.
+
 ## Entregar también es coordinar
 
 Un cambio de software no termina cuando funciona en tu máquina. Debe tener una historia que otra persona pueda leer, un lugar claro para revisar la intención y una forma de volver atrás.

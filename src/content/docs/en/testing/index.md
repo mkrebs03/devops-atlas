@@ -14,11 +14,11 @@ takeaways:
   - A test's value is in fast feedback, not in the number of tests.
 ---
 
+**Where you are:** In Foundations you learned to observe; in Collaboration, to review; in Delivery, to package. Testing closes the loop: it turns "I think it works" into "I can prove it works".
+
 ## Testing is asserting with evidence
 
 An automated test is an executable assertion: given some input, the system responds in a certain way. When it fails, you do not argue opinions; you read concrete, reproducible evidence.
-
-In Foundations you learned to observe; in Collaboration, to review; in Delivery, to package. Testing closes the loop: it turns "I think it works" into "I can prove it works".
 
 ## The route
 

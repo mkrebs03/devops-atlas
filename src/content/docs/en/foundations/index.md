@@ -18,6 +18,8 @@ takeaways:
 If it is not yet clear what DevOps is or which part of the cycle this Atlas covers, start with [What DevOps is](/en/what-is-devops/) and come back.
 :::
 
+**Where you are:** the starting point. Everything that follows — Git, Docker, CI, deployments — assumes you can look at a machine and say what is happening on it.
+
 ## The first skill: observe
 
 DevOps does not start with a tool. It starts with the ability to ask concrete questions about a system: which process is listening, which file changed, why a request does not arrive, and what evidence supports a decision.

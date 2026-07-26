@@ -14,6 +14,8 @@ takeaways:
   - Being able to roll back fast matters more than never failing.
 ---
 
+**Where you are:** you have a tested artifact. What is left is the last stretch, and the most visible one: putting it in front of real users without cutting the service, knowing how it behaves, and being able to go back.
+
 ## From integrating to delivering
 
 You already build an artifact and test it in CI. Deploying is the last leg: getting that artifact into a person's hands, under controlled conditions and with an emergency exit.
