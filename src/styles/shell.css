@@ -278,8 +278,8 @@ site-search dialog[open]::backdrop { opacity: 1; }
   block-size: 0;
   overflow: hidden;
   transition-property: block-size, content-visibility;
-  transition-duration: var(--atlas-dur-slow);
-  transition-timing-function: var(--atlas-ease);
+  transition-duration: var(--atlas-dur-expand);
+  transition-timing-function: var(--atlas-ease-expand);
   transition-behavior: allow-discrete;
 }
 .sidebar-content details[open]::details-content {
@@ -287,7 +287,7 @@ site-search dialog[open]::backdrop { opacity: 1; }
 }
 /* Starlight turns the caret on its own clock. One gesture, one timing. */
 .sidebar-content .caret {
-  transition: transform var(--atlas-dur-slow) var(--atlas-ease);
+  transition: transform var(--atlas-dur-expand) var(--atlas-ease-expand);
 }
 
 /* A standalone top-level link is a destination, not a group label. */

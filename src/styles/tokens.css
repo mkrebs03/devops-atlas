@@ -58,13 +58,20 @@
   /* Movement here covers the seam between two states; it never announces
      itself. Three durations, keyed to how much of the screen changes hands:
      an item in a list, a control, a surface that arrives whole. */
-  --atlas-dur-fast: 120ms;   /* sidebar and ToC items, the heading anchor */
-  --atlas-dur-base: 150ms;   /* controls, cards, the focus ring */
-  --atlas-dur-slow: 220ms;   /* the mobile sidebar and the search dialog */
+  --atlas-dur-fast:   120ms;   /* sidebar and ToC items, the heading anchor */
+  --atlas-dur-base:   150ms;   /* controls, cards, the focus ring */
+  --atlas-dur-slow:   220ms;   /* the mobile sidebar and the search dialog */
+  --atlas-dur-expand: 300ms;   /* anything that changes the height of the page */
 
   /* Decelerated, not `ease`. `ease` ramps up first, which over 120ms of colour
      reads as the control hesitating before it answers. */
   --atlas-ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Height is the exception. The curve above spends more than half its travel
+     in the first fifth of the time, which on a colour is what makes it feel
+     immediate and on a growing box is a pop followed by a crawl. Something that
+     moves the rest of the page needs to start and finish gently instead. */
+  --atlas-ease-expand: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* --- Starlight bridge ---------------------------------------------------- */
   --sl-font: var(--atlas-font);
@@ -198,9 +205,10 @@
    still hears it. */
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --atlas-dur-fast: 1ms;
-    --atlas-dur-base: 1ms;
-    --atlas-dur-slow: 1ms;
+    --atlas-dur-fast:   1ms;
+    --atlas-dur-base:   1ms;
+    --atlas-dur-slow:   1ms;
+    --atlas-dur-expand: 1ms;
   }
 
   html { scroll-behavior: auto; }

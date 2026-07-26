@@ -109,19 +109,27 @@ nothing parallaxes, nothing moves to draw attention to itself. The landing is a
 cover, but a cover the reader passes through on the way somewhere; it opens with
 its actions already in place.
 
-- Three durations and one curve, all in `src/styles/tokens.css`: `120ms` for an
-  item in a list, `150ms` for a control, `220ms` for a surface that arrives
-  whole, on a decelerated curve that answers immediately and settles.
-- Only colour, opacity, and small translations move. There is no elevation to
-  animate and no blur to fade — the search backdrop dims the page rather than
-  blurring it, for the same reason the header does not.
+- Four durations, all in `src/styles/tokens.css`, keyed to how much of the screen
+  changes hands: `120ms` for an item in a list, `150ms` for a control, `220ms`
+  for a surface that arrives whole, `300ms` for anything that changes the height
+  of the page around it.
+- Two curves, for two jobs. Colour and opacity use a decelerated curve that
+  answers immediately and settles — over 120ms that is what reads as immediate.
+  Height uses an eased curve that starts and finishes gently, because the same
+  decelerated curve spends more than half its travel in the first fifth of the
+  time, which on a growing box is a pop followed by a crawl.
+- Only colour, opacity, height, and small translations move. There is no
+  elevation to animate and no blur to fade — the search backdrop dims the page
+  rather than blurring it, for the same reason the header does not.
 - Nothing travels further than the edge it belongs to: the mobile sidebar comes
   in from its own edge by a fraction of its width, the search panel by half a
   line.
 - A disclosure grows to its own height rather than snapping, so a sidebar group
   does not throw the rest of the rail down the page and an answer arrives under
-  the question that is still on screen. Its marker and the gap it opens travel
-  on the same clock as the body.
+  the question that is still on screen. Its marker turns on the same clock as
+  the body, and the answer sits one prose step below the question — the same
+  gap as any paragraph, not the doubled one that clipping the content would
+  otherwise leave behind.
 - Navigation between pages is a page load. A reading site is read one page at a
   time, and a router that keeps the shell alive would buy a fade at the cost of
   re-running the diagram renderer and the scroll spy on every link.

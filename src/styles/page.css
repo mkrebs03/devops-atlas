@@ -170,21 +170,24 @@
   block-size: 0;
   overflow: hidden;
   transition-property: block-size, content-visibility;
-  transition-duration: var(--atlas-dur-slow);
-  transition-timing-function: var(--atlas-ease);
+  transition-duration: var(--atlas-dur-expand);
+  transition-timing-function: var(--atlas-ease-expand);
   transition-behavior: allow-discrete;
 }
 .sl-markdown-content details[open]::details-content {
   block-size: auto;
 }
-/* Starlight opens the gap under the summary in one step and turns the marker on
-   its own clock; both now travel with the answer, so the whole disclosure reads
-   as one movement. */
-.sl-markdown-content details > summary {
-  transition: margin-bottom var(--atlas-dur-slow) var(--atlas-ease);
+/* Starlight opens a gap under the summary because, unclipped, the answer's own
+   top margin collapses into it. Clipping the content is what makes the height
+   animatable, and it also stops that collapse — leaving the two stacked, twice
+   the gap the prose uses anywhere else. The answer's margin is the one to keep:
+   it is the same rhythm as the paragraph the reader just came from. */
+.sl-markdown-content details[open] > summary {
+  margin-bottom: 0;
 }
+/* Starlight turns the marker on its own clock. One gesture, one timing. */
 .sl-markdown-content details > summary::before {
-  transition: transform var(--atlas-dur-slow) var(--atlas-ease);
+  transition: transform var(--atlas-dur-expand) var(--atlas-ease-expand);
 }
 
 /* ---------- code and terminal output ------------------------------------- */
