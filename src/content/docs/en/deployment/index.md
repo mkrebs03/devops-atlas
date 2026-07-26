@@ -4,7 +4,7 @@ description: Take an artifact to production with safe strategies and the ability
 type: concept
 level: intermediate
 module: deployment
-tools: [ci-cd, deployment]
+tools: [nginx, docker]
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Relate continuous integration and continuous delivery along one route.
@@ -33,7 +33,7 @@ flowchart LR
 | Traffic | Who decides which instance each request reaches? | [Reverse proxy and load balancing](./proxy/) |
 | Strategy | How do I change the version without taking the service down? | [Deployment strategies](./strategies/) |
 | Evidence | How do I know the new version behaves well? | [Observability](./observability/) |
-| Practice | Can I promote and roll back a version? | [Lab · promote and roll back](./lab-release/) |
+| Practice | Can I promote and roll back a version? | [Practice · promote and roll back](./lab-release/) |
 
 :::note[Deploying is not an event, it is a capability]
 A mature team does not pray before a yearly deploy. It deploys often, in small portions, and can roll back in minutes.

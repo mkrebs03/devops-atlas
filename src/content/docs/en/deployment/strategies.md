@@ -4,7 +4,7 @@ description: Recreate, rolling, blue-green and canary, and how to roll back each
 type: concept
 level: advanced
 module: deployment
-tools: [deployment, nginx]
+tools: [nginx]
 prerequisites: [deployment.proxy]
 learningObjectives:
   - Compare recreate, rolling, blue-green, and canary by risk and cost.

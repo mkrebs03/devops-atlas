@@ -4,7 +4,7 @@ description: Levanta un servidor pequeño, encuentra su puerto y verifica su res
 type: practice
 level: beginner
 module: foundations
-tools: [python, curl, ss, terminal]
+tools: [python, curl, ss]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Iniciar un servidor local e identificar el puerto donde escucha.
@@ -24,6 +24,7 @@ Vas a levantar un servidor local, comprobar en qué puerto escucha y separar un 
 
 - Una terminal (mejor si abres dos).
 - Python 3, `curl` y `ss` disponibles.
+- Unos 15 minutos.
 
 ## Paso 1 · publica una respuesta
 

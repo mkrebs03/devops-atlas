@@ -20,6 +20,11 @@ takeaways:
 
 Vas a convertir un archivo HTML en una imagen Docker, verificar que el contenedor sirve exactamente el artefacto esperado y observar la caché de capas al reconstruir.
 
+## Requisitos
+
+- Docker en ejecución y `curl` disponible.
+- Unos 15 minutos.
+
 ## Paso 1 · crea un sitio mínimo
 
 ```bash
@@ -69,14 +74,9 @@ docker image inspect atlas-lab:local --format '{{.Id}}'
 | `404 Not Found` | El archivo no quedó en la ruta que sirve nginx | `docker exec atlas-lab ls /usr/share/nginx/html` |
 | La build falla | Error en el Dockerfile o el contexto | lee la línea que reporta `docker build` |
 
-## Verificación y limpieza
+## Verificación
 
 La afirmación comprobable es: el contenedor sirve el artefacto que construí, y una reconstrucción reutiliza las capas que no cambiaron.
-
-```bash
-docker stop atlas-lab
-rm -rf /tmp/atlas-container-lab
-```
 
 ## Comprueba lo que entendiste
 
@@ -88,5 +88,12 @@ Sí: la instrucción `FROM nginx:alpine` no cambió, así que Docker reutiliza e
 </details>
 
 :::note[Una imagen es un artefacto]
-La pipeline real no debería depender de archivos que existan por casualidad en la VPS. Construye el artefacto una vez, identifica su versión y promueve esa misma versión.
+Una pipeline real no debería depender de archivos que existan por casualidad en el servidor. Construye el artefacto una vez, identifica su versión y promueve esa misma versión.
 :::
+
+## Limpieza
+
+```bash
+docker stop atlas-lab
+rm -rf /tmp/atlas-container-lab
+```

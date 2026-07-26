@@ -4,7 +4,7 @@ description: Turn confidence into evidence with automated tests and fast feedbac
 type: concept
 level: beginner
 module: testing
-tools: [testing, ci]
+tools: [node]
 prerequisites: [collaboration.github-flow]
 learningObjectives:
   - Explain why automated tests turn confidence into evidence.
@@ -31,7 +31,7 @@ flowchart LR
 | --- | --- | --- |
 | Pyramid | What to test and at which level? | [The testing pyramid](./pyramid/) |
 | Automation | How do tests run on every change? | [Tests in CI](./in-ci/) |
-| Practice | Can I write and run a test? | [Lab · your first test](./lab-first-test/) |
+| Practice | Can I write and run a test? | [Practice · your first test](./lab-first-test/) |
 
 :::note[A test that never fails protects nothing]
 If a test always passes, even when you break the code, it is not testing what you think. A good test fails when the behaviour changes.

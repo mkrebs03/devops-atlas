@@ -4,7 +4,7 @@ description: Ejecuta pruebas y lint en cada cambio, y lee la cobertura sin enga√
 type: tool
 level: intermediate
 module: testing
-tools: [ci-cd, github-actions, testing]
+tools: [github-actions]
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Ejecutar pruebas y lint autom√°ticamente en cada cambio con CI.

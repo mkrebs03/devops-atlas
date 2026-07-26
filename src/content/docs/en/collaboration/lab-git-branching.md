@@ -20,6 +20,11 @@ takeaways:
 
 Create a temporary repository, make a change on a branch, cause and resolve a conflict, and inspect the history before trusting it.
 
+## Requirements
+
+- Git installed and configured with your name and email.
+- About 15 minutes.
+
 ## Step 1 · prepare the map
 
 ```bash

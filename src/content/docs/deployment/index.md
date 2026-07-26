@@ -4,7 +4,7 @@ description: Lleva un artefacto a producción con estrategias seguras y capacida
 type: concept
 level: intermediate
 module: deployment
-tools: [ci-cd, deployment]
+tools: [nginx, docker]
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Relacionar integración continua y entrega continua en un mismo recorrido.
@@ -33,7 +33,7 @@ flowchart LR
 | Tráfico | ¿Quién decide a qué instancia llega cada petición? | [Proxy inverso y balanceo](./proxy/) |
 | Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](./strategies/) |
 | Evidencia | ¿Cómo sé que la versión nueva se comporta bien? | [Observabilidad](./observability/) |
-| Práctica | ¿Puedo promover y revertir una versión? | [Lab · promover y revertir](./lab-release/) |
+| Práctica | ¿Puedo promover y revertir una versión? | [Práctica · promover y revertir](./lab-release/) |
 
 :::note[Desplegar no es un evento, es una capacidad]
 Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en porciones pequeñas, y puede revertir en minutos.

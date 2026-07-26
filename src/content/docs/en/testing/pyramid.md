@@ -4,8 +4,8 @@ description: Unit, integration and end-to-end tests, and how to pick the right l
 type: concept
 level: intermediate
 module: testing
-tools: [testing]
-prerequisites: [foundations.terminal]
+tools: [node]
+prerequisites: []
 learningObjectives:
   - Distinguish unit, integration, and end-to-end tests.
   - Choose the test level by the cost and confidence it provides.

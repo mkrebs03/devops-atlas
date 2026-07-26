@@ -4,7 +4,7 @@ description: Imágenes, contenedores, capas y volúmenes explicados desde el con
 type: tool
 level: beginner
 module: delivery
-tools: [docker, containers, nginx]
+tools: [docker, nginx]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Distinguir una imagen inmutable de un contenedor en ejecución.

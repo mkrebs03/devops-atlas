@@ -25,6 +25,7 @@ En un sistema real, quien cambia el tráfico es un [proxy inverso](../proxy/) y 
 ## Requisitos
 
 - Docker.
+- Unos 15 minutos.
 
 ## Paso 1 · la versión azul está en producción (8080)
 
@@ -71,14 +72,9 @@ curl -s http://127.0.0.1:8080/     # de vuelta a v1 azul
 
 Revertir fue volver a apuntar a la versión anterior. Eso es lo que un blue-green te compra.
 
-## Verificación y limpieza
+## Verificación
 
 La afirmación comprobable: pudiste servir la nueva versión y volver a la anterior sin reconstruir nada.
-
-```bash
-docker stop atlas-blue atlas-green 2>/dev/null
-rm -rf /tmp/atlas-release-lab
-```
 
 ## Comprueba lo que entendiste
 
@@ -88,3 +84,10 @@ rm -rf /tmp/atlas-release-lab
 Porque puedes verificar la versión nueva en aislamiento —sin que ningún usuario la vea— antes de darle tráfico. Si algo está mal, lo descubres en 8081 y nunca llega a producción. Ese es el corazón del blue-green.
 
 </details>
+
+## Limpieza
+
+```bash
+docker stop atlas-blue atlas-green 2>/dev/null
+rm -rf /tmp/atlas-release-lab
+```

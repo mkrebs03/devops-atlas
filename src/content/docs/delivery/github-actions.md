@@ -4,7 +4,7 @@ description: Convierte el camino de validación y despliegue en un workflow visi
 type: tool
 level: beginner
 module: delivery
-tools: [github-actions, ci-cd, yaml]
+tools: [github-actions, yaml]
 prerequisites: [collaboration.github-flow]
 learningObjectives:
   - Interpretar eventos, jobs y pasos dentro de un workflow de GitHub Actions.

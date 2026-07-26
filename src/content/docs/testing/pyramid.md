@@ -4,8 +4,8 @@ description: Unidad, integración y extremo a extremo, y cómo elegir el nivel c
 type: concept
 level: intermediate
 module: testing
-tools: [testing]
-prerequisites: [foundations.terminal]
+tools: [node]
+prerequisites: []
 learningObjectives:
   - Distinguir pruebas de unidad, integración y extremo a extremo.
   - Elegir el nivel de prueba según el costo y la confianza que aporta.

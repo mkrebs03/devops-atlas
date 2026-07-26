@@ -4,7 +4,7 @@ description: Move a change from commit to a verifiable artifact.
 type: concept
 level: beginner
 module: delivery
-tools: [docker, github-actions, ci-cd]
+tools: [docker, github-actions]
 prerequisites: [collaboration.git-model, foundations.networking]
 learningObjectives:
   - Relate commit, validation, packaging, and verification in a delivery route.
@@ -39,10 +39,10 @@ Docker makes the package visible. GitHub Actions makes the route repeatable. Fee
 | --- | --- | --- |
 | Package | What it means to encapsulate an application | [Docker without magic](./docker/) |
 | Workflow | How to express an automated check | [GitHub Actions](./github-actions/) |
-| Evidence | How to verify a local image | [Pipeline lab](./lab-container-pipeline/) |
+| Evidence | How to verify a local image | [Practice · local pipeline](./lab-container-pipeline/) |
 
 :::note[Deployment starts before the server]
-A VPS should not be the first place where you discover that the application does not build. The server receives artifacts that already passed cheap, repeatable controls.
+The server should not be the first place where you discover that the application does not build. The server receives artifacts that already passed cheap, repeatable controls.
 :::
 
 ## Expected outcome

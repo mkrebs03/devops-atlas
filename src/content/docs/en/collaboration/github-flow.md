@@ -4,7 +4,7 @@ description: A small flow for proposing, reviewing and delivering changes with c
 type: tool
 level: beginner
 module: collaboration
-tools: [git, github, pull-requests]
+tools: [git, github]
 prerequisites: [collaboration.git-model]
 learningObjectives:
   - Follow GitHub Flow from a working branch through integration.

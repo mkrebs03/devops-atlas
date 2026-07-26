@@ -20,6 +20,11 @@ takeaways:
 
 Crearás un repositorio temporal, harás un cambio en una rama, provocarás y resolverás un conflicto, y comprobarás cómo se ve la historia antes de confiar en ella.
 
+## Requisitos
+
+- Git instalado y configurado con tu nombre y correo.
+- Unos 15 minutos.
+
 ## Paso 1 · prepara el mapa
 
 ```bash

@@ -4,7 +4,7 @@ description: Write a failing test, make it pass, and run it the way CI would.
 type: practice
 level: beginner
 module: testing
-tools: [node, testing]
+tools: [node]
 prerequisites: [testing.pyramid]
 learningObjectives:
   - Write a unit test that fails for the right reason.
@@ -23,6 +23,7 @@ Write a test that first fails (red), then the code that makes it pass (green), u
 ## Requirements
 
 - Node 18 or newer (ships with `node --test` built in).
+- About 10 minutes.
 
 ## Step 1 · a failing test
 
@@ -75,6 +76,10 @@ CI would run exactly this in a clean environment. If it passes locally with pinn
 | The test passes without any implementation | It does not assert what you think | the `assert` |
 | `Cannot find module` | Import path or extension | the `from './sum.mjs'` |
 | Passes locally, fails in CI | Dependency or environment | lockfile and Node version |
+
+## Verification
+
+The checkable claim is: the test failed before the implementation existed and passed after, without you changing the test.
 
 ## Check your understanding
 

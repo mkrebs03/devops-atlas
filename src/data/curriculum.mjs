@@ -173,7 +173,7 @@ export const modules = Object.freeze([
       page({
         id: 'testing.pyramid', module: 'testing', order: 15,
         relativePath: 'testing/pyramid/', kind: 'concept',
-        prerequisites: ['foundations.terminal'], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
+        prerequisites: [], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
       }),
       page({
         id: 'testing.in-ci', module: 'testing', order: 16,

@@ -4,7 +4,7 @@ description: How a single artifact travels through environments to production.
 type: concept
 level: intermediate
 module: deployment
-tools: [ci-cd, deployment, docker]
+tools: [docker]
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Distinguish continuous integration, continuous delivery, and continuous deployment.

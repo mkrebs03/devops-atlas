@@ -158,21 +158,21 @@ Este es el segundo motor de la sensación de "suelto": vocabulario que aparece f
 
 ## F · Inconsistencias de nomenclatura y metadata
 
-1. **Tres nombres para lo mismo.** Los títulos dicen `Práctica · …`, las tablas de los índices enlazan como `[Lab de shell y red]`, `[Lab de ramas]`, `[Lab de pipeline]` (`foundations/index.md:41`, `collaboration/index.md:38`, `delivery/index.md:33`), la landing los cuenta como "prácticas" (`AtlasLanding.astro:58`) y `PRODUCT.md` los llama *walkthroughs*. Elegir uno.
+1. ~~**Tres nombres para lo mismo.**~~ **Arreglado:** todo es **Práctica** / **Practice** —títulos, tablas de los índices y la cifra de la portada. El hallazgo original: Los títulos dicen `Práctica · …`, las tablas de los índices enlazan como `[Lab de shell y red]`, `[Lab de ramas]`, `[Lab de pipeline]` (`foundations/index.md:41`, `collaboration/index.md:38`, `delivery/index.md:33`), la landing los cuenta como "prácticas" (`AtlasLanding.astro:58`) y `PRODUCT.md` los llama *walkthroughs*. Elegir uno.
 
-2. **El A–Z mezcla herramientas con conceptos.** El índice se genera del frontmatter `tools:` y hoy contiene: `ci`, `ci-cd`, `containers`, `deployment`, `networking`, `terminal`, `testing`, `yaml`. Ninguno es una herramienta. La página promete "herramientas y términos" pero no distingue unos de otros.
+2. ~~**El A–Z mezcla herramientas con conceptos.**~~ **Arreglado.** El índice se genera del frontmatter `tools:`, que arrastraba nueve entradas que no son herramientas: `ci`, `ci-cd`, `containers`, `deployment`, `networking`, `terminal`, `testing`, `logs` y `pull-requests`. Fuera las nueve. Con el glosario ya en pie, el reparto queda limpio —el A–Z lista herramientas y tecnologías, incluidos protocolos como DNS, HTTP y TLS; el glosario lista conceptos— y la descripción de la página lo dice.
 
 3. ~~**Kubernetes figura como herramienta del Atlas sin contenido.**~~ **Arreglado.** `deployment/strategies.md` declaraba `tools: [deployment, kubernetes]`, así que el A–Z listaba Kubernetes apuntando a una página que solo lo menciona en un enlace externo — la única afirmación del sitio que no se podía respaldar. Ahora declara `[deployment, nginx]`, que es lo que la página realmente usa.
 
 4. **Tensión curso/wiki en la redacción.** Cada índice cierra con "Resultado esperado · Al terminar podrás…" y el frontmatter usa `learningObjectives`. Posicionamiento decidido (`PRODUCT.md:21`) es wiki de referencia, no curso. La página lee como curso y navega como wiki; parte de la confusión de propósito que notaste sale de ahí.
 
-5. **Grafo de prerrequisitos incoherente.** `testing/pyramid.md` declara `prerequisites: [foundations.linux-cli]` mientras su propio índice de módulo declara `collaboration.github-flow`. Los prerrequisitos se muestran al lector en `AtlasPageTitle.astro`, así que la incoherencia es visible.
+5. ~~**Grafo de prerrequisitos incoherente.**~~ **Arreglado.** `testing/pyramid.md` declaraba un prerrequisito de Fundamentos que la página no necesita: entender la pirámide de pruebas no exige saber shell. Ahora no declara ninguno, que es la verdad, y los prerrequisitos que sí se muestran al lector son reales.
 
-6. **Estructura desigual en los labs.** Tres cierran con `## Limpieza` al final (`foundations`, `collaboration`, `testing`); dos meten la limpieza a mitad de página, antes del quiz, bajo otros títulos (`delivery/lab-container-pipeline.md`, `deployment/lab-release.md`). Ningún lab indica tiempo estimado.
+6. ~~**Estructura desigual en los labs.**~~ **Arreglado.** Las cinco prácticas siguen la misma forma: Objetivo → Requisitos → Pasos → Verificación → Comprueba lo que entendiste → Limpieza. Dos metían la limpieza a mitad de página, dos no tenían Requisitos, a `testing` le faltaba Verificación y ninguna declaraba cuánto lleva. Resuelto en las cinco.
 
 7. **~~Los títulos de los avisos no se mostraban.~~ Arreglado.** Las 32 llamadas `:::note`, `:::tip` y `:::caution` del sitio usaban la sintaxis antigua (`:::tip Título`), que Starlight 0.41 ya no reconoce: el título se descartaba en silencio y el aviso salía rotulado con el genérico "Consejo" / "Nota" / "Precaución". Se perdía texto escrito a propósito —"Una imagen es un artefacto", "Falla rápido, falla claro", "Desplegar no es un evento, es una capacidad"— en todas las páginas. Convertidas a `:::tip[Título]`.
 
-8. **Falta el aviso de honestidad.** `PRODUCT.md:29` exige presentar las prácticas como walkthroughs sin verificación. Ninguna página lo dice explícitamente; se acerca `foundations/lab-shell-and-network.md` con su sección "Verificación", que en realidad es una afirmación comprobable por el lector.
+8. **Resuelto por construcción.** `PRODUCT.md:29` pide presentar las prácticas honestamente, sin fingir que algo corrige al lector. La sección **Verificación** hace justo eso sin hablar de las limitaciones del sitio: enuncia la afirmación comprobable que el lector puede demostrar por su cuenta. Las cinco la tienen ahora. Decir además "esto no lo revisa nadie" sería describir el sitio desde su propia historia, que es justo lo que la regla de redacción de arriba descarta.
 
 ---
 

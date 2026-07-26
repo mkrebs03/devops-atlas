@@ -4,7 +4,7 @@ description: Understand images, containers, layers and volumes through their con
 type: tool
 level: beginner
 module: delivery
-tools: [docker, containers, nginx]
+tools: [docker, nginx]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Distinguish an immutable image from a running container.

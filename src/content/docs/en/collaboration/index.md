@@ -34,7 +34,7 @@ flowchart LR
 | Model | What does a commit represent? | [The Git model](./git-model/) |
 | Change | How do I work without stepping on main? | [GitHub Flow](./github-flow/) |
 | Review | What should another person understand? | [GitHub Flow](./github-flow/) |
-| Practice | Can I create and undo a safe change? | [Branching lab](./lab-git-branching/) |
+| Practice | Can I create and undo a safe change? | [Practice · safe branches](./lab-git-branching/) |
 
 :::note[History is an interface]
 A useful history does not record every keystroke. It records decisions that are small, coherent and reversible.

@@ -4,7 +4,7 @@ description: 'Logs, metrics, and traces: knowing what the system is doing withou
 type: concept
 level: intermediate
 module: deployment
-tools: [prometheus, opentelemetry, logs]
+tools: [prometheus, opentelemetry]
 prerequisites: [deployment.proxy]
 learningObjectives:
   - Tell which question each of the three signals answers.

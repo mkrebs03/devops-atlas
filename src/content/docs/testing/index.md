@@ -4,7 +4,7 @@ description: Convierte la confianza en evidencia con pruebas automáticas y feed
 type: concept
 level: beginner
 module: testing
-tools: [testing, ci]
+tools: [node]
 prerequisites: [collaboration.github-flow]
 learningObjectives:
   - Explicar por qué las pruebas automáticas convierten la confianza en evidencia.
@@ -31,7 +31,7 @@ flowchart LR
 | --- | --- | --- |
 | Pirámide | ¿Qué probar y en qué nivel? | [La pirámide de pruebas](./pyramid/) |
 | Automatización | ¿Cómo corren las pruebas en cada cambio? | [Pruebas en CI](./in-ci/) |
-| Práctica | ¿Puedo escribir y ejecutar una prueba? | [Lab · tu primera prueba](./lab-first-test/) |
+| Práctica | ¿Puedo escribir y ejecutar una prueba? | [Práctica · tu primera prueba](./lab-first-test/) |
 
 :::note[Una prueba que nunca falla no protege nada]
 Si una prueba pasa siempre, aunque rompas el código, no está probando lo que crees. Una buena prueba falla cuando el comportamiento cambia.

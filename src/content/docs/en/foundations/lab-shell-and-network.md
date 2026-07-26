@@ -4,7 +4,7 @@ description: Start a small server, find its port and verify its response.
 type: practice
 level: beginner
 module: foundations
-tools: [python, curl, ss, terminal]
+tools: [python, curl, ss]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Start a local server and identify the port where it listens.
@@ -24,6 +24,7 @@ Start a local server, check which port it listens on and separate a connection p
 
 - A terminal (ideally open two).
 - Python 3, `curl` and `ss` available.
+- About 15 minutes.
 
 ## Step 1 · publish a response
 

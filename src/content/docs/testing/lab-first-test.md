@@ -4,7 +4,7 @@ description: Escribe una prueba que falle, hazla pasar, y córrela como lo harí
 type: practice
 level: beginner
 module: testing
-tools: [node, testing]
+tools: [node]
 prerequisites: [testing.pyramid]
 learningObjectives:
   - Escribir una prueba de unidad que falle por la razón correcta.
@@ -23,6 +23,7 @@ Vas a escribir una prueba que primero falla (rojo), luego el código que la hace
 ## Requisitos
 
 - Node 18 o superior (trae `node --test` incorporado).
+- Unos 10 minutos.
 
 ## Paso 1 · una prueba que falla
 
@@ -75,6 +76,10 @@ CI ejecutaría exactamente esto en un entorno limpio. Si pasa localmente con dep
 | La prueba pasa sin implementar nada | No afirma lo que crees | el `assert` |
 | `Cannot find module` | Ruta o extensión del import | el `from './sum.mjs'` |
 | Pasa local, falla en CI | Dependencia o entorno | lockfile y versión de Node |
+
+## Verificación
+
+La afirmación comprobable es: la prueba falló antes de existir la implementación y pasó después, sin que cambiaras la prueba.
 
 ## Comprueba lo que entendiste
 

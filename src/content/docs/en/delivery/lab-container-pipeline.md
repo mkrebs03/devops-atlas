@@ -20,6 +20,11 @@ takeaways:
 
 Turn an HTML file into a Docker image, verify that the container serves exactly the artifact you expect, and observe the layer cache on a rebuild.
 
+## Requirements
+
+- Docker running and `curl` available.
+- About 15 minutes.
+
 ## Step 1 · create a tiny site
 
 ```bash
@@ -69,14 +74,9 @@ docker image inspect atlas-lab:local --format '{{.Id}}'
 | `404 Not Found` | The file did not land where nginx serves | `docker exec atlas-lab ls /usr/share/nginx/html` |
 | The build fails | An error in the Dockerfile or context | read the line `docker build` reports |
 
-## Verification and cleanup
+## Verification
 
 The checkable assertion is: the container serves the artifact I built, and a rebuild reuses the layers that did not change.
-
-```bash
-docker stop atlas-lab
-rm -rf /tmp/atlas-container-lab
-```
 
 ## Check your understanding
 
@@ -88,5 +88,12 @@ Yes: the `FROM nginx:alpine` instruction did not change, so Docker reuses that l
 </details>
 
 :::note[An image is an artifact]
-The real pipeline should not depend on files that happen to exist on the VPS. Build the artifact once, identify its version and promote that same version.
+A real pipeline should not depend on files that happen to exist on the server. Build the artifact once, identify its version and promote that same version.
 :::
+
+## Cleanup
+
+```bash
+docker stop atlas-lab
+rm -rf /tmp/atlas-container-lab
+```

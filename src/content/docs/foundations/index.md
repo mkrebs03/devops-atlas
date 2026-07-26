@@ -4,7 +4,7 @@ description: Aprende a leer una máquina antes de intentar automatizarla.
 type: concept
 level: beginner
 module: foundations
-tools: [linux, terminal, networking]
+tools: [linux]
 prerequisites: []
 learningObjectives:
   - Identificar las señales básicas de una máquina y una red antes de cambiar el sistema.
@@ -40,7 +40,7 @@ flowchart LR
 | Sistema | ¿Dónde vive la configuración y quién puede tocarla? | [Linux](./linux/) |
 | Proceso | ¿Qué se está ejecutando y quién lo inició? | [La terminal](./terminal/#observar-procesos) |
 | Red | ¿La aplicación escucha y puede ser alcanzada? | [Redes esenciales](./networking/) |
-| Práctica | ¿Puedo reproducir una investigación? | [Lab de shell y red](./lab-shell-and-network/) |
+| Práctica | ¿Puedo reproducir una investigación? | [Práctica · shell y red](./lab-shell-and-network/) |
 
 :::tip[Cambia el orden de tus preguntas]
 Recorrer el sistema de afuera hacia adentro —DNS → conexión → puerto → proceso → archivo → configuración— reduce la tentación de cambiar cinco cosas a la vez.

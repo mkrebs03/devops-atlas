@@ -4,7 +4,7 @@ description: Cómo un mismo artefacto atraviesa entornos hasta producción.
 type: concept
 level: intermediate
 module: deployment
-tools: [ci-cd, deployment, docker]
+tools: [docker]
 prerequisites: [delivery.github-actions]
 learningObjectives:
   - Distinguir integración continua, entrega continua y despliegue continuo.

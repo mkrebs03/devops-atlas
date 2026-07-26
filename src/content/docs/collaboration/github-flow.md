@@ -4,7 +4,7 @@ description: Un flujo pequeño para proponer, revisar y entregar cambios sin per
 type: tool
 level: beginner
 module: collaboration
-tools: [git, github, pull-requests]
+tools: [git, github]
 prerequisites: [collaboration.git-model]
 learningObjectives:
   - Recorrer GitHub Flow desde una rama hasta la integración del cambio.

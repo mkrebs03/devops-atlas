@@ -23,7 +23,7 @@ const text = Object.freeze({
     previous: 'Anterior',
     inThisModule: 'En este módulo',
     usedIn: 'Aparece en',
-    toolsIntro: 'Cada herramienta y término del Atlas, con las páginas donde se explica.',
+    toolsIntro: 'Cada herramienta y tecnología del Atlas, con las páginas donde se usa.',
     readingOrder: 'Páginas del módulo',
   }),
   en: Object.freeze({
@@ -45,7 +45,7 @@ const text = Object.freeze({
     previous: 'Previous',
     inThisModule: 'In this module',
     usedIn: 'Appears in',
-    toolsIntro: 'Every tool and term in the Atlas, with the pages that explain it.',
+    toolsIntro: 'Every tool and technology in the Atlas, with the pages that use it.',
     readingOrder: 'Module pages',
   }),
 });

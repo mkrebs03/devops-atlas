@@ -4,7 +4,7 @@ description: La shell como instrumento para observar una máquina, componer evid
 type: concept
 level: beginner
 module: foundations
-tools: [bash, terminal, ss]
+tools: [bash, ss]
 prerequisites: [foundations.linux]
 learningObjectives:
   - Explicar cómo la shell conecta programas mediante entradas, salidas y tuberías.

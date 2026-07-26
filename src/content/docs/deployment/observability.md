@@ -4,7 +4,7 @@ description: 'Logs, métricas y trazas: cómo saber qué está haciendo el siste
 type: concept
 level: intermediate
 module: deployment
-tools: [prometheus, opentelemetry, logs]
+tools: [prometheus, opentelemetry]
 prerequisites: [deployment.proxy]
 learningObjectives:
   - Distinguir qué pregunta responde cada una de las tres señales.

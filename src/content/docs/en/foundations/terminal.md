@@ -4,7 +4,7 @@ description: The shell as an instrument to observe a machine, compose evidence, 
 type: concept
 level: beginner
 module: foundations
-tools: [bash, terminal, ss]
+tools: [bash, ss]
 prerequisites: [foundations.linux]
 learningObjectives:
   - Explain how the shell connects programs through input, output, and pipes.

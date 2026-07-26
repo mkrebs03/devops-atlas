@@ -4,7 +4,7 @@ description: Turn the validation and deployment path into a visible, repeatable 
 type: tool
 level: beginner
 module: delivery
-tools: [github-actions, ci-cd, yaml]
+tools: [github-actions, yaml]
 prerequisites: [collaboration.github-flow]
 learningObjectives:
   - Interpret events, jobs, and steps in a GitHub Actions workflow.
