@@ -1,0 +1,139 @@
+---
+/*
+  Starlight's own TOC highlighter (`starlight-toc` custom element) uses an
+  IntersectionObserver watching a thin band near the top of the viewport.
+  Two failure modes surface on this site's short sections:
+  - a heading whose section is shorter than that band can end up batched
+    together with the next heading in a single observer callback, and the
+    callback only takes the first entry it finds — so the short section's
+    link never lights up.
+  - the last heading(s) on a page can sit close enough to the bottom that
+    the document can't scroll far enough to carry them through the band at
+    all.
+  Both are instances of the same root problem: relying on discrete
+  intersection events instead of asking "where is the scroll position right
+  now." We render our own markup (skip `@astrojs/starlight`'s
+  `<TableOfContents>`, which also registers that custom element) and drive
+  the current-link state with a plain scrollspy: on every scroll/resize
+  frame, recompute the current heading from live geometry. Because the
+  final state is a pure function of scroll position, not of which events
+  fired, it can't get stuck on a stale or skipped section.
+*/
+import AtlasTocList from './AtlasTocList.astro';
+
+const { toc } = Astro.locals.starlightRoute;
+---
+
+{
+  toc && (
+    <nav class="atlas-toc" aria-labelledby="starlight__on-this-page">
+      <h2 id="starlight__on-this-page">{Astro.locals.t('tableOfContents.onThisPage')}</h2>
+      <AtlasTocList toc={toc.items} />
+    </nav>
+  )
+}
+
+<script>
+  const nav = document.querySelector('nav.atlas-toc');
+  const links = nav ? [...nav.querySelectorAll<HTMLAnchorElement>('a')] : [];
+  const headings = links.map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))));
+
+  if (links.length > 0) {
+    const getLine = () => (document.querySelector('header')?.getBoundingClientRect().height ?? 0) + 32;
+
+    // Clicking a link in the overflowing tail scrolls to the same clamped
+    // `realMax` as any other link there (the browser can't scroll further
+    // either), so the geometry alone can't tell which one was intended. Pin
+    // the clicked link as current until the user actually scrolls again.
+    let pinnedIndex: number | null = null;
+
+    const setCurrent = (activeIndex: number) => {
+      links.forEach((link, i) => {
+        if (i === activeIndex) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    };
+
+    const update = () => {
+      if (pinnedIndex !== null) {
+        setCurrent(pinnedIndex);
+        return;
+      }
+
+      const line = getLine();
+      const scrollY = window.scrollY;
+      const realMax = document.documentElement.scrollHeight - window.innerHeight;
+
+      // Natural scrollY at which each heading would cross the line, uncapped —
+      // i.e. how far you'd have to scroll if the document were tall enough.
+      const naturalPositions = headings.map((heading) =>
+        heading ? heading.getBoundingClientRect().top + scrollY - line : null
+      );
+
+      // On a short trailing run of sections, that natural position can exceed
+      // what the page can actually scroll to (`realMax`), so those headings
+      // would never cross the line no matter how far down you scroll. Rescale
+      // just that overflowing tail into the scroll room that's actually left,
+      // so each one still gets a proportional slice to be "current" rather
+      // than the whole tail collapsing onto a single link.
+      const overflowStart = naturalPositions.findIndex((p) => p !== null && p > realMax);
+      const positions = naturalPositions.slice();
+      if (overflowStart !== -1) {
+        const anchor = overflowStart > 0 ? (naturalPositions[overflowStart - 1] ?? 0) : 0;
+        const lastPos = naturalPositions[naturalPositions.length - 1] ?? anchor;
+        const naturalSpan = lastPos - anchor;
+        const availableSpan = realMax - anchor;
+        const scale = naturalSpan > 0 ? availableSpan / naturalSpan : 0;
+        for (let i = overflowStart; i < positions.length; i++) {
+          const p = naturalPositions[i];
+          if (p !== null) positions[i] = anchor + (p - anchor) * scale;
+        }
+      }
+
+      let activeIndex = 0;
+      for (let i = 0; i < positions.length; i++) {
+        const p = positions[i];
+        if (p !== null && p <= scrollY) activeIndex = i;
+      }
+
+      setCurrent(activeIndex);
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+    };
+
+    nav!.addEventListener('click', (event) => {
+      const link = (event.target as Element).closest('a');
+      if (!link) return;
+      const index = links.indexOf(link as HTMLAnchorElement);
+      if (index === -1) return;
+      pinnedIndex = index;
+      setCurrent(index);
+    });
+
+    const release = () => {
+      if (pinnedIndex === null) return;
+      pinnedIndex = null;
+      update();
+    };
+    const scrollKeys = new Set([
+      'ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' ',
+    ]);
+    document.addEventListener('wheel', release, { passive: true });
+    document.addEventListener('touchmove', release, { passive: true });
+    document.addEventListener('keydown', (event) => {
+      if (scrollKeys.has(event.key)) release();
+    });
+
+    document.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    update();
+  }
+</script>

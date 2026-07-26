@@ -46,6 +46,7 @@ export default defineConfig({
         Header: './src/components/starlight/AtlasHeader.astro',
         PageTitle: './src/components/starlight/AtlasPageTitle.astro',
         Footer: './src/components/starlight/AtlasFooter.astro',
+        TableOfContents: './src/components/starlight/AtlasTableOfContents.astro',
       },
       sidebar: [
         {

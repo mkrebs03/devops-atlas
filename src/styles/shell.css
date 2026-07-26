@@ -246,12 +246,17 @@ main { padding-bottom: var(--atlas-space-8); }
   margin-bottom: var(--atlas-space-3);
 }
 
-/* The same rail as the sidebar, so both columns read as one system. */
-starlight-toc ul {
+/* The same rail as the sidebar, so both columns read as one system.
+   `starlight-toc` is Starlight's own mobile ToC; `.atlas-toc` is the
+   desktop replacement in AtlasTableOfContents.astro. */
+starlight-toc ul,
+.atlas-toc ul {
+  list-style: none;
   border-inline-start: var(--atlas-hairline) solid var(--atlas-border);
   padding-inline-start: var(--atlas-space-2);
 }
-starlight-toc a {
+starlight-toc a,
+.atlas-toc a {
   position: relative;
   display: block;
   font-size: var(--atlas-size-xs);
@@ -261,9 +266,12 @@ starlight-toc a {
   border-radius: var(--atlas-radius);
   transition: color 0.12s ease, background-color 0.12s ease;
 }
-starlight-toc a:hover { color: var(--atlas-text); background: var(--atlas-surface-2); }
-starlight-toc a[aria-current='true'] { color: var(--atlas-text); font-weight: 600; }
-starlight-toc a[aria-current='true']::before {
+starlight-toc a:hover,
+.atlas-toc a:hover { color: var(--atlas-text); background: var(--atlas-surface-2); }
+starlight-toc a[aria-current='true'],
+.atlas-toc a[aria-current='true'] { color: var(--atlas-text); font-weight: 600; }
+starlight-toc a[aria-current='true']::before,
+.atlas-toc a[aria-current='true']::before {
   content: '';
   position: absolute;
   inset-block: 0.3rem;
