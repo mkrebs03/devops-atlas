@@ -14,6 +14,10 @@ takeaways:
   - Máquina, proceso y red forman un mapa común para investigar problemas.
 ---
 
+:::tip[¿Primera vez aquí?]
+Si todavía no tienes claro qué es DevOps ni qué parte del ciclo cubre este Atlas, empieza por [Qué es DevOps](/what-is-devops/) y vuelve aquí.
+:::
+
 ## La primera habilidad: observar
 
 DevOps no empieza con una herramienta, sino con la capacidad de hacer preguntas concretas sobre un sistema: qué proceso escucha, qué archivo cambió, por qué una petición no llega y qué evidencia respalda una decisión.

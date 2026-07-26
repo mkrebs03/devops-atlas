@@ -14,6 +14,10 @@ takeaways:
   - Machine, process, and network form a shared map for investigating problems.
 ---
 
+:::tip[First time here?]
+If it is not yet clear what DevOps is or which part of the cycle this Atlas covers, start with [What DevOps is](/en/what-is-devops/) and come back.
+:::
+
 ## The first skill: observe
 
 DevOps does not start with a tool. It starts with the ability to ask concrete questions about a system: which process is listening, which file changed, why a request does not arrive, and what evidence supports a decision.

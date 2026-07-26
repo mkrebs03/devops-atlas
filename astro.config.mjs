@@ -55,6 +55,11 @@ export default defineConfig({
           link: '/tools/',
         },
         ...moduleSidebar,
+        {
+          label: 'Qué es DevOps',
+          translations: { en: 'What DevOps is' },
+          link: '/what-is-devops/',
+        },
       ],
     }),
   ],
