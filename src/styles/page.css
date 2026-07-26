@@ -155,6 +155,38 @@
 
 .sl-markdown-content a { text-underline-offset: 3px; }
 
+/* ---------- disclosures -------------------------------------------------- */
+
+/* A question you answer yourself is worth reading twice, so the answer unfolds
+   under it rather than appearing where the next paragraph used to be: the eye
+   keeps the question while the answer arrives. `interpolate-size` is what makes
+   a height of `auto` a transition endpoint; it is set on the disclosure, not the
+   document, so nothing else changes how it sizes. Browsers without
+   `::details-content` open it instantly, as before. */
+.sl-markdown-content details {
+  interpolate-size: allow-keywords;
+}
+.sl-markdown-content details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition-property: block-size, content-visibility;
+  transition-duration: var(--atlas-dur-slow);
+  transition-timing-function: var(--atlas-ease);
+  transition-behavior: allow-discrete;
+}
+.sl-markdown-content details[open]::details-content {
+  block-size: auto;
+}
+/* Starlight opens the gap under the summary in one step and turns the marker on
+   its own clock; both now travel with the answer, so the whole disclosure reads
+   as one movement. */
+.sl-markdown-content details > summary {
+  transition: margin-bottom var(--atlas-dur-slow) var(--atlas-ease);
+}
+.sl-markdown-content details > summary::before {
+  transition: transform var(--atlas-dur-slow) var(--atlas-ease);
+}
+
 /* ---------- code and terminal output ------------------------------------- */
 
 .sl-markdown-content :not(pre) > code {

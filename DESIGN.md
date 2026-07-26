@@ -102,10 +102,12 @@ itself never scrolls sideways.
 
 Movement covers the seam between two states and does nothing else. It is there
 when a change would otherwise read as a glitch — the sidebar arriving on a
-phone, the search panel opening, the current item moving down the table of
-contents as you scroll, the theme icon changing which state it offers — and it
-is absent everywhere else. Nothing enters on scroll, nothing parallaxes, nothing
-moves to draw attention to itself.
+phone, the search panel opening, a disclosure unfolding, the current item moving
+down the table of contents as you scroll, the theme icon changing which state it
+offers — and it is absent everywhere else. Nothing enters on load or on scroll,
+nothing parallaxes, nothing moves to draw attention to itself. The landing is a
+cover, but a cover the reader passes through on the way somewhere; it opens with
+its actions already in place.
 
 - Three durations and one curve, all in `src/styles/tokens.css`: `120ms` for an
   item in a list, `150ms` for a control, `220ms` for a surface that arrives
@@ -116,6 +118,13 @@ moves to draw attention to itself.
 - Nothing travels further than the edge it belongs to: the mobile sidebar comes
   in from its own edge by a fraction of its width, the search panel by half a
   line.
+- A disclosure grows to its own height rather than snapping, so a sidebar group
+  does not throw the rest of the rail down the page and an answer arrives under
+  the question that is still on screen. Its marker and the gap it opens travel
+  on the same clock as the body.
+- Navigation between pages is a page load. A reading site is read one page at a
+  time, and a router that keeps the shell alive would buy a fade at the cost of
+  re-running the diagram renderer and the scroll spy on every link.
 - In-page jumps scroll rather than teleport, so a heading's position stays
   legible relative to the one you left.
 - Keyboard focus draws a coral ring offset from the control. It is the one
