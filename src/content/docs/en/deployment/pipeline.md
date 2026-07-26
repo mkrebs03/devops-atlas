@@ -45,7 +45,7 @@ Each environment answers a question: does it start? does it pass smoke tests? do
 
 An **approval gate** —for example, a protected `environment` in GitHub Actions— makes explicit who authorizes the final step.
 
-:::tip Config per environment, single artifact
+:::tip[Config per environment, single artifact]
 What changes between environments is the configuration (variables, secrets, URLs), not the binary. Same artifact, different config: that way what you tested is what runs.
 :::
 

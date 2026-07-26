@@ -33,7 +33,7 @@ flowchart LR
 | Automatización | ¿Cómo corren las pruebas en cada cambio? | [Pruebas en CI](./in-ci/) |
 | Práctica | ¿Puedo escribir y ejecutar una prueba? | [Lab · tu primera prueba](./lab-first-test/) |
 
-:::note Una prueba que nunca falla no protege nada
+:::note[Una prueba que nunca falla no protege nada]
 Si una prueba pasa siempre, aunque rompas el código, no está probando lo que crees. Una buena prueba falla cuando el comportamiento cambia.
 :::
 

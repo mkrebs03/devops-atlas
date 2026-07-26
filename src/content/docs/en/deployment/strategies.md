@@ -49,7 +49,7 @@ There is no single best: a personal blog tolerates recreate; a payments service 
 
 A deployment without a rollback is a bet. Before you launch, answer: how do I return to the previous version, in how long, and what happens to already-migrated data? A rollback nobody rehearsed does not exist.
 
-:::caution Data migrations do not always revert
+:::caution[Data migrations do not always revert]
 Changing code is reversible; dropping a column is not. Design schema changes that are backward compatible (add before you remove) so a code rollback does not leave orphaned data.
 :::
 

@@ -45,7 +45,7 @@ Cada entorno responde una pregunta: ¿arranca?, ¿pasa las pruebas de humo?, ¿s
 
 Una **compuerta de aprobación** —por ejemplo, un `environment` protegido en GitHub Actions— hace explícito quién autoriza el paso final.
 
-:::tip Config por entorno, artefacto único
+:::tip[Config por entorno, artefacto único]
 Lo que cambia entre entornos es la configuración (variables, secretos, URLs), no el binario. Mismo artefacto, distinta config: así lo que probaste es lo que corre.
 :::
 

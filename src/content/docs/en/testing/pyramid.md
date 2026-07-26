@@ -46,7 +46,7 @@ test('sum ignores null values', () => {
 
 A **flaky** test fails for reasons unrelated to behaviour: a timeout, a changed selector, a random value. Each false failure erodes trust until the team ignores the suite, and then it protects nothing. Prefer a few reliable tests over many noisy ones.
 
-:::caution Do not test the implementation, test the behaviour
+:::caution[Do not test the implementation, test the behaviour]
 A test tied to internal details breaks on every refactor, even when behaviour does not change. Assert what the system does, not how it does it.
 :::
 

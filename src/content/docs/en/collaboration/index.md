@@ -36,7 +36,7 @@ flowchart LR
 | Review | What should another person understand? | [GitHub Flow](./github-flow/) |
 | Practice | Can I create and undo a safe change? | [Branching lab](./lab-git-branching/) |
 
-:::note History is an interface
+:::note[History is an interface]
 A useful history does not record every keystroke. It records decisions that are small, coherent and reversible.
 :::
 

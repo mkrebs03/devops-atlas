@@ -87,6 +87,6 @@ Sí: la instrucción `FROM nginx:alpine` no cambió, así que Docker reutiliza e
 
 </details>
 
-:::note Una imagen es un artefacto
+:::note[Una imagen es un artefacto]
 La pipeline real no debería depender de archivos que existan por casualidad en la VPS. Construye el artefacto una vez, identifica su versión y promueve esa misma versión.
 :::

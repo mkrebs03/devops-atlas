@@ -33,7 +33,7 @@ flowchart LR
 | Strategy | How do I change the version without taking the service down? | [Deployment strategies](./strategies/) |
 | Practice | Can I promote and roll back a version? | [Lab · promote and roll back](./lab-release/) |
 
-:::note Deploying is not an event, it is a capability
+:::note[Deploying is not an event, it is a capability]
 A mature team does not pray before a yearly deploy. It deploys often, in small portions, and can roll back in minutes.
 :::
 

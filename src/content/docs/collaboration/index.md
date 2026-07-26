@@ -36,7 +36,7 @@ flowchart LR
 | Revisión | ¿Qué debe poder entender otra persona? | [GitHub Flow](./github-flow/) |
 | Práctica | ¿Puedo crear y deshacer un cambio seguro? | [Lab de ramas](./lab-git-branching/) |
 
-:::note El historial es una interfaz
+:::note[El historial es una interfaz]
 Un buen historial no registra cada movimiento del teclado. Registra decisiones pequeñas, coherentes y reversibles.
 :::
 

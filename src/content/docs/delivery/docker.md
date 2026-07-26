@@ -95,7 +95,7 @@ networks:
     external: true
 ```
 
-:::caution Menos superficie, menos sorpresas
+:::caution[Menos superficie, menos sorpresas]
 Un servicio que solo necesita ser accesible desde Caddy no debe publicar `80:80` al host. Expón únicamente lo que el contrato del sistema necesita.
 :::
 

@@ -38,7 +38,7 @@ flowchart LR
 | Red | ¿La aplicación escucha y puede ser alcanzada? | [Redes esenciales](./networking/) |
 | Práctica | ¿Puedo reproducir una investigación? | [Lab de shell y red](./lab-shell-and-network/) |
 
-:::tip Cambia el orden de tus preguntas
+:::tip[Cambia el orden de tus preguntas]
 Recorrer el sistema de afuera hacia adentro —DNS → conexión → puerto → proceso → archivo → configuración— reduce la tentación de cambiar cinco cosas a la vez.
 :::
 

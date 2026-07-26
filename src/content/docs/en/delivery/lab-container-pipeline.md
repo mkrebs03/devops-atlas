@@ -87,6 +87,6 @@ Yes: the `FROM nginx:alpine` instruction did not change, so Docker reuses that l
 
 </details>
 
-:::note An image is an artifact
+:::note[An image is an artifact]
 The real pipeline should not depend on files that happen to exist on the VPS. Build the artifact once, identify its version and promote that same version.
 :::

@@ -46,7 +46,7 @@ test('suma ignora valores nulos', () => {
 
 Una prueba **frágil** falla por razones ajenas al comportamiento: un timeout, un selector que cambió, un dato aleatorio. Cada falla falsa erosiona la confianza hasta que el equipo ignora la suite, y entonces no protege nada. Prefiere pocas pruebas confiables antes que muchas ruidosas.
 
-:::caution No pruebes la implementación, prueba el comportamiento
+:::caution[No pruebes la implementación, prueba el comportamiento]
 Una prueba atada a detalles internos se rompe con cada refactor, aunque el comportamiento no cambie. Afirma qué hace el sistema, no cómo lo hace.
 :::
 

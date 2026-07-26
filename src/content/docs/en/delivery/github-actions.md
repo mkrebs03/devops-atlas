@@ -86,7 +86,7 @@ Pull requests run checks without touching production. Only after merging into `m
 
 The `if` limits the deploy to `main`; the `environment` lets you require approvals or store per-environment secrets.
 
-:::tip Treat the pipeline as a product
+:::tip[Treat the pipeline as a product]
 A CI error is a user experience. Short messages, reproducible commands and visible artifacts reduce the time between failure and learning.
 :::
 

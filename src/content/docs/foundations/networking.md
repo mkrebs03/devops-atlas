@@ -53,7 +53,7 @@ curl -v https://example.com 2>&1 | head  # narra resolución, TCP y TLS
 
 `curl -v` cuenta la ruta paso a paso: resuelve la IP, abre TCP contra el puerto 443, presenta el **certificado** TLS y solo entonces envía la petición HTTP. `127.0.0.1` acepta tráfico local; `0.0.0.0` puede aceptar tráfico de varias interfaces y exige más cuidado. TLS existe para dos cosas: cifrar la conexión y probar que el servidor es quien dice ser.
 
-:::note Una capa cada vez
+:::note[Una capa cada vez]
 Cuando una URL falla, comprueba primero resolución (DNS), luego conexión (TCP/TLS) y por último la aplicación (HTTP). Un timeout y un `404` no son el mismo problema.
 :::
 

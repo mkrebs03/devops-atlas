@@ -77,7 +77,7 @@ git revert HEAD                 # crea un commit que deshace el anterior
 git log --oneline --graph --decorate --all
 ```
 
-:::tip Revertir también es una entrega
+:::tip[Revertir también es una entrega]
 `git revert` crea una nueva decisión que deshace otra. Es preferible a reescribir historia compartida con `reset --hard`.
 :::
 

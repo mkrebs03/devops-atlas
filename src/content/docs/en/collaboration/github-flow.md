@@ -59,7 +59,7 @@ Automation removes repetitive checks: formatting, types, tests and builds. When 
 
 A **protected branch** turns those agreements into rules: require at least one review, require CI to pass and prevent pushing directly to `main`. That way the only gate into the shared state is a change that was reviewed and verified.
 
-:::caution Do not mix cleanup with a feature
+:::caution[Do not mix cleanup with a feature]
 A pull request that changes behaviour, renames files and reformats the whole project costs more to review. Split the intent so the signal stays clear.
 :::
 

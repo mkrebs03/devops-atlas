@@ -86,7 +86,7 @@ Los pull requests ejecutan validaciones sin tocar producción. Solo después de 
 
 El `if` limita el deploy a `main`; el `environment` permite exigir aprobaciones o guardar secretos por entorno.
 
-:::tip Trata el pipeline como producto
+:::tip[Trata el pipeline como producto]
 Un error de CI es una experiencia de usuario. Mensajes cortos, comandos reproducibles y artefactos visibles reducen el tiempo entre fallo y aprendizaje.
 :::
 

@@ -35,7 +35,7 @@ Docker hace visible el paquete. GitHub Actions hace repetible el recorrido. El f
 | Workflow | Cómo expresar una comprobación automática | [GitHub Actions](./github-actions/) |
 | Evidencia | Cómo verificar una imagen local | [Lab de pipeline](./lab-container-pipeline/) |
 
-:::note El despliegue empieza antes del servidor
+:::note[El despliegue empieza antes del servidor]
 Una VPS no debería ser el primer lugar donde descubres que la aplicación no compila. El servidor recibe artefactos que ya atravesaron controles baratos y repetibles.
 :::
 

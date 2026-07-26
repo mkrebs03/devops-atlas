@@ -53,7 +53,7 @@ curl -v https://example.com 2>&1 | head  # narrates resolution, TCP and TLS
 
 `curl -v` tells the story step by step: it resolves the IP, opens TCP to port 443, presents the TLS **certificate** and only then sends the HTTP request. `127.0.0.1` accepts local traffic only; `0.0.0.0` may accept traffic from several interfaces and deserves more care. TLS exists for two reasons: to encrypt the connection and to prove the server is who it claims to be.
 
-:::note One layer at a time
+:::note[One layer at a time]
 When a URL fails, check resolution (DNS) first, then connection (TCP/TLS), and finally the application (HTTP). A timeout and a `404` are different problems.
 :::
 

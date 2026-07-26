@@ -33,7 +33,7 @@ flowchart LR
 | Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](./strategies/) |
 | Práctica | ¿Puedo promover y revertir una versión? | [Lab · promover y revertir](./lab-release/) |
 
-:::note Desplegar no es un evento, es una capacidad
+:::note[Desplegar no es un evento, es una capacidad]
 Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en porciones pequeñas, y puede revertir en minutos.
 :::
 

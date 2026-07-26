@@ -33,7 +33,7 @@ flowchart LR
 | Automation | How do tests run on every change? | [Tests in CI](./in-ci/) |
 | Practice | Can I write and run a test? | [Lab · your first test](./lab-first-test/) |
 
-:::note A test that never fails protects nothing
+:::note[A test that never fails protects nothing]
 If a test always passes, even when you break the code, it is not testing what you think. A good test fails when the behaviour changes.
 :::
 

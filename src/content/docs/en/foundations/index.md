@@ -38,7 +38,7 @@ flowchart LR
 | Network | Is the application listening and reachable? | [Essential networking](./networking/) |
 | Practice | Can I reproduce an investigation? | [Shell and network lab](./lab-shell-and-network/) |
 
-:::tip Change the order of your questions
+:::tip[Change the order of your questions]
 Walking the system from the outside in —DNS → connection → port → process → file → configuration— reduces the temptation to change five things at once.
 :::
 

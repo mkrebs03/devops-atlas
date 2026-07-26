@@ -46,7 +46,7 @@ Order from cheap to expensive: lint first (seconds), then unit, then integration
 
 Use it to ask what went untested and why, not to chase a number.
 
-:::tip Fail fast, fail clearly
+:::tip[Fail fast, fail clearly]
 A CI job that takes 30 minutes discourages the whole team. Parallelize, cache dependencies, and put the fast checks first.
 :::
 

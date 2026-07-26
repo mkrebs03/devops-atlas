@@ -59,7 +59,7 @@ La automatización elimina comprobaciones repetitivas: formato, tipos, tests y b
 
 Una **rama protegida** convierte esos acuerdos en reglas: exigir al menos una revisión, exigir que CI pase e impedir empujar directo a `main`. Así, la única puerta hacia el estado compartido es un cambio revisado y verificado.
 
-:::caution No mezcles limpieza con una feature
+:::caution[No mezcles limpieza con una feature]
 Un pull request que cambia comportamiento, renombra archivos y reformatea todo el proyecto cuesta más de revisar. Divide la intención para conservar una señal clara.
 :::
 

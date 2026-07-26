@@ -35,7 +35,7 @@ Docker makes the package visible. GitHub Actions makes the route repeatable. Fee
 | Workflow | How to express an automated check | [GitHub Actions](./github-actions/) |
 | Evidence | How to verify a local image | [Pipeline lab](./lab-container-pipeline/) |
 
-:::note Deployment starts before the server
+:::note[Deployment starts before the server]
 A VPS should not be the first place where you discover that the application does not build. The server receives artifacts that already passed cheap, repeatable controls.
 :::
 

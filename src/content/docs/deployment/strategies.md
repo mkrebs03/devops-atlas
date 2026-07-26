@@ -49,7 +49,7 @@ No hay una mejor: un blog personal tolera recreate; un servicio de pagos quiere 
 
 Un despliegue sin rollback es una apuesta. Antes de lanzar, responde: ¿cómo vuelvo a la versión anterior, en cuánto tiempo, y qué pasa con los datos ya migrados? Un rollback que nadie ensayó no existe.
 
-:::caution Las migraciones de datos no siempre revierten
+:::caution[Las migraciones de datos no siempre revierten]
 Cambiar código es reversible; borrar una columna, no. Diseña cambios de esquema compatibles hacia atrás (agrega antes de quitar) para que un rollback de código no deje datos huérfanos.
 :::
 

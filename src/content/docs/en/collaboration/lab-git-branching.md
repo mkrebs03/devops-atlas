@@ -77,7 +77,7 @@ git revert HEAD                 # creates a commit that undoes the previous one
 git log --oneline --graph --decorate --all
 ```
 
-:::tip Reverting is delivery too
+:::tip[Reverting is delivery too]
 `git revert` creates a new decision that undoes another. It is safer than rewriting shared history with `reset --hard`.
 :::
 

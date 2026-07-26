@@ -46,7 +46,7 @@ La **cobertura** mide qué porcentaje del código ejecutan tus pruebas. Es útil
 
 Úsala para preguntar qué quedó sin probar y por qué, no para perseguir un número.
 
-:::tip Falla rápido, falla claro
+:::tip[Falla rápido, falla claro]
 Un job de CI que tarda 30 minutos desalienta a todo el equipo. Paraleliza, cachea dependencias y pon primero las comprobaciones rápidas.
 :::
 
