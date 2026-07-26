@@ -37,8 +37,8 @@ flowchart LR
 
 | Señal | Pregunta útil | Página |
 | --- | --- | --- |
-| Máquina | ¿Dónde estoy y qué recursos tengo? | [Linux y terminal](./linux-cli/) |
-| Proceso | ¿Qué se está ejecutando y quién lo inició? | [Linux y terminal](./linux-cli/#procesos-y-servicios) |
+| Sistema | ¿Dónde vive la configuración y quién puede tocarla? | [Linux](./linux/) |
+| Proceso | ¿Qué se está ejecutando y quién lo inició? | [La terminal](./terminal/#observar-procesos) |
 | Red | ¿La aplicación escucha y puede ser alcanzada? | [Redes esenciales](./networking/) |
 | Práctica | ¿Puedo reproducir una investigación? | [Lab de shell y red](./lab-shell-and-network/) |
 

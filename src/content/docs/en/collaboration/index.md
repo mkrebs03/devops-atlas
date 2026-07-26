@@ -5,7 +5,7 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git, github]
-prerequisites: [foundations.linux-cli]
+prerequisites: [foundations.terminal]
 learningObjectives:
   - Explain how Git turns local changes into a reviewable history.
   - Recognize the agreements that make collaboration possible without losing context.

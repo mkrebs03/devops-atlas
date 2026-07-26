@@ -37,8 +37,8 @@ flowchart LR
 
 | Signal | Useful question | Page |
 | --- | --- | --- |
-| Machine | Where am I and what resources do I have? | [Linux and terminal](./linux-cli/) |
-| Process | What is running and who started it? | [Linux and terminal](./linux-cli/#processes-and-services) |
+| System | Where does configuration live, and who may touch it? | [Linux](./linux/) |
+| Process | What is running and who started it? | [The terminal](./terminal/#observing-processes) |
 | Network | Is the application listening and reachable? | [Essential networking](./networking/) |
 | Practice | Can I reproduce an investigation? | [Shell and network lab](./lab-shell-and-network/) |
 

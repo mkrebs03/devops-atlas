@@ -5,7 +5,7 @@ type: tool
 level: beginner
 module: delivery
 tools: [docker, containers, nginx]
-prerequisites: [foundations.linux-cli, foundations.networking]
+prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Distinguir una imagen inmutable de un contenedor en ejecución.
   - Escribir un Dockerfile aprovechando el orden de capas y una build multi-stage.

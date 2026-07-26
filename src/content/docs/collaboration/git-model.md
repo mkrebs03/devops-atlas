@@ -5,7 +5,7 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git]
-prerequisites: [foundations.linux-cli]
+prerequisites: [foundations.terminal]
 learningObjectives:
   - Relacionar commits, ramas y HEAD dentro del grafo de Git.
   - Elegir entre merge y rebase para integrar una rama y resolver un conflicto simple.

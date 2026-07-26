@@ -5,7 +5,7 @@ type: practice
 level: beginner
 module: foundations
 tools: [python, curl, ss, terminal]
-prerequisites: [foundations.linux-cli, foundations.networking]
+prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Iniciar un servidor local e identificar el puerto donde escucha.
   - Verificar por separado la conexión y la respuesta HTTP de una aplicación.

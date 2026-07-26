@@ -5,7 +5,7 @@ type: concept
 level: beginner
 module: collaboration
 tools: [git]
-prerequisites: [foundations.linux-cli]
+prerequisites: [foundations.terminal]
 learningObjectives:
   - Relate commits, branches, and HEAD within the Git graph.
   - Choose between merge and rebase to integrate a branch and resolve a simple conflict.

@@ -5,7 +5,7 @@ type: concept
 level: intermediate
 module: testing
 tools: [testing]
-prerequisites: [foundations.linux-cli]
+prerequisites: [foundations.terminal]
 learningObjectives:
   - Distinguish unit, integration, and end-to-end tests.
   - Choose the test level by the cost and confidence it provides.

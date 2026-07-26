@@ -64,19 +64,24 @@ export const modules = Object.freeze([
         prerequisites: [], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'foundations.linux-cli', module: 'foundations', order: 2,
-        relativePath: 'foundations/linux-cli/', kind: 'concept',
-        prerequisites: [], label: { es: 'Linux y terminal', en: 'Linux and terminal' },
+        id: 'foundations.linux', module: 'foundations', order: 2,
+        relativePath: 'foundations/linux/', kind: 'concept',
+        prerequisites: [], label: { es: 'Linux', en: 'Linux' },
       }),
       page({
-        id: 'foundations.networking', module: 'foundations', order: 3,
+        id: 'foundations.terminal', module: 'foundations', order: 3,
+        relativePath: 'foundations/terminal/', kind: 'concept',
+        prerequisites: ['foundations.linux'], label: { es: 'La terminal', en: 'The terminal' },
+      }),
+      page({
+        id: 'foundations.networking', module: 'foundations', order: 4,
         relativePath: 'foundations/networking/', kind: 'concept',
-        prerequisites: ['foundations.linux-cli'], label: { es: 'Redes esenciales', en: 'Essential networking' },
+        prerequisites: ['foundations.terminal'], label: { es: 'Redes esenciales', en: 'Essential networking' },
       }),
       page({
-        id: 'foundations.lab-shell-and-network', module: 'foundations', order: 4,
+        id: 'foundations.lab-shell-and-network', module: 'foundations', order: 5,
         relativePath: 'foundations/lab-shell-and-network/', kind: 'practice',
-        prerequisites: ['foundations.linux-cli', 'foundations.networking'],
+        prerequisites: ['foundations.terminal', 'foundations.networking'],
         label: { es: 'Práctica · shell y red', en: 'Practice · shell and network' },
       }),
     ]),
@@ -93,22 +98,22 @@ export const modules = Object.freeze([
     tools: Object.freeze(['Git', 'GitHub Flow']),
     pages: Object.freeze([
       page({
-        id: 'collaboration.overview', module: 'collaboration', order: 5,
+        id: 'collaboration.overview', module: 'collaboration', order: 6,
         relativePath: 'collaboration/', kind: 'overview',
-        prerequisites: ['foundations.linux-cli'], label: { es: 'Panorama', en: 'Overview' },
+        prerequisites: ['foundations.terminal'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'collaboration.git-model', module: 'collaboration', order: 6,
+        id: 'collaboration.git-model', module: 'collaboration', order: 7,
         relativePath: 'collaboration/git-model/', kind: 'concept',
-        prerequisites: ['foundations.linux-cli'], label: { es: 'El modelo de Git', en: 'The Git model' },
+        prerequisites: ['foundations.terminal'], label: { es: 'El modelo de Git', en: 'The Git model' },
       }),
       page({
-        id: 'collaboration.github-flow', module: 'collaboration', order: 7,
+        id: 'collaboration.github-flow', module: 'collaboration', order: 8,
         relativePath: 'collaboration/github-flow/', kind: 'tool',
         prerequisites: ['collaboration.git-model'], label: { es: 'GitHub Flow', en: 'GitHub Flow' },
       }),
       page({
-        id: 'collaboration.lab-git-branching', module: 'collaboration', order: 8,
+        id: 'collaboration.lab-git-branching', module: 'collaboration', order: 9,
         relativePath: 'collaboration/lab-git-branching/', kind: 'practice',
         prerequisites: ['collaboration.git-model'],
         label: { es: 'Práctica · ramas seguras', en: 'Practice · safe branches' },
@@ -127,22 +132,22 @@ export const modules = Object.freeze([
     tools: Object.freeze(['Docker', 'GitHub Actions', 'nginx']),
     pages: Object.freeze([
       page({
-        id: 'delivery.overview', module: 'delivery', order: 9,
+        id: 'delivery.overview', module: 'delivery', order: 10,
         relativePath: 'delivery/', kind: 'overview',
         prerequisites: ['collaboration.git-model', 'foundations.networking'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'delivery.docker', module: 'delivery', order: 10,
+        id: 'delivery.docker', module: 'delivery', order: 11,
         relativePath: 'delivery/docker/', kind: 'tool',
-        prerequisites: ['foundations.linux-cli', 'foundations.networking'], label: { es: 'Docker sin magia', en: 'Docker without magic' },
+        prerequisites: ['foundations.terminal', 'foundations.networking'], label: { es: 'Docker sin magia', en: 'Docker without magic' },
       }),
       page({
-        id: 'delivery.github-actions', module: 'delivery', order: 11,
+        id: 'delivery.github-actions', module: 'delivery', order: 12,
         relativePath: 'delivery/github-actions/', kind: 'tool',
         prerequisites: ['collaboration.github-flow'], label: { es: 'GitHub Actions', en: 'GitHub Actions' },
       }),
       page({
-        id: 'delivery.lab-container-pipeline', module: 'delivery', order: 12,
+        id: 'delivery.lab-container-pipeline', module: 'delivery', order: 13,
         relativePath: 'delivery/lab-container-pipeline/', kind: 'practice',
         prerequisites: ['delivery.docker', 'foundations.networking'],
         label: { es: 'Práctica · pipeline local', en: 'Practice · local pipeline' },
@@ -161,22 +166,22 @@ export const modules = Object.freeze([
     tools: Object.freeze(['Node.js', 'node:test', 'CI']),
     pages: Object.freeze([
       page({
-        id: 'testing.overview', module: 'testing', order: 13,
+        id: 'testing.overview', module: 'testing', order: 14,
         relativePath: 'testing/', kind: 'overview',
         prerequisites: ['collaboration.github-flow'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'testing.pyramid', module: 'testing', order: 14,
+        id: 'testing.pyramid', module: 'testing', order: 15,
         relativePath: 'testing/pyramid/', kind: 'concept',
-        prerequisites: ['foundations.linux-cli'], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
+        prerequisites: ['foundations.terminal'], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
       }),
       page({
-        id: 'testing.in-ci', module: 'testing', order: 15,
+        id: 'testing.in-ci', module: 'testing', order: 16,
         relativePath: 'testing/in-ci/', kind: 'tool',
         prerequisites: ['delivery.github-actions'], label: { es: 'Pruebas en CI', en: 'Tests in CI' },
       }),
       page({
-        id: 'testing.lab-first-test', module: 'testing', order: 16,
+        id: 'testing.lab-first-test', module: 'testing', order: 17,
         relativePath: 'testing/lab-first-test/', kind: 'practice',
         prerequisites: ['testing.pyramid'],
         label: { es: 'Práctica · tu primera prueba', en: 'Practice · your first test' },
@@ -195,22 +200,22 @@ export const modules = Object.freeze([
     tools: Object.freeze(['Docker', 'nginx', 'blue-green']),
     pages: Object.freeze([
       page({
-        id: 'deployment.overview', module: 'deployment', order: 17,
+        id: 'deployment.overview', module: 'deployment', order: 18,
         relativePath: 'deployment/', kind: 'overview',
         prerequisites: ['delivery.github-actions'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'deployment.pipeline', module: 'deployment', order: 18,
+        id: 'deployment.pipeline', module: 'deployment', order: 19,
         relativePath: 'deployment/pipeline/', kind: 'concept',
         prerequisites: ['delivery.github-actions'], label: { es: 'Del build al release', en: 'From build to release' },
       }),
       page({
-        id: 'deployment.strategies', module: 'deployment', order: 19,
+        id: 'deployment.strategies', module: 'deployment', order: 20,
         relativePath: 'deployment/strategies/', kind: 'concept',
         prerequisites: ['deployment.pipeline'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
       }),
       page({
-        id: 'deployment.lab-release', module: 'deployment', order: 20,
+        id: 'deployment.lab-release', module: 'deployment', order: 21,
         relativePath: 'deployment/lab-release/', kind: 'practice',
         prerequisites: ['deployment.pipeline'],
         label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },

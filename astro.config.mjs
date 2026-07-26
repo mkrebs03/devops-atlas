@@ -15,6 +15,12 @@ const moduleSidebar = modules.map((module) => ({
 export default defineConfig({
   site: process.env.PUBLIC_SITE_URL ?? 'http://localhost:4321',
   output: 'static',
+  // "Linux y terminal" was split into a page about the system and a page about
+  // the shell. Anyone holding the old link lands on the shell half.
+  redirects: {
+    '/foundations/linux-cli/': '/foundations/terminal/',
+    '/en/foundations/linux-cli/': '/en/foundations/terminal/',
+  },
   integrations: [
     starlight({
       title: 'DevOps Atlas',
@@ -50,16 +56,16 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: 'Qué es DevOps',
+          translations: { en: 'What DevOps is' },
+          link: '/what-is-devops/',
+        },
+        {
           label: 'Herramientas A–Z',
           translations: { en: 'Tools A–Z' },
           link: '/tools/',
         },
         ...moduleSidebar,
-        {
-          label: 'Qué es DevOps',
-          translations: { en: 'What DevOps is' },
-          link: '/what-is-devops/',
-        },
       ],
     }),
   ],

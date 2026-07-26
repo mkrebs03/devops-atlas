@@ -5,7 +5,7 @@ type: concept
 level: beginner
 module: foundations
 tools: [dns, http, tls, curl, ss]
-prerequisites: [foundations.linux-cli]
+prerequisites: [foundations.terminal]
 learningObjectives:
   - Seguir una petición desde DNS hasta la respuesta HTTP, incluido TLS.
   - Distinguir fallos de resolución, conexión, puerto y aplicación.

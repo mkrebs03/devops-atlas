@@ -5,7 +5,7 @@ type: concept
 level: intermediate
 module: testing
 tools: [testing]
-prerequisites: [foundations.linux-cli]
+prerequisites: [foundations.terminal]
 learningObjectives:
   - Distinguir pruebas de unidad, integración y extremo a extremo.
   - Elegir el nivel de prueba según el costo y la confianza que aporta.

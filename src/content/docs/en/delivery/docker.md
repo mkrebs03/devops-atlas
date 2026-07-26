@@ -5,7 +5,7 @@ type: tool
 level: beginner
 module: delivery
 tools: [docker, containers, nginx]
-prerequisites: [foundations.linux-cli, foundations.networking]
+prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Distinguish an immutable image from a running container.
   - Write a Dockerfile that uses layer ordering and a multi-stage build.
