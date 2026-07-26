@@ -1,13 +1,14 @@
 import { test, expect } from '@playwright/test';
+import { modules, pages } from '../src/data/curriculum.mjs';
 
 test.describe('DevOps Atlas', () => {
   test('the landing shows every module and its pages', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('.landing__display')).toBeVisible();
-    await expect(page.locator('.mcard')).toHaveCount(5);
-    await expect(page.locator('.mcard__pages li')).toHaveCount(20);
+    await expect(page.locator('.mcard')).toHaveCount(modules.length);
+    await expect(page.locator('.mcard__pages li')).toHaveCount(pages.length);
     await page.locator('.landing__cta').click();
-    await expect(page).toHaveURL(/\/foundations\/$/);
+    await expect(page).toHaveURL(/\/what-is-devops\/$/);
   });
 
   test('stores no reader state', async ({ page }) => {
@@ -34,7 +35,7 @@ test.describe('DevOps Atlas', () => {
 
   test('serves the equivalent English index', async ({ page }) => {
     await page.goto('/en/');
-    await expect(page.locator('.mcard')).toHaveCount(5);
+    await expect(page.locator('.mcard')).toHaveCount(modules.length);
     await expect(page.getByRole('heading', { name: 'Foundations', exact: true })).toBeVisible();
     await expect(page.locator('h1:visible')).toHaveCount(1);
   });
