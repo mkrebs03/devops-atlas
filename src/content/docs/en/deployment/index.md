@@ -32,7 +32,7 @@ flowchart LR
 | Moment | Question | Page |
 | --- | --- | --- |
 | Pipeline | How does an artifact go from build to release? | [From build to release](/en/deployment/pipeline/) |
-| Traffic | Who decides which instance each request reaches? | [Reverse proxy and load balancing](/en/deployment/proxy/) |
+| Traffic | Who decides which instance each request reaches? | [Load balancing](/en/deployment/load-balancing/) |
 | Strategy | How do I change the version without taking the service down? | [Deployment strategies](/en/deployment/strategies/) |
 | Evidence | How do I know the new version behaves well? | [Observability](/en/deployment/observability/) |
 | Practice | Can I promote and roll back a version? | [Practice · promote and roll back](/en/deployment/lab-release/) |
@@ -50,5 +50,5 @@ These pages let you describe a delivery pipeline, choose a deployment strategy b
 | Symptom | What causes it | Where it continues |
 | --- | --- | --- |
 | The deployment finishes and nobody knows whether the service is healthy | Evidence stops at the pipeline instead of continuing into production | [Observability](/en/deployment/observability/) |
-| Replacing the version cuts off requests that were in flight | Nothing takes the traffic while the old process shuts down | [Reverse proxy and load balancing](/en/deployment/proxy/) |
+| Replacing the version cuts off requests that were in flight | Nothing takes the traffic while the old process shuts down | [Load balancing](/en/deployment/load-balancing/) |
 | Rolling back takes as long as deploying, so nobody rolls back | The previous version was never kept as an artifact ready to return to | [Practice · promote and roll back](/en/deployment/lab-release/) |

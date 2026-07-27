@@ -36,7 +36,7 @@ Hard constraint: Atlas makes **no claim it cannot back**. No progress percentage
 - Static site built with Astro + Starlight; static output, no account and no backend.
 - No reader state: no accounts, no progress, no personalization. The theme preference, stored under Starlight's own `starlight-theme` key, is the only thing the site ever writes to the browser.
 - Bilingual by construction: Spanish pages at `src/content/docs/`, English counterparts under `src/content/docs/en/`. Navigation and content counterparts must stay synchronized.
-- Content is organized as modules of ordered pages (`src/data/curriculum.mjs`) — a suggested reading order, not a gated path. Module ids: `foundations`, `collaboration`, `containers`, `testing`, `integration`, `deployment`. Page kinds: `overview`, `concept`, `tool`, `practice`, `cheatsheet`.
+- Content is organized as modules of ordered pages (`src/data/curriculum.mjs`) — a suggested reading order, not a gated path. Module ids: `foundations`, `collaboration`, `server`, `containers`, `testing`, `integration`, `deployment`. Page kinds: `overview`, `concept`, `tool`, `practice`, `cheatsheet`.
 - Modules are grouped by the state of the system a reader is looking at — one server, containers, automated checks — so the order carries an explanation of why each tool exists. They are never numbered as levels of the reader: `level` is a per-page field, and a module that ranked the reader would imply a gate the product does not have.
 - Every Markdown page carries enforced frontmatter (`title`, `description`; module pages also `type`, `level`, `module`, and canonical pages additionally `tools`, `prerequisites`, `learningObjectives`, `takeaways`), validated by `scripts/validate-content.mjs`. Spanish/English objective and takeaway counts must match.
 - Diagrams authored as `mermaid` fenced blocks, rendered client-side.
@@ -45,7 +45,7 @@ Hard constraint: Atlas makes **no claim it cannot back**. No progress percentage
 ## Capabilities and Constraints
 
 - **Prerequisite:** assumes the learner already has software-development basics; Atlas does not teach programming from zero.
-- **Scope roadmap (committed):** grow toward the full DevOps lifecycle. Six modules shipped (Foundations, Collaboration, Containers, Testing, Continuous integration, Continuous deployment), observability among them. Two stages of the arc are still missing and committed: a single bare server (provisioning, SSH, `systemd`, TLS, backups) before containers, and scaling (when to scale, managed services, load balancing, orchestration) after deployment. Infrastructure as code, cloud, Kubernetes, and security are planned lifecycle coverage beyond those.
+- **Scope roadmap (committed):** grow toward the full DevOps lifecycle. Seven modules shipped (Foundations, Collaboration, One server, Containers, Testing, Continuous integration, Continuous deployment), with observability and backups among them. One stage of the arc is still missing and committed: scaling (when to scale, managed services, orchestration) after deployment, which is also where load balancing and observability move once it exists. Infrastructure as code, cloud, Kubernetes, and security are planned lifecycle coverage beyond that.
 - No backend, no auth, no user data collection, no stored reader state beyond the theme preference (see Operating Context).
 - Bilingual parity is a hard constraint, not a nice-to-have.
 - WCAG-AA contrast for text and controls; meaningful interface text at a practical minimum of ~14px.
@@ -58,7 +58,7 @@ Hard constraint: Atlas makes **no claim it cannot back**. No progress percentage
 
 ## Evidence on Hand
 
-- Real, shipped bilingual content across all six modules (`src/content/docs/` and `.../en/`), including four hands-on walkthroughs.
+- Real, shipped bilingual content across all seven modules (`src/content/docs/` and `.../en/`), including five hands-on walkthroughs.
 - Enforced ES/EN parity via `scripts/validate-content.mjs`: every Spanish file must have its English counterpart file and vice versa (standalone pages included), and canonical pairs must agree on `level`, on `tools` (same order), and on objective/takeaway counts. It checks files and frontmatter — not prose equivalence.
 - No testimonials, enrollment numbers, learner counts, employer outcomes, or endorsements exist — future work must not fabricate them.
 - The guided-route/progress machinery once shipped here was removed deliberately (see Positioning); it is the project's anti-reference and must not be reintroduced.

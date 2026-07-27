@@ -5,7 +5,7 @@ type: concept
 level: advanced
 module: deployment
 tools: [nginx]
-prerequisites: [deployment.proxy]
+prerequisites: [deployment.load-balancing]
 learningObjectives:
   - Compare recreate, rolling, blue-green, and canary by risk and cost.
   - Choose a strategy by tolerance for downtime and for failures.
@@ -20,7 +20,7 @@ takeaways:
 
 Updating means replacing the version that serves traffic. How you do it decides how many people see a failure if something goes wrong.
 
-The four strategies below are different ways of performing the same operation: changing where traffic points. The thing that performs it is the proxy or balancer sitting in front, so it pays to be clear on [what that piece does](/en/deployment/proxy/) before choosing.
+The four strategies below are different ways of performing the same operation: changing where traffic points. The thing that performs it is the proxy or balancer sitting in front, so it pays to be clear on [what that piece does](/en/deployment/load-balancing/) before choosing.
 
 ## Four strategies
 

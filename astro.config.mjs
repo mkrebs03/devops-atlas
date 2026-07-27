@@ -68,6 +68,11 @@ export default defineConfig({
     '/en/delivery/github-actions/': '/en/integration/github-actions/',
     '/testing/in-ci/': '/integration/tests-in-ci/',
     '/en/testing/in-ci/': '/en/integration/tests-in-ci/',
+    // The proxy page split in two: the single-entry-point half belongs to the
+    // one-server module, the many-instances half stays with deployment. The old
+    // link points at the proxy, which is what most of that page was about.
+    '/deployment/proxy/': '/server/proxy-tls/',
+    '/en/deployment/proxy/': '/en/server/proxy-tls/',
   },
   markdown: {
     // Gives every <details> in the content a single body element, which is what

@@ -5,7 +5,7 @@ type: concept
 level: beginner
 module: containers
 tools: [docker, docker-compose]
-prerequisites: [collaboration.git-model, foundations.networking]
+prerequisites: [server.manual-deploy, foundations.networking]
 learningObjectives:
   - Tell an image, a container, and a volume apart inside the same package.
   - Explain which problem packaging an application with its dependencies solves.

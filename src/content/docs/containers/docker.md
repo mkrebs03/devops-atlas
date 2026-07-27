@@ -99,7 +99,7 @@ Si borras el contenedor, el volumen `atlas-data` sigue ahí. Un contenedor es de
 
 ## Redes y nombres
 
-En una red Docker, los servicios se encuentran por nombre: un contenedor puede llamar a `http://atlas:8080` sin saber en qué IP está. Por eso no hace falta publicar cada puerto al host. El patrón habitual es poner delante un [proxy inverso](/deployment/proxy/): es el único que se expone al exterior y alcanza al resto por su nombre de servicio.
+En una red Docker, los servicios se encuentran por nombre: un contenedor puede llamar a `http://atlas:8080` sin saber en qué IP está. Por eso no hace falta publicar cada puerto al host. El patrón habitual es poner delante un [proxy inverso](/server/proxy-tls/): es el único que se expone al exterior y alcanza al resto por su nombre de servicio.
 
 Ese reparto se declara en un archivo de **Docker Compose**, que describe varios contenedores y la red que comparten en lugar de encadenar comandos `docker run`:
 

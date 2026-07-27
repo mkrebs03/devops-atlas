@@ -99,7 +99,7 @@ If you delete the container, the `atlas-data` volume is still there. A container
 
 ## Networks and names
 
-On a Docker network, services find one another by name: a container can call `http://atlas:8080` without knowing its IP. That is why you do not need to publish every port to the host. The usual pattern puts a [reverse proxy](/en/deployment/proxy/) in front: it is the only one exposed to the outside, and it reaches the rest by service name.
+On a Docker network, services find one another by name: a container can call `http://atlas:8080` without knowing its IP. That is why you do not need to publish every port to the host. The usual pattern puts a [reverse proxy](/en/server/proxy-tls/) in front: it is the only one exposed to the outside, and it reaches the rest by service name.
 
 That arrangement is declared in a **Docker Compose** file, which describes several containers and the network they share instead of chaining `docker run` commands:
 

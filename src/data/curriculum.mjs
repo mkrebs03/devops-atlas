@@ -22,6 +22,7 @@
 export const MODULE_IDS = /** @type {const} */ ([
   'foundations',
   'collaboration',
+  'server',
   'containers',
   'testing',
   'integration',
@@ -144,11 +145,71 @@ export const modules = Object.freeze([
       }),
     ]),
   }),
+  /*
+    The first place an application actually runs. It comes before containers on
+    purpose: a reader who has already fought a port, a dead process and an
+    expired certificate on one machine can tell what a container removes and
+    what it only moves.
+  */
+  Object.freeze({
+    id: 'server',
+    order: 3,
+    label: localized({ es: 'Un servidor', en: 'One server' }),
+    sidebarLabel: localized({ es: '03 · Un servidor', en: '03 · One server' }),
+    summary: localized({
+      es: 'Poner la aplicación en una máquina, mantenerla viva y darle HTTPS.',
+      en: 'Getting the application onto one machine, keeping it alive, and giving it HTTPS.',
+    }),
+    tools: Object.freeze(['SSH', 'ufw', 'systemd', 'nginx', 'Certbot']),
+    pages: Object.freeze([
+      page({
+        id: 'server.overview', module: 'server', order: 10,
+        relativePath: 'server/', kind: 'overview',
+        prerequisites: ['foundations.networking'], label: { es: 'Panorama', en: 'Overview' },
+      }),
+      page({
+        id: 'server.provisioning', module: 'server', order: 11,
+        relativePath: 'server/provisioning/', kind: 'concept',
+        prerequisites: ['foundations.terminal', 'foundations.networking'],
+        label: { es: 'Aprovisionar una VPS', en: 'Provisioning a VPS' },
+      }),
+      page({
+        id: 'server.manual-deploy', module: 'server', order: 12,
+        relativePath: 'server/manual-deploy/', kind: 'concept',
+        prerequisites: ['server.provisioning'],
+        label: { es: 'Desplegar a mano', en: 'Deploying by hand' },
+      }),
+      page({
+        id: 'server.processes', module: 'server', order: 13,
+        relativePath: 'server/processes/', kind: 'tool',
+        prerequisites: ['server.manual-deploy'],
+        label: { es: 'Mantener la aplicación viva', en: 'Keeping the application alive' },
+      }),
+      page({
+        id: 'server.proxy-tls', module: 'server', order: 14,
+        relativePath: 'server/proxy-tls/', kind: 'concept',
+        prerequisites: ['foundations.networking', 'server.processes'],
+        label: { es: 'Proxy inverso y certificados', en: 'Reverse proxy and certificates' },
+      }),
+      page({
+        id: 'server.backups', module: 'server', order: 15,
+        relativePath: 'server/backups/', kind: 'concept',
+        prerequisites: ['server.manual-deploy'],
+        label: { es: 'Respaldos', en: 'Backups' },
+      }),
+      page({
+        id: 'server.lab-vps-deploy', module: 'server', order: 16,
+        relativePath: 'server/lab-vps-deploy/', kind: 'practice',
+        prerequisites: ['server.processes', 'server.proxy-tls'],
+        label: { es: 'Práctica · de VPS vacía a HTTPS', en: 'Practice · from empty VPS to HTTPS' },
+      }),
+    ]),
+  }),
   Object.freeze({
     id: 'containers',
-    order: 3,
+    order: 4,
     label: localized({ es: 'Contenedores', en: 'Containers' }),
-    sidebarLabel: localized({ es: '03 · Contenedores', en: '03 · Containers' }),
+    sidebarLabel: localized({ es: '04 · Contenedores', en: '04 · Containers' }),
     summary: localized({
       es: 'Empaquetar la aplicación para que corra igual en cualquier máquina.',
       en: 'Packaging the application so it runs the same on any machine.',
@@ -156,17 +217,17 @@ export const modules = Object.freeze([
     tools: Object.freeze(['Docker', 'Docker Compose', 'nginx']),
     pages: Object.freeze([
       page({
-        id: 'containers.overview', module: 'containers', order: 10,
+        id: 'containers.overview', module: 'containers', order: 17,
         relativePath: 'containers/', kind: 'overview',
-        prerequisites: ['collaboration.git-model', 'foundations.networking'], label: { es: 'Panorama', en: 'Overview' },
+        prerequisites: ['server.manual-deploy', 'foundations.networking'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'containers.docker', module: 'containers', order: 11,
+        id: 'containers.docker', module: 'containers', order: 18,
         relativePath: 'containers/docker/', kind: 'tool',
         prerequisites: ['foundations.terminal', 'foundations.networking'], label: { es: 'Docker sin magia', en: 'Docker without magic' },
       }),
       page({
-        id: 'containers.lab-container-pipeline', module: 'containers', order: 12,
+        id: 'containers.lab-container-pipeline', module: 'containers', order: 19,
         relativePath: 'containers/lab-container-pipeline/', kind: 'practice',
         prerequisites: ['containers.docker', 'foundations.networking'],
         label: { es: 'Práctica · pipeline local', en: 'Practice · local pipeline' },
@@ -175,9 +236,9 @@ export const modules = Object.freeze([
   }),
   Object.freeze({
     id: 'testing',
-    order: 4,
+    order: 5,
     label: localized({ es: 'Pruebas', en: 'Testing' }),
-    sidebarLabel: localized({ es: '04 · Pruebas', en: '04 · Testing' }),
+    sidebarLabel: localized({ es: '05 · Pruebas', en: '05 · Testing' }),
     summary: localized({
       es: 'Convertir la confianza en evidencia con pruebas automáticas.',
       en: 'Turning confidence into evidence with automated tests.',
@@ -185,17 +246,17 @@ export const modules = Object.freeze([
     tools: Object.freeze(['Node.js']),
     pages: Object.freeze([
       page({
-        id: 'testing.overview', module: 'testing', order: 13,
+        id: 'testing.overview', module: 'testing', order: 20,
         relativePath: 'testing/', kind: 'overview',
         prerequisites: ['collaboration.pull-requests'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'testing.pyramid', module: 'testing', order: 14,
+        id: 'testing.pyramid', module: 'testing', order: 21,
         relativePath: 'testing/pyramid/', kind: 'concept',
         prerequisites: [], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
       }),
       page({
-        id: 'testing.lab-first-test', module: 'testing', order: 15,
+        id: 'testing.lab-first-test', module: 'testing', order: 22,
         relativePath: 'testing/lab-first-test/', kind: 'practice',
         prerequisites: ['testing.pyramid'],
         label: { es: 'Práctica · tu primera prueba', en: 'Practice · your first test' },
@@ -210,9 +271,9 @@ export const modules = Object.freeze([
   */
   Object.freeze({
     id: 'integration',
-    order: 5,
+    order: 6,
     label: localized({ es: 'Integración continua', en: 'Continuous integration' }),
-    sidebarLabel: localized({ es: '05 · Integración continua', en: '05 · Continuous integration' }),
+    sidebarLabel: localized({ es: '06 · Integración continua', en: '06 · Continuous integration' }),
     summary: localized({
       es: 'Que cada cambio se valide solo, antes de llegar a un servidor.',
       en: 'Every change validated on its own, before it reaches a server.',
@@ -220,24 +281,24 @@ export const modules = Object.freeze([
     tools: Object.freeze(['GitHub Actions', 'YAML', 'Git', 'GitHub']),
     pages: Object.freeze([
       page({
-        id: 'integration.overview', module: 'integration', order: 16,
+        id: 'integration.overview', module: 'integration', order: 23,
         relativePath: 'integration/', kind: 'overview',
         prerequisites: ['collaboration.pull-requests', 'testing.pyramid'],
         label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'integration.github-actions', module: 'integration', order: 17,
+        id: 'integration.github-actions', module: 'integration', order: 24,
         relativePath: 'integration/github-actions/', kind: 'tool',
         prerequisites: ['collaboration.pull-requests'], label: { es: 'GitHub Actions', en: 'GitHub Actions' },
       }),
       page({
-        id: 'integration.branching-strategy', module: 'integration', order: 18,
+        id: 'integration.branching-strategy', module: 'integration', order: 25,
         relativePath: 'integration/branching-strategy/', kind: 'concept',
         prerequisites: ['collaboration.pull-requests'],
         label: { es: 'Estrategias de ramas', en: 'Branching strategies' },
       }),
       page({
-        id: 'integration.tests-in-ci', module: 'integration', order: 19,
+        id: 'integration.tests-in-ci', module: 'integration', order: 26,
         relativePath: 'integration/tests-in-ci/', kind: 'tool',
         prerequisites: ['integration.github-actions', 'testing.pyramid'],
         label: { es: 'Pruebas en CI', en: 'Tests in CI' },
@@ -246,44 +307,44 @@ export const modules = Object.freeze([
   }),
   Object.freeze({
     id: 'deployment',
-    order: 6,
+    order: 7,
     label: localized({ es: 'Despliegue continuo', en: 'Continuous deployment' }),
-    sidebarLabel: localized({ es: '06 · Despliegue continuo', en: '06 · Continuous deployment' }),
+    sidebarLabel: localized({ es: '07 · Despliegue continuo', en: '07 · Continuous deployment' }),
     summary: localized({
       es: 'Llevar un artefacto a producción y poder revertirlo.',
       en: 'Taking an artifact to production — and being able to roll it back.',
     }),
-    tools: Object.freeze(['nginx', 'Caddy', 'Traefik', 'Prometheus']),
+    tools: Object.freeze(['nginx', 'Traefik', 'Prometheus']),
     pages: Object.freeze([
       page({
-        id: 'deployment.overview', module: 'deployment', order: 20,
+        id: 'deployment.overview', module: 'deployment', order: 27,
         relativePath: 'deployment/', kind: 'overview',
         prerequisites: ['integration.github-actions'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'deployment.pipeline', module: 'deployment', order: 21,
+        id: 'deployment.pipeline', module: 'deployment', order: 28,
         relativePath: 'deployment/pipeline/', kind: 'concept',
         prerequisites: ['integration.github-actions'], label: { es: 'Del build al release', en: 'From build to release' },
       }),
       page({
-        id: 'deployment.proxy', module: 'deployment', order: 22,
-        relativePath: 'deployment/proxy/', kind: 'concept',
-        prerequisites: ['foundations.networking'],
-        label: { es: 'Proxy inverso y balanceo', en: 'Reverse proxy and load balancing' },
+        id: 'deployment.load-balancing', module: 'deployment', order: 29,
+        relativePath: 'deployment/load-balancing/', kind: 'concept',
+        prerequisites: ['server.proxy-tls'],
+        label: { es: 'Balanceo de carga', en: 'Load balancing' },
       }),
       page({
-        id: 'deployment.strategies', module: 'deployment', order: 23,
+        id: 'deployment.strategies', module: 'deployment', order: 30,
         relativePath: 'deployment/strategies/', kind: 'concept',
-        prerequisites: ['deployment.proxy'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
+        prerequisites: ['deployment.load-balancing'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
       }),
       page({
-        id: 'deployment.observability', module: 'deployment', order: 24,
+        id: 'deployment.observability', module: 'deployment', order: 31,
         relativePath: 'deployment/observability/', kind: 'concept',
-        prerequisites: ['deployment.proxy'],
+        prerequisites: ['server.proxy-tls'],
         label: { es: 'Observabilidad', en: 'Observability' },
       }),
       page({
-        id: 'deployment.lab-release', module: 'deployment', order: 25,
+        id: 'deployment.lab-release', module: 'deployment', order: 32,
         relativePath: 'deployment/lab-release/', kind: 'practice',
         prerequisites: ['deployment.pipeline'],
         label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },

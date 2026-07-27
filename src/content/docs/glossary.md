@@ -11,7 +11,7 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Artefacto** — El resultado empaquetado de una construcción: una imagen de contenedor, un `.jar`, una carpeta de archivos estáticos. Es lo que se despliega, y no es el código del que salió. → [Integración continua](/integration/)
 
-**Balanceo de carga** — Repartir las peticiones entre varias instancias iguales del mismo servicio. → [Proxy inverso y balanceo](/deployment/proxy/)
+**Balanceo de carga** — Repartir las peticiones entre varias instancias iguales del mismo servicio. → [Balanceo de carga](/deployment/load-balancing/)
 
 **Blue-green** — Estrategia de despliegue con dos entornos completos: uno sirve tráfico y el otro recibe la versión nueva; el cambio es instantáneo y la vuelta atrás también. → [Estrategias de despliegue](/deployment/strategies/)
 
@@ -19,7 +19,9 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **CD** — Entrega continua: el artefacto queda siempre listo para desplegar. Despliegue continuo: ese último paso además ocurre solo cuando las comprobaciones pasan. → [Del build al release](/deployment/pipeline/)
 
-**Chequeo de salud** — La comprobación periódica que hace un balanceador para saber si una instancia puede atender, y retirarla de rotación si no. → [Proxy inverso y balanceo](/deployment/proxy/)
+**Certificado** — La prueba de que un dominio es tuyo, emitida por una autoridad en la que el navegador ya confía. Caduca, así que lo que importa es que se renueve solo. → [Proxy inverso y certificados](/server/proxy-tls/)
+
+**Chequeo de salud** — La comprobación periódica que hace un balanceador para saber si una instancia puede atender, y retirarla de rotación si no. → [Balanceo de carga](/deployment/load-balancing/)
 
 **CI** — Integración continua: cada cambio propuesto se integra y se valida automáticamente en un servidor limpio, no solo en la máquina de quien lo escribió. → [Pruebas en CI](/integration/tests-in-ci/)
 
@@ -47,9 +49,9 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Firewall** — Un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Explica por qué una conexión se queda colgada en vez de ser rechazada. → [Redes esenciales](/foundations/networking/)
 
-**GitFlow** — Un modelo de ramas con `main` y `develop` permanentes más `feature/*`, `release/*` y `hotfix/*`. Devuelve su coste solo si sostienes varias versiones publicadas a la vez. → [Estrategias de ramas](/integration/branching-strategy/)
-
 **Gateway** — La puerta de salida de una red: a donde una máquina entrega los paquetes cuyo destino cae fuera de su subred. → [Redes esenciales](/foundations/networking/)
+
+**GitFlow** — Un modelo de ramas con `main` y `develop` permanentes más `feature/*`, `release/*` y `hotfix/*`. Devuelve su coste solo si sostienes varias versiones publicadas a la vez. → [Estrategias de ramas](/integration/branching-strategy/)
 
 **Grupo** — Una identidad compartida que permite a varios usuarios acceder a las mismas cosas. La terna del medio en los permisos de un archivo. → [Linux](/foundations/linux/)
 
@@ -79,7 +81,7 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Producción** — El entorno donde hay usuarios reales. El único donde un fallo le pasa a alguien. → [Integración continua](/integration/)
 
-**Proxy inverso** — El servidor que recibe todo el tráfico y lo reparte entre tus servicios. Donde vive el certificado TLS y la decisión de enrutado. → [Proxy inverso y balanceo](/deployment/proxy/)
+**Proxy inverso** — El servidor que recibe todo el tráfico y lo reparte entre tus servicios. Donde vive el certificado TLS y la decisión de enrutado. → [Proxy inverso y certificados](/server/proxy-tls/)
 
 **Prueba de extremo a extremo (E2E)** — Prueba el sistema como lo usa una persona. Lenta y valiosa: responde si el recorrido completo funciona. → [La pirámide de pruebas](/testing/pyramid/)
 
@@ -129,6 +131,10 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Trunk-based** — Un modelo de ramas donde todo el mundo integra en `main` al menos una vez al día y lo inacabado viaja apagado detrás de un feature flag. → [Estrategias de ramas](/integration/branching-strategy/)
 
+**Unidad de systemd** — El archivo que le dice al sistema qué ejecutar, con qué usuario y bajo qué condiciones reintentarlo. Lo que convierte un proceso tuyo en un servicio. → [Mantener la aplicación viva](/server/processes/)
+
 **Volumen** — Almacenamiento que vive fuera del contenedor y sobrevive a su borrado. Donde van los datos que no puedes perder. → [Docker sin magia](/containers/docker/)
+
+**VPS** — Una máquina virtual con Linux y una IP pública, entregada arrancada y sin configurar. El sitio más simple donde una aplicación corre de verdad. → [Aprovisionar una VPS](/server/provisioning/)
 
 **Workflow** — La descripción de qué debe ocurrir ante un evento del repositorio: qué jobs corren, en qué orden y con qué permisos. → [GitHub Actions](/integration/github-actions/)

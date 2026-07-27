@@ -5,7 +5,7 @@ type: concept
 level: intermediate
 module: deployment
 tools: [prometheus, opentelemetry]
-prerequisites: [deployment.proxy]
+prerequisites: [server.proxy-tls]
 learningObjectives:
   - Distinguir qué pregunta responde cada una de las tres señales.
   - Elegir qué medir en la frontera donde el usuario nota el problema.
@@ -77,7 +77,7 @@ Aquí es donde esto se conecta con el resto del módulo. Un despliegue no termin
 
 Eso es exactamente lo que significaba "si las métricas están sanas" en un [canary](/deployment/strategies/): no una corazonada, sino esos tres números comparados entre las dos versiones que están sirviendo tráfico a la vez. Si empeoran, retiras el canary antes de que le llegue al resto de la gente.
 
-Un **chequeo de salud** —el que ya viste en [el proxy](/deployment/proxy/)— responde solo a "¿puede atender?". La observabilidad responde a "¿está atendiendo bien?". No se sustituyen.
+Un **chequeo de salud** —el que ya viste en [el proxy](/deployment/load-balancing/)— responde solo a "¿puede atender?". La observabilidad responde a "¿está atendiendo bien?". No se sustituyen.
 
 ## Alertas: avisa de síntomas, no de causas
 

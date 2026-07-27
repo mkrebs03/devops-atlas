@@ -21,6 +21,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **CI** — Continuous integration: every proposed change is integrated and validated automatically on a clean server, not only on the machine of whoever wrote it. → [Tests in CI](/en/integration/tests-in-ci/)
 
+**Certificate** — Proof that a domain is yours, issued by an authority the browser already trusts. It expires, so what matters is that it renews on its own. → [Reverse proxy and certificates](/en/server/proxy-tls/)
+
 **Commit** — A snapshot of the project that points at its predecessor. The smallest unit of history. → [The Git model](/en/collaboration/git-model/)
 
 **Conflict** — The moment two branches change the same line and Git stops so that you decide. Not an error: a delegated decision. → [The Git model](/en/collaboration/git-model/)
@@ -53,7 +55,7 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **HEAD** — The reference that says where you are working right now: the commit the next one will be built on. → [The Git model](/en/collaboration/git-model/)
 
-**Health check** — The periodic check a balancer makes to know whether an instance can serve, and to pull it out of rotation if it cannot. → [Reverse proxy and load balancing](/en/deployment/proxy/)
+**Health check** — The periodic check a balancer makes to know whether an instance can serve, and to pull it out of rotation if it cannot. → [Load balancing](/en/deployment/load-balancing/)
 
 **Image** — An immutable package of layers that containers are created from. Identified by tag, and in production by SHA. → [Docker without magic](/en/containers/docker/)
 
@@ -67,7 +69,7 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Lint** — The cheapest check there is: a program reads the code without running it and flags whatever breaks a convention or smells like a bug. → [GitHub Actions](/en/integration/github-actions/)
 
-**Load balancing** — Spreading requests across several identical instances of the same service. → [Reverse proxy and load balancing](/en/deployment/proxy/)
+**Load balancing** — Spreading requests across several identical instances of the same service. → [Load balancing](/en/deployment/load-balancing/)
 
 **Log** — The event-by-event record of what the system did. Structured and carrying a correlation id, it reconstructs one specific case. → [Observability](/en/deployment/observability/)
 
@@ -99,7 +101,7 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Remote** — A reference to another copy of the repository. `fetch` brings its information; `pull` combines it with your local branch. → [The Git model](/en/collaboration/git-model/)
 
-**Reverse proxy** — The server that receives all traffic and distributes it among your services. Where the TLS certificate and the routing decision live. → [Reverse proxy and load balancing](/en/deployment/proxy/)
+**Reverse proxy** — The server that receives all traffic and distributes it among your services. Where the TLS certificate and the routing decision live. → [Reverse proxy and certificates](/en/server/proxy-tls/)
 
 **Rollback** — Going back to the previous version. What makes a deployment reversible, and what is worth rehearsing before you need it. → [Deployment strategies](/en/deployment/strategies/)
 
@@ -121,6 +123,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Subnet** — The stretch of addresses that count as "my network". The mask (`/24`) marks where it ends, and with it whether a destination is reached directly or through the gateway. → [Essential networking](/en/foundations/networking/)
 
+**systemd unit** — The file telling the system what to run, as which user, and under which conditions to retry it. What turns a process of yours into a service. → [Keeping the application alive](/en/server/processes/)
+
 **TLS** — The layer that encrypts the connection and proves the server is who it claims to be. The `s` in HTTPS. → [Essential networking](/en/foundations/networking/)
 
 **Trace** — One request's path across every service it passes through, with the time spent on each leg. → [Observability](/en/deployment/observability/)
@@ -130,5 +134,7 @@ Every term is defined where it is first needed inside its own page. This is the 
 **Unit test** — Tests one function or module in isolation. Fast, precise and cheap: the base of the pyramid. → [The testing pyramid](/en/testing/pyramid/)
 
 **Volume** — Storage that lives outside the container and survives its deletion. Where the data you cannot lose goes. → [Docker without magic](/en/containers/docker/)
+
+**VPS** — A Linux virtual machine with a public IP, handed to you booted and unconfigured. The simplest place an application really runs. → [Provisioning a VPS](/en/server/provisioning/)
 
 **Workflow** — The description of what should happen on a repository event: which jobs run, in which order, and with which permissions. → [GitHub Actions](/en/integration/github-actions/)

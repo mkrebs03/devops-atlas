@@ -20,7 +20,7 @@ takeaways:
 
 Vas a correr dos versiones de un sitio (azul y verde), verificar la nueva en aislamiento, cambiar el tráfico a la nueva y revertir, un blue-green en tu máquina.
 
-En un sistema real, quien cambia el tráfico es un [proxy inverso](/deployment/proxy/) y el cambio no interrumpe nada. Aquí el papel del proxy lo hace el puerto 8080: apagas el contenedor que lo ocupa y arrancas otro en su lugar. La secuencia de decisiones es la misma —verificar en aislamiento, cambiar, verificar, poder volver—, pero hay un instante de corte que en producción no habría.
+En un sistema real, quien cambia el tráfico es un [proxy inverso](/server/proxy-tls/) y el cambio no interrumpe nada. Aquí el papel del proxy lo hace el puerto 8080: apagas el contenedor que lo ocupa y arrancas otro en su lugar. La secuencia de decisiones es la misma —verificar en aislamiento, cambiar, verificar, poder volver—, pero hay un instante de corte que en producción no habría.
 
 ## Requisitos
 

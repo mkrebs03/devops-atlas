@@ -5,7 +5,7 @@ type: concept
 level: beginner
 module: containers
 tools: [docker, docker-compose]
-prerequisites: [collaboration.git-model, foundations.networking]
+prerequisites: [server.manual-deploy, foundations.networking]
 learningObjectives:
   - Distinguir imagen, contenedor y volumen dentro del mismo paquete.
   - Explicar qué problema resuelve empaquetar una aplicación con sus dependencias.
