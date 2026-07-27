@@ -1,13 +1,13 @@
 ---
-title: GitHub Flow
-description: Un flujo pequeño para proponer, revisar y entregar cambios sin perder el contexto.
+title: Pull requests y revisión
+description: Proponer un cambio, explicarlo y revisarlo antes de que entre en la rama compartida.
 type: tool
 level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [collaboration.git-model]
 learningObjectives:
-  - Recorrer GitHub Flow desde una rama hasta la integración del cambio.
+  - Recorrer un cambio desde una rama de trabajo hasta su integración.
   - Preparar un pull request que haga visible la intención y la evidencia.
   - Aplicar revisión y protecciones de rama para integrar con seguridad.
 takeaways:
@@ -16,7 +16,7 @@ takeaways:
   - Las protecciones y la revisión convierten main en un estado en el que confiar.
 ---
 
-## El flujo en cinco movimientos
+## El recorrido de un cambio
 
 ```mermaid
 flowchart LR
@@ -31,6 +31,8 @@ git switch main
 git pull --ff-only
 git switch -c feat/health-check
 ```
+
+Este recorrido —una rama corta que vuelve pronto a `main`— no es la única forma de organizar las ramas de un proyecto, pero sí la más simple, y la que conviene mientras no tengas motivos para otra cosa. Cuáles son esos motivos se decide más adelante, en [Estrategias de ramas](/integration/branching-strategy/), cuando ya sepas qué cuesta un despliegue.
 
 ## Pull requests como conversación
 
@@ -81,6 +83,6 @@ No, y ese es el punto: la protección exige que las comprobaciones pasen antes d
 
 ## Sigue explorando
 
-- [GitHub Flow (guía oficial)](https://docs.github.com/es/get-started/using-github/github-flow) — el flujo en su forma canónica.
+- [Pull requests (documentación oficial)](https://docs.github.com/es/pull-requests) — la referencia completa de la superficie de propuesta y revisión.
 - [Conventional Commits](https://www.conventionalcommits.org/es/) — mensajes de commit con estructura.
 - [Ramas protegidas](https://docs.github.com/es/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches) — reglas para proteger main.

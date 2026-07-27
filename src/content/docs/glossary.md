@@ -9,7 +9,7 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Área de preparación** — El paso intermedio entre tus archivos y el commit, donde `git add` coloca lo que sí quieres guardar. Explica por qué existen dos diffs distintos. → [El modelo de Git](/collaboration/git-model/)
 
-**Artefacto** — El resultado empaquetado de una construcción: una imagen de contenedor, un `.jar`, una carpeta de archivos estáticos. Es lo que se despliega, y no es el código del que salió. → [Entrega](/delivery/)
+**Artefacto** — El resultado empaquetado de una construcción: una imagen de contenedor, un `.jar`, una carpeta de archivos estáticos. Es lo que se despliega, y no es el código del que salió. → [Integración continua](/integration/)
 
 **Balanceo de carga** — Repartir las peticiones entre varias instancias iguales del mismo servicio. → [Proxy inverso y balanceo](/deployment/proxy/)
 
@@ -21,9 +21,9 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Chequeo de salud** — La comprobación periódica que hace un balanceador para saber si una instancia puede atender, y retirarla de rotación si no. → [Proxy inverso y balanceo](/deployment/proxy/)
 
-**CI** — Integración continua: cada cambio propuesto se integra y se valida automáticamente en un servidor limpio, no solo en la máquina de quien lo escribió. → [Pruebas en CI](/testing/in-ci/)
+**CI** — Integración continua: cada cambio propuesto se integra y se valida automáticamente en un servidor limpio, no solo en la máquina de quien lo escribió. → [Pruebas en CI](/integration/tests-in-ci/)
 
-**Cobertura** — El porcentaje del código que ejecutan tus pruebas. Mide líneas recorridas, no comportamiento verificado. → [Pruebas en CI](/testing/in-ci/)
+**Cobertura** — El porcentaje del código que ejecutan tus pruebas. Mide líneas recorridas, no comportamiento verificado. → [Pruebas en CI](/integration/tests-in-ci/)
 
 **Commit** — Una instantánea del proyecto que apunta a su predecesor. La unidad mínima de historia. → [El modelo de Git](/collaboration/git-model/)
 
@@ -31,7 +31,7 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Conflicto** — El momento en que dos ramas cambian la misma línea y Git se detiene para que decidas tú. No es un error: es una decisión delegada. → [El modelo de Git](/collaboration/git-model/)
 
-**Contenedor** — Un proceso creado a partir de una imagen, con su propio entorno de ejecución. Es desechable; sus datos no deberían serlo. → [Docker sin magia](/delivery/docker/)
+**Contenedor** — Un proceso creado a partir de una imagen, con su propio entorno de ejecución. Es desechable; sus datos no deberían serlo. → [Docker sin magia](/containers/docker/)
 
 **Dirección privada** — Una IP válida solo dentro de una red concreta —`10.x`, `172.16–31.x`, `192.168.x`— y sin significado fuera de ella. → [Redes esenciales](/foundations/networking/)
 
@@ -39,11 +39,15 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **DNS** — El sistema que traduce un nombre en direcciones. No transporta tu petición; solo dice a dónde ir. → [Redes esenciales](/foundations/networking/)
 
-**Docker Compose** — El archivo que describe varios contenedores y la red que comparten, en lugar de encadenar comandos `docker run`. → [Docker sin magia](/delivery/docker/)
+**Docker Compose** — El archivo que describe varios contenedores y la red que comparten, en lugar de encadenar comandos `docker run`. → [Docker sin magia](/containers/docker/)
 
-**Entorno** — Una instalación completa del sistema con su propia configuración y sus propios datos: desarrollo, staging, producción. → [Entrega](/delivery/)
+**Entorno** — Una instalación completa del sistema con su propia configuración y sus propios datos: desarrollo, staging, producción. → [Integración continua](/integration/)
+
+**Feature flag** — Una condición en el código que decide en tiempo de ejecución si una función está activa. Separa desplegar el código de activar la función. → [Estrategias de ramas](/integration/branching-strategy/)
 
 **Firewall** — Un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Explica por qué una conexión se queda colgada en vez de ser rechazada. → [Redes esenciales](/foundations/networking/)
+
+**GitFlow** — Un modelo de ramas con `main` y `develop` permanentes más `feature/*`, `release/*` y `hotfix/*`. Devuelve su coste solo si sostienes varias versiones publicadas a la vez. → [Estrategias de ramas](/integration/branching-strategy/)
 
 **Gateway** — La puerta de salida de una red: a donde una máquina entrega los paquetes cuyo destino cae fuera de su subred. → [Redes esenciales](/foundations/networking/)
 
@@ -51,15 +55,15 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **HEAD** — La referencia que indica dónde estás trabajando ahora: el commit sobre el que se construirá el siguiente. → [El modelo de Git](/collaboration/git-model/)
 
-**Imagen** — Un paquete inmutable de capas del que se crean contenedores. Se identifica por etiqueta, y en producción por SHA. → [Docker sin magia](/delivery/docker/)
+**Imagen** — Un paquete inmutable de capas del que se crean contenedores. Se identifica por etiqueta, y en producción por SHA. → [Docker sin magia](/containers/docker/)
 
 **IP** — La dirección de una máquina en la red: el número al que hay que enviar los paquetes para que lleguen. → [Redes esenciales](/foundations/networking/)
 
-**Issue** — La unidad con la que se registra un trabajo pendiente —un fallo, una mejora— con su discusión y su número. → [GitHub Flow](/collaboration/github-flow/)
+**Issue** — La unidad con la que se registra un trabajo pendiente —un fallo, una mejora— con su discusión y su número. → [Pull requests y revisión](/collaboration/pull-requests/)
 
-**Job** — Una unidad de un workflow que corre en su propia máquina. Los jobs van en paralelo salvo que declares dependencias con `needs`. → [GitHub Actions](/delivery/github-actions/)
+**Job** — Una unidad de un workflow que corre en su propia máquina. Los jobs van en paralelo salvo que declares dependencias con `needs`. → [GitHub Actions](/integration/github-actions/)
 
-**Lint** — La comprobación más barata: un programa lee el código sin ejecutarlo y marca lo que rompe una convención o huele a error. → [GitHub Actions](/delivery/github-actions/)
+**Lint** — La comprobación más barata: un programa lee el código sin ejecutarlo y marca lo que rompe una convención o huele a error. → [GitHub Actions](/integration/github-actions/)
 
 **Log** — El registro evento a evento de lo que hizo el sistema. Estructurado y con un identificador de correlación, sirve para reconstruir un caso concreto. → [Observabilidad](/deployment/observability/)
 
@@ -71,9 +75,9 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Percentil** — El valor que deja por debajo a un porcentaje de las mediciones. El p99 describe la peor experiencia real mejor que cualquier promedio. → [Observabilidad](/deployment/observability/)
 
-**Pipeline** — La secuencia automática de etapas que recorre un cambio desde el commit hasta quedar publicado. → [Entrega](/delivery/)
+**Pipeline** — La secuencia automática de etapas que recorre un cambio desde el commit hasta quedar publicado. → [Integración continua](/integration/)
 
-**Producción** — El entorno donde hay usuarios reales. El único donde un fallo le pasa a alguien. → [Entrega](/delivery/)
+**Producción** — El entorno donde hay usuarios reales. El único donde un fallo le pasa a alguien. → [Integración continua](/integration/)
 
 **Proxy inverso** — El servidor que recibe todo el tráfico y lo reparte entre tus servicios. Donde vive el certificado TLS y la decisión de enrutado. → [Proxy inverso y balanceo](/deployment/proxy/)
 
@@ -89,17 +93,17 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Puerto** — El número que decide a cuál de los programas de una máquina entra cada conexión. → [Redes esenciales](/foundations/networking/)
 
-**Pull request** — La superficie donde se propone un cambio, se explica su intención y se revisa antes de integrarlo. → [GitHub Flow](/collaboration/github-flow/)
+**Pull request** — La superficie donde se propone un cambio, se explica su intención y se revisa antes de integrarlo. → [Pull requests y revisión](/collaboration/pull-requests/)
 
 **Rama** — Una referencia móvil que nombra una línea de commits. Aísla una intención concreta durante poco tiempo. → [El modelo de Git](/collaboration/git-model/)
 
-**Rama protegida** — Una rama con reglas: exigir revisión, exigir que CI pase, impedir empujar directo. Convierte los acuerdos del equipo en algo que se cumple. → [GitHub Flow](/collaboration/github-flow/)
+**Rama protegida** — Una rama con reglas: exigir revisión, exigir que CI pase, impedir empujar directo. Convierte los acuerdos del equipo en algo que se cumple. → [Pull requests y revisión](/collaboration/pull-requests/)
 
 **Rebase** — Reaplicar tus commits sobre otra base para obtener una historia lineal. Reescribe identificadores, así que se usa en historia privada. → [El modelo de Git](/collaboration/git-model/)
 
 **Recreate** — Estrategia de despliegue que apaga la versión vieja y enciende la nueva. Simple, pero con downtime. → [Estrategias de despliegue](/deployment/strategies/)
 
-**Registro de imágenes** — El repositorio remoto donde se publican las imágenes y del que las descargan los servidores. Docker Hub, GHCR, el de tu nube. → [Docker sin magia](/delivery/docker/)
+**Registro de imágenes** — El repositorio remoto donde se publican las imágenes y del que las descargan los servidores. Docker Hub, GHCR, el de tu nube. → [Docker sin magia](/containers/docker/)
 
 **Remoto** — Una referencia a otra copia del repositorio. `fetch` trae su información; `pull` la combina con tu rama local. → [El modelo de Git](/collaboration/git-model/)
 
@@ -107,13 +111,13 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Rolling** — Estrategia de despliegue que reemplaza instancias de a poco: sin downtime, pero con dos versiones conviviendo un rato. → [Estrategias de despliegue](/deployment/strategies/)
 
-**Runner** — La máquina que ejecuta un job. Se crea limpia y se destruye al terminar, así que nada sobrevive entre ejecuciones. → [GitHub Actions](/delivery/github-actions/)
+**Runner** — La máquina que ejecuta un job. Se crea limpia y se destruye al terminar, así que nada sobrevive entre ejecuciones. → [GitHub Actions](/integration/github-actions/)
 
-**Secreto** — Un valor que da acceso a algo: un token, una clave de API, una contraseña de despliegue. Nunca vive en el repositorio. → [GitHub Actions](/delivery/github-actions/)
+**Secreto** — Un valor que da acceso a algo: un token, una clave de API, una contraseña de despliegue. Nunca vive en el repositorio. → [GitHub Actions](/integration/github-actions/)
 
 **Servicio** — Un proceso que el sistema arranca al encender la máquina, reinicia si se cae y registra por ti. → [Linux](/foundations/linux/)
 
-**SHA** — La huella criptográfica del contenido. Como identificador de imagen, garantiza que siempre son exactamente los mismos bytes. → [Docker sin magia](/delivery/docker/)
+**SHA** — La huella criptográfica del contenido. Como identificador de imagen, garantiza que siempre son exactamente los mismos bytes. → [Docker sin magia](/containers/docker/)
 
 **Socket** — La pareja IP + puerto: la dirección real a la que se conecta un cliente. → [Redes esenciales](/foundations/networking/)
 
@@ -123,6 +127,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Traza** — El recorrido de una misma petición por todos los servicios que atraviesa, con el tiempo de cada tramo. → [Observabilidad](/deployment/observability/)
 
-**Volumen** — Almacenamiento que vive fuera del contenedor y sobrevive a su borrado. Donde van los datos que no puedes perder. → [Docker sin magia](/delivery/docker/)
+**Trunk-based** — Un modelo de ramas donde todo el mundo integra en `main` al menos una vez al día y lo inacabado viaja apagado detrás de un feature flag. → [Estrategias de ramas](/integration/branching-strategy/)
 
-**Workflow** — La descripción de qué debe ocurrir ante un evento del repositorio: qué jobs corren, en qué orden y con qué permisos. → [GitHub Actions](/delivery/github-actions/)
+**Volumen** — Almacenamiento que vive fuera del contenedor y sobrevive a su borrado. Donde van los datos que no puedes perder. → [Docker sin magia](/containers/docker/)
+
+**Workflow** — La descripción de qué debe ocurrir ante un evento del repositorio: qué jobs corren, en qué orden y con qué permisos. → [GitHub Actions](/integration/github-actions/)

@@ -1,13 +1,13 @@
 ---
-title: GitHub Flow
-description: A small flow for proposing, reviewing and delivering changes with context.
+title: Pull requests and review
+description: Proposing a change, explaining it, and reviewing it before it enters the shared branch.
 type: tool
 level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [collaboration.git-model]
 learningObjectives:
-  - Follow GitHub Flow from a working branch through integration.
+  - Follow a change from a working branch through integration.
   - Prepare a pull request that makes intent and evidence visible.
   - Apply review and branch protections to integrate safely.
 takeaways:
@@ -16,7 +16,7 @@ takeaways:
   - Protections and review turn main into a state you can trust.
 ---
 
-## The flow in five movements
+## The route of a change
 
 ```mermaid
 flowchart LR
@@ -31,6 +31,8 @@ git switch main
 git pull --ff-only
 git switch -c feat/health-check
 ```
+
+This route — a short branch that returns to `main` quickly — is not the only way to organise a project's branches, but it is the simplest one, and the one worth keeping until you have a reason for something else. What those reasons are gets decided later, in [Branching strategies](/en/integration/branching-strategy/), once you know what a deployment costs.
 
 ## Pull requests as conversation
 
@@ -81,6 +83,6 @@ No, and that is the point: the protection requires checks to pass before integra
 
 ## Keep exploring
 
-- [GitHub Flow (official guide)](https://docs.github.com/en/get-started/using-github/github-flow) — the flow in its canonical form.
+- [Pull requests (official documentation)](https://docs.github.com/en/pull-requests) — the full reference for the proposal and review surface.
 - [Conventional Commits](https://www.conventionalcommits.org/) — structured commit messages.
 - [Protected branches](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches) — rules to protect main.

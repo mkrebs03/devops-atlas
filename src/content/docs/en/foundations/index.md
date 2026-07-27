@@ -51,3 +51,11 @@ Walking the system from the outside in —DNS → connection → port → proces
 ## What you can do with this
 
 These pages let you describe a request path, find a process and verify a connection using local tools. That vocabulary is the foundation for Git, Docker and CI/CD.
+
+## Where this breaks
+
+| Symptom | What causes it | Where it continues |
+| --- | --- | --- |
+| Two people change the same file and one overwrites the other's work | There is no history, and no way to propose a change before applying it | [Collaboration](/en/collaboration/) |
+| The application starts on your machine and not on another | Each machine has something different installed and nobody pinned the list | [Containers](/en/containers/) |
+| You find out something does not build once it is already on the server | The first check happens too late, and in the worst place | [Continuous integration](/en/integration/) |

@@ -3,9 +3,9 @@ title: Práctica · pipeline local
 description: Construye una imagen estática, ejecútala, observa la caché de capas y verifica su contrato HTTP.
 type: practice
 level: beginner
-module: delivery
+module: containers
 tools: [docker, nginx, curl]
-prerequisites: [delivery.docker, foundations.networking]
+prerequisites: [containers.docker, foundations.networking]
 learningObjectives:
   - Construir una imagen reproducible que contenga un sitio estático.
   - Ejecutar el contenedor y verificar su contrato mediante una petición HTTP.

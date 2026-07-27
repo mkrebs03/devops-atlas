@@ -3,9 +3,9 @@ title: Practice · local pipeline
 description: Build a static image, run it, observe the layer cache and verify its HTTP contract.
 type: practice
 level: beginner
-module: delivery
+module: containers
 tools: [docker, nginx, curl]
-prerequisites: [delivery.docker, foundations.networking]
+prerequisites: [containers.docker, foundations.networking]
 learningObjectives:
   - Build a reproducible image that contains a static site.
   - Run the container and verify its contract through an HTTP request.

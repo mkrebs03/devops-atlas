@@ -5,7 +5,7 @@ type: concept
 level: beginner
 module: testing
 tools: [node]
-prerequisites: [collaboration.github-flow]
+prerequisites: [collaboration.pull-requests]
 learningObjectives:
   - Explicar por qué las pruebas automáticas convierten la confianza en evidencia.
   - Reconocer qué cambia cuando la suite pasa a ser una compuerta del camino de entrega.
@@ -16,7 +16,7 @@ takeaways:
   - El valor de una prueba está en el feedback rápido, no en el número de pruebas.
 ---
 
-**Dónde estás:** en Fundamentos aprendiste a observar; en Colaboración, a revisar; en Entrega, a empaquetar. Probar cierra el círculo: convierte "creo que funciona" en "puedo demostrar que funciona".
+**Dónde estás:** en Fundamentos aprendiste a observar; en Colaboración, a revisar; en Contenedores, a empaquetar. Probar añade lo que falta: convierte "creo que funciona" en "puedo demostrar que funciona".
 
 ## Probar es afirmar con evidencia
 
@@ -34,7 +34,6 @@ flowchart LR
 | Momento | Pregunta | Página |
 | --- | --- | --- |
 | Pirámide | ¿Qué probar y en qué nivel? | [La pirámide de pruebas](/testing/pyramid/) |
-| Automatización | ¿Cómo corren las pruebas en cada cambio? | [Pruebas en CI](/testing/in-ci/) |
 | Práctica | ¿Puedo escribir y ejecutar una prueba? | [Práctica · tu primera prueba](/testing/lab-first-test/) |
 
 :::note[Una prueba que nunca falla no protege nada]
@@ -43,4 +42,12 @@ Si una prueba pasa siempre, aunque rompas el código, no está probando lo que c
 
 ## Qué puedes hacer con esto
 
-Con estas páginas puedes distinguir los niveles de prueba, decidir qué automatizar en CI y escribir una primera prueba que falle por la razón correcta.
+Con estas páginas puedes distinguir los niveles de prueba, elegir qué automatizar y escribir una primera prueba que falle por la razón correcta.
+
+## Dónde se rompe esto
+
+| Síntoma | Qué lo causa | Dónde sigue |
+| --- | --- | --- |
+| La suite pasa en tu máquina y falla en la de otra persona | Las pruebas corren donde ya está todo instalado, y nadie comprueba en limpio | [Pruebas en CI](/integration/tests-in-ci/) |
+| Alguien integra un cambio sin haber ejecutado las pruebas | La suite es un hábito personal, no una compuerta del camino de entrega | [Integración continua](/integration/) |
+| La suite verde no dice nada sobre lo que ya está en producción | Una prueba afirma sobre el código, no sobre el servicio en marcha | [Observabilidad](/deployment/observability/) |

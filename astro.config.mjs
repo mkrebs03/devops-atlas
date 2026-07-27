@@ -40,11 +40,34 @@ const dotEnv = (() => {
 export default defineConfig({
   site: dotEnv.PUBLIC_SITE_URL ?? process.env.PUBLIC_SITE_URL ?? 'http://localhost:4321',
   output: 'static',
-  // "Linux y terminal" was split into a page about the system and a page about
-  // the shell. Anyone holding the old link lands on the shell half.
+  /*
+    Old URLs stay reachable. Two rounds of restructuring are recorded here:
+
+    "Linux y terminal" was split into a page about the system and a page about
+    the shell, so an old link lands on the shell half.
+
+    Then the taxonomy moved from grouping by tool category to grouping by the
+    state of the system: `delivery` became `containers`, everything about
+    automated checks moved to `integration`, and the branching model left
+    Collaboration for the module that actually decides it. `github-flow` points
+    at `pull-requests` because that is where its text went; the strategy half is
+    a new page rather than a move.
+  */
   redirects: {
     '/foundations/linux-cli/': '/foundations/terminal/',
     '/en/foundations/linux-cli/': '/en/foundations/terminal/',
+    '/collaboration/github-flow/': '/collaboration/pull-requests/',
+    '/en/collaboration/github-flow/': '/en/collaboration/pull-requests/',
+    '/delivery/': '/containers/',
+    '/en/delivery/': '/en/containers/',
+    '/delivery/docker/': '/containers/docker/',
+    '/en/delivery/docker/': '/en/containers/docker/',
+    '/delivery/lab-container-pipeline/': '/containers/lab-container-pipeline/',
+    '/en/delivery/lab-container-pipeline/': '/en/containers/lab-container-pipeline/',
+    '/delivery/github-actions/': '/integration/github-actions/',
+    '/en/delivery/github-actions/': '/en/integration/github-actions/',
+    '/testing/in-ci/': '/integration/tests-in-ci/',
+    '/en/testing/in-ci/': '/en/integration/tests-in-ci/',
   },
   markdown: {
     // Gives every <details> in the content a single body element, which is what

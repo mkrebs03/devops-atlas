@@ -3,9 +3,9 @@ title: Pruebas en CI
 description: Ejecuta pruebas y lint en cada cambio, y lee la cobertura sin engañarte.
 type: tool
 level: intermediate
-module: testing
+module: integration
 tools: [github-actions]
-prerequisites: [delivery.github-actions]
+prerequisites: [integration.github-actions, testing.pyramid]
 learningObjectives:
   - Ejecutar pruebas y lint automáticamente en cada cambio con CI.
   - Interpretar la cobertura sin convertirla en una meta vacía.

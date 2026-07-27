@@ -3,9 +3,9 @@ title: Tests in CI
 description: Run tests and lint on every change, and read coverage without fooling yourself.
 type: tool
 level: intermediate
-module: testing
+module: integration
 tools: [github-actions]
-prerequisites: [delivery.github-actions]
+prerequisites: [integration.github-actions, testing.pyramid]
 learningObjectives:
   - Run tests and lint automatically on every change with CI.
   - Interpret coverage without turning it into an empty goal.

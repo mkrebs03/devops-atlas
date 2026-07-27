@@ -1,11 +1,11 @@
 ---
-title: Despliegue
+title: Despliegue continuo
 description: Lleva un artefacto a producción con estrategias seguras y capacidad de revertir.
 type: concept
 level: intermediate
 module: deployment
 tools: [nginx, docker]
-prerequisites: [delivery.github-actions]
+prerequisites: [integration.github-actions]
 learningObjectives:
   - Relacionar integración continua y entrega continua en un mismo recorrido.
   - Reconocer qué hace seguro o riesgoso a un despliegue.
@@ -44,3 +44,11 @@ Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en por
 ## Qué puedes hacer con esto
 
 Con estas páginas puedes describir un pipeline de entrega, elegir una estrategia de despliegue según el riesgo, saber qué mirar en los minutos siguientes y practicar una promoción con rollback.
+
+## Dónde se rompe esto
+
+| Síntoma | Qué lo causa | Dónde sigue |
+| --- | --- | --- |
+| El despliegue termina y nadie sabe si el servicio quedó sano | La evidencia se acaba en el pipeline y no continúa en producción | [Observabilidad](/deployment/observability/) |
+| Reemplazar la versión corta las peticiones que estaban en curso | Nadie recibe el tráfico mientras el proceso viejo se apaga | [Proxy inverso y balanceo](/deployment/proxy/) |
+| Revertir tarda tanto como desplegar, así que nadie revierte | La versión anterior no quedó disponible como artefacto listo para volver | [Práctica · promover y revertir](/deployment/lab-release/) |

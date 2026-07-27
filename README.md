@@ -8,7 +8,7 @@ Referencia de DevOps para quien ya programa: conceptos que construyen un modelo 
 
 ## ✨ Características
 
-- **Referencia estructurada** — 5 módulos, 23 páginas (5 de ellas prácticas ejecutables), índice A–Z de herramientas y glosario.
+- **Referencia estructurada** — 6 módulos, 25 páginas (4 de ellas prácticas ejecutables), índice A–Z de herramientas y glosario.
 - **Bilingüe de origen** — español e inglés son pares; ninguno es una traducción secundaria.
 - **Sin estado del lector** — no hay cuentas ni progreso; lo único que se guarda en el navegador es la preferencia de tema, bajo la clave `starlight-theme` de Starlight.
 - **Diagramas interactivos** — bloques Mermaid renderizados en el cliente.
@@ -17,13 +17,16 @@ Referencia de DevOps para quien ya programa: conceptos que construyen un modelo 
 
 ## 🗺️ Módulos
 
-| #  | Módulo          | Herramientas                                  | Práctica                        |
-|----|-----------------|-----------------------------------------------|---------------------------------|
-| 01 | Fundamentos     | Linux, Bash, curl, ss                         | Investigar una aplicación local |
-| 02 | Colaboración    | Git, GitHub                                   | Ramas seguras                   |
-| 03 | Entrega         | Docker, Docker Compose, GitHub Actions, nginx | Pipeline local                  |
-| 04 | Pruebas         | Node.js, GitHub Actions                       | Tu primera prueba               |
-| 05 | Despliegue      | nginx, Caddy, Traefik, Prometheus             | Promover y revertir             |
+Los módulos se agrupan por el estado del sistema que describen —una máquina, un paquete, una comprobación automática—, así que el orden explica por qué aparece cada herramienta. No son niveles del lector: `level` es un campo por página.
+
+| #  | Módulo                 | Herramientas                      | Práctica                        |
+|----|------------------------|-----------------------------------|---------------------------------|
+| 01 | Fundamentos            | Linux, Bash, curl, ss             | Investigar una aplicación local |
+| 02 | Colaboración           | Git, GitHub                       | Ramas seguras                   |
+| 03 | Contenedores           | Docker, Docker Compose, nginx     | Pipeline local                  |
+| 04 | Pruebas                | Node.js                           | Tu primera prueba               |
+| 05 | Integración continua   | GitHub Actions, YAML, Git, GitHub | —                               |
+| 06 | Despliegue continuo    | nginx, Caddy, Traefik, Prometheus | Promover y revertir             |
 
 ## 📋 Requisitos
 
@@ -90,8 +93,9 @@ devops-atlas/
 │   │   │   ├── 404.md
 │   │   │   ├── foundations/
 │   │   │   ├── collaboration/
-│   │   │   ├── delivery/
+│   │   │   ├── containers/
 │   │   │   ├── testing/
+│   │   │   ├── integration/
 │   │   │   └── deployment/
 │   │   ├── docs/en/        # Contenido en inglés (misma estructura)
 │   │   └── i18n/           # Traducciones de la interfaz

@@ -5,7 +5,7 @@ type: concept
 level: beginner
 module: testing
 tools: [node]
-prerequisites: [collaboration.github-flow]
+prerequisites: [collaboration.pull-requests]
 learningObjectives:
   - Explain why automated tests turn confidence into evidence.
   - Recognise what changes when the suite becomes a gate on the delivery path.
@@ -16,7 +16,7 @@ takeaways:
   - A test's value is in fast feedback, not in the number of tests.
 ---
 
-**Where you are:** In Foundations you learned to observe; in Collaboration, to review; in Delivery, to package. Testing closes the loop: it turns "I think it works" into "I can prove it works".
+**Where you are:** In Foundations you learned to observe; in Collaboration, to review; in Containers, to package. Testing adds what is missing: it turns "I think it works" into "I can prove it works".
 
 ## Testing is asserting with evidence
 
@@ -34,7 +34,6 @@ flowchart LR
 | Moment | Question | Page |
 | --- | --- | --- |
 | Pyramid | What to test and at which level? | [The testing pyramid](/en/testing/pyramid/) |
-| Automation | How do tests run on every change? | [Tests in CI](/en/testing/in-ci/) |
 | Practice | Can I write and run a test? | [Practice · your first test](/en/testing/lab-first-test/) |
 
 :::note[A test that never fails protects nothing]
@@ -43,4 +42,12 @@ If a test always passes, even when you break the code, it is not testing what yo
 
 ## What you can do with this
 
-These pages let you distinguish test levels, decide what to automate in CI, and write a first test that fails for the right reason.
+These pages let you distinguish test levels, choose what to automate, and write a first test that fails for the right reason.
+
+## Where this breaks
+
+| Symptom | What causes it | Where it continues |
+| --- | --- | --- |
+| The suite passes on your machine and fails on somebody else's | Tests run where everything is already installed, and nobody checks on a clean box | [Tests in CI](/en/integration/tests-in-ci/) |
+| Somebody integrates a change without having run the tests | The suite is a personal habit, not a gate on the delivery path | [Continuous integration](/en/integration/) |
+| A green suite says nothing about what is already in production | A test asserts about the code, not about the running service | [Observability](/en/deployment/observability/) |

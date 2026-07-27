@@ -3,7 +3,7 @@ title: Docker without magic
 description: Understand images, containers, layers and volumes through their contracts.
 type: tool
 level: beginner
-module: delivery
+module: containers
 tools: [docker, nginx, docker-compose]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:

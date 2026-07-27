@@ -1,5 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { modules, pages } from '../src/data/curriculum.mjs';
+import { MODULE_IDS, modules, pages } from '../src/data/curriculum.mjs';
+
+// Derived, so renaming a module in the curriculum cannot leave this assertion
+// silently passing against a directory that no longer exists.
+const anyModulePath = new RegExp(`/(${MODULE_IDS.join('|')})/`);
 
 test.describe('DevOps Atlas', () => {
   test('the landing shows every module and its pages', async ({ page }) => {
@@ -37,7 +41,7 @@ test.describe('DevOps Atlas', () => {
     await expect(page.getByRole('heading', { name: 'Herramientas A–Z' })).toBeVisible();
     await expect(page.locator('.atlas-tools__entry').first()).toBeVisible();
     await page.locator('.atlas-tools__entry a').first().click();
-    await expect(page).toHaveURL(/\/(foundations|collaboration|delivery|testing|deployment)\//);
+    await expect(page).toHaveURL(anyModulePath);
   });
 
   test('serves the equivalent English index', async ({ page }) => {
@@ -57,6 +61,17 @@ test.describe('DevOps Atlas', () => {
     await expect(page).toHaveURL(/\/foundations\/terminal\/$/);
     await page.goto('/en/foundations/linux-cli/');
     await expect(page).toHaveURL(/\/en\/foundations\/terminal\/$/);
+  });
+
+  test('the pre-restructure module slugs still resolve', async ({ page }) => {
+    await page.goto('/delivery/docker/');
+    await expect(page).toHaveURL(/\/containers\/docker\/$/);
+    await page.goto('/delivery/github-actions/');
+    await expect(page).toHaveURL(/\/integration\/github-actions\/$/);
+    await page.goto('/testing/in-ci/');
+    await expect(page).toHaveURL(/\/integration\/tests-in-ci\/$/);
+    await page.goto('/en/collaboration/github-flow/');
+    await expect(page).toHaveURL(/\/en\/collaboration\/pull-requests\/$/);
   });
 
   test('mermaid blocks render as diagrams', async ({ page }) => {

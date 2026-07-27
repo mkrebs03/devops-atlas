@@ -103,9 +103,10 @@ This Atlas takes you from reading a machine to shipping a version, watching how 
 | --- | --- |
 | Reading a machine and a network | [01 · Foundations](/en/foundations/) |
 | Coding and reviewing as a team | [02 · Collaboration](/en/collaboration/) |
-| Building, packaging, automating | [03 · Delivery](/en/delivery/) |
+| Packaging the application | [03 · Containers](/en/containers/) |
 | Testing with evidence | [04 · Testing](/en/testing/) |
-| Releasing, deploying, observing, rolling back | [05 · Deployment](/en/deployment/) |
+| Checking every change automatically | [05 · Continuous integration](/en/integration/) |
+| Releasing, deploying, observing, rolling back | [06 · Continuous deployment](/en/deployment/) |
 
 **What you will not find here yet:** infrastructure as code, public clouds, Kubernetes, and security. When a page needs to lean on one of those topics, it says so and links you to an outside source.
 
@@ -115,7 +116,7 @@ This Atlas assumes you already code: that you can write code, use an editor, and
 
 ## Finding what you came for
 
-- **Starting from scratch?** Read in order: modules run 01 to 05 and each leans on the previous one.
+- **Starting from scratch?** Read in order: modules run 01 to 06 and each leans on the previous one.
 - **Here for one specific thing?** Use search or the [A–Z tools index](/en/tools/) and go straight to the page.
 
 Every page states which module it belongs to and what is worth knowing first, so you can come in halfway through without missing the context.

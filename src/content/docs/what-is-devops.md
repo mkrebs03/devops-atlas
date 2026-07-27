@@ -103,9 +103,10 @@ Este Atlas te lleva desde leer una máquina hasta desplegar una versión, observ
 | --- | --- |
 | Leer una máquina y una red | [01 · Fundamentos](/foundations/) |
 | Codificar y revisar en equipo | [02 · Colaboración](/collaboration/) |
-| Construir, empaquetar y automatizar | [03 · Entrega](/delivery/) |
+| Empaquetar la aplicación | [03 · Contenedores](/containers/) |
 | Probar con evidencia | [04 · Pruebas](/testing/) |
-| Publicar, desplegar, observar y revertir | [05 · Despliegue](/deployment/) |
+| Comprobar cada cambio automáticamente | [05 · Integración continua](/integration/) |
+| Publicar, desplegar, observar y revertir | [06 · Despliegue continuo](/deployment/) |
 
 **Lo que todavía no encontrarás aquí:** infraestructura como código, nubes públicas, Kubernetes y seguridad. Cuando una página necesita apoyarse en alguno de esos temas, lo dice y te enlaza a una fuente externa.
 
@@ -115,7 +116,7 @@ Este Atlas asume que ya programas: que sabes escribir código, usar un editor y 
 
 ## Cómo encontrar lo que buscas
 
-- **Si empiezas de cero**, lee en orden: los módulos van del 01 al 05 y cada uno se apoya en el anterior.
+- **Si empiezas de cero**, lee en orden: los módulos van del 01 al 06 y cada uno se apoya en el anterior.
 - **Si vienes por algo concreto**, usa el buscador o el [índice de herramientas A–Z](/tools/) y entra directo a la página.
 
 Cada página indica a qué módulo pertenece y qué conviene saber antes, así que puedes entrar por el medio sin quedarte sin contexto.

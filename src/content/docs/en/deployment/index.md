@@ -1,11 +1,11 @@
 ---
-title: Deployment
+title: Continuous deployment
 description: Take an artifact to production with safe strategies and the ability to roll back.
 type: concept
 level: intermediate
 module: deployment
 tools: [nginx, docker]
-prerequisites: [delivery.github-actions]
+prerequisites: [integration.github-actions]
 learningObjectives:
   - Relate continuous integration and continuous delivery along one route.
   - Recognise what makes a deployment safe or risky.
@@ -44,3 +44,11 @@ A mature team does not pray before a yearly deploy. It deploys often, in small p
 ## What you can do with this
 
 These pages let you describe a delivery pipeline, choose a deployment strategy by risk, know what to watch in the minutes that follow, and practise a promotion with rollback.
+
+## Where this breaks
+
+| Symptom | What causes it | Where it continues |
+| --- | --- | --- |
+| The deployment finishes and nobody knows whether the service is healthy | Evidence stops at the pipeline instead of continuing into production | [Observability](/en/deployment/observability/) |
+| Replacing the version cuts off requests that were in flight | Nothing takes the traffic while the old process shuts down | [Reverse proxy and load balancing](/en/deployment/proxy/) |
+| Rolling back takes as long as deploying, so nobody rolls back | The previous version was never kept as an artifact ready to return to | [Practice · promote and roll back](/en/deployment/lab-release/) |

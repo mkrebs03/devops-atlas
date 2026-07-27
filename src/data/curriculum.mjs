@@ -6,6 +6,12 @@
  * This file describes *what exists and how it is grouped* — nothing else.
  * There is no progress model: page order inside a module is a suggested
  * reading order, never a gate, and the site stores no reader state.
+ *
+ * Modules are grouped by the *state of the system* a reader is looking at —
+ * one server, containers, automated checks — not by the reader's skill. That
+ * is why a module is never called a level: `level` is a per-page field, and a
+ * module heading that ranked the reader would imply a gate this site has not
+ * got.
  */
 
 /**
@@ -13,7 +19,14 @@
  * enums from these and `scripts/validate-content.mjs` checks against them,
  * so adding a module or a level here is the whole change.
  */
-export const MODULE_IDS = /** @type {const} */ (['foundations', 'collaboration', 'delivery', 'testing', 'deployment']);
+export const MODULE_IDS = /** @type {const} */ ([
+  'foundations',
+  'collaboration',
+  'containers',
+  'testing',
+  'integration',
+  'deployment',
+]);
 /** Frontmatter `type` values. `overview` is a curriculum kind, not a frontmatter type. */
 export const PAGE_TYPES = /** @type {const} */ (['concept', 'tool', 'practice', 'cheatsheet']);
 export const LEVELS = /** @type {const} */ (['beginner', 'intermediate', 'advanced']);
@@ -118,9 +131,10 @@ export const modules = Object.freeze([
         prerequisites: ['foundations.terminal'], label: { es: 'El modelo de Git', en: 'The Git model' },
       }),
       page({
-        id: 'collaboration.github-flow', module: 'collaboration', order: 8,
-        relativePath: 'collaboration/github-flow/', kind: 'tool',
-        prerequisites: ['collaboration.git-model'], label: { es: 'GitHub Flow', en: 'GitHub Flow' },
+        id: 'collaboration.pull-requests', module: 'collaboration', order: 8,
+        relativePath: 'collaboration/pull-requests/', kind: 'tool',
+        prerequisites: ['collaboration.git-model'],
+        label: { es: 'Pull requests y revisión', en: 'Pull requests and review' },
       }),
       page({
         id: 'collaboration.lab-git-branching', module: 'collaboration', order: 9,
@@ -131,35 +145,30 @@ export const modules = Object.freeze([
     ]),
   }),
   Object.freeze({
-    id: 'delivery',
+    id: 'containers',
     order: 3,
-    label: localized({ es: 'Entrega', en: 'Delivery' }),
-    sidebarLabel: localized({ es: '03 · Entrega', en: '03 · Delivery' }),
+    label: localized({ es: 'Contenedores', en: 'Containers' }),
+    sidebarLabel: localized({ es: '03 · Contenedores', en: '03 · Containers' }),
     summary: localized({
-      es: 'Empaquetar, automatizar y comprobar cambios con confianza.',
-      en: 'Packaging, automating, and checking changes with confidence.',
+      es: 'Empaquetar la aplicación para que corra igual en cualquier máquina.',
+      en: 'Packaging the application so it runs the same on any machine.',
     }),
-    tools: Object.freeze(['Docker', 'Docker Compose', 'GitHub Actions', 'nginx']),
+    tools: Object.freeze(['Docker', 'Docker Compose', 'nginx']),
     pages: Object.freeze([
       page({
-        id: 'delivery.overview', module: 'delivery', order: 10,
-        relativePath: 'delivery/', kind: 'overview',
+        id: 'containers.overview', module: 'containers', order: 10,
+        relativePath: 'containers/', kind: 'overview',
         prerequisites: ['collaboration.git-model', 'foundations.networking'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'delivery.docker', module: 'delivery', order: 11,
-        relativePath: 'delivery/docker/', kind: 'tool',
+        id: 'containers.docker', module: 'containers', order: 11,
+        relativePath: 'containers/docker/', kind: 'tool',
         prerequisites: ['foundations.terminal', 'foundations.networking'], label: { es: 'Docker sin magia', en: 'Docker without magic' },
       }),
       page({
-        id: 'delivery.github-actions', module: 'delivery', order: 12,
-        relativePath: 'delivery/github-actions/', kind: 'tool',
-        prerequisites: ['collaboration.github-flow'], label: { es: 'GitHub Actions', en: 'GitHub Actions' },
-      }),
-      page({
-        id: 'delivery.lab-container-pipeline', module: 'delivery', order: 13,
-        relativePath: 'delivery/lab-container-pipeline/', kind: 'practice',
-        prerequisites: ['delivery.docker', 'foundations.networking'],
+        id: 'containers.lab-container-pipeline', module: 'containers', order: 12,
+        relativePath: 'containers/lab-container-pipeline/', kind: 'practice',
+        prerequisites: ['containers.docker', 'foundations.networking'],
         label: { es: 'Práctica · pipeline local', en: 'Practice · local pipeline' },
       }),
     ]),
@@ -173,36 +182,73 @@ export const modules = Object.freeze([
       es: 'Convertir la confianza en evidencia con pruebas automáticas.',
       en: 'Turning confidence into evidence with automated tests.',
     }),
-    tools: Object.freeze(['Node.js', 'GitHub Actions']),
+    tools: Object.freeze(['Node.js']),
     pages: Object.freeze([
       page({
-        id: 'testing.overview', module: 'testing', order: 14,
+        id: 'testing.overview', module: 'testing', order: 13,
         relativePath: 'testing/', kind: 'overview',
-        prerequisites: ['collaboration.github-flow'], label: { es: 'Panorama', en: 'Overview' },
+        prerequisites: ['collaboration.pull-requests'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'testing.pyramid', module: 'testing', order: 15,
+        id: 'testing.pyramid', module: 'testing', order: 14,
         relativePath: 'testing/pyramid/', kind: 'concept',
         prerequisites: [], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
       }),
       page({
-        id: 'testing.in-ci', module: 'testing', order: 16,
-        relativePath: 'testing/in-ci/', kind: 'tool',
-        prerequisites: ['delivery.github-actions'], label: { es: 'Pruebas en CI', en: 'Tests in CI' },
-      }),
-      page({
-        id: 'testing.lab-first-test', module: 'testing', order: 17,
+        id: 'testing.lab-first-test', module: 'testing', order: 15,
         relativePath: 'testing/lab-first-test/', kind: 'practice',
         prerequisites: ['testing.pyramid'],
         label: { es: 'Práctica · tu primera prueba', en: 'Practice · your first test' },
       }),
     ]),
   }),
+  /*
+    Continuous integration is where a branching model finally belongs. "main is
+    always deployable" is a claim about the pipeline, not about Git, so the
+    strategy page sits next to the workflow that enforces it rather than next to
+    the commit graph in Collaboration.
+  */
+  Object.freeze({
+    id: 'integration',
+    order: 5,
+    label: localized({ es: 'Integración continua', en: 'Continuous integration' }),
+    sidebarLabel: localized({ es: '05 · Integración continua', en: '05 · Continuous integration' }),
+    summary: localized({
+      es: 'Que cada cambio se valide solo, antes de llegar a un servidor.',
+      en: 'Every change validated on its own, before it reaches a server.',
+    }),
+    tools: Object.freeze(['GitHub Actions', 'YAML', 'Git', 'GitHub']),
+    pages: Object.freeze([
+      page({
+        id: 'integration.overview', module: 'integration', order: 16,
+        relativePath: 'integration/', kind: 'overview',
+        prerequisites: ['collaboration.pull-requests', 'testing.pyramid'],
+        label: { es: 'Panorama', en: 'Overview' },
+      }),
+      page({
+        id: 'integration.github-actions', module: 'integration', order: 17,
+        relativePath: 'integration/github-actions/', kind: 'tool',
+        prerequisites: ['collaboration.pull-requests'], label: { es: 'GitHub Actions', en: 'GitHub Actions' },
+      }),
+      page({
+        id: 'integration.branching-strategy', module: 'integration', order: 18,
+        relativePath: 'integration/branching-strategy/', kind: 'concept',
+        prerequisites: ['collaboration.pull-requests'],
+        label: { es: 'Estrategias de ramas', en: 'Branching strategies' },
+      }),
+      page({
+        id: 'integration.tests-in-ci', module: 'integration', order: 19,
+        relativePath: 'integration/tests-in-ci/', kind: 'tool',
+        prerequisites: ['integration.github-actions', 'testing.pyramid'],
+        label: { es: 'Pruebas en CI', en: 'Tests in CI' },
+      }),
+    ]),
+  }),
   Object.freeze({
     id: 'deployment',
-    order: 5,
-    label: localized({ es: 'Despliegue', en: 'Deployment' }),
-    sidebarLabel: localized({ es: '05 · Despliegue', en: '05 · Deployment' }),
+    order: 6,
+    label: localized({ es: 'Despliegue continuo', en: 'Continuous deployment' }),
+    sidebarLabel: localized({ es: '06 · Despliegue continuo', en: '06 · Continuous deployment' }),
     summary: localized({
       es: 'Llevar un artefacto a producción y poder revertirlo.',
       en: 'Taking an artifact to production — and being able to roll it back.',
@@ -210,34 +256,34 @@ export const modules = Object.freeze([
     tools: Object.freeze(['nginx', 'Caddy', 'Traefik', 'Prometheus']),
     pages: Object.freeze([
       page({
-        id: 'deployment.overview', module: 'deployment', order: 18,
+        id: 'deployment.overview', module: 'deployment', order: 20,
         relativePath: 'deployment/', kind: 'overview',
-        prerequisites: ['delivery.github-actions'], label: { es: 'Panorama', en: 'Overview' },
+        prerequisites: ['integration.github-actions'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'deployment.pipeline', module: 'deployment', order: 19,
+        id: 'deployment.pipeline', module: 'deployment', order: 21,
         relativePath: 'deployment/pipeline/', kind: 'concept',
-        prerequisites: ['delivery.github-actions'], label: { es: 'Del build al release', en: 'From build to release' },
+        prerequisites: ['integration.github-actions'], label: { es: 'Del build al release', en: 'From build to release' },
       }),
       page({
-        id: 'deployment.proxy', module: 'deployment', order: 20,
+        id: 'deployment.proxy', module: 'deployment', order: 22,
         relativePath: 'deployment/proxy/', kind: 'concept',
         prerequisites: ['foundations.networking'],
         label: { es: 'Proxy inverso y balanceo', en: 'Reverse proxy and load balancing' },
       }),
       page({
-        id: 'deployment.strategies', module: 'deployment', order: 21,
+        id: 'deployment.strategies', module: 'deployment', order: 23,
         relativePath: 'deployment/strategies/', kind: 'concept',
         prerequisites: ['deployment.proxy'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
       }),
       page({
-        id: 'deployment.observability', module: 'deployment', order: 22,
+        id: 'deployment.observability', module: 'deployment', order: 24,
         relativePath: 'deployment/observability/', kind: 'concept',
         prerequisites: ['deployment.proxy'],
         label: { es: 'Observabilidad', en: 'Observability' },
       }),
       page({
-        id: 'deployment.lab-release', module: 'deployment', order: 23,
+        id: 'deployment.lab-release', module: 'deployment', order: 25,
         relativePath: 'deployment/lab-release/', kind: 'practice',
         prerequisites: ['deployment.pipeline'],
         label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },

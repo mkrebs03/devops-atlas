@@ -34,8 +34,7 @@ flowchart LR
 | Momento | Pregunta | Página |
 | --- | --- | --- |
 | Modelo | ¿Qué representa un commit? | [El modelo de Git](/collaboration/git-model/) |
-| Cambio | ¿Cómo trabajo sin pisar la rama principal? | [GitHub Flow](/collaboration/github-flow/) |
-| Revisión | ¿Qué debe poder entender otra persona? | [GitHub Flow](/collaboration/github-flow/) |
+| Revisión | ¿Cómo propongo un cambio que otra persona pueda revisar? | [Pull requests y revisión](/collaboration/pull-requests/) |
 | Práctica | ¿Puedo crear y deshacer un cambio seguro? | [Práctica · ramas seguras](/collaboration/lab-git-branching/) |
 
 :::note[El historial es una interfaz]
@@ -45,3 +44,11 @@ Un buen historial no registra cada movimiento del teclado. Registra decisiones p
 ## Qué puedes hacer con esto
 
 Con estas páginas puedes crear una rama con intención, mantenerla actualizada, explicar un diff y abrir un cambio que otra persona pueda revisar sin reconstruir tu contexto desde cero.
+
+## Dónde se rompe esto
+
+| Síntoma | Qué lo causa | Dónde sigue |
+| --- | --- | --- |
+| El cambio está revisado y aun así falla al instalarlo en otra máquina | El código viaja solo, sin la versión del runtime ni las bibliotecas que necesita | [Contenedores](/containers/) |
+| Quien revisa tiene que ejecutar el código para saber si funciona | No hay ninguna comprobación automática que responda esa pregunta antes | [Integración continua](/integration/) |
+| Nadie sabe si una rama puede vivir tres días o tres semanas | El equipo no ha decidido su modelo de ramas, así que cada quien usa el suyo | [Estrategias de ramas](/integration/branching-strategy/) |

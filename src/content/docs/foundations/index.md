@@ -51,3 +51,11 @@ Recorrer el sistema de afuera hacia adentro —DNS → conexión → puerto → 
 ## Qué puedes hacer con esto
 
 Con estas páginas puedes describir el recorrido de una petición, encontrar un proceso y verificar una conexión con herramientas locales. Ese vocabulario es la base de Git, Docker y CI/CD.
+
+## Dónde se rompe esto
+
+| Síntoma | Qué lo causa | Dónde sigue |
+| --- | --- | --- |
+| Dos personas cambian el mismo archivo y una pisa el trabajo de la otra | No hay historial ni forma de proponer un cambio antes de aplicarlo | [Colaboración](/collaboration/) |
+| La aplicación arranca en tu máquina y no en otra | Cada máquina tiene instalado algo distinto y nadie fijó la lista | [Contenedores](/containers/) |
+| Descubres que algo no compila cuando ya está en el servidor | La primera comprobación ocurre demasiado tarde y en el peor sitio | [Integración continua](/integration/) |

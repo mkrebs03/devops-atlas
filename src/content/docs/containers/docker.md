@@ -3,7 +3,7 @@ title: Docker sin magia
 description: Imágenes, contenedores, capas y volúmenes explicados desde el contrato que cumplen.
 type: tool
 level: beginner
-module: delivery
+module: containers
 tools: [docker, nginx, docker-compose]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:

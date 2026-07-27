@@ -3,9 +3,9 @@ title: GitHub Actions
 description: Convierte el camino de validación y despliegue en un workflow visible y repetible.
 type: tool
 level: beginner
-module: delivery
+module: integration
 tools: [github-actions, yaml]
-prerequisites: [collaboration.github-flow]
+prerequisites: [collaboration.pull-requests]
 learningObjectives:
   - Interpretar eventos, jobs y pasos dentro de un workflow de GitHub Actions.
   - Diseñar una validación con lint, pruebas y build que dé feedback rápido.
