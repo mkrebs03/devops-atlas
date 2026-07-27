@@ -117,6 +117,8 @@ permissions:
   packages: write
 ```
 
+Dónde viven exactamente, por qué el permiso importa más que el escondite, y qué hacer cuando uno se escapa: [Secretos y permisos](/integration/secrets/).
+
 ## Comprueba lo que entendiste
 
 <details>

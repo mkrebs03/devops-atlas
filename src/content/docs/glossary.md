@@ -15,6 +15,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Almacenamiento de objetos** — Guardar archivos como recursos que se piden por HTTP a un servicio, en lugar de en el disco de una máquina concreta. → [Sacar el estado de la máquina](/scaling/managed-services/)
 
+**Bind mount** — Montar una carpeta de la máquina anfitriona dentro de un contenedor. Útil en desarrollo; en producción ata el contenido a esa máquina. → [Varios contenedores con Compose](/containers/compose/)
+
 **Blue-green** — Estrategia de despliegue con dos entornos completos: uno sirve tráfico y el otro recibe la versión nueva; el cambio es instantáneo y la vuelta atrás también. → [Estrategias de despliegue](/deployment/strategies/)
 
 **Canary** — Estrategia de despliegue que expone la versión nueva a una fracción del tráfico y solo la extiende si las métricas se mantienen sanas. → [Estrategias de despliegue](/deployment/strategies/)
@@ -83,6 +85,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Orquestador** — Un programa que mantiene el sistema en un estado declarado —tantas réplicas, con estos límites— comparándolo sin parar con el real. → [Orquestación](/scaling/orchestration/)
 
+**OIDC** — El mecanismo por el que un workflow presenta un token firmado que dice quién es y recibe credenciales temporales, en vez de guardar una clave de larga vida. → [Secretos y permisos](/integration/secrets/)
+
 **Percentil** — El valor que deja por debajo a un porcentaje de las mediciones. El p99 describe la peor experiencia real mejor que cualquier promedio. → [Observabilidad](/scaling/observability/)
 
 **Pipeline** — La secuencia automática de etapas que recorre un cambio desde el commit hasta quedar publicado. → [Integración continua](/integration/)
@@ -106,6 +110,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 **Pull request** — La superficie donde se propone un cambio, se explica su intención y se revisa antes de integrarlo. → [Pull requests y revisión](/collaboration/pull-requests/)
 
 **Rama** — Una referencia móvil que nombra una línea de commits. Aísla una intención concreta durante poco tiempo. → [El modelo de Git](/collaboration/git-model/)
+
+**Rotar** — Invalidar una credencial y emitir otra. La única respuesta que detiene el daño de una filtración; borrar el commit no lo hace. → [Secretos y permisos](/integration/secrets/)
 
 **Rama protegida** — Una rama con reglas: exigir revisión, exigir que CI pase, impedir empujar directo. Convierte los acuerdos del equipo en algo que se cumple. → [Pull requests y revisión](/collaboration/pull-requests/)
 

@@ -11,6 +11,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Artifact** — The packaged result of a build: a container image, a `.jar`, a folder of static files. It is what gets deployed, and it is not the code it came from. → [Continuous integration](/en/integration/)
 
+**Bind mount** — Mounting a folder from the host machine inside a container. Useful in development; in production it ties the content to that machine. → [Several containers with Compose](/en/containers/compose/)
+
 **Blue-green** — A deployment strategy with two complete environments: one serves traffic while the other receives the new version. The switch is instant, and so is going back. → [Deployment strategies](/en/deployment/strategies/)
 
 **Branch** — A movable reference naming a line of commits. It isolates one concrete intention for a short time. → [The Git model](/en/collaboration/git-model/)
@@ -79,6 +81,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Metric** — A number measured over time: requests per second, errors per minute, milliseconds to respond. Cheap to keep and good for alerts. → [Observability](/en/scaling/observability/)
 
+**OIDC** — The mechanism by which a workflow presents a signed token stating who it is and receives temporary credentials, instead of storing a long-lived key. → [Secrets and permissions](/en/integration/secrets/)
+
 **Observability** — Being able to answer questions you did not anticipate about what the system is doing, without deploying new code to find out. → [Observability](/en/scaling/observability/)
 
 **Object storage** — Keeping files as resources requested over HTTP from a service, rather than on one particular machine's disk. → [Moving state off the machine](/en/scaling/managed-services/)
@@ -108,6 +112,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 **Remote** — A reference to another copy of the repository. `fetch` brings its information; `pull` combines it with your local branch. → [The Git model](/en/collaboration/git-model/)
 
 **Reverse proxy** — The server that receives all traffic and distributes it among your services. Where the TLS certificate and the routing decision live. → [Reverse proxy and certificates](/en/server/proxy-tls/)
+
+**Rotate** — Invalidating a credential and issuing another. The only response that stops the damage of a leak; deleting the commit does not. → [Secrets and permissions](/en/integration/secrets/)
 
 **Rollback** — Going back to the previous version. What makes a deployment reversible, and what is worth rehearsing before you need it. → [Deployment strategies](/en/deployment/strategies/)
 

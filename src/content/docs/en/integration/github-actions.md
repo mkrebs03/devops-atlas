@@ -117,6 +117,8 @@ permissions:
   packages: write
 ```
 
+Where exactly they live, why permission matters more than the hiding place, and what to do when one escapes: [Secrets and permissions](/en/integration/secrets/).
+
 ## Check your understanding
 
 <details>

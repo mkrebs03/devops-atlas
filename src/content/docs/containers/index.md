@@ -45,6 +45,7 @@ El `Dockerfile` describe cómo se construye la imagen. La imagen no cambia. El c
 | Señal | Qué vas a aprender | Página |
 | --- | --- | --- |
 | Paquete | Qué significa encapsular una aplicación | [Docker sin magia](/containers/docker/) |
+| Conjunto | Cómo describir varios contenedores y sus datos | [Varios contenedores con Compose](/containers/compose/) |
 | Evidencia | Cómo construir y verificar una imagen local | [Práctica · pipeline local](/containers/lab-container-pipeline/) |
 
 :::note[Un contenedor no es una máquina virtual]

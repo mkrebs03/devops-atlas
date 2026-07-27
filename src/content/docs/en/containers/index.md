@@ -45,6 +45,7 @@ The `Dockerfile` describes how the image is built. The image does not change. Th
 | Signal | What you will learn | Page |
 | --- | --- | --- |
 | Package | What it means to encapsulate an application | [Docker without magic](/en/containers/docker/) |
+| Set | How to describe several containers and their data | [Several containers with Compose](/en/containers/compose/) |
 | Evidence | How to build and verify a local image | [Practice · local pipeline](/en/containers/lab-container-pipeline/) |
 
 :::note[A container is not a virtual machine]

@@ -5,7 +5,7 @@ type: concept
 level: intermediate
 module: deployment
 tools: [docker]
-prerequisites: [integration.github-actions]
+prerequisites: [integration.github-actions, integration.secrets]
 learningObjectives:
   - Distinguish continuous integration, continuous delivery, and continuous deployment.
   - Promote a single artifact through environments without rebuilding it.

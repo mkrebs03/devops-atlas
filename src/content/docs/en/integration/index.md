@@ -46,6 +46,7 @@ The order matters: cheap things go first. A lint that takes ten seconds should f
 | Workflow | How do I describe an automated check? | [GitHub Actions](/en/integration/github-actions/) |
 | Branches | Which branching model supports the way I deliver? | [Branching strategies](/en/integration/branching-strategy/) |
 | Evidence | How do tests run on every change? | [Tests in CI](/en/integration/tests-in-ci/) |
+| Access | Where do the credentials the pipeline needs live? | [Secrets and permissions](/en/integration/secrets/) |
 
 :::note[A check nobody looks at is not a gate]
 If the workflow fails often for reasons that are not the code — an unstable dependency, a badly set timeout — the team learns to ignore the red. A check that gets ignored costs the same and protects nothing.

@@ -228,7 +228,13 @@ export const modules = Object.freeze([
         prerequisites: ['foundations.terminal', 'foundations.networking'], label: { es: 'Docker sin magia', en: 'Docker without magic' },
       }),
       page({
-        id: 'containers.lab-container-pipeline', module: 'containers', order: 19,
+        id: 'containers.compose', module: 'containers', order: 19,
+        relativePath: 'containers/compose/', kind: 'tool',
+        prerequisites: ['containers.docker'],
+        label: { es: 'Varios contenedores con Compose', en: 'Several containers with Compose' },
+      }),
+      page({
+        id: 'containers.lab-container-pipeline', module: 'containers', order: 20,
         relativePath: 'containers/lab-container-pipeline/', kind: 'practice',
         prerequisites: ['containers.docker', 'foundations.networking'],
         label: { es: 'Práctica · pipeline local', en: 'Practice · local pipeline' },
@@ -247,17 +253,17 @@ export const modules = Object.freeze([
     tools: Object.freeze(['Node.js']),
     pages: Object.freeze([
       page({
-        id: 'testing.overview', module: 'testing', order: 20,
+        id: 'testing.overview', module: 'testing', order: 21,
         relativePath: 'testing/', kind: 'overview',
         prerequisites: ['collaboration.pull-requests'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'testing.pyramid', module: 'testing', order: 21,
+        id: 'testing.pyramid', module: 'testing', order: 22,
         relativePath: 'testing/pyramid/', kind: 'concept',
         prerequisites: [], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
       }),
       page({
-        id: 'testing.lab-first-test', module: 'testing', order: 22,
+        id: 'testing.lab-first-test', module: 'testing', order: 23,
         relativePath: 'testing/lab-first-test/', kind: 'practice',
         prerequisites: ['testing.pyramid'],
         label: { es: 'Práctica · tu primera prueba', en: 'Practice · your first test' },
@@ -282,27 +288,33 @@ export const modules = Object.freeze([
     tools: Object.freeze(['GitHub Actions', 'YAML', 'Git', 'GitHub']),
     pages: Object.freeze([
       page({
-        id: 'integration.overview', module: 'integration', order: 23,
+        id: 'integration.overview', module: 'integration', order: 24,
         relativePath: 'integration/', kind: 'overview',
         prerequisites: ['collaboration.pull-requests', 'testing.pyramid'],
         label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'integration.github-actions', module: 'integration', order: 24,
+        id: 'integration.github-actions', module: 'integration', order: 25,
         relativePath: 'integration/github-actions/', kind: 'tool',
         prerequisites: ['collaboration.pull-requests'], label: { es: 'GitHub Actions', en: 'GitHub Actions' },
       }),
       page({
-        id: 'integration.branching-strategy', module: 'integration', order: 25,
+        id: 'integration.branching-strategy', module: 'integration', order: 26,
         relativePath: 'integration/branching-strategy/', kind: 'concept',
         prerequisites: ['collaboration.pull-requests'],
         label: { es: 'Estrategias de ramas', en: 'Branching strategies' },
       }),
       page({
-        id: 'integration.tests-in-ci', module: 'integration', order: 26,
+        id: 'integration.tests-in-ci', module: 'integration', order: 27,
         relativePath: 'integration/tests-in-ci/', kind: 'tool',
         prerequisites: ['integration.github-actions', 'testing.pyramid'],
         label: { es: 'Pruebas en CI', en: 'Tests in CI' },
+      }),
+      page({
+        id: 'integration.secrets', module: 'integration', order: 28,
+        relativePath: 'integration/secrets/', kind: 'concept',
+        prerequisites: ['integration.github-actions', 'server.manual-deploy'],
+        label: { es: 'Secretos y permisos', en: 'Secrets and permissions' },
       }),
     ]),
   }),
@@ -318,28 +330,29 @@ export const modules = Object.freeze([
     tools: Object.freeze(['nginx', 'Traefik', 'Docker']),
     pages: Object.freeze([
       page({
-        id: 'deployment.overview', module: 'deployment', order: 27,
+        id: 'deployment.overview', module: 'deployment', order: 29,
         relativePath: 'deployment/', kind: 'overview',
         prerequisites: ['integration.github-actions'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'deployment.pipeline', module: 'deployment', order: 28,
+        id: 'deployment.pipeline', module: 'deployment', order: 30,
         relativePath: 'deployment/pipeline/', kind: 'concept',
-        prerequisites: ['integration.github-actions'], label: { es: 'Del build al release', en: 'From build to release' },
+        prerequisites: ['integration.github-actions', 'integration.secrets'],
+        label: { es: 'Del build al release', en: 'From build to release' },
       }),
       page({
-        id: 'deployment.load-balancing', module: 'deployment', order: 29,
+        id: 'deployment.load-balancing', module: 'deployment', order: 31,
         relativePath: 'deployment/load-balancing/', kind: 'concept',
         prerequisites: ['server.proxy-tls'],
         label: { es: 'Balanceo de carga', en: 'Load balancing' },
       }),
       page({
-        id: 'deployment.strategies', module: 'deployment', order: 30,
+        id: 'deployment.strategies', module: 'deployment', order: 32,
         relativePath: 'deployment/strategies/', kind: 'concept',
         prerequisites: ['deployment.load-balancing'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
       }),
       page({
-        id: 'deployment.lab-release', module: 'deployment', order: 31,
+        id: 'deployment.lab-release', module: 'deployment', order: 33,
         relativePath: 'deployment/lab-release/', kind: 'practice',
         prerequisites: ['deployment.pipeline'],
         label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },
@@ -364,30 +377,30 @@ export const modules = Object.freeze([
     tools: Object.freeze(['Prometheus', 'OpenTelemetry', 'PostgreSQL', 'Kubernetes', 'Docker Swarm']),
     pages: Object.freeze([
       page({
-        id: 'scaling.overview', module: 'scaling', order: 32,
+        id: 'scaling.overview', module: 'scaling', order: 34,
         relativePath: 'scaling/', kind: 'overview',
         prerequisites: ['deployment.pipeline'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'scaling.observability', module: 'scaling', order: 33,
+        id: 'scaling.observability', module: 'scaling', order: 35,
         relativePath: 'scaling/observability/', kind: 'concept',
         prerequisites: ['server.proxy-tls'],
         label: { es: 'Observabilidad', en: 'Observability' },
       }),
       page({
-        id: 'scaling.when-to-scale', module: 'scaling', order: 34,
+        id: 'scaling.when-to-scale', module: 'scaling', order: 36,
         relativePath: 'scaling/when-to-scale/', kind: 'concept',
         prerequisites: ['scaling.observability'],
         label: { es: 'Cuándo escalar y cómo', en: 'When to scale, and how' },
       }),
       page({
-        id: 'scaling.managed-services', module: 'scaling', order: 35,
+        id: 'scaling.managed-services', module: 'scaling', order: 37,
         relativePath: 'scaling/managed-services/', kind: 'concept',
         prerequisites: ['server.backups', 'scaling.when-to-scale'],
         label: { es: 'Sacar el estado de la máquina', en: 'Moving state off the machine' },
       }),
       page({
-        id: 'scaling.orchestration', module: 'scaling', order: 36,
+        id: 'scaling.orchestration', module: 'scaling', order: 38,
         relativePath: 'scaling/orchestration/', kind: 'concept',
         prerequisites: ['containers.docker', 'deployment.load-balancing'],
         label: { es: 'Orquestación', en: 'Orchestration' },

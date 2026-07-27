@@ -8,7 +8,7 @@ Referencia de DevOps para quien ya programa: conceptos que construyen un modelo 
 
 ## ✨ Características
 
-- **Referencia estructurada** — 8 módulos, 36 páginas (5 de ellas prácticas ejecutables), índice A–Z de herramientas y glosario.
+- **Referencia estructurada** — 8 módulos, 38 páginas (5 de ellas prácticas ejecutables), índice A–Z de herramientas y glosario.
 - **Bilingüe de origen** — español e inglés son pares; ninguno es una traducción secundaria.
 - **Sin estado del lector** — no hay cuentas ni progreso; lo único que se guarda en el navegador es la preferencia de tema, bajo la clave `starlight-theme` de Starlight.
 - **Diagramas interactivos** — bloques Mermaid renderizados en el cliente.

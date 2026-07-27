@@ -101,18 +101,7 @@ If you delete the container, the `atlas-data` volume is still there. A container
 
 On a Docker network, services find one another by name: a container can call `http://atlas:8080` without knowing its IP. That is why you do not need to publish every port to the host. The usual pattern puts a [reverse proxy](/en/server/proxy-tls/) in front: it is the only one exposed to the outside, and it reaches the rest by service name.
 
-That arrangement is declared in a **Docker Compose** file, which describes several containers and the network they share instead of chaining `docker run` commands:
-
-```yaml
-services:
-  atlas:
-    image: ghcr.io/example/devops-atlas:sha-abc123
-    networks: [edge]        # no "ports": nothing reaches it from outside
-
-networks:
-  edge:                     # the network the proxy lives on too
-    external: true
-```
+That arrangement is declared in a **Docker Compose** file, which describes several containers and the network they share instead of chaining `docker run` commands. How it is written, and what happens to the data when those containers are recreated, is in [Several containers with Compose](/en/containers/compose/).
 
 :::caution[Less surface, fewer surprises]
 A service that only needs to be reachable through the proxy should not publish `80:80` to the host. Expose only what the system contract requires.

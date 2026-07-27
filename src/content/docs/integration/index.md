@@ -46,6 +46,7 @@ El orden importa: lo barato va primero. Un lint que tarda diez segundos debe fal
 | Workflow | ¿Cómo describo una comprobación automática? | [GitHub Actions](/integration/github-actions/) |
 | Ramas | ¿Qué modelo de ramas sostiene mi forma de entregar? | [Estrategias de ramas](/integration/branching-strategy/) |
 | Evidencia | ¿Cómo corren las pruebas en cada cambio? | [Pruebas en CI](/integration/tests-in-ci/) |
+| Acceso | ¿Dónde viven las credenciales que el pipeline necesita? | [Secretos y permisos](/integration/secrets/) |
 
 :::note[Una comprobación que nadie mira no es una compuerta]
 Si el workflow falla a menudo por razones que no son el código —una dependencia inestable, un límite de tiempo mal puesto— el equipo aprende a ignorar el rojo. Una comprobación que se ignora cuesta lo mismo y no protege nada.

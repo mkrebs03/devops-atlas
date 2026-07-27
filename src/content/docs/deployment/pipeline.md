@@ -5,7 +5,7 @@ type: concept
 level: intermediate
 module: deployment
 tools: [docker]
-prerequisites: [integration.github-actions]
+prerequisites: [integration.github-actions, integration.secrets]
 learningObjectives:
   - Distinguir integración continua, entrega continua y despliegue continuo.
   - Promover un mismo artefacto a través de entornos sin reconstruirlo.
