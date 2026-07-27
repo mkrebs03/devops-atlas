@@ -55,3 +55,11 @@ Un sistema no es mejor por tener más partes. La decisión correcta es la que so
 ## Qué puedes hacer con esto
 
 Con estas páginas puedes instrumentar un servicio, leer sus señales, distinguir un problema de eficiencia de uno de capacidad, sacar el estado de tus instancias y decidir con criterio si un orquestador te compensa.
+
+## Dónde se rompe esto
+
+| Síntoma | Qué lo causa | Dónde sigue |
+| --- | --- | --- |
+| La segunda máquina no queda igual que la primera | Los pasos para construirla siguen sin estar escritos en ninguna parte | [Infraestructura como código](/infrastructure/) |
+| Un arreglo urgente se aplicó en un servidor y no en los otros | No hay una definición común contra la que comparar | [Por qué escribir la infraestructura](/infrastructure/why-iac/) |
+| Crear el entorno de staging vuelve a ser una tarde de trabajo manual | Los recursos se piden por un panel web, así que no se pueden repetir | [Terraform y el estado](/infrastructure/terraform/) |

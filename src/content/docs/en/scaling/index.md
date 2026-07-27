@@ -55,3 +55,11 @@ A system is not better for having more parts. The right decision is the one that
 ## What you can do with this
 
 These pages let you instrument a service, read its signals, tell an efficiency problem from a capacity one, move state out of your instances, and judge whether an orchestrator is worth it to you.
+
+## Where this breaks
+
+| Symptom | What causes it | Where it continues |
+| --- | --- | --- |
+| The second machine does not come out like the first | The steps to build it are still written nowhere | [Infrastructure as code](/en/infrastructure/) |
+| An urgent fix was applied on one server and not the others | There is no common definition to compare against | [Why write infrastructure down](/en/infrastructure/why-iac/) |
+| Creating the staging environment is an afternoon of manual work again | Resources are requested through a web panel, so they cannot be repeated | [Terraform and state](/en/infrastructure/terraform/) |

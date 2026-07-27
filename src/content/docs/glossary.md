@@ -41,6 +41,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Dirección privada** — Una IP válida solo dentro de una red concreta —`10.x`, `172.16–31.x`, `192.168.x`— y sin significado fuera de ella. → [Redes esenciales](/foundations/networking/)
 
+**Deriva de configuración** — La separación gradual entre máquinas que empezaron iguales, por arreglos urgentes y actualizaciones aplicadas en momentos distintos. → [Por qué escribir la infraestructura](/infrastructure/why-iac/)
+
 **Distribución** — Un sistema Linux completo: el núcleo empaquetado con programas base, gestor de paquetes y política de versiones. Debian, Ubuntu, Alpine. → [Linux](/foundations/linux/)
 
 **DNS** — El sistema que traduce un nombre en direcciones. No transporta tu petición; solo dice a dónde ir. → [Redes esenciales](/foundations/networking/)
@@ -64,6 +66,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 **Grupo** — Una identidad compartida que permite a varios usuarios acceder a las mismas cosas. La terna del medio en los permisos de un archivo. → [Linux](/foundations/linux/)
 
 **HEAD** — La referencia que indica dónde estás trabajando ahora: el commit sobre el que se construirá el siguiente. → [El modelo de Git](/collaboration/git-model/)
+
+**Idempotencia** — La propiedad de una operación que se puede repetir sin cambiar nada la segunda vez. Es lo que permite reaplicar una definición sin miedo. → [Ansible y la idempotencia](/infrastructure/ansible/)
 
 **Imagen** — Un paquete inmutable de capas del que se crean contenedores. Se identifica por etiqueta, y en producción por SHA. → [Docker sin magia](/containers/docker/)
 
@@ -111,6 +115,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Rama** — Una referencia móvil que nombra una línea de commits. Aísla una intención concreta durante poco tiempo. → [El modelo de Git](/collaboration/git-model/)
 
+**Servidor mascota** — Una máquina única e irreemplazable cuya configuración solo existe en ella misma. Lo contrario de tratarlas como intercambiables. → [Por qué escribir la infraestructura](/infrastructure/why-iac/)
+
 **Rotar** — Invalidar una credencial y emitir otra. La única respuesta que detiene el daño de una filtración; borrar el commit no lo hace. → [Secretos y permisos](/integration/secrets/)
 
 **Rama protegida** — Una rama con reglas: exigir revisión, exigir que CI pase, impedir empujar directo. Convierte los acuerdos del equipo en algo que se cumple. → [Pull requests y revisión](/collaboration/pull-requests/)
@@ -138,6 +144,8 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 **Socket** — La pareja IP + puerto: la dirección real a la que se conecta un cliente. → [Redes esenciales](/foundations/networking/)
 
 **Subred** — El tramo de direcciones que cuentan como "mi red". La máscara (`/24`) marca dónde termina, y con eso si un destino se alcanza directo o por el gateway. → [Redes esenciales](/foundations/networking/)
+
+**Estado (Terraform)** — El archivo que asocia cada recurso declarado con el recurso real del proveedor. Sin él no se puede distinguir crear de modificar. → [Terraform y el estado](/infrastructure/terraform/)
 
 **TLS** — La capa que cifra la conexión y prueba que el servidor es quien dice ser. La `s` de HTTPS. → [Redes esenciales](/foundations/networking/)
 

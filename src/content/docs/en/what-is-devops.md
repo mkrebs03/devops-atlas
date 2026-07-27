@@ -109,8 +109,9 @@ This Atlas takes you from reading a machine to shipping a version, watching how 
 | Checking every change automatically | [06 · Continuous integration](/en/integration/) |
 | Releasing, deploying, rolling back | [07 · Continuous deployment](/en/deployment/) |
 | Observing, measuring, growing | [08 · Scaling](/en/scaling/) |
+| Describing infrastructure instead of configuring it | [09 · Infrastructure as code](/en/infrastructure/) |
 
-**What you will not find here yet:** infrastructure as code, public clouds, and security. For Kubernetes you will find why it exists and when it pays off, but not how to operate it. When a page needs to lean on one of those topics, it says so and links you to an outside source.
+**What you will not find here yet:** public clouds and security. For Kubernetes you will find why it exists and when it pays off, but not how to operate it. When a page needs to lean on one of those topics, it says so and links you to an outside source.
 
 :::caution[Prerequisite]
 This Atlas assumes you already code: that you can write code, use an editor, and read an error. It does not teach programming from zero.
@@ -118,7 +119,7 @@ This Atlas assumes you already code: that you can write code, use an editor, and
 
 ## Finding what you came for
 
-- **Starting from scratch?** Read in order: modules run 01 to 08 and each leans on the previous one.
+- **Starting from scratch?** Read in order: modules run 01 to 09 and each leans on the previous one.
 - **Here for one specific thing?** Use search or the [A–Z tools index](/en/tools/) and go straight to the page.
 
 Every page states which module it belongs to and what is worth knowing first, so you can come in halfway through without missing the context.

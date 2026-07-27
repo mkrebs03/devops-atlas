@@ -28,6 +28,7 @@ export const MODULE_IDS = /** @type {const} */ ([
   'integration',
   'deployment',
   'scaling',
+  'infrastructure',
 ]);
 /** Frontmatter `type` values. `overview` is a curriculum kind, not a frontmatter type. */
 export const PAGE_TYPES = /** @type {const} */ (['concept', 'tool', 'practice', 'cheatsheet']);
@@ -404,6 +405,48 @@ export const modules = Object.freeze([
         relativePath: 'scaling/orchestration/', kind: 'concept',
         prerequisites: ['containers.docker', 'deployment.load-balancing'],
         label: { es: 'Orquestación', en: 'Orchestration' },
+      }),
+    ]),
+  }),
+  /*
+    Last on purpose. Writing infrastructure down only pays once there is more
+    than one machine or more than one environment to keep identical — which is
+    what the previous module produces. Before that it is ceremony around a
+    server you could rebuild by hand.
+  */
+  Object.freeze({
+    id: 'infrastructure',
+    order: 9,
+    label: localized({ es: 'Infraestructura como código', en: 'Infrastructure as code' }),
+    sidebarLabel: localized({ es: '09 · Infraestructura como código', en: '09 · Infrastructure as code' }),
+    summary: localized({
+      es: 'Dejar de configurar máquinas a mano y empezar a describirlas.',
+      en: 'Describing machines instead of configuring them by hand.',
+    }),
+    tools: Object.freeze(['Terraform', 'Ansible', 'SSH']),
+    pages: Object.freeze([
+      page({
+        id: 'infrastructure.overview', module: 'infrastructure', order: 39,
+        relativePath: 'infrastructure/', kind: 'overview',
+        prerequisites: ['server.provisioning'], label: { es: 'Panorama', en: 'Overview' },
+      }),
+      page({
+        id: 'infrastructure.why-iac', module: 'infrastructure', order: 40,
+        relativePath: 'infrastructure/why-iac/', kind: 'concept',
+        prerequisites: ['server.provisioning', 'scaling.when-to-scale'],
+        label: { es: 'Por qué escribir la infraestructura', en: 'Why write infrastructure down' },
+      }),
+      page({
+        id: 'infrastructure.terraform', module: 'infrastructure', order: 41,
+        relativePath: 'infrastructure/terraform/', kind: 'tool',
+        prerequisites: ['infrastructure.why-iac'],
+        label: { es: 'Terraform y el estado', en: 'Terraform and state' },
+      }),
+      page({
+        id: 'infrastructure.ansible', module: 'infrastructure', order: 42,
+        relativePath: 'infrastructure/ansible/', kind: 'tool',
+        prerequisites: ['infrastructure.why-iac'],
+        label: { es: 'Ansible y la idempotencia', en: 'Ansible and idempotence' },
       }),
     ]),
   }),

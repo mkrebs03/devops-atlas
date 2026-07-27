@@ -29,6 +29,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Conflict** — The moment two branches change the same line and Git stops so that you decide. Not an error: a delegated decision. → [The Git model](/en/collaboration/git-model/)
 
+**Configuration drift** — The gradual separation between machines that started identical, caused by urgent fixes and updates applied at different moments. → [Why write infrastructure down](/en/infrastructure/why-iac/)
+
 **Container** — A process created from an image, with its own runtime environment. It is disposable; its data should not be. → [Docker without magic](/en/containers/docker/)
 
 **Coverage** — The percentage of your code that the tests execute. It measures lines travelled, not behaviour verified. → [Tests in CI](/en/integration/tests-in-ci/)
@@ -61,6 +63,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Health check** — The periodic check a balancer makes to know whether an instance can serve, and to pull it out of rotation if it cannot. → [Load balancing](/en/deployment/load-balancing/)
 
+**Idempotence** — The property of an operation that can be repeated without changing anything the second time. It is what lets you reapply a definition without fear. → [Ansible and idempotence](/en/infrastructure/ansible/)
+
 **Image** — An immutable package of layers that containers are created from. Identified by tag, and in production by SHA. → [Docker without magic](/en/containers/docker/)
 
 **Integration test** — Tests that several pieces cooperate, for example code plus a database. It answers whether they fit together. → [The testing pyramid](/en/testing/pyramid/)
@@ -92,6 +96,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 **Percentile** — The value below which a given share of measurements falls. The p99 describes the worst real experience better than any average. → [Observability](/en/scaling/observability/)
 
 **Pipeline** — The automated sequence of stages a change travels from commit to published. → [Continuous integration](/en/integration/)
+
+**Pet server** — A unique, irreplaceable machine whose configuration exists only on itself. The opposite of treating machines as interchangeable. → [Why write infrastructure down](/en/infrastructure/why-iac/)
 
 **Port** — The number that decides which of a machine's programs each connection enters. → [Essential networking](/en/foundations/networking/)
 
@@ -132,6 +138,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 **Socket** — The IP + port pair: the real address a client connects to. → [Essential networking](/en/foundations/networking/)
 
 **Staging area** — The intermediate step between your files and the commit, where `git add` places what you actually want to keep. It is why there are two different diffs. → [The Git model](/en/collaboration/git-model/)
+
+**State (Terraform)** — The file mapping each declared resource to the real one at the provider. Without it, creating cannot be told from modifying. → [Terraform and state](/en/infrastructure/terraform/)
 
 **Subnet** — The stretch of addresses that count as "my network". The mask (`/24`) marks where it ends, and with it whether a destination is reached directly or through the gateway. → [Essential networking](/en/foundations/networking/)
 

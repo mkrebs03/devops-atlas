@@ -11,6 +11,7 @@
 
 /** @type {Readonly<Record<string, string>>} */
 export const toolNames = Object.freeze({
+  ansible: 'Ansible',
   apt: 'APT',
   bash: 'Bash',
   caddy: 'Caddy',
@@ -39,6 +40,7 @@ export const toolNames = Object.freeze({
   ss: 'ss',
   ssh: 'SSH',
   systemd: 'systemd',
+  terraform: 'Terraform',
   tls: 'TLS',
   traefik: 'Traefik',
   ufw: 'ufw',
