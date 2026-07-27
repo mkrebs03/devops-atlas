@@ -5,7 +5,7 @@ description: The terms used across the Atlas, defined in one line, each pointing
 
 Every term is defined where it is first needed inside its own page. This is the shortcut: the minimum definition to keep you reading, plus the link to where it is explained in full. For specific tools, use the [A–Z tools index](/en/tools/).
 
-**Alert** — An automated notice that somebody is suffering something and there is something to do. Defined on symptoms, not on causes. → [Observability](/en/deployment/observability/)
+**Alert** — An automated notice that somebody is suffering something and there is something to do. Defined on symptoms, not on causes. → [Observability](/en/scaling/observability/)
 
 **Approval gate** — The point where a person explicitly authorises the step into production. It is the only thing separating continuous delivery from continuous deployment. → [From build to release](/en/deployment/pipeline/)
 
@@ -55,6 +55,8 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **HEAD** — The reference that says where you are working right now: the commit the next one will be built on. → [The Git model](/en/collaboration/git-model/)
 
+**Horizontal scaling** — Running several identical copies of the application and spreading traffic across them. No ceiling, but it requires instances that hold no state. → [When to scale, and how](/en/scaling/when-to-scale/)
+
 **Health check** — The periodic check a balancer makes to know whether an instance can serve, and to pull it out of rotation if it cannot. → [Load balancing](/en/deployment/load-balancing/)
 
 **Image** — An immutable package of layers that containers are created from. Identified by tag, and in production by SHA. → [Docker without magic](/en/containers/docker/)
@@ -71,15 +73,19 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **Load balancing** — Spreading requests across several identical instances of the same service. → [Load balancing](/en/deployment/load-balancing/)
 
-**Log** — The event-by-event record of what the system did. Structured and carrying a correlation id, it reconstructs one specific case. → [Observability](/en/deployment/observability/)
+**Log** — The event-by-event record of what the system did. Structured and carrying a correlation id, it reconstructs one specific case. → [Observability](/en/scaling/observability/)
 
 **Merge** — Integrating one branch into another with a commit that joins both lines and keeps the history as it happened. → [The Git model](/en/collaboration/git-model/)
 
-**Metric** — A number measured over time: requests per second, errors per minute, milliseconds to respond. Cheap to keep and good for alerts. → [Observability](/en/deployment/observability/)
+**Metric** — A number measured over time: requests per second, errors per minute, milliseconds to respond. Cheap to keep and good for alerts. → [Observability](/en/scaling/observability/)
 
-**Observability** — Being able to answer questions you did not anticipate about what the system is doing, without deploying new code to find out. → [Observability](/en/deployment/observability/)
+**Observability** — Being able to answer questions you did not anticipate about what the system is doing, without deploying new code to find out. → [Observability](/en/scaling/observability/)
 
-**Percentile** — The value below which a given share of measurements falls. The p99 describes the worst real experience better than any average. → [Observability](/en/deployment/observability/)
+**Object storage** — Keeping files as resources requested over HTTP from a service, rather than on one particular machine's disk. → [Moving state off the machine](/en/scaling/managed-services/)
+
+**Orchestrator** — A program that holds the system at a declared state — this many replicas, with these limits — by continuously comparing it with the real one. → [Orchestration](/en/scaling/orchestration/)
+
+**Percentile** — The value below which a given share of measurements falls. The p99 describes the worst real experience better than any average. → [Observability](/en/scaling/observability/)
 
 **Pipeline** — The automated sequence of stages a change travels from commit to published. → [Continuous integration](/en/integration/)
 
@@ -127,11 +133,13 @@ Every term is defined where it is first needed inside its own page. This is the 
 
 **TLS** — The layer that encrypts the connection and proves the server is who it claims to be. The `s` in HTTPS. → [Essential networking](/en/foundations/networking/)
 
-**Trace** — One request's path across every service it passes through, with the time spent on each leg. → [Observability](/en/deployment/observability/)
+**Trace** — One request's path across every service it passes through, with the time spent on each leg. → [Observability](/en/scaling/observability/)
 
 **Trunk-based** — A branching model where everyone integrates into `main` at least once a day and unfinished work travels switched off behind a feature flag. → [Branching strategies](/en/integration/branching-strategy/)
 
 **Unit test** — Tests one function or module in isolation. Fast, precise and cheap: the base of the pyramid. → [The testing pyramid](/en/testing/pyramid/)
+
+**Vertical scaling** — Swapping the machine for a bigger one. It touches neither code nor architecture, but it has a ceiling and leaves one single point of failure. → [When to scale, and how](/en/scaling/when-to-scale/)
 
 **Volume** — Storage that lives outside the container and survives its deletion. Where the data you cannot lose goes. → [Docker without magic](/en/containers/docker/)
 

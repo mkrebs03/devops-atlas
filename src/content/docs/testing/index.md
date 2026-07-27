@@ -50,4 +50,4 @@ Con estas páginas puedes distinguir los niveles de prueba, elegir qué automati
 | --- | --- | --- |
 | La suite pasa en tu máquina y falla en la de otra persona | Las pruebas corren donde ya está todo instalado, y nadie comprueba en limpio | [Pruebas en CI](/integration/tests-in-ci/) |
 | Alguien integra un cambio sin haber ejecutado las pruebas | La suite es un hábito personal, no una compuerta del camino de entrega | [Integración continua](/integration/) |
-| La suite verde no dice nada sobre lo que ya está en producción | Una prueba afirma sobre el código, no sobre el servicio en marcha | [Observabilidad](/deployment/observability/) |
+| La suite verde no dice nada sobre lo que ya está en producción | Una prueba afirma sobre el código, no sobre el servicio en marcha | [Observabilidad](/scaling/observability/) |

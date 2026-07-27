@@ -61,4 +61,4 @@ Con estas páginas puedes escribir un workflow que valide cada pull request, ele
 | --- | --- | --- |
 | El artefacto está comprobado y aun así alguien entra por SSH a copiarlo | La automatización termina en el registro y no llega al servidor | [Del build al release](/deployment/pipeline/) |
 | Al actualizar, la aplicación queda caída unos segundos | Se reemplaza el proceso en sitio, sin nada que reciba el tráfico mientras tanto | [Estrategias de despliegue](/deployment/strategies/) |
-| El despliegue terminó bien y nadie sabe si el servicio quedó sano | La evidencia se acaba en el pipeline y no continúa en producción | [Observabilidad](/deployment/observability/) |
+| El despliegue terminó bien y nadie sabe si el servicio quedó sano | La evidencia se acaba en el pipeline y no continúa en producción | [Observabilidad](/scaling/observability/) |

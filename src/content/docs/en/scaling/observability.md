@@ -3,7 +3,7 @@ title: Observability
 description: 'Logs, metrics, and traces: knowing what the system is doing without waiting for someone to complain.'
 type: concept
 level: intermediate
-module: deployment
+module: scaling
 tools: [prometheus, opentelemetry]
 prerequisites: [server.proxy-tls]
 learningObjectives:

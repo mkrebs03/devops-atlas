@@ -3,7 +3,7 @@ title: Observabilidad
 description: 'Logs, métricas y trazas: cómo saber qué está haciendo el sistema sin esperar a que alguien se queje.'
 type: concept
 level: intermediate
-module: deployment
+module: scaling
 tools: [prometheus, opentelemetry]
 prerequisites: [server.proxy-tls]
 learningObjectives:

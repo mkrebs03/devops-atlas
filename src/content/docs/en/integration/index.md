@@ -61,4 +61,4 @@ These pages let you write a workflow that validates every pull request, choose a
 | --- | --- | --- |
 | The artifact is checked and somebody still SSHes in to copy it across | The automation ends at the registry and never reaches the server | [From build to release](/en/deployment/pipeline/) |
 | Updating leaves the application down for a few seconds | The process is replaced in place, with nothing to take the traffic meanwhile | [Deployment strategies](/en/deployment/strategies/) |
-| The deployment finished cleanly and nobody knows whether the service is healthy | Evidence stops at the pipeline instead of continuing into production | [Observability](/en/deployment/observability/) |
+| The deployment finished cleanly and nobody knows whether the service is healthy | Evidence stops at the pipeline instead of continuing into production | [Observability](/en/scaling/observability/) |

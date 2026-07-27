@@ -74,6 +74,8 @@ test.describe('DevOps Atlas', () => {
     await expect(page).toHaveURL(/\/en\/collaboration\/pull-requests\/$/);
     await page.goto('/deployment/proxy/');
     await expect(page).toHaveURL(/\/server\/proxy-tls\/$/);
+    await page.goto('/deployment/observability/');
+    await expect(page).toHaveURL(/\/scaling\/observability\/$/);
   });
 
   test('mermaid blocks render as diagrams', async ({ page }) => {

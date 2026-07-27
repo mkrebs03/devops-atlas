@@ -8,7 +8,7 @@ Referencia de DevOps para quien ya programa: conceptos que construyen un modelo 
 
 ## ✨ Características
 
-- **Referencia estructurada** — 7 módulos, 32 páginas (5 de ellas prácticas ejecutables), índice A–Z de herramientas y glosario.
+- **Referencia estructurada** — 8 módulos, 36 páginas (5 de ellas prácticas ejecutables), índice A–Z de herramientas y glosario.
 - **Bilingüe de origen** — español e inglés son pares; ninguno es una traducción secundaria.
 - **Sin estado del lector** — no hay cuentas ni progreso; lo único que se guarda en el navegador es la preferencia de tema, bajo la clave `starlight-theme` de Starlight.
 - **Diagramas interactivos** — bloques Mermaid renderizados en el cliente.
@@ -27,7 +27,8 @@ Los módulos se agrupan por el estado del sistema que describen —una máquina,
 | 04 | Contenedores           | Docker, Docker Compose, nginx      | Pipeline local                  |
 | 05 | Pruebas                | Node.js                            | Tu primera prueba               |
 | 06 | Integración continua   | GitHub Actions, YAML, Git, GitHub  | —                               |
-| 07 | Despliegue continuo    | nginx, Traefik, Prometheus         | Promover y revertir             |
+| 07 | Despliegue continuo    | nginx, Traefik, Docker             | Promover y revertir             |
+| 08 | Escalar                | Prometheus, PostgreSQL, Kubernetes | —                               |
 
 ## 📋 Requisitos
 
@@ -98,7 +99,8 @@ devops-atlas/
 │   │   │   ├── containers/
 │   │   │   ├── testing/
 │   │   │   ├── integration/
-│   │   │   └── deployment/
+│   │   │   ├── deployment/
+│   │   │   └── scaling/
 │   │   ├── docs/en/        # Contenido en inglés (misma estructura)
 │   │   └── i18n/           # Traducciones de la interfaz
 │   ├── data/               # Taxonomía (curriculum.mjs), nombres de herramientas y textos de UI

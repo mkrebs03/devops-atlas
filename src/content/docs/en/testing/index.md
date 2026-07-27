@@ -50,4 +50,4 @@ These pages let you distinguish test levels, choose what to automate, and write 
 | --- | --- | --- |
 | The suite passes on your machine and fails on somebody else's | Tests run where everything is already installed, and nobody checks on a clean box | [Tests in CI](/en/integration/tests-in-ci/) |
 | Somebody integrates a change without having run the tests | The suite is a personal habit, not a gate on the delivery path | [Continuous integration](/en/integration/) |
-| A green suite says nothing about what is already in production | A test asserts about the code, not about the running service | [Observability](/en/deployment/observability/) |
+| A green suite says nothing about what is already in production | A test asserts about the code, not about the running service | [Observability](/en/scaling/observability/) |

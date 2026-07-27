@@ -34,7 +34,6 @@ flowchart LR
 | Pipeline | ¿Cómo pasa un artefacto de build a release? | [Del build al release](/deployment/pipeline/) |
 | Tráfico | ¿Quién decide a qué instancia llega cada petición? | [Balanceo de carga](/deployment/load-balancing/) |
 | Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](/deployment/strategies/) |
-| Evidencia | ¿Cómo sé que la versión nueva se comporta bien? | [Observabilidad](/deployment/observability/) |
 | Práctica | ¿Puedo promover y revertir una versión? | [Práctica · promover y revertir](/deployment/lab-release/) |
 
 :::note[Desplegar no es un evento, es una capacidad]
@@ -49,6 +48,6 @@ Con estas páginas puedes describir un pipeline de entrega, elegir una estrategi
 
 | Síntoma | Qué lo causa | Dónde sigue |
 | --- | --- | --- |
-| El despliegue termina y nadie sabe si el servicio quedó sano | La evidencia se acaba en el pipeline y no continúa en producción | [Observabilidad](/deployment/observability/) |
+| El despliegue termina y nadie sabe si el servicio quedó sano | La evidencia se acaba en el pipeline y no continúa en producción | [Observabilidad](/scaling/observability/) |
 | Reemplazar la versión corta las peticiones que estaban en curso | Nadie recibe el tráfico mientras el proceso viejo se apaga | [Balanceo de carga](/deployment/load-balancing/) |
 | Revertir tarda tanto como desplegar, así que nadie revierte | La versión anterior no quedó disponible como artefacto listo para volver | [Práctica · promover y revertir](/deployment/lab-release/) |

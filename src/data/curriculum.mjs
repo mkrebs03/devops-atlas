@@ -27,6 +27,7 @@ export const MODULE_IDS = /** @type {const} */ ([
   'testing',
   'integration',
   'deployment',
+  'scaling',
 ]);
 /** Frontmatter `type` values. `overview` is a curriculum kind, not a frontmatter type. */
 export const PAGE_TYPES = /** @type {const} */ (['concept', 'tool', 'practice', 'cheatsheet']);
@@ -314,7 +315,7 @@ export const modules = Object.freeze([
       es: 'Llevar un artefacto a producción y poder revertirlo.',
       en: 'Taking an artifact to production — and being able to roll it back.',
     }),
-    tools: Object.freeze(['nginx', 'Traefik', 'Prometheus']),
+    tools: Object.freeze(['nginx', 'Traefik', 'Docker']),
     pages: Object.freeze([
       page({
         id: 'deployment.overview', module: 'deployment', order: 27,
@@ -338,16 +339,58 @@ export const modules = Object.freeze([
         prerequisites: ['deployment.load-balancing'], label: { es: 'Estrategias de despliegue', en: 'Deployment strategies' },
       }),
       page({
-        id: 'deployment.observability', module: 'deployment', order: 31,
-        relativePath: 'deployment/observability/', kind: 'concept',
+        id: 'deployment.lab-release', module: 'deployment', order: 31,
+        relativePath: 'deployment/lab-release/', kind: 'practice',
+        prerequisites: ['deployment.pipeline'],
+        label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },
+      }),
+    ]),
+  }),
+  /*
+    Where one machine stops being the answer. Load balancing stayed in
+    deployment on purpose: blue-green and canary are defined by what they change
+    in the balancer, so it has to be readable before the strategies that need
+    it, not after.
+  */
+  Object.freeze({
+    id: 'scaling',
+    order: 8,
+    label: localized({ es: 'Escalar', en: 'Scaling' }),
+    sidebarLabel: localized({ es: '08 · Escalar', en: '08 · Scaling' }),
+    summary: localized({
+      es: 'Ver qué está pasando, y saber cuándo una máquina deja de bastar.',
+      en: 'Seeing what is happening, and knowing when one machine stops being enough.',
+    }),
+    tools: Object.freeze(['Prometheus', 'OpenTelemetry', 'PostgreSQL', 'Kubernetes', 'Docker Swarm']),
+    pages: Object.freeze([
+      page({
+        id: 'scaling.overview', module: 'scaling', order: 32,
+        relativePath: 'scaling/', kind: 'overview',
+        prerequisites: ['deployment.pipeline'], label: { es: 'Panorama', en: 'Overview' },
+      }),
+      page({
+        id: 'scaling.observability', module: 'scaling', order: 33,
+        relativePath: 'scaling/observability/', kind: 'concept',
         prerequisites: ['server.proxy-tls'],
         label: { es: 'Observabilidad', en: 'Observability' },
       }),
       page({
-        id: 'deployment.lab-release', module: 'deployment', order: 32,
-        relativePath: 'deployment/lab-release/', kind: 'practice',
-        prerequisites: ['deployment.pipeline'],
-        label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },
+        id: 'scaling.when-to-scale', module: 'scaling', order: 34,
+        relativePath: 'scaling/when-to-scale/', kind: 'concept',
+        prerequisites: ['scaling.observability'],
+        label: { es: 'Cuándo escalar y cómo', en: 'When to scale, and how' },
+      }),
+      page({
+        id: 'scaling.managed-services', module: 'scaling', order: 35,
+        relativePath: 'scaling/managed-services/', kind: 'concept',
+        prerequisites: ['server.backups', 'scaling.when-to-scale'],
+        label: { es: 'Sacar el estado de la máquina', en: 'Moving state off the machine' },
+      }),
+      page({
+        id: 'scaling.orchestration', module: 'scaling', order: 36,
+        relativePath: 'scaling/orchestration/', kind: 'concept',
+        prerequisites: ['containers.docker', 'deployment.load-balancing'],
+        label: { es: 'Orquestación', en: 'Orchestration' },
       }),
     ]),
   }),

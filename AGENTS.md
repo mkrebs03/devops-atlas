@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository builds the bilingual DevOps Atlas documentation site with Astro and Starlight. Spanish pages live in `src/content/docs/`; matching English pages live under `src/content/docs/en/`. Organize learning content by module: `foundations`, `collaboration`, `server`, `containers`, `testing`, `integration`, or `deployment`. Shared UI is in `src/components/`, site styling in `src/styles/`, and translations in `src/content/i18n/`. Playwright smoke tests are stored in `tests/`. Deployment assets belong in `deploy/`, while CI and release workflows live in `.github/workflows/`.
+This repository builds the bilingual DevOps Atlas documentation site with Astro and Starlight. Spanish pages live in `src/content/docs/`; matching English pages live under `src/content/docs/en/`. Organize learning content by module: `foundations`, `collaboration`, `server`, `containers`, `testing`, `integration`, `deployment`, or `scaling`. Shared UI is in `src/components/`, site styling in `src/styles/`, and translations in `src/content/i18n/`. Playwright smoke tests are stored in `tests/`. Deployment assets belong in `deploy/`, while CI and release workflows live in `.github/workflows/`.
 
 ## Build, Test, and Development Commands
 

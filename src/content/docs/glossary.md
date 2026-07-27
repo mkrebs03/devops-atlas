@@ -5,13 +5,15 @@ description: Los términos que aparecen en el Atlas, definidos en una línea y c
 
 Cada término está definido en el momento en que hace falta dentro de su página. Esto es el atajo: la definición mínima para no perder el hilo, y el enlace a donde se explica completo. Para herramientas concretas, usa el [índice de herramientas A–Z](/tools/).
 
-**Alerta** — Un aviso automático de que alguien está sufriendo algo y hay algo que hacer. Se define sobre síntomas, no sobre causas. → [Observabilidad](/deployment/observability/)
+**Alerta** — Un aviso automático de que alguien está sufriendo algo y hay algo que hacer. Se define sobre síntomas, no sobre causas. → [Observabilidad](/scaling/observability/)
 
 **Área de preparación** — El paso intermedio entre tus archivos y el commit, donde `git add` coloca lo que sí quieres guardar. Explica por qué existen dos diffs distintos. → [El modelo de Git](/collaboration/git-model/)
 
 **Artefacto** — El resultado empaquetado de una construcción: una imagen de contenedor, un `.jar`, una carpeta de archivos estáticos. Es lo que se despliega, y no es el código del que salió. → [Integración continua](/integration/)
 
 **Balanceo de carga** — Repartir las peticiones entre varias instancias iguales del mismo servicio. → [Balanceo de carga](/deployment/load-balancing/)
+
+**Almacenamiento de objetos** — Guardar archivos como recursos que se piden por HTTP a un servicio, en lugar de en el disco de una máquina concreta. → [Sacar el estado de la máquina](/scaling/managed-services/)
 
 **Blue-green** — Estrategia de despliegue con dos entornos completos: uno sirve tráfico y el otro recibe la versión nueva; el cambio es instantáneo y la vuelta atrás también. → [Estrategias de despliegue](/deployment/strategies/)
 
@@ -45,6 +47,10 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Entorno** — Una instalación completa del sistema con su propia configuración y sus propios datos: desarrollo, staging, producción. → [Integración continua](/integration/)
 
+**Escalado horizontal** — Correr varias copias iguales de la aplicación y repartir el tráfico. No tiene techo, pero exige que las instancias no guarden estado. → [Cuándo escalar y cómo](/scaling/when-to-scale/)
+
+**Escalado vertical** — Cambiar la máquina por una más grande. No toca el código ni la arquitectura, pero tiene techo y deja un único punto de fallo. → [Cuándo escalar y cómo](/scaling/when-to-scale/)
+
 **Feature flag** — Una condición en el código que decide en tiempo de ejecución si una función está activa. Separa desplegar el código de activar la función. → [Estrategias de ramas](/integration/branching-strategy/)
 
 **Firewall** — Un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Explica por qué una conexión se queda colgada en vez de ser rechazada. → [Redes esenciales](/foundations/networking/)
@@ -67,15 +73,17 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **Lint** — La comprobación más barata: un programa lee el código sin ejecutarlo y marca lo que rompe una convención o huele a error. → [GitHub Actions](/integration/github-actions/)
 
-**Log** — El registro evento a evento de lo que hizo el sistema. Estructurado y con un identificador de correlación, sirve para reconstruir un caso concreto. → [Observabilidad](/deployment/observability/)
+**Log** — El registro evento a evento de lo que hizo el sistema. Estructurado y con un identificador de correlación, sirve para reconstruir un caso concreto. → [Observabilidad](/scaling/observability/)
 
 **Merge** — Integrar una rama en otra creando un commit que une ambas líneas y conserva la historia tal como ocurrió. → [El modelo de Git](/collaboration/git-model/)
 
-**Métrica** — Un número medido en el tiempo: peticiones por segundo, errores por minuto, milisegundos de respuesta. Barata de guardar y buena para alertas. → [Observabilidad](/deployment/observability/)
+**Métrica** — Un número medido en el tiempo: peticiones por segundo, errores por minuto, milisegundos de respuesta. Barata de guardar y buena para alertas. → [Observabilidad](/scaling/observability/)
 
-**Observabilidad** — La propiedad de poder responder preguntas que no anticipaste sobre lo que está haciendo el sistema, sin desplegar código nuevo para averiguarlo. → [Observabilidad](/deployment/observability/)
+**Observabilidad** — La propiedad de poder responder preguntas que no anticipaste sobre lo que está haciendo el sistema, sin desplegar código nuevo para averiguarlo. → [Observabilidad](/scaling/observability/)
 
-**Percentil** — El valor que deja por debajo a un porcentaje de las mediciones. El p99 describe la peor experiencia real mejor que cualquier promedio. → [Observabilidad](/deployment/observability/)
+**Orquestador** — Un programa que mantiene el sistema en un estado declarado —tantas réplicas, con estos límites— comparándolo sin parar con el real. → [Orquestación](/scaling/orchestration/)
+
+**Percentil** — El valor que deja por debajo a un porcentaje de las mediciones. El p99 describe la peor experiencia real mejor que cualquier promedio. → [Observabilidad](/scaling/observability/)
 
 **Pipeline** — La secuencia automática de etapas que recorre un cambio desde el commit hasta quedar publicado. → [Integración continua](/integration/)
 
@@ -127,7 +135,7 @@ Cada término está definido en el momento en que hace falta dentro de su págin
 
 **TLS** — La capa que cifra la conexión y prueba que el servidor es quien dice ser. La `s` de HTTPS. → [Redes esenciales](/foundations/networking/)
 
-**Traza** — El recorrido de una misma petición por todos los servicios que atraviesa, con el tiempo de cada tramo. → [Observabilidad](/deployment/observability/)
+**Traza** — El recorrido de una misma petición por todos los servicios que atraviesa, con el tiempo de cada tramo. → [Observabilidad](/scaling/observability/)
 
 **Trunk-based** — Un modelo de ramas donde todo el mundo integra en `main` al menos una vez al día y lo inacabado viaja apagado detrás de un feature flag. → [Estrategias de ramas](/integration/branching-strategy/)
 

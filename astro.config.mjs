@@ -73,6 +73,8 @@ export default defineConfig({
     // link points at the proxy, which is what most of that page was about.
     '/deployment/proxy/': '/server/proxy-tls/',
     '/en/deployment/proxy/': '/en/server/proxy-tls/',
+    '/deployment/observability/': '/scaling/observability/',
+    '/en/deployment/observability/': '/en/scaling/observability/',
   },
   markdown: {
     // Gives every <details> in the content a single body element, which is what
