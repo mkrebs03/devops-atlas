@@ -62,7 +62,12 @@ header.header {
    in the selector for specificity: this is a plain stylesheet, so it has to
    outrank the scoped styles Search.astro ships with. */
 .atlas-header__search { min-width: 0; }
-.atlas-header__search site-search button {
+/* `>` matters: `site-search` also wraps the search dialog, and Pagefind
+   renders its own buttons (the results' clear/×) inside it. A plain
+   descendant selector here would reach past the trigger and into the
+   dialog, and this unlayered rule would beat Pagefind's own sizing for
+   those buttons regardless of specificity. */
+.atlas-header__search site-search > button {
   width: 100%;
   justify-content: flex-start;
   gap: var(--atlas-space-3);
@@ -74,12 +79,12 @@ header.header {
   padding-block: 0.4rem;
   box-shadow: none;
 }
-.atlas-header__search site-search button:hover {
+.atlas-header__search site-search > button:hover {
   background: var(--atlas-surface-2);
   border-color: var(--atlas-border-strong);
   color: var(--atlas-text-2);
 }
-.atlas-header__search site-search kbd {
+.atlas-header__search site-search > button kbd {
   background: var(--atlas-surface-2);
   border-radius: var(--atlas-radius-sm);
   color: var(--atlas-text-3);
