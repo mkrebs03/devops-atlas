@@ -18,8 +18,9 @@ const moduleSidebar = modules.map((module) => ({
 
 /*
   Astro only reads .env files after this config has been evaluated, so `site`
-  has to load its own — otherwise a PUBLIC_SITE_URL set in .env, as the README
-  documents, would be silently ignored. Vite's loadEnv is the usual tool, but
+  has to load its own — otherwise a PUBLIC_SITE_URL set in .env, as
+  .env.example shows, would be silently ignored. Vite's loadEnv is the usual
+  tool, but
   `vite` is not importable from here under pnpm's strict layout without
   declaring it a dependency, so the file is read by hand.
 */
