@@ -42,7 +42,7 @@ No tool turns a team into a DevOps team. Automating a broken handoff only makes 
 - **Not a separate team.** A "DevOps team" placed between development and operations is the old wall with a new name: there is still a handoff, and someone still absorbs risk they did not create.
 - **Not just automation.** Automation is the means. The end is shortening the cycle between an idea and the evidence that it works.
 - **Not "the pipeline person".** The pipeline is a visible consequence of the practice, not its definition.
-- **Not a replacement for development.** It assumes you already know how to build software; it adds the half almost no degree teaches.
+- **Not a replacement for development.** It assumes you already know how to build software; it adds what happens to that software after it compiles.
 
 ## The full cycle
 

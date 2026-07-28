@@ -42,7 +42,7 @@ Ninguna herramienta convierte a un equipo en DevOps. Automatizar un traspaso rot
 - **No es un equipo aparte.** Un "equipo DevOps" ubicado entre desarrollo y operaciones es el muro anterior con un nombre nuevo: sigue habiendo un traspaso y sigue habiendo alguien que absorbe el riesgo de otro.
 - **No es solo automatización.** Automatizar es el medio. El fin es acortar el ciclo entre una idea y la evidencia de que funciona.
 - **No es "la persona del pipeline".** El pipeline es una consecuencia visible de la práctica, no su definición.
-- **No es un reemplazo del desarrollo.** Asume que ya sabes construir software; añade la mitad que casi ninguna carrera enseña.
+- **No es un reemplazo del desarrollo.** Asume que ya sabes construir software; añade lo que le pasa a ese software después de que compila.
 
 ## El ciclo completo
 
