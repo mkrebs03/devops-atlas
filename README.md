@@ -5,7 +5,7 @@
 
 **Español** · [English](README.en.md)
 
-Referencia de DevOps para quien ya programa. Las carreras de informática enseñan a construir software y rozan DevOps como concepto: queda el nombre de las herramientas y ninguna idea de cómo se comportan. Atlas cubre ese hueco con conceptos que arman un modelo mental, herramientas documentadas por lo que hacen y prácticas que ejecutas en tu propia máquina.
+Referencia de DevOps para quien ya programa. Cubre el salto de escribir software a operarlo: dónde está cada frontera que atraviesa una petición, qué evidencia distingue dos fallos parecidos y por qué existe cada herramienta. Conceptos que arman un modelo mental, herramientas documentadas por cómo se comportan y prácticas que ejecutas en tu propia máquina.
 
 [![Portada de DevOps Atlas](.github/media/landing-es.png)](https://devops.mkrebs.tech)
 
@@ -13,7 +13,7 @@ Referencia de DevOps para quien ya programa. Las carreras de informática enseñ
 
 ## Para quién es
 
-Para desarrolladores que quieren moverse hacia DevOps: autodidactas, gente cambiando de carrera, estudiantes. Asume que sabes escribir código, usar un editor y leer un error; empieza donde suelen terminar los cursos de desarrollo y **no enseña a programar desde cero**.
+Para desarrolladores que quieren moverse hacia DevOps: autodidactas, gente cambiando de carrera, estudiantes. Asume que sabes escribir código, usar un editor y leer un error. **No enseña a programar desde cero.**
 
 ## Qué hay dentro
 

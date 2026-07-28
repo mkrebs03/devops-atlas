@@ -5,7 +5,7 @@
 
 [Español](README.md) · **English**
 
-A DevOps reference for developers who already code. Computer-science degrees teach you to build software and brush past DevOps as a concept: you leave with the names of the tools and no idea how they behave. Atlas fills that gap with concepts that build a mental model, tools documented by what they actually do, and walkthroughs you run on your own machine.
+A DevOps reference for developers who already code. It covers the jump from writing software to operating it: where each boundary a request crosses sits, what evidence tells two similar failures apart, and why each tool exists. Concepts that build a mental model, tools documented by how they behave, and walkthroughs you run on your own machine.
 
 [![DevOps Atlas landing page](.github/media/landing-en.png)](https://devops.mkrebs.tech/en/)
 
@@ -13,7 +13,7 @@ A DevOps reference for developers who already code. Computer-science degrees tea
 
 ## Who it is for
 
-Developers moving toward DevOps: self-taught learners, career switchers, students. It assumes you can write code, use an editor, and read an error. It starts where development courses usually stop and **does not teach programming from zero**.
+Developers moving toward DevOps: self-taught learners, career switchers, students. It assumes you can write code, use an editor, and read an error. **It does not teach programming from zero.**
 
 ## What is inside
 
