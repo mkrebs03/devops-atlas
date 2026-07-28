@@ -379,7 +379,16 @@ site-search dialog[open]::backdrop { opacity: 1; }
 }
 
 .content-panel { border-top-color: var(--atlas-border); }
-.content-panel + .content-panel { border-top: var(--atlas-hairline) solid var(--atlas-border); }
+/* Starlight unconditionally borders a content-panel that follows another
+   one. The empty hero panel above (see the display: none rule below) is
+   `display: none`, but `+` still counts it in the DOM, so that hairline
+   still lands on the real panel — normally hidden flush under the fixed
+   header, until an overscroll bounce at the top pulls it loose and shows
+   it floating above the hero. Cancel it specifically when the panel
+   before carries no content, same test as that rule uses. */
+.content-panel:not(:has(.sl-markdown-content, .atlas-title, .landing, .atlas-tools)) + .content-panel {
+  border-top: 0;
+}
 main { padding-bottom: var(--atlas-space-8); }
 
 /* ---------- table of contents -------------------------------------------- */
