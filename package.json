@@ -1,6 +1,14 @@
 {
   "name": "devops-atlas",
   "version": "0.1.0",
+  "description": "Referencia de DevOps bilingüe (español/inglés) para quien ya programa, construida con Astro + Starlight.",
+  "license": "MIT",
+  "author": "Martin Sanhueza",
+  "homepage": "https://devops.mkrebs.tech",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkrebs03/devops-atlas.git"
+  },
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.29.3",
