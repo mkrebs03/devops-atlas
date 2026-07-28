@@ -58,7 +58,7 @@ Hard constraint: Atlas makes **no claim it cannot back**. No progress percentage
 
 ## Evidence on Hand
 
-- Real, shipped bilingual content across all nine modules (`src/content/docs/` and `.../en/`), including five hands-on walkthroughs.
+- Real, shipped bilingual content across all nine modules (`src/content/docs/` and `.../en/`), including six hands-on walkthroughs.
 - Enforced ES/EN parity via `scripts/validate-content.mjs`: every Spanish file must have its English counterpart file and vice versa (standalone pages included), and canonical pairs must agree on `level`, on `tools` (same order), and on objective/takeaway counts. It checks files and frontmatter — not prose equivalence.
 - No testimonials, enrollment numbers, learner counts, employer outcomes, or endorsements exist — future work must not fabricate them.
 - The guided-route/progress machinery once shipped here was removed deliberately (see Positioning); it is the project's anti-reference and must not be reintroduced.
