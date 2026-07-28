@@ -14,6 +14,21 @@
 
 .landing__hero { padding-block: var(--atlas-space-7) var(--atlas-space-6); }
 
+/* On a spacious desktop screen the hero's fixed content is short next to the
+   viewport, so the next section's heading always ends up peeking in at the
+   very edge — neither hidden nor properly shown. Only here is there enough
+   width *and* height for that gap to read as a mistake, so only here the
+   hero claims the screen below the sticky header and centers within it,
+   landing the next section cleanly past the fold instead of mid-reveal. */
+@media (min-width: 64rem) and (min-height: 48rem) {
+  .landing__hero {
+    min-height: calc(100svh - var(--sl-nav-height));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
 .landing__display {
   margin: 0;
   font-family: var(--atlas-font-display);
@@ -142,8 +157,14 @@
   color: var(--atlas-text-2);
 }
 
+/* Cards in a row stretch to the tallest one — Colaboración has half the
+   reading list of its row-mates. Flex column + an auto top margin on the
+   tools row keeps that slack from reading as a hole: the tag row settles at
+   the same height across the row instead of hugging whatever content ends
+   above it. */
 .mcard {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--atlas-surface);
   border: var(--atlas-hairline) solid var(--atlas-border);
   border-radius: var(--atlas-radius);
@@ -194,7 +215,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--atlas-space-2);
-  margin-top: var(--atlas-space-3);
+  margin-top: auto;
+  padding-top: var(--atlas-space-3);
 }
 .mcard__tools li {
   margin-top: 0;
@@ -212,7 +234,7 @@
   display: grid;
   grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
   gap: var(--atlas-space-6);
-  align-items: start;
+  align-items: center;
 }
 .landing__sample-lede {
   margin: 0;
@@ -275,6 +297,40 @@
 }
 .landing__foot p { margin: 0; }
 .landing__foot p + p { margin-top: var(--atlas-space-3); }
+
+/* Sits below the fold until the hero it doubles for has scrolled away. */
+.landing__totop {
+  position: fixed;
+  right: var(--atlas-space-5);
+  bottom: var(--atlas-space-5);
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  background: var(--atlas-surface);
+  color: var(--atlas-text-2);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  pointer-events: none;
+  transition-property: opacity, transform, background-color, border-color, color;
+  transition-duration: var(--atlas-dur-base);
+  transition-timing-function: var(--atlas-ease);
+  z-index: 20;
+}
+.landing__totop svg { width: 1.1rem; height: 1.1rem; }
+.landing__totop[data-visible] {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.landing__totop:hover {
+  background: var(--atlas-surface-3);
+  border-color: var(--atlas-border-strong);
+  color: var(--atlas-text);
+}
 
 @media (max-width: 52rem) {
   .landing__sample { grid-template-columns: 1fr; }

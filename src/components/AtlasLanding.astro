@@ -48,6 +48,7 @@ const words = en
       ],
       missing: 'Right now the Atlas runs from reading a machine to shipping a version, watching it, rolling it back, and describing the infrastructure in a file. What you will not find here yet: public clouds, Kubernetes in depth, or security.',
       openSource: 'Free, no sign-up.',
+      backToTop: 'Back to top',
     }
   : {
       display: ['Aprende DevOps', 'leyendo cómo se', 'comporta de verdad.'],
@@ -77,6 +78,7 @@ const words = en
       ],
       missing: 'Por ahora el Atlas llega desde leer una máquina hasta desplegar una versión, observarla, revertirla y describir la infraestructura en un archivo. Todavía no encontrarás aquí nubes públicas, Kubernetes a fondo ni seguridad.',
       openSource: 'Gratis y sin registro.',
+      backToTop: 'Volver arriba',
     };
 ---
 
@@ -156,4 +158,27 @@ const words = en
     <p>{words.missing}</p>
     <p>{words.openSource}</p>
   </div>
+
+  <button type="button" class="landing__totop" aria-label={words.backToTop} data-atlas-top>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 19V5M5 12l7-7 7 7" />
+    </svg>
+  </button>
 </div>
+
+<script>
+  /*
+    Appears once the hero has scrolled past — before that, the sticky header's
+    wordmark already is the way home, so a second one would be noise.
+  */
+  const button = document.querySelector<HTMLButtonElement>('[data-atlas-top]');
+  const hero = document.querySelector('.landing__hero');
+  if (button && hero) {
+    const sync = () => {
+      button.toggleAttribute('data-visible', hero.getBoundingClientRect().bottom < 0);
+    };
+    window.addEventListener('scroll', sync, { passive: true });
+    sync();
+    button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+</script>
