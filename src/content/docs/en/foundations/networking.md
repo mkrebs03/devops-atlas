@@ -77,7 +77,7 @@ ss -lnt                                  # what is listening locally?
 curl -v https://example.com 2>&1 | head  # narrates resolution, TCP and TLS
 ```
 
-`curl -v` tells the story step by step: it resolves the IP, opens TCP to port 443, presents the TLS **certificate** and only then sends the HTTP request. `127.0.0.1` accepts local traffic only; `0.0.0.0` may accept traffic from several interfaces and deserves more care. TLS exists for two reasons: to encrypt the connection and to prove the server is who it claims to be.
+`curl -v` tells the story step by step: it resolves the IP, opens TCP to port 443, receives and validates the TLS **certificate** presented by the server, and only then sends the HTTP request. `127.0.0.1` accepts local traffic only; `0.0.0.0` may accept traffic from several interfaces and deserves more care. TLS exists for two reasons: to encrypt the connection and to prove the server is who it claims to be.
 
 Between the client and that port there is usually a **firewall**: a filter that decides which connections are accepted before they reach the process. It explains a symptom that confuses many people: if nothing is listening, the machine refuses and you see `Connection refused` straight away; if a firewall drops the packet silently, you see nothing and the connection hangs until it times out.
 
@@ -96,7 +96,7 @@ An HTTP response communicates far more than a body. The **status code** summaris
 | `4xx` | Client error | `404 Not Found` |
 | `5xx` | Server error | `503 Service Unavailable` |
 
-A `4xx` says "your request is wrong"; a `5xx` says "the server failed". Confusing them sends the investigation to the wrong side.
+A `4xx` means the server could not handle the request as it arrived —for example, because the resource does not exist (`404`) or authentication is missing (`401`). A `5xx` means the server or another component in the path could not complete a valid request. Confusing them sends the investigation to the wrong side.
 
 ```bash
 curl -s -o /dev/null -w '%{http_code}\n' https://example.com

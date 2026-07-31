@@ -15,7 +15,7 @@ takeaways:
   - Aunque desarrolles en Windows o macOS, lo que despliegas casi siempre corre sobre Linux.
   - Una distribución cambia el empaquetado y el gestor de paquetes, no el modelo del sistema.
   - Cada proceso corre como un usuario, y esa identidad explica la mayoría de los fallos de acceso.
-  - Un servicio es un proceso que el sistema arranca, reinicia y registra por ti.
+  - Un servicio es un proceso que el sistema puede arrancar, reiniciar según su configuración y registrar por ti.
 ---
 
 ## Por qué Linux y no otro sistema
@@ -74,7 +74,7 @@ En Linux no hay unidades `C:` ni `D:`. Hay **una sola raíz**, `/`, y todo cuelg
 | `/var/lib` | Datos que los servicios necesitan conservar | Lo que no puedes perder al reinstalar |
 | `/home/usuario` | Archivos personales de cada usuario | Tu espacio, sin permisos especiales |
 | `/usr/bin` | Programas instalados | Dónde acaba lo que instalas con el gestor de paquetes |
-| `/tmp` | Temporales | Se borra solo; nunca guardes ahí algo que importe |
+| `/tmp` | Temporales | Puede limpiarse automáticamente; nunca guardes ahí algo que importe |
 | `/proc`, `/sys` | Vista del núcleo, generada al vuelo | Archivos que no existen en disco: son el estado del sistema |
 
 Con eso ya tienes una hipótesis para casi cualquier fallo: la configuración está en `/etc`, lo que pasó está en `/var/log`, y lo que el servicio guardó está en `/var/lib`.
@@ -113,7 +113,7 @@ chown deploy:web servidor.log # cambia dueño y grupo
 
 Cuando un servicio "no puede escribir su log", la respuesta casi siempre está en esas tres ternas: el proceso corre como un usuario que no es el dueño ni está en el grupo.
 
-**`root` es el usuario que se salta todas estas comprobaciones**, y `sudo` sirve para ejecutar un comando como él.
+**`root` es el usuario con privilegios muy amplios sobre el sistema**, y `sudo` sirve para ejecutar un comando como él.
 
 :::caution[No uses permisos elevados por reflejo]
 `sudo` amplía el radio de impacto de un comando: un error deja de afectar a tus archivos y pasa a afectar a la máquina. Primero intenta leer; eleva permisos solo cuando el sistema te lo pida y entiendas qué va a cambiar.
@@ -121,7 +121,7 @@ Cuando un servicio "no puede escribir su log", la respuesta casi siempre está e
 
 ## Servicios: lo que el sistema arranca por ti
 
-Una aplicación en producción no se lanza a mano y se deja abierta en una terminal. Se registra como **servicio**, y el sistema se encarga de arrancarla al encender la máquina, reiniciarla si se cae y recoger su salida en un registro central. En Linux moderno, quien hace eso se llama `systemd`.
+Una aplicación en producción no se lanza a mano y se deja abierta en una terminal. Se registra como **servicio**, y el sistema puede encargarse de arrancarla al encender la máquina, reiniciarla si su configuración lo indica y recoger su salida en un registro central. En Linux moderno, quien hace eso se llama `systemd`.
 
 ```bash
 systemctl status nginx    # ¿está activo? ¿desde cuándo? ¿se reinició solo?

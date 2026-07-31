@@ -77,7 +77,7 @@ ss -lnt                                  # ¿qué escucha localmente?
 curl -v https://example.com 2>&1 | head  # narra resolución, TCP y TLS
 ```
 
-`curl -v` cuenta la ruta paso a paso: resuelve la IP, abre TCP contra el puerto 443, presenta el **certificado** TLS y solo entonces envía la petición HTTP. `127.0.0.1` acepta tráfico local; `0.0.0.0` puede aceptar tráfico de varias interfaces y exige más cuidado. TLS existe para dos cosas: cifrar la conexión y probar que el servidor es quien dice ser.
+`curl -v` cuenta la ruta paso a paso: resuelve la IP, abre TCP contra el puerto 443, recibe y valida el **certificado** TLS que presenta el servidor y solo entonces envía la petición HTTP. `127.0.0.1` acepta tráfico local; `0.0.0.0` puede aceptar tráfico de varias interfaces y exige más cuidado. TLS existe para dos cosas: cifrar la conexión y probar que el servidor es quien dice ser.
 
 Entre el cliente y ese puerto suele haber un **firewall**: un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Distingue un síntoma que confunde a mucha gente: si nadie escucha, la máquina rechaza y ves `Connection refused` de inmediato; si un firewall descarta el paquete en silencio, no ves nada y la conexión se queda colgada hasta agotar el tiempo.
 
@@ -96,7 +96,7 @@ Una respuesta HTTP comunica mucho más que un cuerpo. El **código de estado** r
 | `4xx` | Error del cliente | `404 Not Found` |
 | `5xx` | Error del servidor | `503 Service Unavailable` |
 
-Un `4xx` dice "tu petición está mal"; un `5xx` dice "el servidor falló". Confundirlos envía la investigación al lado equivocado.
+Un `4xx` indica que el servidor no pudo atender la petición tal como llegó —por ejemplo, porque el recurso no existe (`404`) o falta autenticación (`401`)—. Un `5xx` indica que el servidor o un componente del recorrido no pudo completar una petición válida. Confundirlos envía la investigación al lado equivocado.
 
 ```bash
 curl -s -o /dev/null -w '%{http_code}\n' https://example.com

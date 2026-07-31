@@ -52,7 +52,7 @@ ps -ef            # todos los procesos del sistema
 ss -lntup         # ¿qué escucha, en qué puerto y quién?
 ```
 
-Esos dos comandos responden preguntas distintas. `ps` dice qué se está ejecutando; `ss` dice qué está *accesible*. Un proceso puede estar vivo y no escuchar en ningún puerto, y ahí ya sabes que el problema no es que "la aplicación esté caída".
+Esos dos comandos responden preguntas distintas. `ps` dice qué se está ejecutando; `ss` dice qué puertos están escuchando localmente. Un proceso puede estar vivo y no escuchar en ningún puerto, y ahí ya sabes que el problema no es necesariamente que "la aplicación esté caída".
 
 Cuando el proceso que investigas está gestionado por el sistema, `systemctl status` y `journalctl` te dan lo mismo con más contexto —lo tienes en [Linux · servicios](/foundations/linux/#servicios-lo-que-el-sistema-arranca-por-ti).
 

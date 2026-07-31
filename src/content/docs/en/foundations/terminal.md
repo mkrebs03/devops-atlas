@@ -52,7 +52,7 @@ ps -ef            # every process on the system
 ss -lntup         # what is listening, on which port, and who owns it?
 ```
 
-Those two commands answer different questions. `ps` says what is running; `ss` says what is *reachable*. A process can be alive and listening on no port at all, and right there you know the problem is not that "the application is down".
+Those two commands answer different questions. `ps` says what is running; `ss` says which ports are listening locally. A process can be alive and listening on no port at all, so the problem is not necessarily that "the application is down".
 
 When the process you are investigating is managed by the system, `systemctl status` and `journalctl` give you the same thing with more context — that is in [Linux · services](/en/foundations/linux/#services-what-the-system-starts-for-you).
 

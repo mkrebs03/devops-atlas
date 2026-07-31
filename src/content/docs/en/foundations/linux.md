@@ -15,7 +15,7 @@ takeaways:
   - Even if you develop on Windows or macOS, what you deploy almost always runs on Linux.
   - A distribution changes the packaging and the package manager, not the model of the system.
   - Every process runs as a user, and that identity explains most access failures.
-  - A service is a process the system starts, restarts, and logs for you.
+  - A service is a process the system can start, restart according to its configuration, and log for you.
 ---
 
 ## Why Linux and not another system
@@ -74,7 +74,7 @@ Linux has no `C:` or `D:` drives. There is **a single root**, `/`, and everythin
 | `/var/lib` | Data services need to keep | What you cannot afford to lose on a reinstall |
 | `/home/user` | Each user's personal files | Your space, no special permissions needed |
 | `/usr/bin` | Installed programs | Where what you install with the package manager ends up |
-| `/tmp` | Temporary files | Cleared on its own; never keep anything that matters there |
+| `/tmp` | Temporary files | May be cleaned automatically; never keep anything that matters there |
 | `/proc`, `/sys` | The kernel's view, generated on the fly | Files that do not exist on disk: they are the system's state |
 
 That already gives you a hypothesis for almost any failure: configuration is in `/etc`, what happened is in `/var/log`, and what the service stored is in `/var/lib`.
@@ -113,7 +113,7 @@ chown deploy:web server.log  # change owner and group
 
 When a service "cannot write its log", the answer is almost always in those three triplets: the process runs as a user who is neither the owner nor in the group.
 
-**`root` is the user who skips all of these checks**, and `sudo` runs a single command as them.
+**`root` is the user with very broad privileges over the system**, and `sudo` runs a single command as them.
 
 :::caution[Do not reach for elevated permissions by reflex]
 `sudo` widens the blast radius of a command: a mistake stops affecting your files and starts affecting the machine. Read first; elevate only when the system asks you to and you understand what will change.
@@ -121,7 +121,7 @@ When a service "cannot write its log", the answer is almost always in those thre
 
 ## Services: what the system starts for you
 
-An application in production is not launched by hand and left open in a terminal. It is registered as a **service**, and the system takes care of starting it at boot, restarting it if it dies, and collecting its output into a central log. On modern Linux, the piece that does this is `systemd`.
+An application in production is not launched by hand and left open in a terminal. It is registered as a **service**, and the system can take care of starting it at boot, restarting it when its configuration says to, and collecting its output into a central log. On modern Linux, the piece that does this is `systemd`.
 
 ```bash
 systemctl status nginx    # is it active? since when? did it restart itself?

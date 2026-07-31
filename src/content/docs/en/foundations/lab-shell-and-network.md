@@ -40,7 +40,7 @@ Leave that process running and open a second terminal for the rest.
 ## Step 2 · observe the socket and verify the response
 
 ```bash
-ss -lnt | grep ':8080'
+ss -lntp | grep ':8080'
 curl -i http://127.0.0.1:8080/
 ```
 
@@ -52,7 +52,7 @@ HTTP/1.0 200 OK
 atlas is listening
 ```
 
-These are **two distinct pieces of evidence**: the socket says "something is listening"; the `200` says "the application returned what I expected".
+These are **two distinct pieces of evidence**: the socket says "something is listening"; the `200` says "the application returned what I expected". The `-p` option may also show the process that owns the socket; on some systems you need additional permissions to see that information.
 
 ## Step 3 · cause a failure on purpose
 
@@ -63,6 +63,14 @@ curl -i http://127.0.0.1:9090/
 # curl: (7) Failed to connect to 127.0.0.1 port 9090: Connection refused
 ```
 
+Now request a path that does not exist, without stopping the server:
+
+```bash
+curl -i http://127.0.0.1:8080/does-not-exist
+```
+
+You should receive a `404 File not found`. This time there was a connection and an HTTP response: the server is available, but it could not find the requested resource. This is an **application** failure, not a connection failure.
+
 `Connection refused` is not a `404`: there was no HTTP at all. It is the **connection** boundary, not the application one. Now stop the server with `Ctrl+C`, restart it on port `9090` and repeat the previous `curl`. What changed and why?
 
 ## When something is off
@@ -71,6 +79,7 @@ curl -i http://127.0.0.1:9090/
 | --- | --- | --- |
 | `Connection refused` | Nothing listens on that port | `ss -lnt` |
 | Hangs (timeout) | Firewall or listen address | `curl -v` |
+| `404 Not Found` | Missing path or resource | `curl -i` |
 | `200 OK` but odd content | Application / served file | `curl -i` |
 
 ## Verification
