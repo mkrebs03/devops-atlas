@@ -24,7 +24,6 @@ export const MODULE_IDS = /** @type {const} */ ([
   'collaboration',
   'server',
   'containers',
-  'testing',
   'integration',
   'deployment',
   'scaling',
@@ -237,37 +236,8 @@ export const modules = Object.freeze([
       page({
         id: 'containers.lab-container-pipeline', module: 'containers', order: 20,
         relativePath: 'containers/lab-container-pipeline/', kind: 'practice',
-        prerequisites: ['containers.docker', 'foundations.networking'],
-        label: { es: 'Práctica · pipeline local', en: 'Practice · local pipeline' },
-      }),
-    ]),
-  }),
-  Object.freeze({
-    id: 'testing',
-    order: 5,
-    label: localized({ es: 'Pruebas', en: 'Testing' }),
-    sidebarLabel: localized({ es: '05 · Pruebas', en: '05 · Testing' }),
-    summary: localized({
-      es: 'Convertir la confianza en evidencia con pruebas automáticas.',
-      en: 'Turning confidence into evidence with automated tests.',
-    }),
-    tools: Object.freeze(['Node.js']),
-    pages: Object.freeze([
-      page({
-        id: 'testing.overview', module: 'testing', order: 21,
-        relativePath: 'testing/', kind: 'overview',
-        prerequisites: ['collaboration.pull-requests'], label: { es: 'Panorama', en: 'Overview' },
-      }),
-      page({
-        id: 'testing.pyramid', module: 'testing', order: 22,
-        relativePath: 'testing/pyramid/', kind: 'concept',
-        prerequisites: [], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
-      }),
-      page({
-        id: 'testing.lab-first-test', module: 'testing', order: 23,
-        relativePath: 'testing/lab-first-test/', kind: 'practice',
-        prerequisites: ['testing.pyramid'],
-        label: { es: 'Práctica · tu primera prueba', en: 'Practice · your first test' },
+        prerequisites: ['containers.docker', 'containers.compose'],
+        label: { es: 'Práctica · empaquetar miapp', en: 'Practice · packaging myapp' },
       }),
     ]),
   }),
@@ -279,67 +249,84 @@ export const modules = Object.freeze([
   */
   Object.freeze({
     id: 'integration',
-    order: 6,
+    order: 5,
     label: localized({ es: 'Integración continua', en: 'Continuous integration' }),
-    sidebarLabel: localized({ es: '06 · Integración continua', en: '06 · Continuous integration' }),
+    sidebarLabel: localized({ es: '05 · Integración continua', en: '05 · Continuous integration' }),
     summary: localized({
-      es: 'Que cada cambio se valide solo, antes de llegar a un servidor.',
-      en: 'Every change validated on its own, before it reaches a server.',
+      es: 'Que cada cambio se pruebe y se valide solo, antes de llegar a un servidor.',
+      en: 'Every change tested and validated on its own, before it reaches a server.',
     }),
-    tools: Object.freeze(['GitHub Actions', 'YAML', 'Git', 'GitHub']),
+    tools: Object.freeze(['GitHub Actions', 'YAML', 'Node.js', 'Git', 'GitHub']),
     pages: Object.freeze([
       page({
-        id: 'integration.overview', module: 'integration', order: 24,
+        id: 'integration.overview', module: 'integration', order: 21,
         relativePath: 'integration/', kind: 'overview',
-        prerequisites: ['collaboration.pull-requests', 'testing.pyramid'],
+        prerequisites: ['collaboration.pull-requests'],
         label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'integration.github-actions', module: 'integration', order: 25,
+        id: 'integration.github-actions', module: 'integration', order: 22,
         relativePath: 'integration/github-actions/', kind: 'tool',
         prerequisites: ['collaboration.pull-requests'], label: { es: 'GitHub Actions', en: 'GitHub Actions' },
       }),
       page({
-        id: 'integration.branching-strategy', module: 'integration', order: 26,
+        id: 'integration.pyramid', module: 'integration', order: 23,
+        relativePath: 'integration/pyramid/', kind: 'concept',
+        prerequisites: [], label: { es: 'La pirámide de pruebas', en: 'The testing pyramid' },
+      }),
+      page({
+        id: 'integration.tests-in-ci', module: 'integration', order: 24,
+        relativePath: 'integration/tests-in-ci/', kind: 'tool',
+        prerequisites: ['integration.github-actions', 'integration.pyramid'],
+        label: { es: 'Pruebas en CI', en: 'Tests in CI' },
+      }),
+      page({
+        id: 'integration.branching-strategy', module: 'integration', order: 25,
         relativePath: 'integration/branching-strategy/', kind: 'concept',
         prerequisites: ['collaboration.pull-requests'],
         label: { es: 'Estrategias de ramas', en: 'Branching strategies' },
       }),
       page({
-        id: 'integration.tests-in-ci', module: 'integration', order: 27,
-        relativePath: 'integration/tests-in-ci/', kind: 'tool',
-        prerequisites: ['integration.github-actions', 'testing.pyramid'],
-        label: { es: 'Pruebas en CI', en: 'Tests in CI' },
-      }),
-      page({
-        id: 'integration.secrets', module: 'integration', order: 28,
+        id: 'integration.secrets', module: 'integration', order: 26,
         relativePath: 'integration/secrets/', kind: 'concept',
         prerequisites: ['integration.github-actions', 'server.manual-deploy'],
         label: { es: 'Secretos y permisos', en: 'Secrets and permissions' },
+      }),
+      page({
+        id: 'integration.lab-ci', module: 'integration', order: 27,
+        relativePath: 'integration/lab-ci/', kind: 'practice',
+        prerequisites: ['integration.github-actions', 'integration.tests-in-ci', 'containers.lab-container-pipeline'],
+        label: { es: 'Práctica · una prueba y un workflow', en: 'Practice · a test and a workflow' },
       }),
     ]),
   }),
   Object.freeze({
     id: 'deployment',
-    order: 7,
+    order: 6,
     label: localized({ es: 'Despliegue continuo', en: 'Continuous deployment' }),
-    sidebarLabel: localized({ es: '07 · Despliegue continuo', en: '07 · Continuous deployment' }),
+    sidebarLabel: localized({ es: '06 · Despliegue continuo', en: '06 · Continuous deployment' }),
     summary: localized({
       es: 'Llevar un artefacto a producción y poder revertirlo.',
       en: 'Taking an artifact to production — and being able to roll it back.',
     }),
-    tools: Object.freeze(['nginx', 'Traefik', 'Docker']),
+    tools: Object.freeze(['GitHub Actions', 'Docker', 'Docker Compose', 'nginx', 'Traefik']),
     pages: Object.freeze([
       page({
-        id: 'deployment.overview', module: 'deployment', order: 29,
+        id: 'deployment.overview', module: 'deployment', order: 28,
         relativePath: 'deployment/', kind: 'overview',
         prerequisites: ['integration.github-actions'], label: { es: 'Panorama', en: 'Overview' },
       }),
       page({
-        id: 'deployment.pipeline', module: 'deployment', order: 30,
+        id: 'deployment.pipeline', module: 'deployment', order: 29,
         relativePath: 'deployment/pipeline/', kind: 'concept',
         prerequisites: ['integration.github-actions', 'integration.secrets'],
         label: { es: 'Del build al release', en: 'From build to release' },
+      }),
+      page({
+        id: 'deployment.deploy-from-pipeline', module: 'deployment', order: 30,
+        relativePath: 'deployment/deploy-from-pipeline/', kind: 'tool',
+        prerequisites: ['deployment.pipeline', 'integration.secrets', 'containers.compose'],
+        label: { es: 'Desplegar desde el pipeline', en: 'Deploying from the pipeline' },
       }),
       page({
         id: 'deployment.load-balancing', module: 'deployment', order: 31,
@@ -355,7 +342,7 @@ export const modules = Object.freeze([
       page({
         id: 'deployment.lab-release', module: 'deployment', order: 33,
         relativePath: 'deployment/lab-release/', kind: 'practice',
-        prerequisites: ['deployment.pipeline'],
+        prerequisites: ['deployment.strategies'],
         label: { es: 'Práctica · promover y revertir', en: 'Practice · promote and roll back' },
       }),
     ]),
@@ -368,9 +355,9 @@ export const modules = Object.freeze([
   */
   Object.freeze({
     id: 'scaling',
-    order: 8,
-    label: localized({ es: 'Escalar', en: 'Scaling' }),
-    sidebarLabel: localized({ es: '08 · Escalar', en: '08 · Scaling' }),
+    order: 7,
+    label: localized({ es: 'Operar y escalar', en: 'Operating and scaling' }),
+    sidebarLabel: localized({ es: '07 · Operar y escalar', en: '07 · Operating and scaling' }),
     summary: localized({
       es: 'Ver qué está pasando, y saber cuándo una máquina deja de bastar.',
       en: 'Seeing what is happening, and knowing when one machine stops being enough.',
@@ -416,9 +403,9 @@ export const modules = Object.freeze([
   */
   Object.freeze({
     id: 'infrastructure',
-    order: 9,
+    order: 8,
     label: localized({ es: 'Infraestructura como código', en: 'Infrastructure as code' }),
-    sidebarLabel: localized({ es: '09 · Infraestructura como código', en: '09 · Infrastructure as code' }),
+    sidebarLabel: localized({ es: '08 · Infraestructura como código', en: '08 · Infrastructure as code' }),
     summary: localized({
       es: 'Dejar de configurar máquinas a mano y empezar a describirlas.',
       en: 'Describing machines instead of configuring them by hand.',

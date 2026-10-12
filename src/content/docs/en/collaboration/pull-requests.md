@@ -32,6 +32,15 @@ git pull --ff-only
 git switch -c feat/health-check
 ```
 
+Once the change is ready, the branch is published and the proposal opened:
+
+```bash
+git push -u origin feat/health-check
+gh pr create --fill
+```
+
+`gh` is GitHub's command-line tool. Without it, the link `git push` prints opens the same form on the web.
+
 This route — a short branch that returns to `main` quickly — is not the only way to organise a project's branches, but it is the simplest one, and the one worth keeping until you have a reason for something else. What those reasons are gets decided later, in [Branching strategies](/en/integration/branching-strategy/), once you know what a deployment costs.
 
 ## Pull requests as conversation

@@ -45,7 +45,7 @@ Un proyecto pequeño suele aceptar perder un día y tardar una hora. Ponerle nú
 Copiar los archivos de datos de una base de datos en marcha produce una copia inconsistente: la estabas copiando mientras escribía. La herramienta correcta es la que trae la propia base de datos.
 
 ```bash
-pg_dump --format=custom miapp > /var/backups/miapp-$(date +%F).dump
+pg_dump --format=custom miapp > /var/backups/miapp/miapp-$(date +%F).dump
 ```
 
 `--format=custom` comprime y permite restaurar tablas sueltas. La fecha en el nombre es lo que evita sobrescribir el respaldo bueno con uno hecho después de que los datos se corrompieran.
@@ -56,7 +56,7 @@ Un respaldo en `/var/backups` del mismo servidor protege de un `DROP TABLE` y de
 
 ```bash
 rsync --archive --compress \
-  /var/backups/ respaldo@otro-host:/respaldos/miapp/
+  /var/backups/miapp/ respaldo@otro-host:/respaldos/miapp/
 ```
 
 La regla que se suele citar es **3-2-1**: tres copias, en dos medios distintos, una de ellas fuera del sitio. Para un proyecto pequeño, "el servidor y un almacenamiento de objetos en otra región" ya cumple lo esencial.
@@ -72,14 +72,28 @@ Si el servidor tiene credenciales con permiso de borrado sobre el destino, quien
 0 3 * * * marta /usr/local/bin/respaldo-miapp.sh
 ```
 
-Ese script debe hacer tres cosas y no dos: volcar, copiar fuera y **terminar con error si algo falló**. Un script que sigue adelante tras un fallo produce archivos vacíos que parecen respaldos.
+Ese script debe hacer cuatro cosas: volcar, copiar fuera, borrar lo viejo y **terminar con error si algo falló**. Un script que sigue adelante tras un fallo produce archivos vacíos que parecen respaldos.
 
 ```bash
 #!/usr/bin/env bash
+# /usr/local/bin/respaldo-miapp.sh
 set -euo pipefail        # cualquier fallo detiene el script
+
+destino=/var/backups/miapp
+archivo="$destino/miapp-$(date +%F).dump"
+
+mkdir -p "$destino"
+pg_dump --format=custom miapp > "$archivo.tmp"
+mv "$archivo.tmp" "$archivo"            # solo existe con su nombre final si el volcado terminó
+
+rsync --archive --compress "$destino/" respaldo@otro-host:/respaldos/miapp/
+
+find "$destino" -name 'miapp-*.dump' -mtime +14 -delete
 ```
 
-También hay que borrar lo viejo, o el disco se llena y el respaldo empieza a fallar por falta de espacio — que es la forma más común de quedarse sin respaldos.
+El volcado se escribe con un nombre temporal y se renombra al terminar: así un `pg_dump` interrumpido no deja un archivo a medias con aspecto de respaldo. El borrado va al final y solo toca copias locales de más de catorce días; sin él, el disco se llena y el respaldo empieza a fallar por falta de espacio, que es la forma más común de quedarse sin respaldos.
+
+El usuario que lo ejecuta necesita poder escribir en esa carpeta y conectarse a la base de datos. Y como `cron` no avisa cuando un trabajo falla, la última pieza es enterarse: que el script haga una petición a un servicio de vigilancia al terminar bien, y que la alerta salte cuando esa petición no llega.
 
 ## El paso que casi nadie da
 
@@ -87,7 +101,7 @@ Un respaldo no está comprobado hasta que se restaura. El archivo puede existir,
 
 ```bash
 createdb miapp_prueba
-pg_restore --dbname=miapp_prueba /var/backups/miapp-2026-07-26.dump
+pg_restore --dbname=miapp_prueba /var/backups/miapp/miapp-2026-07-26.dump
 psql miapp_prueba -c "select count(*) from usuarios;"
 dropdb miapp_prueba
 ```

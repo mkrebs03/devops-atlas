@@ -117,6 +117,15 @@ git fetch origin
 git log --oneline HEAD..origin/main   # ¿qué trae origin que aún no tengo?
 ```
 
+Publicar es el camino inverso: `git push` envía tus commits al remoto.
+
+```bash
+git push -u origin feat/health   # la primera vez: publica la rama y la deja asociada
+git push                         # las siguientes
+```
+
+Si el remoto tiene commits que tú no, Git rechaza el push en lugar de pisarlos. Primero integras lo que falta (`git pull --rebase`), y después publicas.
+
 ## Comprueba lo que entendiste
 
 <details>

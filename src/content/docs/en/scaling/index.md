@@ -1,5 +1,5 @@
 ---
-title: Scaling
+title: Operating and scaling
 description: Seeing what is happening in production, and deciding from evidence when one machine stops being enough.
 type: concept
 level: intermediate

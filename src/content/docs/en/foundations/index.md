@@ -35,14 +35,14 @@ flowchart LR
   DNS --> C["Connection"] --> P["Port"] --> Pr["Process"] --> A["File"] --> Cf["Config"]
 ```
 
-## The foundations map
+## The route
 
-| Signal | Useful question | Page |
+| Moment | Question | Page |
 | --- | --- | --- |
 | System | Where does configuration live, and who may touch it? | [Linux](/en/foundations/linux/) |
 | Process | What is running and who started it? | [The terminal](/en/foundations/terminal/#observing-processes) |
 | Network | Is the application listening and reachable? | [Essential networking](/en/foundations/networking/) |
-| Practice | Can I reproduce an investigation? | [Practice · shell and network](/en/foundations/lab-shell-and-network/) |
+| Practice | Can I reproduce an investigation? | [Practice · investigate a local application](/en/foundations/lab-shell-and-network/) |
 
 :::tip[Change the order of your questions]
 Walking the system from the outside in —DNS → connection → port → process → file → configuration— reduces the temptation to change five things at once.

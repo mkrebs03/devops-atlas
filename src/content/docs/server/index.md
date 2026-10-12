@@ -11,7 +11,7 @@ learningObjectives:
   - Distinguir qué parte del trabajo la hace la máquina y cuál la hace una persona.
   - Reconocer los límites de operar un solo servidor a mano.
 takeaways:
-  - Un servidor sirviendo tráfico es una aplicación, un supervisor, un proxy y un certificado.
+  - Un servidor sirviendo tráfico es una aplicación sostenida por un proxy, un supervisor, un cortafuegos y un respaldo.
   - Todo lo que se hace a mano se hace distinto la segunda vez.
   - Con un solo disco, el respaldo es la única copia de lo que no se puede regenerar.
 ---

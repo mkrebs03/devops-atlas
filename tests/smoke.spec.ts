@@ -78,6 +78,22 @@ test.describe('DevOps Atlas', () => {
     await expect(page).toHaveURL(/\/scaling\/observability\/$/);
   });
 
+  test('the retired testing module resolves inside integration', async ({ page }) => {
+    await page.goto('/testing/');
+    await expect(page).toHaveURL(/\/integration\/$/);
+    await page.goto('/testing/pyramid/');
+    await expect(page).toHaveURL(/\/integration\/pyramid\/$/);
+    await page.goto('/en/testing/lab-first-test/');
+    await expect(page).toHaveURL(/\/en\/integration\/lab-ci\/$/);
+  });
+
+  test('the sample application page is reachable in both editions', async ({ page }) => {
+    await page.goto('/sample-app/');
+    await expect(page.getByRole('heading', { level: 1, name: 'La aplicación de ejemplo' })).toBeVisible();
+    await page.goto('/en/sample-app/');
+    await expect(page.getByRole('heading', { level: 1, name: 'The sample application' })).toBeVisible();
+  });
+
   test('mermaid blocks render as diagrams', async ({ page }) => {
     await page.goto('/foundations/networking/');
     await expect(page.locator('figure.atlas-diagram svg').first()).toBeVisible({ timeout: 15_000 });

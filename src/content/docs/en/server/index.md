@@ -11,7 +11,7 @@ learningObjectives:
   - Tell apart the work the machine does from the work a person does.
   - Recognise the limits of operating a single server by hand.
 takeaways:
-  - A server serving traffic is an application, a supervisor, a proxy, and a certificate.
+  - A server serving traffic is an application held up by a proxy, a supervisor, a firewall, and a backup.
   - Anything done by hand gets done differently the second time.
   - With a single disk, the backup is the only copy of what cannot be regenerated.
 ---

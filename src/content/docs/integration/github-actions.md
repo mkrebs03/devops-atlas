@@ -38,7 +38,7 @@ Un buen pipeline no solo compila: revisa formato, tipos y comportamiento antes d
 El **lint** es la comprobación más barata de todas: un programa lee el código sin ejecutarlo y señala lo que rompe una convención o huele a error —una variable sin usar, un `await` que falta, una importación que ya no existe—. Tarda segundos, así que su veredicto llega primero.
 
 ```yaml
-name: Validate Atlas
+name: CI
 on:
   pull_request:
   push:
@@ -49,41 +49,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 10.29.3 }
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint        # formato y convenciones
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint         # formato y convenciones
 
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 10.29.3 }
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run check       # tipos
-      - run: pnpm run test:e2e    # comportamiento
+          cache: npm
+      - run: npm ci
+      - run: npm test             # comportamiento
 
   build:
     needs: [lint, test]           # espera a que lint y test pasen
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 10.29.3 }
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
 ```
 
-`cache: pnpm` reutiliza dependencias entre ejecuciones; `lint` y `test` corren en paralelo y `needs: [lint, test]` hace que `build` espere a ambos. Cada paso debe decir qué garantiza y qué evidencia deja.
+`cache: npm` reutiliza dependencias entre ejecuciones; `lint` y `test` corren en paralelo y `needs: [lint, test]` hace que `build` espere a ambos. Cada paso debe decir qué garantiza y qué evidencia deja.
 
 ## Validar no es desplegar
 

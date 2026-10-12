@@ -17,19 +17,20 @@ Developers moving toward DevOps: self-taught learners, career switchers, student
 
 ## What is inside
 
-Nine modules grouped by the state of the system they describe — one machine, one package, one automated check — plus an A–Z tool index and a glossary. The order suggests a reading path; you can also come in through search or the index.
+Eight modules grouped by the state of the system they describe — one machine, one package, one automated check — plus an A–Z tool index and a glossary. The order suggests a reading path; you can also come in through search or the index.
 
-| #  | Module                   | Tools                                                           | Practice                      |
-|----|--------------------------|-----------------------------------------------------------------|-------------------------------|
-| 01 | Foundations              | Linux, Bash, curl, ss                                            | Investigate a local app       |
-| 02 | Collaboration            | Git, GitHub                                                      | Safe branches                 |
-| 03 | One server               | SSH, ufw, systemd, nginx, Certbot                                | From empty VPS to HTTPS       |
-| 04 | Containers               | Docker, Docker Compose, nginx                                    | Local pipeline                |
-| 05 | Testing                  | Node.js                                                          | Your first test               |
-| 06 | Continuous integration   | GitHub Actions, YAML, Git, GitHub                                | —                             |
-| 07 | Continuous deployment    | nginx, Traefik, Docker                                           | Promote and roll back         |
-| 08 | Scaling                  | Prometheus, OpenTelemetry, PostgreSQL, Kubernetes, Docker Swarm  | —                             |
-| 09 | Infrastructure as code   | Terraform, Ansible, SSH                                          | —                             |
+| #  | Module                  | Tools                                                           | Practice                           |
+|----|-------------------------|-----------------------------------------------------------------|------------------------------------|
+| 01 | Foundations             | Linux, Bash, curl, ss                                           | Investigate a local application    |
+| 02 | Collaboration           | Git, GitHub                                                     | Safe branches                      |
+| 03 | One server              | SSH, ufw, systemd, nginx, Certbot                               | From empty VPS to HTTPS            |
+| 04 | Containers              | Docker, Docker Compose, nginx                                   | Packaging myapp                    |
+| 05 | Continuous integration  | GitHub Actions, YAML, Node.js, Git, GitHub                      | A test and a workflow              |
+| 06 | Continuous deployment   | GitHub Actions, Docker, Docker Compose, nginx, Traefik          | Promote and roll back              |
+| 07 | Operating and scaling   | Prometheus, OpenTelemetry, PostgreSQL, Kubernetes, Docker Swarm | —                                  |
+| 08 | Infrastructure as code  | Terraform, Ansible, SSH                                         | —                                  |
+
+The six walkthroughs work on the same sample application, so each one starts where the previous one ended.
 
 42 module pages in total, 6 of them runnable walkthroughs.
 
@@ -71,7 +72,7 @@ Multi-stage build: compiles with Node, serves the result with nginx. The product
 
 ## Status
 
-Nine modules published, from booting a machine to describing that machine in a file, with backups, observability, and secrets along the way. Public clouds, Kubernetes in depth, and security are not covered yet.
+Eight modules published, from booting a machine to describing that machine in a file, with backups, observability, and secrets along the way. Public clouds, Kubernetes in depth, and security are not covered yet.
 
 ## Contributing
 

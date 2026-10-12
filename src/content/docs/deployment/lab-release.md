@@ -1,93 +1,190 @@
 ---
 title: Práctica · promover y revertir
-description: Corre dos versiones, cambia el tráfico a la nueva y vuelve atrás, un blue-green local.
+description: Un blue-green local con un proxy de verdad, cambiando de versión y volviendo atrás sin perder una sola petición.
 type: practice
 level: intermediate
 module: deployment
 tools: [docker, nginx, curl]
-prerequisites: [deployment.pipeline]
+prerequisites: [deployment.strategies]
 learningObjectives:
-  - Ejecutar dos versiones de un servicio e intercambiar cuál recibe tráfico.
-  - Practicar un cambio estilo blue-green y su rollback.
-  - Verificar cada paso con una comprobación HTTP.
+  - Ejecutar dos versiones de un servicio detrás de un proxy y decidir cuál recibe tráfico.
+  - Verificar la versión nueva en aislamiento antes de exponerla.
+  - Cambiar y revertir el tráfico recargando el proxy, y comprobar que no se pierde ninguna petición.
 takeaways:
-  - Cambiar el tráfico entre dos versiones hace el despliegue reversible.
-  - Un rollback es solo volver a apuntar a la versión anterior.
-  - Verificar antes y después convierte el despliegue en evidencia.
+  - Desplegar es arrancar la versión nueva; publicar es cambiar a dónde apunta el proxy.
+  - Un rollback es la misma operación en sentido contrario, y por eso es rápido.
+  - Validar la configuración antes de recargar es lo que impide que un cambio roto llegue al tráfico.
 ---
 
-## Objetivo
+## Qué vas a tener al final
 
-Vas a correr dos versiones de un sitio (azul y verde), verificar la nueva en aislamiento, cambiar el tráfico a la nueva y revertir, un blue-green en tu máquina.
+Dos versiones de `miapp` corriendo a la vez, un nginx delante que decide cuál atiende, y un bucle de peticiones que demuestra que cambiar de una a otra —y volver— no corta nada.
 
-En un sistema real, quien cambia el tráfico es un [proxy inverso](/server/proxy-tls/) y el cambio no interrumpe nada. Aquí el papel del proxy lo hace el puerto 8080: apagas el contenedor que lo ocupa y arrancas otro en su lugar. La secuencia de decisiones es la misma —verificar en aislamiento, cambiar, verificar, poder volver—, pero hay un instante de corte que en producción no habría.
+```mermaid
+flowchart LR
+  C["curl · 8080"] --> P["proxy · nginx"]
+  P -->|activo| B["blue · v1"]
+  P -.->|en espera| G["green · v2"]
+```
 
 ## Requisitos
 
-- Docker.
-- Unos 15 minutos.
+- Docker en ejecución.
+- La carpeta `~/miapp` con su `Dockerfile`, de la [práctica de contenedores](/containers/lab-container-pipeline/).
+- Dos terminales.
+- Si tu Docker corre en una máquina virtual (Colima, Docker Desktop), trabaja dentro de tu carpeta personal, como hace la práctica: son las rutas que la máquina virtual puede montar.
+- Unos 20 minutos.
 
-## Paso 1 · la versión azul está en producción (8080)
-
-```bash
-mkdir -p /tmp/atlas-release-lab && cd /tmp/atlas-release-lab
-printf '<h1>v1 azul</h1>\n' > blue.html
-docker run -d --rm --name atlas-blue -p 8080:80 \
-  -v "$PWD/blue.html:/usr/share/nginx/html/index.html:ro" nginx:alpine
-curl -s http://127.0.0.1:8080/     # v1 azul
-```
-
-## Paso 2 · despliega la verde en aislamiento (8081)
+## Paso 1 · La versión azul, detrás del proxy
 
 ```bash
-printf '<h1>v2 verde</h1>\n' > green.html
-docker run -d --rm --name atlas-green -p 8081:80 \
-  -v "$PWD/green.html:/usr/share/nginx/html/index.html:ro" nginx:alpine
-curl -s http://127.0.0.1:8081/     # v2 verde (nadie en producción la ve aún)
+docker build --tag miapp:local ~/miapp
+mkdir -p ~/atlas-bluegreen/conf && cd ~/atlas-bluegreen
+
+docker network create atlas-bg
+docker run --detach --name blue --network atlas-bg --env APP_VERSION=v1 miapp:local
+
+cat > conf/default.conf <<'EOF'
+server {
+  listen 80;
+  location / {
+    proxy_pass http://blue:8080;
+  }
+}
+EOF
+
+docker run --detach --name proxy --network atlas-bg \
+  --publish 127.0.0.1:8080:80 \
+  --volume "$PWD/conf:/etc/nginx/conf.d:ro" nginx:alpine
+
+curl -s http://127.0.0.1:8080/
 ```
 
-La verde ya corre y la verificaste sin exponerla a los usuarios.
+`blue` no publica ningún puerto. El único contenedor alcanzable desde tu máquina es el proxy, que llega a `blue` por su nombre dentro de la red `atlas-bg`.
 
-## Paso 3 · cambia el tráfico a la verde (8080)
+**Señal:** `miapp v1`.
+
+## Paso 2 · Deja corriendo el tráfico
+
+En la **segunda terminal**, lanza peticiones sin parar y déjalas ahí durante toda la práctica:
 
 ```bash
-docker stop atlas-blue
-docker run -d --rm --name atlas-live -p 8080:80 \
-  -v "$PWD/green.html:/usr/share/nginx/html/index.html:ro" nginx:alpine
-curl -s http://127.0.0.1:8080/     # ahora v2 verde
+while true; do
+  curl -sf -m 2 http://127.0.0.1:8080/ || echo FALLO
+  sleep 0.3
+done
 ```
 
-Producción (8080) sirve la verde. El cambio fue casi instantáneo.
+**Señal:** una columna de `miapp v1`. Cualquier petición que no reciba un `200` imprimiría `FALLO`.
 
-## Paso 4 · revierte
-
-Algo salió mal: vuelve a la azul.
+## Paso 3 · La versión verde, en aislamiento
 
 ```bash
-docker stop atlas-live
-docker run -d --rm --name atlas-blue -p 8080:80 \
-  -v "$PWD/blue.html:/usr/share/nginx/html/index.html:ro" nginx:alpine
-curl -s http://127.0.0.1:8080/     # de vuelta a v1 azul
+docker run --detach --name green --network atlas-bg --env APP_VERSION=v2 miapp:local
+docker run --rm --network atlas-bg alpine wget -qO- http://green:8080/
+docker run --rm --network atlas-bg alpine wget -qO- http://green:8080/health
 ```
 
-Revertir fue volver a apuntar a la versión anterior. Eso es lo que un blue-green te compra.
+**Señal:** `miapp v2` y `{"status":"ok"}` desde dentro de la red, mientras la segunda terminal sigue diciendo `miapp v1`. La versión nueva está desplegada y nadie la está usando: esa es la prueba de humo antes de darle tráfico.
 
-## Verificación
+## Paso 4 · Cambia el tráfico
 
-La afirmación comprobable: pudiste servir la nueva versión y volver a la anterior sin reconstruir nada.
+```bash
+cat > conf/default.conf <<'EOF'
+server {
+  listen 80;
+  location / {
+    proxy_pass http://green:8080;
+  }
+}
+EOF
+
+docker exec proxy nginx -t && docker exec proxy nginx -s reload
+```
+
+`nginx -t` valida el archivo; `-s reload` arranca procesos nuevos con la configuración nueva y deja que los viejos terminen las peticiones que tenían entre manos antes de salir.
+
+**Señal:** en la segunda terminal, la columna pasa de `miapp v1` a `miapp v2` sin ningún `FALLO` en medio.
+
+## Paso 5 · Un cambio roto no llega al tráfico
+
+Apunta el proxy a un destino que no existe:
+
+```bash
+cat > conf/default.conf <<'EOF'
+server {
+  listen 80;
+  location / {
+    proxy_pass http://purple:8080;
+  }
+}
+EOF
+
+docker exec proxy nginx -t && docker exec proxy nginx -s reload
+```
+
+**Señal:** `nginx -t` falla con `host not found in upstream "purple"`, el `&&` impide la recarga, y la segunda terminal sigue en `miapp v2`. El archivo en disco está roto y el proxy sigue sirviendo con la última configuración válida.
+
+## Paso 6 · Revierte
+
+Algo salió mal con la verde. Volver es la misma operación, hacia el otro lado:
+
+```bash
+cat > conf/default.conf <<'EOF'
+server {
+  listen 80;
+  location / {
+    proxy_pass http://blue:8080;
+  }
+}
+EOF
+
+docker exec proxy nginx -t && docker exec proxy nginx -s reload
+```
+
+**Señal:** la columna vuelve a `miapp v1`, otra vez sin `FALLO`. No reconstruiste ni arrancaste nada: `blue` seguía ahí, y por eso el rollback tarda lo que tarda una recarga.
+
+Ese es también el coste del blue-green: mientras quieras poder volver, pagas las dos versiones corriendo.
+
+## Si algo no cuadra
+
+| Síntoma | Causa probable | Comando |
+| --- | --- | --- |
+| `FALLO` continuo desde el principio | El proxy no arrancó | `docker logs proxy` |
+| `502 Bad Gateway` al pedir sin `-f` | El contenedor de destino no corre | `docker ps` |
+| `host not found in upstream` al arrancar el proxy | `blue` no existe o está en otra red | `docker network inspect atlas-bg` |
+| La recarga no cambia nada | El archivo editado no es el montado | `docker exec proxy cat /etc/nginx/conf.d/default.conf` |
+| `name is already in use` | Quedaron contenedores de un intento anterior | La sección de limpieza |
 
 ## Comprueba lo que entendiste
 
 <details>
-<summary>En el paso 2 la verde corre en 8081 pero los usuarios siguen en 8080. ¿Por qué es útil?</summary>
+<summary>En el paso 3 la verde ya corre pero nadie la usa. ¿Por qué es útil?</summary>
 
-Porque puedes verificar la versión nueva en aislamiento —sin que ningún usuario la vea— antes de darle tráfico. Si algo está mal, lo descubres en 8081 y nunca llega a producción. Ese es el corazón del blue-green.
+Porque separa desplegar de publicar. Puedes comprobar la versión nueva con calma —que arranca, que su `/health` responde— sin que ningún usuario la vea. Si algo está mal, lo descubres antes de mover el tráfico y no hay nada que revertir.
+
+</details>
+
+<details>
+<summary>¿Qué habría pasado en el paso 5 sin el nginx -t delante?</summary>
+
+Depende del momento. En una recarga, nginx valida por su cuenta y conserva la configuración anterior si la nueva falla, así que el tráfico habría seguido. Pero el archivo roto se queda en disco, y el siguiente reinicio del contenedor —por una actualización, por un reinicio de la máquina— ya no arrancaría. `nginx -t` convierte ese fallo aplazado en uno inmediato y visible.
+
+</details>
+
+<details>
+<summary>Decides borrar blue justo después de cambiar a green. ¿Qué pierdes?</summary>
+
+El rollback instantáneo. Volver ya no es recargar el proxy: es arrancar de nuevo la versión anterior y esperar a que esté lista, con la versión mala atendiendo mientras tanto. La versión vieja se retira cuando la nueva lleva suficiente tiempo sana, no cuando deja de recibir tráfico.
 
 </details>
 
 ## Limpieza
 
+Detén el bucle de la segunda terminal con `Ctrl+C`. Después:
+
 ```bash
-docker stop atlas-blue atlas-green 2>/dev/null
-rm -rf /tmp/atlas-release-lab
+docker rm --force proxy blue green
+docker network rm atlas-bg
+rm -rf ~/atlas-bluegreen
 ```

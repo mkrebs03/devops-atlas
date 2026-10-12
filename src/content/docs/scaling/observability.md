@@ -69,7 +69,7 @@ Si la mitad de tus usuarios recibe respuesta en 50 ms y la otra mitad en 4 s, el
 
 ## Después de desplegar
 
-Aquí es donde esto se conecta con el resto del módulo. Un despliegue no termina cuando la versión nueva arranca, sino cuando has comprobado que se comporta como la anterior. En los primeros minutos, compara **la versión nueva contra la que ya estaba**:
+Aquí es donde esto se conecta con el despliegue. Un despliegue no termina cuando la versión nueva arranca, sino cuando has comprobado que se comporta como la anterior. En los primeros minutos, compara **la versión nueva contra la que ya estaba**:
 
 - Tasa de errores: ¿subió respecto a la versión anterior?
 - Latencia p95 y p99: ¿se degradó?
@@ -86,7 +86,7 @@ Una alerta debería significar: *alguien está sufriendo algo, y hay algo que ha
 - **Sobre síntomas**: "el 5% de las peticiones a `/checkout` falla" o "el p99 pasó de 300 ms a 3 s". Le pasa a alguien.
 - **No sobre causas**: "la CPU está al 80%". Puede ser perfectamente normal, y si no lo es, ya lo dirá la latencia.
 
-Y cada alerta necesita a alguien que pueda actuar y algo que hacer. Una alerta que no se puede accionar se ignora, y una vez que el equipo aprende a ignorar una, empieza a ignorar el resto —el mismo mecanismo por el que una [prueba frágil](/testing/pyramid/) acaba destruyendo la confianza en toda la suite.
+Y cada alerta necesita a alguien que pueda actuar y algo que hacer. Una alerta que no se puede accionar se ignora, y una vez que el equipo aprende a ignorar una, empieza a ignorar el resto —el mismo mecanismo por el que una [prueba frágil](/integration/pyramid/) acaba destruyendo la confianza en toda la suite.
 
 ## Las tres señales trabajan juntas
 

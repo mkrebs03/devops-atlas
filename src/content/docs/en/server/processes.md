@@ -82,11 +82,11 @@ The state `systemctl status` returns says more than it looks:
 | --- | --- |
 | `active (running)` | The process is alive |
 | `activating (auto-restart)` | It is in the retry loop: starting and dying |
-| `failed` | Retries ran out, or it exited with an error that is not retried |
+| `failed` | It exited with an error and nothing retries it, or systemd stopped retrying because it started too many times in a row |
 | `inactive (dead)` | Nobody has started it, or it stopped cleanly |
 
-:::caution[Restarting without limit hides the problem]
-`Restart=always` on an application that dies at startup — because a variable is missing, because the port is taken — produces an infinite loop that fills the journal and leaves the service down with nothing raising an alarm. That is why systemd gives up after five attempts in ten seconds. That cut-off is not the failure: it is what makes the real failure visible.
+:::caution[Retrying does not fix a failure that repeats]
+An application that dies at startup — because a variable is missing, because the port is taken — dies again on every retry, with `on-failure` just as with `always`. systemd has a brake: if the service starts more than five times in ten seconds, it stops trying and marks it `failed`. But with `RestartSec=5`, as in the unit above, that rate is never reached and the loop does not end: the service sits in `activating (auto-restart)` until somebody looks. Restarting covers the transient failure; the permanent one has to be seen, with `systemctl status` or with an alert.
 :::
 
 ## Reloading without cutting

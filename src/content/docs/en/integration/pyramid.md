@@ -3,7 +3,7 @@ title: The testing pyramid
 description: Unit, integration and end-to-end tests, and how to pick the right level.
 type: concept
 level: beginner
-module: testing
+module: integration
 tools: [node]
 prerequisites: []
 learningObjectives:

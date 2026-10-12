@@ -1,10 +1,10 @@
 ---
 title: Práctica · investigar una aplicación local
-description: Levanta un servidor pequeño, encuentra su puerto y verifica su respuesta.
+description: Arranca la aplicación de ejemplo, encuentra su puerto y separa un fallo de conexión de uno de aplicación.
 type: practice
 level: beginner
 module: foundations
-tools: [python, curl, ss]
+tools: [node, curl, ss]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
   - Iniciar un servidor local e identificar el puerto donde escucha.
@@ -16,75 +16,86 @@ takeaways:
   - Combinar herramientas pequeñas permite reproducir una investigación de red.
 ---
 
-## Objetivo
+## Qué vas a tener al final
 
-Vas a levantar un servidor local, comprobar en qué puerto escucha y separar un problema de conexión de un problema HTTP —el mismo razonamiento que usarás en producción, pero en tu máquina.
+La [aplicación de ejemplo](/sample-app/) corriendo en tu máquina, y tres evidencias separadas: que escucha, que responde, y qué aspecto tiene cada tipo de fallo. La carpeta que creas aquí la siguen usando las demás prácticas.
 
 ## Requisitos
 
-- Una terminal (mejor si abres dos).
-- Python 3, `curl` y `ss` disponibles.
+- Dos terminales.
+- Node 18 o superior y `curl`.
+- `ss`, que viene en cualquier Linux. En macOS no existe: usa `lsof -nP -iTCP -sTCP:LISTEN` donde la práctica dice `ss -lnt`.
 - Unos 15 minutos.
 
-## Paso 1 · publica una respuesta
+## Paso 1 · Arranca la aplicación
+
+Crea la carpeta `~/miapp` y guarda dentro el `server.js` de [La aplicación de ejemplo](/sample-app/#el-archivo). Después:
 
 ```bash
-mkdir -p /tmp/atlas-lab
-printf 'atlas is listening\n' > /tmp/atlas-lab/index.html
-cd /tmp/atlas-lab
-python3 -m http.server 8080
+cd ~/miapp
+node server.js
 ```
 
-Deja ese proceso corriendo y abre una segunda terminal para el resto.
+**Señal:** la terminal imprime `escuchando en 127.0.0.1:8080` y se queda ocupada. Déjala así y sigue en la segunda.
 
-## Paso 2 · observa el socket y verifica la respuesta
+## Paso 2 · Dos evidencias, no una
 
 ```bash
 ss -lntp | grep ':8080'
-curl -i http://127.0.0.1:8080/
+curl -i http://127.0.0.1:8080/health
 ```
 
-Deberías ver un socket en estado `LISTEN` y una respuesta que empieza así:
+**Señal:** un socket en estado `LISTEN` sobre `127.0.0.1:8080`, y una respuesta que empieza así:
 
 ```text
-HTTP/1.0 200 OK
+HTTP/1.1 200 OK
+content-type: application/json
 ...
-atlas is listening
+{"status":"ok"}
 ```
 
-Son **dos evidencias distintas**: el socket dice "hay algo escuchando"; el `200` dice "la aplicación respondió lo que esperaba". La opción `-p` puede mostrar también el proceso propietario del socket; en algunos sistemas necesitarás permisos adicionales para ver ese dato.
+Son evidencias distintas. El socket dice "hay algo escuchando"; el `200` dice "la aplicación respondió lo que esperaba". La opción `-p` añade el proceso dueño del socket; para ver procesos de otro usuario hace falta `sudo`.
 
-## Paso 3 · provoca un fallo a propósito
+## Paso 3 · Un fallo de aplicación
 
-Consulta un puerto donde nadie escucha:
-
-```bash
-curl -i http://127.0.0.1:9090/
-# curl: (7) Failed to connect to 127.0.0.1 port 9090: Connection refused
-```
-
-Ahora pide una ruta que no existe, sin detener el servidor:
+Pide una ruta que no existe, sin detener el servidor:
 
 ```bash
 curl -i http://127.0.0.1:8080/no-existe
 ```
 
-Deberías recibir un `404 File not found`. Aquí sí hubo conexión y una respuesta HTTP: el servidor está disponible, pero no encontró el recurso solicitado. Es un fallo de **aplicación**, no de conexión.
+**Señal:** `HTTP/1.1 404 Not Found`. Hubo conexión y hubo respuesta HTTP: el servidor está disponible y te dice que ese recurso no existe. Es la frontera de **aplicación**.
 
-`Connection refused` no es un `404`: ni siquiera hubo HTTP. Es la frontera de **conexión**, no la de aplicación. Ahora detén el servidor con `Ctrl+C`, reinícialo en el puerto `9090` y repite el `curl` anterior. ¿Qué cambió y por qué?
+## Paso 4 · Un fallo de conexión
 
-## Cuando algo no cuadra
+Ahora consulta un puerto donde nadie escucha:
+
+```bash
+curl -i http://127.0.0.1:9090/health
+```
+
+**Señal:** `curl` termina con el error `(7)` y un mensaje que incluye `Connection refused` o `Couldn't connect to server`, según la versión. No hay línea `HTTP/...` porque nunca hubo HTTP: es la frontera de **conexión**.
+
+## Paso 5 · Mueve el puerto
+
+Detén el servidor con `Ctrl+C` y arráncalo en otro puerto, sin tocar el archivo:
+
+```bash
+PORT=9090 node server.js
+```
+
+Repite los dos `curl` a `/health`, el de `8080` y el de `9090`.
+
+**Señal:** se invirtieron. Ahora `9090` responde `200` y `8080` rechaza la conexión. El código es el mismo; cambió una variable de entorno, que es la forma en que esta aplicación va a recibir su configuración en todas las prácticas siguientes.
+
+## Si algo no cuadra
 
 | Síntoma | Frontera probable | Primer comando |
 | --- | --- | --- |
 | `Connection refused` | Nada escucha ese puerto | `ss -lnt` |
 | Se queda colgado (timeout) | Firewall o dirección de escucha | `curl -v` |
 | `404 Not Found` | Ruta o recurso inexistente | `curl -i` |
-| `200 OK` pero contenido raro | Aplicación / archivo servido | `curl -i` |
-
-## Verificación
-
-El laboratorio termina con una afirmación comprobable: **"el proceso escucha en el puerto que elegí y devuelve el archivo que publiqué"**. Si puedes demostrar eso con `ss` y `curl`, lograste el objetivo.
+| `EADDRINUSE` al arrancar | Otro proceso ya ocupa el puerto | `ss -lntp` |
 
 ## Comprueba lo que entendiste
 
@@ -95,8 +106,13 @@ La aplicación. "Connection refused" significa que no había nada escuchando en 
 
 </details>
 
+<details>
+<summary>La aplicación escucha en 127.0.0.1:8080. ¿Podría alcanzarla otro equipo de tu red?</summary>
+
+No. `127.0.0.1` es la interfaz de *loopback*: solo acepta conexiones que nacen en la propia máquina. Para que otro equipo llegara tendría que escuchar en una interfaz de red —por ejemplo con `HOST=0.0.0.0`—, y eso es una decisión, no un valor por defecto.
+
+</details>
+
 ## Limpieza
 
-```bash
-rm -rf /tmp/atlas-lab
-```
+Detén el servidor con `Ctrl+C`. **No borres `~/miapp`**: la práctica de [ramas seguras](/collaboration/lab-git-branching/) empieza en esa carpeta.

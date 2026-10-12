@@ -117,6 +117,15 @@ git fetch origin
 git log --oneline HEAD..origin/main   # what does origin have that I do not?
 ```
 
+Publishing is the opposite direction: `git push` sends your commits to the remote.
+
+```bash
+git push -u origin feat/health   # the first time: publishes the branch and links it
+git push                         # from then on
+```
+
+If the remote has commits you do not, Git rejects the push rather than overwrite them. First you integrate what is missing (`git pull --rebase`), then you publish.
+
 ## Check your understanding
 
 <details>

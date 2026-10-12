@@ -1,99 +1,190 @@
 ---
-title: Práctica · pipeline local
-description: Construye una imagen estática, ejecútala, observa la caché de capas y verifica su contrato HTTP.
+title: Práctica · empaquetar miapp
+description: Convierte la aplicación de ejemplo en una imagen, descubre por qué no responde a la primera y descríbela con Compose.
 type: practice
 level: beginner
 module: containers
-tools: [docker, nginx, curl]
-prerequisites: [containers.docker, foundations.networking]
+tools: [docker, docker-compose, curl]
+prerequisites: [containers.docker, containers.compose]
 learningObjectives:
-  - Construir una imagen reproducible que contenga un sitio estático.
-  - Ejecutar el contenedor y verificar su contrato mediante una petición HTTP.
-  - Observar cómo la caché de capas acelera una reconstrucción.
+  - Escribir un Dockerfile para una aplicación real y construir su imagen.
+  - Diagnosticar un contenedor que arranca y no responde desde fuera.
+  - Distinguir reconstruir una imagen de reemplazar el contenedor que corre.
+  - Describir el servicio con Compose, incluido su chequeo de salud.
 takeaways:
-  - Construir, ejecutar y verificar son etapas separadas de la entrega.
-  - Una comprobación HTTP confirma que el artefacto responde como se espera.
-  - El orden del Dockerfile cambia qué capas se reutilizan al reconstruir.
+  - Dentro de un contenedor, 127.0.0.1 es el propio contenedor y no la máquina anfitriona.
+  - Reconstruir la imagen no cambia los contenedores que ya están corriendo.
+  - La misma imagen se comporta distinto según la configuración que recibe al arrancar.
+  - Un archivo de Compose guarda en el repositorio lo que antes eran banderas de docker run.
 ---
 
-## Objetivo
+## Qué vas a tener al final
 
-Vas a convertir un archivo HTML en una imagen Docker, verificar que el contenedor sirve exactamente el artefacto esperado y observar la caché de capas al reconstruir.
+`miapp` empaquetada en una imagen, corriendo como servicio de Compose con chequeo de salud, y con el `Dockerfile` y el `compose.yml` guardados en el repositorio. Por el camino vas a provocar el fallo más común al meter una aplicación en un contenedor.
 
 ## Requisitos
 
-- Docker en ejecución y `curl` disponible.
-- Unos 15 minutos.
+- Docker en ejecución, con `docker compose` disponible.
+- La carpeta `~/miapp` con su repositorio. Si entras por aquí, créala con el `server.js` de [La aplicación de ejemplo](/sample-app/#el-archivo).
+- Unos 25 minutos.
 
-## Paso 1 · crea un sitio mínimo
+## Paso 1 · El primer Dockerfile
 
 ```bash
-mkdir -p /tmp/atlas-container-lab
-cd /tmp/atlas-container-lab
-printf '<h1>Atlas pipeline green</h1>\n' > index.html
+cd ~/miapp
+printf '.git\nnode_modules\n.env\n' > .dockerignore
 cat > Dockerfile <<'EOF'
-FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/index.html
+FROM node:22-alpine
+WORKDIR /app
+COPY server.js ./
+USER node
+EXPOSE 8080
+CMD ["node", "server.js"]
 EOF
+
+docker build --tag miapp:local .
+docker run --detach --rm --name miapp --publish 127.0.0.1:8080:8080 miapp:local
 ```
 
-## Paso 2 · construye y ejecuta
+`USER node` hace que el proceso no corra como `root` dentro del contenedor. `.dockerignore` deja fuera del build lo que no debe viajar en la imagen.
+
+**Señal:** `docker ps` muestra el contenedor `miapp` en estado `Up`, y `docker logs miapp` dice `escuchando en 127.0.0.1:8080`.
+
+## Paso 2 · Arranca y no responde
 
 ```bash
-docker build --tag atlas-lab:local .
-docker run --detach --rm --name atlas-lab --publish 8080:80 atlas-lab:local
-curl --fail http://127.0.0.1:8080/
+curl -i http://127.0.0.1:8080/health
 ```
 
-La respuesta debe contener `Atlas pipeline green`. Si el contenedor no arranca, revisa primero la imagen construida y después el puerto publicado.
+**Señal:** falla. El mensaje depende de cómo tu instalación de Docker reenvía el puerto: `Connection reset by peer` en Linux, `Empty reply from server` en Docker Desktop, `Couldn't connect to server` en Colima y otras máquinas virtuales.
 
-## Paso 3 · observa la caché de capas
+Como el mensaje cambia, no es la evidencia. Recorre las fronteras como en [Fundamentos](/foundations/networking/) con lo que sí es estable: `docker ps` dice que el contenedor está `Up` y que el puerto está publicado, así que el fallo no es que no corra. Y el log dice que la aplicación escucha en `127.0.0.1`. Dentro de un contenedor esa dirección es **el contenedor**, no tu máquina: Docker entrega el tráfico por la interfaz de red del contenedor, donde no escucha nadie.
 
-Cambia el contenido y reconstruye:
+Compruébalo desde dentro, donde `127.0.0.1` sí es la aplicación:
 
 ```bash
-printf '<h1>Atlas pipeline green v2</h1>\n' > index.html
-docker build --tag atlas-lab:local .
+docker exec miapp wget -qO- http://127.0.0.1:8080/health
+# {"status":"ok"}
 ```
 
-En la salida verás `CACHED` en la capa `FROM nginx:alpine` (no cambió) y una reconstrucción solo de la capa `COPY index.html`. Docker reutiliza lo que puede: por eso el orden de las instrucciones importa.
+La aplicación está sana. Lo que falla es desde dónde se la puede alcanzar.
 
-## Paso 4 · inspecciona la evidencia
+## Paso 3 · Corrige la imagen, y después el contenedor
+
+La aplicación lee `HOST` del entorno. Dentro de un contenedor tiene que escuchar en todas sus interfaces:
 
 ```bash
-docker ps --filter name=atlas-lab
-docker logs atlas-lab
-docker image inspect atlas-lab:local --format '{{.Id}}'
+cat > Dockerfile <<'EOF'
+FROM node:22-alpine
+WORKDIR /app
+COPY server.js ./
+ENV HOST=0.0.0.0
+USER node
+EXPOSE 8080
+CMD ["node", "server.js"]
+EOF
+
+docker build --tag miapp:local .
+curl -i http://127.0.0.1:8080/health
 ```
 
-## Cuando algo no cuadra
+**Señal:** el build marca `CACHED` en `WORKDIR` y en `COPY` (`Using cache` si tu Docker usa el constructor antiguo) —no cambiaron, así que no se rehacen—, y el `curl` **sigue fallando**.
+
+Ese segundo resultado es la lección. Reconstruiste la imagen, pero el contenedor que corre nació de la anterior y una imagen nueva no lo toca. Hay que reemplazarlo:
+
+```bash
+docker stop miapp
+docker run --detach --rm --name miapp --publish 127.0.0.1:8080:8080 miapp:local
+curl -i http://127.0.0.1:8080/health
+```
+
+**Señal:** `HTTP/1.1 200 OK`. Fíjate en que `0.0.0.0` es dentro del contenedor; hacia fuera, quien decide el alcance es `--publish 127.0.0.1:8080:8080`, que solo abre el puerto en tu propia máquina.
+
+## Paso 4 · La misma imagen, otra configuración
+
+```bash
+docker stop miapp
+docker run --detach --rm --name miapp --publish 127.0.0.1:8080:8080 \
+  --env APP_VERSION=v1 miapp:local
+curl -s http://127.0.0.1:8080/
+```
+
+**Señal:** `miapp v1`. No reconstruiste nada: la imagen es la misma y cambió lo que recibe al arrancar. Es la idea de "un artefacto, varias configuraciones" que después atraviesa entornos.
+
+```bash
+docker stop miapp
+```
+
+## Paso 5 · Descríbelo con Compose
+
+Las banderas que llevas tecleando pasan a un archivo:
+
+```bash
+cat > compose.yml <<'EOF'
+services:
+  app:
+    build: .
+    environment:
+      APP_VERSION: ${APP_VERSION:-compose}
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+EOF
+
+docker compose up --detach --build
+docker compose ps
+curl -s http://127.0.0.1:8080/
+```
+
+**Señal:** `curl` responde `miapp compose` y, pasados unos segundos, `docker compose ps` muestra el servicio como `healthy`. Ese estado sale del `healthcheck`: Docker llama a `/health` desde dentro del contenedor cada diez segundos.
+
+## Paso 6 · Guárdalo
+
+```bash
+git switch -c feat/container
+git add Dockerfile .dockerignore compose.yml
+git commit -m 'feat: package miapp as a container'
+git push -u origin feat/container
+```
+
+Abre el pull request e intégralo, como en la [práctica de ramas](/collaboration/lab-git-branching/). Desde ese commit, cualquiera que clone el repositorio construye la misma imagen sin que tú le expliques nada.
+
+## Si algo no cuadra
 
 | Síntoma | Causa probable | Comando |
 | --- | --- | --- |
-| `Connection refused` | El contenedor no arrancó o el puerto no está publicado | `docker ps` |
-| `404 Not Found` | El archivo no quedó en la ruta que sirve nginx | `docker exec atlas-lab ls /usr/share/nginx/html` |
-| El build falla | Error en el Dockerfile o el contexto | lee la línea que reporta `docker build` |
-
-## Verificación
-
-La afirmación comprobable es: el contenedor sirve el artefacto que construí, y una reconstrucción reutiliza las capas que no cambiaron.
+| `curl` falla y `docker ps` no muestra el contenedor | No arrancó, o el puerto no está publicado | `docker ps --all` |
+| `curl` falla con el contenedor `Up` | La aplicación escucha en `127.0.0.1` dentro del contenedor | `docker logs miapp` |
+| `port is already allocated` | Otro contenedor u otro proceso ocupa el 8080 | `docker ps`, `ss -lntp` |
+| El servicio queda `unhealthy` | El chequeo no llega a `/health` | `docker compose logs app` |
+| El cambio no se nota | Reconstruiste la imagen y no reemplazaste el contenedor | `docker compose up --detach --build` |
 
 ## Comprueba lo que entendiste
 
 <details>
-<summary>Reconstruyes tras cambiar solo index.html y la capa FROM aparece como CACHED. ¿Es correcto?</summary>
+<summary>La aplicación escucha en 0.0.0.0 dentro del contenedor. ¿Queda expuesta a internet?</summary>
 
-Sí: la instrucción `FROM nginx:alpine` no cambió, así que Docker reutiliza esa capa y solo rehace el `COPY` del archivo modificado. Esa reutilización es justo lo que hace rápidas las reconstrucciones.
+No por eso. `0.0.0.0` se refiere a las interfaces del contenedor, que vive en una red privada de Docker. Lo que decide si se alcanza desde fuera es cómo publicas el puerto: `127.0.0.1:8080:8080` solo lo abre en la máquina anfitriona; `8080:8080` lo abriría en todas sus interfaces.
 
 </details>
 
-:::note[Una imagen es un artefacto]
-Un pipeline real no debería depender de archivos que existan por casualidad en el servidor. Construye el artefacto una vez, identifica su versión y promueve esa misma versión.
-:::
+<details>
+<summary>Reconstruiste la imagen y el contenedor sigue respondiendo lo de antes. ¿Por qué?</summary>
+
+Porque un contenedor se crea a partir de la imagen que existía en ese momento y no vuelve a mirarla. La etiqueta `miapp:local` ahora apunta a una imagen nueva, pero el proceso que corre sigue siendo el de la vieja. Hay que parar el contenedor y crear otro, que es lo que hace `docker compose up --build`.
+
+</details>
 
 ## Limpieza
 
 ```bash
-docker stop atlas-lab
-rm -rf /tmp/atlas-container-lab
+docker compose down
+docker image rm miapp:local
 ```
+
+Conserva los tres archivos en el repositorio: la [práctica de CI](/integration/lab-ci/) construye esta misma imagen en cada cambio.

@@ -88,17 +88,17 @@ Without state, Terraform cannot tell "this resource already exists and changed" 
 Three practical consequences:
 
 - **State holds secrets in clear text.** Generated passwords, keys, connection strings: whatever the provider returns ends up written there. It does not go in the repository.
-- **Shared, and locked.** If two people apply against the same state at once, it corrupts. Remote backends — S3 with DynamoDB, Terraform Cloud, GCS — hold the file and take a lock while somebody applies.
+- **Shared, and locked.** If two people apply against the same state at once, it corrupts. Remote backends — S3, GCS, HCP Terraform — hold the file and take a lock while somebody applies.
 - **It can fall out of sync.** If somebody deletes the server from the web panel, state still believes it exists. The next `plan` notices and offers to recreate it.
 
 ```hcl
 terraform {
   backend "s3" {
-    bucket         = "atlas-tfstate"
-    key            = "prod/terraform.tfstate"
-    region         = "eu-central-1"
-    dynamodb_table = "atlas-tflock"
-    encrypt        = true
+    bucket       = "atlas-tfstate"
+    key          = "prod/terraform.tfstate"
+    region       = "eu-central-1"
+    use_lockfile = true     # locking in the bucket itself
+    encrypt      = true
   }
 }
 ```
@@ -125,7 +125,7 @@ module "production" {
 }
 ```
 
-Both environments share a definition and differ only in what is declared. Drift stops being possible by construction: there are no two descriptions that can grow apart.
+Both environments share a definition and differ only in what is declared. The two descriptions can no longer grow apart, because there is only one. What can still change is the real machine, by hand and from outside; the next `plan` gives that away.
 
 Each environment needs its own state. Mixing them into one means an `apply` intended for staging has production's resources in front of it.
 

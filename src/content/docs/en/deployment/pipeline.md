@@ -26,7 +26,7 @@ The difference between the last two is a **gate**: manual or automatic.
 
 ## Build once, promote the same artifact
 
-The classic mistake is rebuilding in each environment. If `staging` and `production` compile separately, you are not testing what you deploy. Build **one** image, identify it by its SHA and promote that same image:
+The classic mistake is rebuilding in each environment. If `staging` and `production` compile separately, you are not testing what you deploy. Build **one** image, tag it with the SHA of the commit it came from, and promote that same image:
 
 ```mermaid
 flowchart LR
@@ -35,9 +35,11 @@ flowchart LR
 
 ```bash
 # the same immutable image travels across environments
-docker tag app:sha-abc123 registry/app:sha-abc123
-docker push registry/app:sha-abc123
+docker tag myapp:sha-abc123 registry/myapp:sha-abc123
+docker push registry/myapp:sha-abc123
 ```
+
+How that is done from a workflow, and how that image reaches the server, is in [Deploying from the pipeline](/en/deployment/deploy-from-pipeline/).
 
 ## Environments gain confidence
 
@@ -56,7 +58,7 @@ What changes between environments is the configuration (variables, secrets, URLs
 <details>
 <summary>Your pipeline builds the image in staging and again in production. What risk do you introduce?</summary>
 
-That you are not deploying what you tested: two builds can differ by dependencies, cache or timing. Build a single image, identify it by its SHA and promote that same one to each environment; the config changes, the artifact does not.
+That you are not deploying what you tested: two builds can differ by dependencies, cache or timing. Build a single image, tag it with the commit SHA and promote that same one to each environment; the config changes, the artifact does not.
 
 </details>
 

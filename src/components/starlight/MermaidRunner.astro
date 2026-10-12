@@ -109,6 +109,20 @@
     canvas.setAttribute('aria-labelledby', caption.id);
 
     figure.replaceChildren(canvas, caption);
+
+    // A flow wider than the column scrolls inside its canvas, and on a phone
+    // nothing says so: the last nodes are simply cut. Fade the trailing edge
+    // while there is more to see, and give the canvas a tab stop so a keyboard
+    // can scroll it too.
+    const markScroll = () => {
+      const hidden = canvas.scrollWidth - canvas.clientWidth - canvas.scrollLeft;
+      figure.toggleAttribute('data-more', hidden > 1);
+      if (canvas.scrollWidth > canvas.clientWidth + 1) canvas.tabIndex = 0;
+      else canvas.removeAttribute('tabindex');
+    };
+    canvas.addEventListener('scroll', markScroll, { passive: true });
+    new ResizeObserver(markScroll).observe(canvas);
+    markScroll();
   }
 
   /** Expressive Code splits the source across .ec-line rows; rejoin with newlines. */

@@ -17,19 +17,20 @@ Para desarrolladores que quieren moverse hacia DevOps: autodidactas, gente cambi
 
 ## Qué hay dentro
 
-Nueve módulos agrupados por el estado del sistema que describen —una máquina, un paquete, una comprobación automática—, más un índice A–Z de herramientas y un glosario. El orden sugiere una lectura; también puedes entrar por el buscador o por el índice.
+Ocho módulos agrupados por el estado del sistema que describen —una máquina, un paquete, una comprobación automática—, más un índice A–Z de herramientas y un glosario. El orden sugiere una lectura; también puedes entrar por el buscador o por el índice.
 
-| #  | Módulo                     | Herramientas                                                    | Práctica                        |
-|----|----------------------------|-----------------------------------------------------------------|---------------------------------|
-| 01 | Fundamentos                | Linux, Bash, curl, ss                                            | Investigar una aplicación local |
-| 02 | Colaboración               | Git, GitHub                                                      | Ramas seguras                   |
-| 03 | Un servidor                | SSH, ufw, systemd, nginx, Certbot                                | De VPS vacía a HTTPS            |
-| 04 | Contenedores               | Docker, Docker Compose, nginx                                    | Pipeline local                  |
-| 05 | Pruebas                    | Node.js                                                          | Tu primera prueba               |
-| 06 | Integración continua       | GitHub Actions, YAML, Git, GitHub                                | —                               |
-| 07 | Despliegue continuo        | nginx, Traefik, Docker                                           | Promover y revertir             |
-| 08 | Escalar                    | Prometheus, OpenTelemetry, PostgreSQL, Kubernetes, Docker Swarm  | —                               |
-| 09 | Infraestructura como código| Terraform, Ansible, SSH                                          | —                               |
+| #  | Módulo                      | Herramientas                                                    | Práctica                        |
+|----|-----------------------------|-----------------------------------------------------------------|---------------------------------|
+| 01 | Fundamentos                 | Linux, Bash, curl, ss                                           | Investigar una aplicación local |
+| 02 | Colaboración                | Git, GitHub                                                     | Ramas seguras                   |
+| 03 | Un servidor                 | SSH, ufw, systemd, nginx, Certbot                               | De VPS vacía a HTTPS            |
+| 04 | Contenedores                | Docker, Docker Compose, nginx                                   | Empaquetar miapp                |
+| 05 | Integración continua        | GitHub Actions, YAML, Node.js, Git, GitHub                      | Una prueba y un workflow        |
+| 06 | Despliegue continuo         | GitHub Actions, Docker, Docker Compose, nginx, Traefik          | Promover y revertir             |
+| 07 | Operar y escalar            | Prometheus, OpenTelemetry, PostgreSQL, Kubernetes, Docker Swarm | —                               |
+| 08 | Infraestructura como código | Terraform, Ansible, SSH                                         | —                               |
+
+Las seis prácticas trabajan sobre la misma aplicación de ejemplo, de modo que cada una empieza donde terminó la anterior.
 
 En total: 42 páginas de módulo, 6 de ellas prácticas ejecutables.
 
@@ -71,7 +72,7 @@ Build multi-stage: compila con Node y sirve el resultado con nginx. El procedimi
 
 ## Estado
 
-Nueve módulos publicados, del arranque de una máquina hasta describir esa máquina en un archivo, con respaldos, observabilidad y secrets por el camino. Falta cobertura de nubes públicas, Kubernetes a fondo y seguridad.
+Ocho módulos publicados, del arranque de una máquina hasta describir esa máquina en un archivo, con respaldos, observabilidad y secrets por el camino. Falta cobertura de nubes públicas, Kubernetes a fondo y seguridad.
 
 ## Contribuir
 

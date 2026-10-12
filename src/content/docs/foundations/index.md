@@ -35,14 +35,14 @@ flowchart LR
   DNS --> C["Conexión"] --> P["Puerto"] --> Pr["Proceso"] --> A["Archivo"] --> Cf["Config"]
 ```
 
-## El mapa de fundamentos
+## El recorrido
 
-| Señal | Pregunta útil | Página |
+| Momento | Pregunta | Página |
 | --- | --- | --- |
 | Sistema | ¿Dónde vive la configuración y quién puede tocarla? | [Linux](/foundations/linux/) |
 | Proceso | ¿Qué se está ejecutando y quién lo inició? | [La terminal](/foundations/terminal/#observar-procesos) |
 | Red | ¿La aplicación escucha y puede ser alcanzada? | [Redes esenciales](/foundations/networking/) |
-| Práctica | ¿Puedo reproducir una investigación? | [Práctica · shell y red](/foundations/lab-shell-and-network/) |
+| Práctica | ¿Puedo reproducir una investigación? | [Práctica · investigar una aplicación local](/foundations/lab-shell-and-network/) |
 
 :::tip[Cambia el orden de tus preguntas]
 Recorrer el sistema de afuera hacia adentro —DNS → conexión → puerto → proceso → archivo → configuración— reduce la tentación de cambiar cinco cosas a la vez.

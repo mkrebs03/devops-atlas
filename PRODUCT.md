@@ -36,7 +36,7 @@ Hard constraint: Atlas makes **no claim it cannot back**. No progress percentage
 - Static site built with Astro + Starlight; static output, no account and no backend.
 - No reader state: no accounts, no progress, no personalization. The theme preference, stored under Starlight's own `starlight-theme` key, is the only thing the site ever writes to the browser.
 - Bilingual by construction: Spanish pages at `src/content/docs/`, English counterparts under `src/content/docs/en/`. Navigation and content counterparts must stay synchronized.
-- Content is organized as modules of ordered pages (`src/data/curriculum.mjs`) — a suggested reading order, not a gated path. Module ids: `foundations`, `collaboration`, `server`, `containers`, `testing`, `integration`, `deployment`, `scaling`, `infrastructure`. Page kinds: `overview`, `concept`, `tool`, `practice`, `cheatsheet`.
+- Content is organized as modules of ordered pages (`src/data/curriculum.mjs`) — a suggested reading order, not a gated path. Module ids: `foundations`, `collaboration`, `server`, `containers`, `integration`, `deployment`, `scaling`, `infrastructure`. Page kinds: `overview`, `concept`, `tool`, `practice`, `cheatsheet`.
 - Modules are grouped by the state of the system a reader is looking at — one server, containers, automated checks — so the order carries an explanation of why each tool exists. They are never numbered as levels of the reader: `level` is a per-page field, and a module that ranked the reader would imply a gate the product does not have.
 - Every Markdown page carries enforced frontmatter (`title`, `description`; module pages also `type`, `level`, `module`, and canonical pages additionally `tools`, `prerequisites`, `learningObjectives`, `takeaways`), validated by `scripts/validate-content.mjs`. Spanish/English objective and takeaway counts must match.
 - Diagrams authored as `mermaid` fenced blocks, rendered client-side.
@@ -45,7 +45,7 @@ Hard constraint: Atlas makes **no claim it cannot back**. No progress percentage
 ## Capabilities and Constraints
 
 - **Prerequisite:** assumes the learner already has software-development basics; Atlas does not teach programming from zero.
-- **Scope roadmap (committed):** grow toward the full DevOps lifecycle. Nine modules shipped (Foundations, Collaboration, One server, Containers, Testing, Continuous integration, Continuous deployment, Scaling, Infrastructure as code), covering the arc from a bare machine to describing that machine in a file, with backups, observability and secrets among them. Load balancing deliberately stays in Continuous deployment rather than Scaling: blue-green and canary are defined by what they change in the balancer, so it has to be readable before the strategies that need it. Public clouds, Kubernetes in depth, and security are planned lifecycle coverage beyond the current nine.
+- **Scope roadmap (committed):** grow toward the full DevOps lifecycle. Eight modules shipped (Foundations, Collaboration, One server, Containers, Continuous integration, Continuous deployment, Operating and scaling, Infrastructure as code), covering the arc from a bare machine to describing that machine in a file, with backups, observability and secrets among them. Testing is not a module of its own: a suite matters to this reference as a gate in the pipeline, so its pages live in Continuous integration. Load balancing deliberately stays in Continuous deployment rather than Operating and scaling: blue-green and canary are defined by what they change in the balancer, so it has to be readable before the strategies that need it. Public clouds, Kubernetes in depth, and security are planned lifecycle coverage beyond the current nine.
 - No backend, no auth, no user data collection, no stored reader state beyond the theme preference (see Operating Context).
 - Bilingual parity is a hard constraint, not a nice-to-have.
 - WCAG-AA contrast for text and controls; meaningful interface text at a practical minimum of ~14px.
@@ -58,7 +58,7 @@ Hard constraint: Atlas makes **no claim it cannot back**. No progress percentage
 
 ## Evidence on Hand
 
-- Real, shipped bilingual content across all nine modules (`src/content/docs/` and `.../en/`), including six hands-on walkthroughs.
+- Real, shipped bilingual content across all eight modules (`src/content/docs/` and `.../en/`), including six hands-on walkthroughs that all work on one sample application (`/sample-app/`), each starting where the previous one ended.
 - Enforced ES/EN parity via `scripts/validate-content.mjs`: every Spanish file must have its English counterpart file and vice versa (standalone pages included), and canonical pairs must agree on `level`, on `tools` (same order), and on objective/takeaway counts. It checks files and frontmatter — not prose equivalence.
 - No testimonials, enrollment numbers, learner counts, employer outcomes, or endorsements exist — future work must not fabricate them.
 - The guided-route/progress machinery once shipped here was removed deliberately (see Positioning); it is the project's anti-reference and must not be reintroduced.

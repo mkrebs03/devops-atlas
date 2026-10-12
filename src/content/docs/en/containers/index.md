@@ -16,7 +16,7 @@ takeaways:
   - Packaging removes the difference between your machine and the server.
 ---
 
-**Where you are:** in Collaboration a change became reviewable. Here it becomes portable: the application travels with its dependencies, so it runs the same on your machine as on a server you have never seen.
+**Where you are:** in One server you installed by hand everything the application needs: the runtime, the dependencies, the configuration. Here that list stops living on one machine and starts travelling with the application, so it runs the same on your laptop as on a server you have never seen.
 
 ## The problem packaging solves
 
@@ -40,13 +40,13 @@ flowchart LR
 
 The `Dockerfile` describes how the image is built. The image does not change. The container does: it is born, writes to its own temporary layer, and dies. Anything that must survive that death has to be in a volume.
 
-## Module map
+## The route
 
-| Signal | What you will learn | Page |
+| Moment | Question | Page |
 | --- | --- | --- |
-| Package | What it means to encapsulate an application | [Docker without magic](/en/containers/docker/) |
-| Set | How to describe several containers and their data | [Several containers with Compose](/en/containers/compose/) |
-| Evidence | How to build and verify a local image | [Practice · local pipeline](/en/containers/lab-container-pipeline/) |
+| Package | What is an image and how is it built? | [Docker without magic](/en/containers/docker/) |
+| Set | How do I describe several containers and their data? | [Several containers with Compose](/en/containers/compose/) |
+| Practice | Can I package an application and explain why it does not answer? | [Practice · packaging myapp](/en/containers/lab-container-pipeline/) |
 
 :::note[A container is not a virtual machine]
 It does not carry its own operating system: it shares the host kernel and only isolates the process, its files, and its network. That is why it starts in milliseconds and weighs megabytes instead of gigabytes.
@@ -54,7 +54,7 @@ It does not carry its own operating system: it shares the host kernel and only i
 
 ## What you can do with this
 
-These pages let you write a `Dockerfile`, build an image, run it, and know where the data ended up once the container is gone.
+These pages let you write a `Dockerfile`, build an image, describe the service with Compose, and know where the data ended up once the container is gone.
 
 ## Where this breaks
 

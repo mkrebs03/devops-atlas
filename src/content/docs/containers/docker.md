@@ -41,11 +41,16 @@ flowchart LR
 ```
 
 ```bash
-docker build -t atlas-web:local .
-docker run --rm -p 8080:8080 atlas-web:local
+docker build -t miapp:local .
+docker run --rm -p 127.0.0.1:8080:8080 miapp:local
 ```
 
-La etiqueta ayuda a encontrar una imagen; no convierte `latest` en una versión confiable: `latest` es un nombre que alguien puede reapuntar a otra imagen mañana. Para producción se usa un identificador **inmutable**, y lo habitual es el **SHA**: la huella criptográfica del contenido de la imagen. Si el contenido cambia, la huella cambia, así que `sha-abc123` siempre significa exactamente los mismos bytes.
+La etiqueta ayuda a encontrar una imagen; no convierte `latest` en una versión confiable: `latest` es un nombre que alguien puede reapuntar a otra imagen mañana. Para producción hace falta un identificador que no se mueva, y hay dos que se confunden porque ambos se llaman "SHA":
+
+- El **digest** de la imagen (`miapp@sha256:9f2c…`) es la huella criptográfica de su contenido. Es inmutable de verdad: si cambia un byte, cambia el digest.
+- Una **etiqueta con el SHA del commit** (`miapp:sha-abc123`) dice de qué código salió la imagen. Sigue siendo una etiqueta, así que técnicamente se puede reapuntar; lo que la hace fiable es la convención de que el pipeline la escribe una vez y nadie la reutiliza.
+
+Lo habitual es desplegar por la etiqueta del commit, que se lee y se rastrea, y recurrir al digest cuando necesitas la garantía estricta.
 
 Las imágenes no se copian a mano entre máquinas: se publican en un **registro** (Docker Hub, GitHub Container Registry, el registro de tu nube), que funciona como un repositorio remoto de imágenes. `docker push` sube y `docker pull` baja, y esa es la vía por la que un artefacto construido en CI llega al servidor.
 
@@ -54,14 +59,24 @@ Las imágenes no se copian a mano entre máquinas: se publican en un **registro*
 Un `Dockerfile` describe, paso a paso, cómo se construye la imagen. Cada instrucción crea una **capa**:
 
 ```dockerfile
-FROM node:22-alpine                    # imagen base
-WORKDIR /app                           # directorio de trabajo
-COPY package.json pnpm-lock.yaml ./    # primero las dependencias
-RUN corepack enable && pnpm install --frozen-lockfile
-COPY . .                               # luego el código
+# imagen base
+FROM node:22-alpine
+WORKDIR /app
+
+# primero las dependencias, que cambian poco
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+# después el código, que cambia a diario
+COPY . .
+
+# el proceso no corre como root
+USER node
 EXPOSE 8080
-CMD ["node", "server.js"]              # proceso que arranca el contenedor
+CMD ["node", "server.js"]
 ```
+
+Los comentarios van en su propia línea: un `#` detrás de una instrucción no es un comentario, es parte de sus argumentos.
 
 El orden importa: copiar primero `package.json` permite que Docker **reutilice** esa capa mientras las dependencias no cambien, aunque edites el código. Copiar todo de golpe invalidaría la caché en cada cambio.
 
@@ -76,10 +91,10 @@ Una etapa compila y otra, mínima, ejecuta. La imagen final no arrastra herramie
 ```dockerfile
 FROM node:22-alpine AS build
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
-RUN pnpm run build
+RUN npm run build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
@@ -92,14 +107,14 @@ La imagen final solo contiene nginx y los archivos estáticos: menos tamaño, me
 Antes de ejecutar una imagen, define qué proceso arranca, en qué puerto escucha, qué configuración recibe, qué datos deben sobrevivir y cómo se verifica que está sano. Los datos que deben persistir no viven dentro del contenedor: van en un **volumen**.
 
 ```bash
-docker run --rm -v atlas-data:/var/lib/app atlas-web:local
+docker run --rm -v miapp-data:/var/lib/app miapp:local
 ```
 
-Si borras el contenedor, el volumen `atlas-data` sigue ahí. Un contenedor es desechable; sus datos no deberían serlo.
+Si borras el contenedor, el volumen `miapp-data` sigue ahí. Un contenedor es desechable; sus datos no deberían serlo.
 
 ## Redes y nombres
 
-En una red Docker, los servicios se encuentran por nombre: un contenedor puede llamar a `http://atlas:8080` sin saber en qué IP está. Por eso no hace falta publicar cada puerto al host. El patrón habitual es poner delante un [proxy inverso](/server/proxy-tls/): es el único que se expone al exterior y alcanza al resto por su nombre de servicio.
+En una red Docker, los servicios se encuentran por nombre: un contenedor puede llamar a `http://app:8080` sin saber en qué IP está. Por eso no hace falta publicar cada puerto al host. El patrón habitual es poner delante un [proxy inverso](/server/proxy-tls/): es el único que se expone al exterior y alcanza al resto por su nombre de servicio.
 
 Ese reparto se declara en un archivo de **Docker Compose**, que describe varios contenedores y la red que comparten en lugar de encadenar comandos `docker run`. Cómo se escribe, y qué pasa con los datos cuando esos contenedores se recrean, está en [Varios contenedores con Compose](/containers/compose/).
 
