@@ -2,20 +2,9 @@
 title: Desplegar desde el pipeline
 description: El tramo que faltaba, de un merge en main a la versión nueva atendiendo en el servidor, con comprobación y vuelta atrás.
 type: tool
-level: intermediate
 module: deployment
 tools: [github-actions, docker, docker-compose, ssh]
 prerequisites: [deployment.pipeline, integration.secrets, containers.compose]
-learningObjectives:
-  - Publicar una imagen identificada por su commit en un registro desde el workflow.
-  - Hacer que el servidor cambie de versión con una orden, sin sesiones manuales.
-  - Comprobar el despliegue desde fuera y volver solo a la versión anterior si falla.
-  - Limitar lo que puede hacer la credencial con la que el pipeline entra al servidor.
-takeaways:
-  - El servidor no construye nada; solo descarga la imagen que el pipeline ya comprobó.
-  - Un despliegue no termina al arrancar el contenedor, sino al comprobar que responde.
-  - Guardar la versión anterior antes de cambiar es lo que hace posible volver.
-  - La clave de despliegue abre una sola puerta, y el runner comprueba a qué servidor le habla.
 ---
 
 ## El tramo que faltaba

@@ -2,18 +2,9 @@
 title: Infrastructure as code
 description: Describing machines in files that get reviewed and versioned, instead of configuring them by hand.
 type: concept
-level: intermediate
 module: infrastructure
 tools: [terraform, ansible]
 prerequisites: [server.provisioning]
-learningObjectives:
-  - Place which part of the work is provisioning and which is configuring.
-  - Recognise the cost writing infrastructure adds, alongside its benefit.
-  - Choose the tool by whether the resource has to be created or only adjusted.
-takeaways:
-  - Written infrastructure inherits review, history and reversibility from code.
-  - Provisioning and configuring are two jobs with different tools.
-  - A machine's description is the only documentation that cannot go stale.
 ---
 
 **Where you are:** you already know how to set up a server, package the application, check it automatically, deploy it, and decide when more than one machine is needed. You did all of that by hand at least once. Here that manual work turns into files.
@@ -51,6 +42,6 @@ That is why Terraform keeps a state file and Ansible does not need one.
 It adds a language, a tool, and — in Terraform's case — a state that has to be stored, encrypted and locked. With one machine and one environment you would rebuild in an afternoon, that cost is not recovered. It starts paying off with two environments that have to match, or two people with access.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you declare an environment's resources and create them without touching a web panel, leave a machine's configuration described in a file that applies without fear of repeating it, and understand why two servers that started identical stopped being so.
+These pages cover how to declare an environment's resources without touching a web panel, how to keep a machine's configuration in a file that can be applied more than once, and why two servers that started identical stop being so.

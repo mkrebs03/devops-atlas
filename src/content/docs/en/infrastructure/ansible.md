@@ -2,19 +2,14 @@
 title: Ansible and idempotence
 description: Describing how a machine should look inside, and being able to apply it a thousand times with the same result.
 type: tool
-level: intermediate
 module: infrastructure
 tools: [ansible, ssh, yaml]
 prerequisites: [infrastructure.why-iac]
-learningObjectives:
-  - Write a playbook that leaves a machine in the described state.
-  - Explain what makes a task idempotent and why it matters on reapplying.
-  - Read a run's recap to know what actually changed.
-takeaways:
-  - Ansible describes a machine's end state, not the sequence of commands.
-  - An idempotent task can be repeated without changing anything the second time.
-  - The changed count is the signal telling you whether the machine had drifted.
 ---
+
+:::note
+I have studied Ansible but I do not use it on a real system. [About this site](/en/about/) lists what I run and what I do not.
+:::
 
 ## Agentless, over SSH
 

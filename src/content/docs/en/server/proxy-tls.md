@@ -2,18 +2,9 @@
 title: Reverse proxy and certificates
 description: The piece that receives traffic before your application does, and the certificate that makes browsers trust it.
 type: concept
-level: intermediate
 module: server
 tools: [nginx, caddy, certbot, tls, http]
 prerequisites: [foundations.networking, server.processes]
-learningObjectives:
-  - Explain what a reverse proxy solves compared with exposing the application directly.
-  - Configure forwarding to a local service while preserving the client's identity.
-  - Obtain and renew a certificate without depending on somebody remembering.
-takeaways:
-  - A reverse proxy gives one entry point where the certificate and the routing decision live.
-  - Without forwarded headers, the application believes all traffic comes from the proxy.
-  - A certificate renewed by hand is an outage with a known expiry date.
 ---
 
 ## One single 443 for many services

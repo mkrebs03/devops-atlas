@@ -2,18 +2,9 @@
 title: Observabilidad
 description: 'Logs, métricas y trazas: cómo saber qué está haciendo el sistema sin esperar a que alguien se queje.'
 type: concept
-level: intermediate
 module: scaling
 tools: [prometheus, opentelemetry]
 prerequisites: [server.proxy-tls]
-learningObjectives:
-  - Distinguir qué pregunta responde cada una de las tres señales.
-  - Elegir qué medir en la frontera donde el usuario nota el problema.
-  - Definir alertas sobre síntomas accionables en vez de sobre causas.
-takeaways:
-  - Las pruebas demuestran comportamiento antes de desplegar; la observabilidad lo mide después.
-  - Métricas dicen que algo va mal, trazas dónde y logs exactamente qué.
-  - Un percentil alto describe la experiencia real mejor que un promedio.
 ---
 
 ## Desplegaste. ¿Y ahora?

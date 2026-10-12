@@ -2,21 +2,16 @@
 title: Practice · promote and roll back
 description: A local blue-green with a real proxy, switching versions and going back without losing a single request.
 type: practice
-level: intermediate
 module: deployment
 tools: [docker, nginx, curl]
 prerequisites: [deployment.strategies]
-learningObjectives:
-  - Run two versions of a service behind a proxy and decide which one receives traffic.
-  - Verify the new version in isolation before exposing it.
-  - Switch and roll back traffic by reloading the proxy, and check that no request is lost.
-takeaways:
-  - Deploying is starting the new version; releasing is changing where the proxy points.
-  - A rollback is the same operation in the opposite direction, which is why it is fast.
-  - Validating the configuration before reloading is what keeps a broken change away from traffic.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 Two versions of `myapp` running at once, an nginx in front deciding which one serves, and a loop of requests showing that switching from one to the other — and back — cuts nothing.
 

@@ -2,18 +2,9 @@
 title: Estrategias de ramas
 description: Trunk-based, GitHub Flow y GitFlow comparados por lo que cuestan, no por lo que prometen.
 type: concept
-level: intermediate
 module: integration
 tools: [git, github]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Reconocer que un modelo de ramas describe una forma de entregar, no una preferencia de equipo.
-  - Comparar trunk-based, GitHub Flow y GitFlow por el coste que impone cada uno.
-  - Elegir un modelo a partir de cuántas versiones sostienes y cuántos entornos atraviesas.
-takeaways:
-  - Una rama de larga vida es una integración aplazada, y el aplazamiento se paga con intereses.
-  - GitFlow solo devuelve su coste cuando mantienes varias versiones publicadas a la vez.
-  - El modelo correcto es el más simple que soporte tu cadencia de release.
 ---
 
 ## El modelo de ramas es una consecuencia, no una preferencia

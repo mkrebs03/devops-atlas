@@ -2,20 +2,9 @@
 title: Deploying from the pipeline
 description: The missing stretch, from a merge into main to the new version serving on the server, with a check and a way back.
 type: tool
-level: intermediate
 module: deployment
 tools: [github-actions, docker, docker-compose, ssh]
 prerequisites: [deployment.pipeline, integration.secrets, containers.compose]
-learningObjectives:
-  - Publish an image identified by its commit to a registry from the workflow.
-  - Make the server change version with one command, with no manual sessions.
-  - Check the deployment from outside and return to the previous version automatically if it fails.
-  - Limit what the credential the pipeline uses to enter the server can do.
-takeaways:
-  - The server builds nothing; it only downloads the image the pipeline already checked.
-  - A deployment does not end when the container starts, but when it is shown to answer.
-  - Saving the previous version before switching is what makes going back possible.
-  - The deploy key opens a single door, and the runner checks which server it is talking to.
 ---
 
 ## The missing stretch

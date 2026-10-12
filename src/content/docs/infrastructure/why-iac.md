@@ -2,18 +2,9 @@
 title: Por qué escribir la infraestructura
 description: El servidor que nadie sabe reconstruir, la deriva entre entornos, y qué cambia cuando la máquina se describe en un archivo.
 type: concept
-level: intermediate
 module: infrastructure
 tools: [terraform, ansible, ssh]
 prerequisites: [server.provisioning, scaling.when-to-scale]
-learningObjectives:
-  - Explicar qué es la deriva de configuración y por qué aparece sin que nadie la provoque.
-  - Distinguir aprovisionar recursos de configurar lo que corre dentro de ellos.
-  - Reconocer cuándo escribir la infraestructura todavía no compensa.
-takeaways:
-  - Un servidor que nadie sabe reconstruir es un punto de fallo sin respaldo.
-  - La deriva no viene de errores, viene de arreglos urgentes que nadie anotó.
-  - Describir la infraestructura la vuelve revisable, versionada y reproducible.
 ---
 
 ## El servidor que nadie sabe reconstruir

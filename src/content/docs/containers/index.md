@@ -2,18 +2,9 @@
 title: Contenedores
 description: Empaqueta la aplicación con sus dependencias para que corra igual en cualquier máquina.
 type: concept
-level: beginner
 module: containers
 tools: [docker, docker-compose]
 prerequisites: [server.manual-deploy, foundations.networking]
-learningObjectives:
-  - Distinguir imagen, contenedor y volumen dentro del mismo paquete.
-  - Explicar qué problema resuelve empaquetar una aplicación con sus dependencias.
-  - Reconocer qué datos sobreviven a un contenedor y cuáles no.
-takeaways:
-  - Una imagen es el paquete inmutable; un contenedor es el proceso que sale de ella.
-  - El contenedor es desechable, y por eso los datos tienen que vivir fuera.
-  - Empaquetar elimina la diferencia entre tu máquina y el servidor.
 ---
 
 **Dónde estás:** en Un servidor instalaste a mano todo lo que la aplicación necesita: el runtime, las dependencias, la configuración. Aquí esa lista deja de vivir en una máquina y pasa a viajar con la aplicación, así que se ejecuta igual en tu portátil que en un servidor ajeno.
@@ -52,9 +43,9 @@ El `Dockerfile` describe cómo se construye la imagen. La imagen no cambia. El c
 No lleva su propio sistema operativo: comparte el núcleo de la máquina anfitriona y solo aísla el proceso, sus archivos y su red. Por eso arranca en milisegundos y pesa megabytes en vez de gigabytes.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes escribir un `Dockerfile`, construir una imagen, describir el servicio con Compose y saber dónde quedaron los datos cuando el contenedor desaparece.
+Estas páginas cubren cómo escribir un `Dockerfile`, construir una imagen, describir el servicio con Compose y dónde quedan los datos cuando el contenedor desaparece.
 
 ## Dónde se rompe esto
 

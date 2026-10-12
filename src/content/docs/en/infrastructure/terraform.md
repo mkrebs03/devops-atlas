@@ -2,19 +2,14 @@
 title: Terraform and state
 description: Describing the resources you want, and understanding the state file that makes knowing what is missing possible.
 type: tool
-level: advanced
 module: infrastructure
 tools: [terraform, ssh]
 prerequisites: [infrastructure.why-iac]
-learningObjectives:
-  - Declare resources and apply a plan knowing what will change before running it.
-  - Explain what the state file holds and why it cannot live on your laptop.
-  - Recognise the operations that destroy and recreate a resource rather than modify it.
-takeaways:
-  - State is what lets Terraform tell creating apart from modifying.
-  - State holds secrets in clear text and needs locking once more than one person works.
-  - plan before apply is not a formality; it is where the destructions show up.
 ---
+
+:::note
+I have studied Terraform but I do not use it on a real system. [About this site](/en/about/) lists what I run and what I do not.
+:::
 
 ## Describing instead of requesting
 

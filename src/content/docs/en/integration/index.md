@@ -2,20 +2,9 @@
 title: Continuous integration
 description: Every change tested and built on its own, on a clean machine, before it reaches a server.
 type: concept
-level: beginner
 module: integration
 tools: [github-actions, node]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Explain what a team gains when checking stops happening on the machine of whoever wrote the code.
-  - Recognise what changes when a test suite becomes a gate on the delivery path.
-  - Tell a pipeline, an artifact, and an environment apart along the same route.
-  - Relate a branching model to the delivery cadence it supports.
-takeaways:
-  - CI checks in a clean environment, so the result does not depend on your machine.
-  - A test is an executable claim; in CI it stops being personal insurance and becomes shared evidence.
-  - An artifact has its own identity and is not the same thing as the code it came from.
-  - A branching model is a consequence of how you deliver, not a preference.
 ---
 
 **Where you are:** you already know how to review a change, put the application on a server, and package it. All of that still depends on somebody doing it, and doing it right. Here a commit stops needing a person in order to become a checked artifact.
@@ -66,9 +55,9 @@ The order matters: cheap things go first. A lint that takes ten seconds should f
 If the workflow fails often for reasons that are not the code — an unstable dependency, a badly set timeout — the team learns to ignore the red. A check that gets ignored costs the same and protects nothing.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you choose what to test and at which level, write a workflow that validates every pull request and verifies the image it builds, choose a branching model and justify it, and give the pipeline only the permissions it needs.
+These pages cover what to test and at which level, a workflow that validates every pull request and verifies the image it builds, branching models, and the permissions a pipeline needs.
 
 ## Where this breaks
 

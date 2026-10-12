@@ -2,18 +2,9 @@
 title: Provisioning a VPS
 description: "From a freshly created machine to one you can work on: your own user, keys, and a firewall."
 type: concept
-level: beginner
 module: server
 tools: [ssh, ufw, linux, apt]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Log in over SSH with a key instead of a password, and understand what each one proves.
-  - Work as your own user and escalate to root only when it is needed.
-  - Leave open only the ports the service actually needs.
-takeaways:
-  - An SSH key proves you hold a secret without ever sending it.
-  - Working as root turns any typo into permanent damage.
-  - A default-deny firewall makes everything you expose explicit.
 ---
 
 ## What you have just been handed

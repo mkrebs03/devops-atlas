@@ -2,19 +2,14 @@
 title: Estrategias de despliegue
 description: Recreate, rolling, blue-green y canary, y cómo revertir cada una.
 type: concept
-level: advanced
 module: deployment
 tools: [nginx]
 prerequisites: [deployment.load-balancing]
-learningObjectives:
-  - Comparar recreate, rolling, blue-green y canary por riesgo y costo.
-  - Elegir una estrategia según la tolerancia a downtime y a fallos.
-  - Diseñar un rollback rápido para cada estrategia.
-takeaways:
-  - Cada estrategia cambia el riesgo del despliegue por más recursos o tiempo.
-  - Canary limita el impacto exponiendo la versión nueva a una fracción del tráfico.
-  - Un rollback ensayado vale más que un despliegue perfecto.
 ---
+
+:::note
+Blue-green y canary los he estudiado, pero no los he aplicado en un sistema real. En [Sobre este sitio](/about/) está el detalle de qué opero y qué no.
+:::
 
 ## Cambiar la versión sin tumbar el servicio
 

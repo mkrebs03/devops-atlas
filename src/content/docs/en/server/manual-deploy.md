@@ -2,18 +2,9 @@
 title: Deploying by hand
 description: Install the runtime, bring the code across and start the application, watching what each step costs.
 type: concept
-level: beginner
 module: server
 tools: [ssh, git, linux, node]
 prerequisites: [server.provisioning]
-learningObjectives:
-  - Get the code onto the server and start it with the configuration that environment needs.
-  - Separate configuration from code using environment variables.
-  - Name the points where a manual deployment fails again and again.
-takeaways:
-  - Configuration differs between environments, which is why it cannot live in the repository.
-  - A manual deployment is a list of steps that exists only in the head of whoever runs it.
-  - A process started from your terminal dies when you close the terminal.
 ---
 
 ## The simplest deployment there is

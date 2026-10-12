@@ -2,16 +2,9 @@
 title: Colaboración
 description: Convierte cambios individuales en decisiones que el equipo puede entender y revisar.
 type: concept
-level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [foundations.terminal]
-learningObjectives:
-  - Explicar cómo Git convierte cambios locales en una historia revisable.
-  - Reconocer los acuerdos que permiten colaborar sin perder contexto.
-takeaways:
-  - Entregar un cambio también exige comunicar su intención y su historia.
-  - Los cambios pequeños, revisables y reversibles reducen el riesgo del equipo.
 ---
 
 **Dónde estás:** en Fundamentos aprendiste a leer una máquina. Aquí el cambio deja de ser solo tuyo: entra un equipo, y con él la necesidad de que tu trabajo se pueda revisar, explicar y deshacer.
@@ -41,9 +34,9 @@ flowchart LR
 Un buen historial no registra cada movimiento del teclado. Registra decisiones pequeñas, coherentes y reversibles.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes crear una rama con intención, mantenerla actualizada, explicar un diff y abrir un cambio que otra persona pueda revisar sin reconstruir tu contexto desde cero.
+Estas páginas cubren cómo crear una rama con intención, mantenerla actualizada, leer un diff y abrir un cambio que otra persona pueda revisar sin reconstruir tu contexto desde cero.
 
 ## Dónde se rompe esto
 

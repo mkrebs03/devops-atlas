@@ -2,18 +2,9 @@
 title: GitHub Actions
 description: Convierte el camino de validación y despliegue en un workflow visible y repetible.
 type: tool
-level: beginner
 module: integration
 tools: [github-actions, yaml]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Interpretar eventos, jobs y pasos dentro de un workflow de GitHub Actions.
-  - Diseñar una validación con lint, pruebas y build que dé feedback rápido.
-  - Separar la validación en pull requests del despliegue tras integrar en main.
-takeaways:
-  - Un workflow convierte el camino de validación en una promesa ejecutable.
-  - Los jobs corren en paralelo salvo que declares dependencias con needs.
-  - El despliegue ocurre después de integrar, con secretos y permisos mínimos.
 ---
 
 ## Un workflow es una promesa ejecutable

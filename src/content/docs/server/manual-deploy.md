@@ -2,18 +2,9 @@
 title: Desplegar a mano
 description: Instalar el runtime, traer el código y arrancar la aplicación, viendo qué cuesta cada paso.
 type: concept
-level: beginner
 module: server
 tools: [ssh, git, linux, node]
 prerequisites: [server.provisioning]
-learningObjectives:
-  - Llevar el código al servidor y arrancarlo con la configuración que ese entorno necesita.
-  - Separar la configuración del código mediante variables de entorno.
-  - Nombrar los puntos donde un despliegue manual falla de forma repetida.
-takeaways:
-  - La configuración cambia entre entornos y por eso no puede vivir en el repositorio.
-  - Un despliegue manual es una lista de pasos que solo existe en la cabeza de quien la ejecuta.
-  - El proceso arrancado desde tu terminal muere cuando cierras la terminal.
 ---
 
 ## El despliegue más simple que existe

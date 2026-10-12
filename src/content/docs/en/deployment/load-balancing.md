@@ -2,19 +2,14 @@
 title: Load balancing
 description: Several instances of the same service, and the decision of which one each request goes to.
 type: concept
-level: intermediate
 module: deployment
 tools: [nginx, traefik, http]
 prerequisites: [server.proxy-tls]
-learningObjectives:
-  - Spread traffic across several instances and pull the unresponsive one out of rotation.
-  - Tell a passive health check from an active one by what each detects.
-  - Relate each deployment strategy to what changes in the balancer.
-takeaways:
-  - A health check is what turns a balancer into something more than a blind distributor.
-  - Changing version without downtime always means changing where the traffic points.
-  - An application holding state in its own memory cannot be balanced without breaking it.
 ---
+
+:::note
+I have studied load balancing across several instances but I have not run it on a real system. [About this site](/en/about/) lists what I run and what I do not.
+:::
 
 ## When one instance stops being enough
 

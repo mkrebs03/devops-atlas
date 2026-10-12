@@ -2,18 +2,9 @@
 title: La terminal
 description: La shell como instrumento para observar una máquina, componer evidencia y repetir lo que hiciste.
 type: concept
-level: beginner
 module: foundations
 tools: [bash, ss]
 prerequisites: [foundations.linux]
-learningObjectives:
-  - Explicar cómo la shell conecta programas mediante entradas, salidas y tuberías.
-  - Componer comandos pequeños para inspeccionar archivos y procesos.
-  - Aplicar un bucle de diagnóstico repetible antes de cambiar una máquina.
-takeaways:
-  - La terminal convierte observaciones y cambios en instrucciones reproducibles.
-  - Separar entrada, salida y errores permite guardar evidencia sin mezclarla.
-  - Medir antes y verificar después convierte una corazonada en evidencia.
 ---
 
 ## La terminal no es magia

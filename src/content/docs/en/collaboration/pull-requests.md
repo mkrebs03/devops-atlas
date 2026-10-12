@@ -2,18 +2,9 @@
 title: Pull requests and review
 description: Proposing a change, explaining it, and reviewing it before it enters the shared branch.
 type: tool
-level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [collaboration.git-model]
-learningObjectives:
-  - Follow a change from a working branch through integration.
-  - Prepare a pull request that makes intent and evidence visible.
-  - Apply review and branch protections to integrate safely.
-takeaways:
-  - Working branches isolate one concrete intention for a short time.
-  - A useful pull request makes a change easier to understand, verify, and revert.
-  - Protections and review turn main into a state you can trust.
 ---
 
 ## The route of a change

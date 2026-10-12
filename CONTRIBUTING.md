@@ -18,27 +18,24 @@ Es una restricción dura, no una aspiración. Todo archivo bajo `src/content/doc
 
 Además, entre cada par canónico:
 
-- `level` debe ser idéntico.
 - `tools` debe ser idéntico **y en el mismo orden**.
-- Los conteos de `learningObjectives` y `takeaways` deben coincidir.
 
 La validación compara archivos y frontmatter, no equivalencia de prosa: que pase el CI no significa que la traducción esté completa.
 
 ## Frontmatter
 
-Toda página Markdown requiere `title` y `description`. Las páginas dentro de un directorio de módulo requieren además `type`, `level` y `module`:
+Toda página Markdown requiere `title` y `description`. Las páginas dentro de un directorio de módulo requieren además `type` y `module`:
 
 ```yaml
 ---
 title: Título de la página
 description: Descripción breve
 type: concept   # concept | tool | practice | cheatsheet
-level: beginner # beginner | intermediate | advanced
 module: foundations
 ---
 ```
 
-Las páginas declaradas en `src/data/curriculum.mjs` requieren también los arrays `tools`, `prerequisites`, `learningObjectives` y `takeaways`; los dos últimos no pueden ir vacíos.
+Las páginas declaradas en `src/data/curriculum.mjs` requieren también los arrays `tools` y `prerequisites`.
 
 Toda página de módulo debe estar declarada en `curriculum.mjs`, y cada slug de `tools` debe tener nombre visible en `src/data/tool-names.mjs` —si no, el índice A–Z imprimiría el slug crudo—. Los slugs de contenido son únicos en todo el sitio.
 
@@ -49,7 +46,7 @@ Todo esto lo aplica `scripts/validate-content.mjs`, que corre dentro de `pnpm ru
 - Los anglicismos llevan género fijo: «el pipeline», «el build».
 - En prosa se escribe «prueba»; «test» se reserva para nombres literales (jobs, comandos, `npm test`).
 - Las preguntas de los `<summary>` de autoevaluación en español abren con «¿». El CI rechaza cualquier `<summary>` que termine en `?` sin `¿` en archivos fuera de `en/`.
-- Los módulos se agrupan por el estado del sistema que describen, nunca por nivel del lector: `level` es un campo por página, y numerar los módulos como niveles implicaría una puerta que el producto no tiene.
+- Los módulos se agrupan por el estado del sistema que describen, nunca por nivel del lector.
 
 ## Estructura del proyecto
 
@@ -96,27 +93,24 @@ This is a hard constraint, not an aspiration. Every file under `src/content/docs
 
 Between each canonical pair:
 
-- `level` must be identical.
 - `tools` must be identical **and in the same order**.
-- `learningObjectives` and `takeaways` counts must match.
 
 Validation compares files and frontmatter, not prose equivalence: passing CI does not mean the translation is complete.
 
 ## Frontmatter
 
-Every Markdown page requires `title` and `description`. Pages inside a module directory also require `type`, `level`, and `module`:
+Every Markdown page requires `title` and `description`. Pages inside a module directory also require `type` and `module`:
 
 ```yaml
 ---
 title: Page title
 description: Short description
 type: concept   # concept | tool | practice | cheatsheet
-level: beginner # beginner | intermediate | advanced
 module: foundations
 ---
 ```
 
-Pages declared in `src/data/curriculum.mjs` additionally require the `tools`, `prerequisites`, `learningObjectives`, and `takeaways` arrays; the last two cannot be empty.
+Pages declared in `src/data/curriculum.mjs` additionally require the `tools` and `prerequisites` arrays.
 
 Every module page must be declared in `curriculum.mjs`, and every `tools` slug must have a display name in `src/data/tool-names.mjs` — otherwise the A–Z index would print the raw slug. Content slugs are unique across the site.
 
@@ -127,7 +121,7 @@ All of this is enforced by `scripts/validate-content.mjs`, which runs as part of
 - Spanish pages give English loanwords a fixed gender: «el pipeline», «el build».
 - Spanish prose uses «prueba»; «test» is reserved for literal names (jobs, commands, `npm test`).
 - Spanish self-check `<summary>` questions open with «¿». CI rejects any `<summary>` ending in `?` without a `¿` outside `en/`.
-- Modules are grouped by the state of the system they describe, never by reader level: `level` is a per-page field, and numbering modules as levels would imply a gate the product does not have.
+- Modules are grouped by the state of the system they describe, never by reader level.
 
 ## Project layout
 

@@ -2,18 +2,9 @@
 title: Operar y escalar
 description: Ver qué está pasando en producción, y decidir con evidencia cuándo una máquina deja de bastar.
 type: concept
-level: intermediate
 module: scaling
 tools: [prometheus, kubernetes]
 prerequisites: [deployment.pipeline]
-learningObjectives:
-  - Ordenar las preguntas que hay que responder antes de añadir infraestructura.
-  - Relacionar cada límite de un servidor único con lo que lo resuelve.
-  - Reconocer que crecer es sobre todo quitar estado, no añadir máquinas.
-takeaways:
-  - No se decide escalar sin medir; sin medir solo se adivina y se paga.
-  - El trabajo de crecer es hacer intercambiables las instancias, no comprarlas.
-  - Cada paso hacia arriba añade operación, así que conviene darlo tarde.
 ---
 
 **Dónde estás:** tienes un servidor que sirve tráfico, un pipeline que despliega solo y la capacidad de revertir. Aquí empiezan las preguntas que no tienen una respuesta técnica única, porque dependen de números que solo tú puedes medir.
@@ -52,9 +43,9 @@ Una VPS bien operada —con respaldos probados, certificado que se renueva solo 
 Un sistema no es mejor por tener más partes. La decisión correcta es la que sostiene tu carga real con la menor cantidad de piezas que tu equipo pueda operar bien. A veces esa decisión es una máquina más grande, y no hay nada que justificar.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes instrumentar un servicio, leer sus señales, distinguir un problema de eficiencia de uno de capacidad, sacar el estado de tus instancias y decidir con criterio si un orquestador te compensa.
+Estas páginas cubren cómo instrumentar un servicio y leer sus señales, la diferencia entre un problema de eficiencia y uno de capacidad, cómo sacar el estado de las instancias y cuándo compensa un orquestador.
 
 ## Dónde se rompe esto
 

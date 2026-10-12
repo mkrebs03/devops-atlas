@@ -2,18 +2,9 @@
 title: One server
 description: The first place the application really runs, and everything you have to hold up so it keeps running.
 type: concept
-level: beginner
 module: server
 tools: [ssh, systemd, nginx]
 prerequisites: [foundations.networking]
-learningObjectives:
-  - Name the pieces required for an application to answer on the internet.
-  - Tell apart the work the machine does from the work a person does.
-  - Recognise the limits of operating a single server by hand.
-takeaways:
-  - A server serving traffic is an application held up by a proxy, a supervisor, a firewall, and a backup.
-  - Anything done by hand gets done differently the second time.
-  - With a single disk, the backup is the only copy of what cannot be regenerated.
 ---
 
 **Where you are:** until now the code lived on your machine and in a repository. Here it leaves for the first time: someone else's machine, a public IP, and users who can reach it.
@@ -62,9 +53,9 @@ This module separates them. Afterwards a container stops being magic and becomes
 Kubernetes and managed platforms existing does not make a single server a mistake. For most projects it is cheaper, easier to diagnose, and sufficient for far longer than people assume. What you need to know is when it stops being so.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you take a freshly created VPS and leave it serving an application over HTTPS, surviving a reboot, with the ports closed and a backup that leaves the machine.
+These pages cover the way from a freshly created VPS to an application served over HTTPS, surviving a reboot, with the ports closed and a backup that leaves the machine.
 
 ## Where this breaks
 

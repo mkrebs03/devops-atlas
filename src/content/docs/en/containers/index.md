@@ -2,18 +2,9 @@
 title: Containers
 description: Package the application with its dependencies so it runs the same on any machine.
 type: concept
-level: beginner
 module: containers
 tools: [docker, docker-compose]
 prerequisites: [server.manual-deploy, foundations.networking]
-learningObjectives:
-  - Tell an image, a container, and a volume apart inside the same package.
-  - Explain which problem packaging an application with its dependencies solves.
-  - Recognise which data survives a container and which does not.
-takeaways:
-  - An image is the immutable package; a container is the process that comes out of it.
-  - The container is disposable, which is exactly why the data has to live outside it.
-  - Packaging removes the difference between your machine and the server.
 ---
 
 **Where you are:** in One server you installed by hand everything the application needs: the runtime, the dependencies, the configuration. Here that list stops living on one machine and starts travelling with the application, so it runs the same on your laptop as on a server you have never seen.
@@ -52,9 +43,9 @@ The `Dockerfile` describes how the image is built. The image does not change. Th
 It does not carry its own operating system: it shares the host kernel and only isolates the process, its files, and its network. That is why it starts in milliseconds and weighs megabytes instead of gigabytes.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you write a `Dockerfile`, build an image, describe the service with Compose, and know where the data ended up once the container is gone.
+These pages cover how to write a `Dockerfile`, build an image, describe the service with Compose, and where the data ends up once the container is gone.
 
 ## Where this breaks
 

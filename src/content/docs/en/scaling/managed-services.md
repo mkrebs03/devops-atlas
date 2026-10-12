@@ -2,18 +2,9 @@
 title: Moving state off the machine
 description: Managed databases, object storage and shared sessions — the work that makes instances interchangeable.
 type: concept
-level: intermediate
 module: scaling
 tools: [postgresql, s3, redis]
 prerequisites: [server.backups, scaling.when-to-scale]
-learningObjectives:
-  - Identify which parts of your server hold state and which do not.
-  - Decide between operating a database yourself and paying for a managed one.
-  - Move uploaded files to object storage without breaking existing URLs.
-takeaways:
-  - An instance is disposable only when it holds nothing that is not somewhere else.
-  - A managed database buys operations, not features.
-  - Object storage turns files into a service rather than a disk.
 ---
 
 ## What holds state on your server

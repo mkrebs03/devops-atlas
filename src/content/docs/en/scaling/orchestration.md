@@ -2,19 +2,14 @@
 title: Orchestration
 description: What problem Swarm, Kubernetes and managed platforms solve, and from which point their cost pays off.
 type: concept
-level: advanced
 module: scaling
 tools: [kubernetes, docker-swarm, docker]
 prerequisites: [containers.docker, deployment.load-balancing]
-learningObjectives:
-  - Name the work an orchestrator does that you currently do by hand.
-  - Tell the declarative model apart from a deployment script.
-  - Recognise the signals saying an orchestrator does not pay off yet.
-takeaways:
-  - An orchestrator holds the system at a declared state; it does not run steps.
-  - Its cost is not learning it, it is operating it the day it breaks.
-  - Interchangeable instances come before orchestration, or there is nothing to spread.
 ---
+
+:::note
+I run Kubernetes every day, on a k3s cluster. Docker Swarm I have only studied. [About this site](/en/about/) lists what I run and what I do not.
+:::
 
 ## What is left to solve
 

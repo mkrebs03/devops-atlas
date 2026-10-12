@@ -2,19 +2,14 @@
 title: Deployment strategies
 description: Recreate, rolling, blue-green and canary, and how to roll back each one.
 type: concept
-level: advanced
 module: deployment
 tools: [nginx]
 prerequisites: [deployment.load-balancing]
-learningObjectives:
-  - Compare recreate, rolling, blue-green, and canary by risk and cost.
-  - Choose a strategy by tolerance for downtime and for failures.
-  - Design a fast rollback for each strategy.
-takeaways:
-  - Each strategy trades deployment risk for more resources or time.
-  - Canary limits the impact by exposing the new version to a fraction of traffic.
-  - A rehearsed rollback is worth more than a perfect deployment.
 ---
+
+:::note
+I have studied blue-green and canary but I have not applied them on a real system. [About this site](/en/about/) lists what I run and what I do not.
+:::
 
 ## Changing the version without taking the service down
 

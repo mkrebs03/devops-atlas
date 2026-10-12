@@ -5,15 +5,15 @@
 
 [Español](README.md) · **English**
 
-A DevOps reference for developers who already code. It covers the jump from writing software to operating it: where each boundary a request crosses sits, what evidence tells two similar failures apart, and why each tool exists. Concepts that build a mental model, tools documented by how they behave, and walkthroughs you run on your own machine.
+My DevOps notes, organized as a reference in Spanish and English. I put them together as I learn: some of what is here I run every day and some I have only studied. The [About this site](https://devops.mkrebs.tech/en/about/) page says which is which.
 
 [![DevOps Atlas landing page](.github/media/landing-en.png)](https://devops.mkrebs.tech/en/)
 
 **[devops.mkrebs.tech/en](https://devops.mkrebs.tech/en/)**
 
-## Who it is for
+## Who writes it
 
-Developers moving toward DevOps: self-taught learners, career switchers, students. It assumes you can write code, use an editor, and read an error. **It does not teach programming from zero.**
+Martín Sanhueza Krebs, a computer engineering student at Universidad de La Frontera. The pages assume the reader already writes code.
 
 ## What is inside
 
@@ -30,9 +30,7 @@ Eight modules grouped by the state of the system they describe — one machine, 
 | 07 | Operating and scaling   | Prometheus, OpenTelemetry, PostgreSQL, Kubernetes, Docker Swarm | —                                  |
 | 08 | Infrastructure as code  | Terraform, Ansible, SSH                                         | —                                  |
 
-The six walkthroughs work on the same sample application, so each one starts where the previous one ended.
-
-42 module pages in total, 6 of them runnable walkthroughs.
+The walkthroughs work on the same sample application, so each one starts where the previous one ended. They are written walkthroughs: I have not run them end to end and the output they show is illustrative.
 
 ## How it is built
 
@@ -72,12 +70,12 @@ Multi-stage build: compiles with Node, serves the result with nginx. The product
 
 ## Status
 
-Eight modules published, from booting a machine to describing that machine in a file, with backups, observability, and secrets along the way. Public clouds, Kubernetes in depth, and security are not covered yet.
+There are eight modules, from booting a machine to describing that machine in a file, with backups, observability, and secrets along the way. I have not written yet about public clouds, security, or Kubernetes beyond an introduction.
 
 ## Contributing
 
-Issues are open for bugs, questions, and suggestions, and PRs from any fork are welcome. Merging to `main` is at the maintainer's discretion after review: opening a PR is no guarantee it lands. Content conventions and the steps are in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Issues are open for corrections, questions, and suggestions, and PRs from any fork are welcome. Merging to `main` is at the maintainer's discretion after review: opening a PR is no guarantee it lands. Content conventions and the steps are in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE) — Martin Sanhueza ([@mkrebs03](https://github.com/mkrebs03)).
+[MIT](LICENSE) — Martín Sanhueza Krebs ([@mkrebs03](https://github.com/mkrebs03)).

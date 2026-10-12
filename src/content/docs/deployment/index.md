@@ -2,16 +2,9 @@
 title: Despliegue continuo
 description: Lleva un artefacto a producción con estrategias seguras y capacidad de revertir.
 type: concept
-level: intermediate
 module: deployment
 tools: [nginx, docker]
 prerequisites: [integration.github-actions]
-learningObjectives:
-  - Relacionar integración continua y entrega continua en un mismo recorrido.
-  - Reconocer qué hace seguro o riesgoso a un despliegue.
-takeaways:
-  - Desplegar seguido y en porciones pequeñas reduce el riesgo de cada cambio.
-  - Poder revertir rápido importa más que no fallar nunca.
 ---
 
 **Dónde estás:** ya tienes un artefacto probado. Queda el último tramo, y el más visible: que llegue solo al servidor, ponerlo delante de usuarios reales sin cortar el servicio y poder volver atrás.
@@ -41,9 +34,9 @@ flowchart LR
 Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en porciones pequeñas, y puede revertir en minutos.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes describir un pipeline de entrega, hacer que un merge en `main` despliegue solo y vuelva atrás si falla, elegir una estrategia según el riesgo y practicar una promoción con rollback.
+Estas páginas cubren las etapas de un pipeline de entrega, un despliegue que sale de un merge en `main` y vuelve atrás si falla, las estrategias según el riesgo y una promoción con rollback.
 
 ## Dónde se rompe esto
 

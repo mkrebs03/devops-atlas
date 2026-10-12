@@ -2,20 +2,9 @@
 title: Linux
 description: Why the server you are about to operate runs Linux, and the model of the system you need in order not to work blind.
 type: concept
-level: beginner
 module: foundations
 tools: [linux, systemd, apt]
 prerequisites: []
-learningObjectives:
-  - Explain why servers, containers, and CI runners run Linux.
-  - Tell what changes and what does not between distributions when you run a command.
-  - Locate configuration, logs, and data within the filesystem hierarchy.
-  - Read the model of users, groups, and permissions that decides what a process may do.
-takeaways:
-  - Even if you develop on Windows or macOS, what you deploy almost always runs on Linux.
-  - A distribution changes the packaging and the package manager, not the model of the system.
-  - Every process runs as a user, and that identity explains most access failures.
-  - A service is a process the system can start, restart according to its configuration, and log for you.
 ---
 
 ## Why Linux and not another system

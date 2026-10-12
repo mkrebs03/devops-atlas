@@ -2,18 +2,9 @@
 title: Sacar el estado de la máquina
 description: Base de datos administrada, almacenamiento de objetos y sesiones compartidas — el trabajo que hace intercambiables a las instancias.
 type: concept
-level: intermediate
 module: scaling
 tools: [postgresql, s3, redis]
 prerequisites: [server.backups, scaling.when-to-scale]
-learningObjectives:
-  - Identificar qué partes de tu servidor guardan estado y cuáles no.
-  - Decidir entre operar una base de datos y pagar por una administrada.
-  - Mover archivos subidos a almacenamiento de objetos sin romper las URL existentes.
-takeaways:
-  - Una instancia es desechable solo cuando no guarda nada que no esté en otro sitio.
-  - Una base de datos administrada compra operación, no funcionalidad.
-  - El almacenamiento de objetos convierte los archivos en un servicio y no en un disco.
 ---
 
 ## Qué guarda estado en tu servidor

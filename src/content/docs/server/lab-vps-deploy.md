@@ -2,21 +2,16 @@
 title: Práctica · de VPS vacía a HTTPS
 description: Recorre el camino completo en una máquina real, desde la primera conexión hasta un certificado válido.
 type: practice
-level: beginner
 module: server
 tools: [ssh, ufw, systemd, nginx, certbot]
 prerequisites: [server.processes, server.proxy-tls]
-learningObjectives:
-  - Dejar una VPS recién creada con acceso por clave y cortafuegos cerrado.
-  - Publicar una aplicación como servicio de systemd que sobreviva a un reinicio.
-  - Poner un proxy inverso delante con un certificado emitido y renovable.
-takeaways:
-  - Cada paso deja una señal comprobable antes de pasar al siguiente.
-  - Un reinicio de la máquina es la prueba de que el servicio pertenece al sistema.
-  - Todo lo que hiciste a mano aquí es lo que después vas a querer automatizar.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 `miapp` respondiendo en `https://tu-dominio.com` desde una VPS: arrancada por systemd, alcanzable solo a través de nginx, con el certificado emitido y su renovación programada.
 

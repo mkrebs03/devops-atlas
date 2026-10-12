@@ -8,68 +8,59 @@ web
 
 ## Users
 
-Primary user: someone who wants to move **into** a DevOps role and already has software-development fundamentals. The archetype is the author's own path — a computer/informatics-engineering background (Chile) where the degree centers on software development, project management, and requirements gathering, and DevOps is skimmed as a concept but never taught in depth.
-
-The audience is defined by intent and prerequisite, not by enrollment status: self-taught learners, career switchers, and students are all in scope as long as they hold basic software-development knowledge and want to become job-ready in DevOps. Bilingual: Spanish (primary) and English learners are first-class equals.
+Anyone who looks up a DevOps topic and reads Spanish or English. The pages assume the reader already writes code.
 
 ## Product Purpose
 
-DevOps Atlas is a bilingual DevOps **reference**: the place a developer moving into DevOps goes to understand a concept, look up a tool, or follow a practical walkthrough. Reading and finding — not tracking — is the primary experience. Every visitor gets an obvious way in, a clear map of what exists, and a fast path back to a page they already read.
+DevOps Atlas is one person's DevOps notes, shared and organized as a reference. Martín Sanhueza Krebs, a computer engineering student at Universidad de La Frontera, writes them while learning, to share that knowledge and to keep a record of it. A reader comes to look something up: a concept, a tool, or a written walkthrough.
 
 ## Positioning
 
-**Settled: a reference wiki that is better than the alternatives, not a course.**
+Personal notes, arranged for lookup. The site makes no comparison with other resources and no claim about what a reader will be able to do after reading.
 
-An earlier framing tried to differentiate through a guided route with progress, stations, and labs-as-checkpoints. That mechanic was hollow — progress was self-marked in `localStorage` and could be filled in without doing anything, and "labs" were prose asking the learner to run commands with nothing verifying them. It has been removed rather than propped up.
-
-The differentiator is now **content quality, coverage, and navigation**:
-
-- Breadth across the full DevOps lifecycle, in Spanish and English as equals — a combination that barely exists.
-- Explanations that build a mental model (where a boundary is, what evidence distinguishes two failure modes), not definitions to memorize.
-- Practical, runnable walkthroughs presented honestly as walkthroughs: real commands, real output, no claim that the site checked anything.
-- Reference ergonomics: strong search, an A–Z of tools and terms, cheatsheets, cross-links between related pages.
-
-Hard constraint: Atlas makes **no claim it cannot back**. No progress percentages, no completion badges, no "verified" state, no fabricated outcomes.
+- The author appears on the site by name. The About page (`/about/`) states which topics the author runs on real systems, which were used in a project, and which were only studied.
+- Pages on topics the author has only studied carry a short note at the top that says so.
+- The walkthroughs are written, not run end to end, and each one says so. Their output is illustrative.
+- It stays a reference: modules by topic, a glossary, an A–Z of tools. It is not a chronological blog.
 
 ## Operating Context
 
 - Static site built with Astro + Starlight; static output, no account and no backend.
-- No reader state: no accounts, no progress, no personalization. The theme preference, stored under Starlight's own `starlight-theme` key, is the only thing the site ever writes to the browser.
-- Bilingual by construction: Spanish pages at `src/content/docs/`, English counterparts under `src/content/docs/en/`. Navigation and content counterparts must stay synchronized.
-- Content is organized as modules of ordered pages (`src/data/curriculum.mjs`) — a suggested reading order, not a gated path. Module ids: `foundations`, `collaboration`, `server`, `containers`, `integration`, `deployment`, `scaling`, `infrastructure`. Page kinds: `overview`, `concept`, `tool`, `practice`, `cheatsheet`.
-- Modules are grouped by the state of the system a reader is looking at — one server, containers, automated checks — so the order carries an explanation of why each tool exists. They are never numbered as levels of the reader: `level` is a per-page field, and a module that ranked the reader would imply a gate the product does not have.
-- Every Markdown page carries enforced frontmatter (`title`, `description`; module pages also `type`, `level`, `module`, and canonical pages additionally `tools`, `prerequisites`, `learningObjectives`, `takeaways`), validated by `scripts/validate-content.mjs`. Spanish/English objective and takeaway counts must match.
-- Diagrams authored as `mermaid` fenced blocks, rendered client-side.
-- Usable without an account or backend; must degrade gracefully (progressive enhancement).
+- No reader state. The theme preference, stored under Starlight's own `starlight-theme` key, is the only thing the site writes to the browser.
+- Bilingual: Spanish pages at `src/content/docs/`, English counterparts under `src/content/docs/en/`. Navigation and content counterparts must stay synchronized.
+- Content is organized as modules of ordered pages (`src/data/curriculum.mjs`), a suggested reading order. Module ids: `foundations`, `collaboration`, `server`, `containers`, `integration`, `deployment`, `scaling`, `infrastructure`. Page kinds: `overview`, `concept`, `tool`, `practice`, `cheatsheet`.
+- Modules are grouped by the state of the system a page describes (one server, containers, automated checks), so the order explains why each tool exists.
+- Every Markdown page carries enforced frontmatter (`title`, `description`; module pages also `type` and `module`, and canonical pages additionally `tools` and `prerequisites`), validated by `scripts/validate-content.mjs`.
+- Diagrams are authored as `mermaid` fenced blocks and rendered client-side.
 
 ## Capabilities and Constraints
 
-- **Prerequisite:** assumes the learner already has software-development basics; Atlas does not teach programming from zero.
-- **Scope roadmap (committed):** grow toward the full DevOps lifecycle. Eight modules shipped (Foundations, Collaboration, One server, Containers, Continuous integration, Continuous deployment, Operating and scaling, Infrastructure as code), covering the arc from a bare machine to describing that machine in a file, with backups, observability and secrets among them. Testing is not a module of its own: a suite matters to this reference as a gate in the pipeline, so its pages live in Continuous integration. Load balancing deliberately stays in Continuous deployment rather than Operating and scaling: blue-green and canary are defined by what they change in the balancer, so it has to be readable before the strategies that need it. Public clouds, Kubernetes in depth, and security are planned lifecycle coverage beyond the current nine.
-- No backend, no auth, no user data collection, no stored reader state beyond the theme preference (see Operating Context).
-- Bilingual parity is a hard constraint, not a nice-to-have.
+- Eight modules: Foundations, Collaboration, One server, Containers, Continuous integration, Continuous deployment, Operating and scaling, Infrastructure as code. Testing lives inside Continuous integration, and load balancing inside Continuous deployment because blue-green and canary are defined by what they change in the balancer.
+- Not written yet: public clouds, security, and Kubernetes beyond an introduction.
+- No backend, no auth, no user data collection.
+- Spanish/English parity is a hard constraint.
 - WCAG-AA contrast for text and controls; meaningful interface text at a practical minimum of ~14px.
 
 ## Brand Commitments
 
 - Name: **DevOps Atlas**.
-- A personal project / portfolio piece by the author. Public attribution style (whether the author's name appears on the surface) is undecided.
-- The visual identity is committed and lives in `DESIGN.md`: the "quiet reading room" world, implemented in `src/styles/tokens.css`. Both prior worlds — the "technical navigation chart" cartographic system and the "Learning Line" transit strip-map — are retired anti-references: the transit world encoded stations-as-checkpoints, a mechanic the product no longer has. The one open brand decision is the attribution style noted above.
+- Attribution: the author's full name, university and GitHub appear on the landing and on the About page. The groups and projects the author works for are described generically, not named.
+- The visual identity lives in `DESIGN.md`: the "quiet reading room" world, implemented in `src/styles/tokens.css`.
 
 ## Evidence on Hand
 
-- Real, shipped bilingual content across all eight modules (`src/content/docs/` and `.../en/`), including six hands-on walkthroughs that all work on one sample application (`/sample-app/`), each starting where the previous one ended.
-- Enforced ES/EN parity via `scripts/validate-content.mjs`: every Spanish file must have its English counterpart file and vice versa (standalone pages included), and canonical pairs must agree on `level`, on `tools` (same order), and on objective/takeaway counts. It checks files and frontmatter — not prose equivalence.
-- No testimonials, enrollment numbers, learner counts, employer outcomes, or endorsements exist — future work must not fabricate them.
-- The guided-route/progress machinery once shipped here was removed deliberately (see Positioning); it is the project's anti-reference and must not be reintroduced.
+- Bilingual content across all eight modules, including six written walkthroughs on one sample application (`/sample-app/`).
+- ES/EN parity enforced by `scripts/validate-content.mjs`: every Spanish file needs its English counterpart and vice versa, and canonical pairs must agree on `tools` in the same order. It checks files and frontmatter, not prose equivalence.
+- The author's hands-on experience is the one recorded on the About page. Nothing beyond it should be claimed or implied.
+- No testimonials, reader counts, or endorsements exist, and none should be invented.
 
 ## Product Principles
 
-1. **Orientation is the point.** A reader should always know what this page is, which module it belongs to, what exists around it, and how to find it again. Navigation beats catalog.
-2. **Do, don't memorize.** Prefer explanations that build a mental model and walkthroughs the reader can actually run over walls of definitions. Practical pages stay honest: the site never claims to have checked the reader's work.
-3. **Job-readiness is the bar.** Content earns its place by moving the reader toward performing in a real DevOps role, not by completeness for its own right.
-4. **Bilingual equals.** Spanish and English are peers; neither is a translation afterthought.
-5. **No lock-in, no gatekeeping.** Free, accountless, static, accessible — nothing between a motivated learner and the material.
+1. **Say where it comes from.** First person where the author talks about personal experience, and a plain statement wherever a page goes past it.
+2. **Describe the pages, not the reader.** No learning objectives, levels, or promised outcomes.
+3. **Keep it easy to look up.** A reader should know what a page is, which module it belongs to, and what is around it.
+4. **Plain prose.** A closing aphorism stays only when it teaches something.
+5. **Both languages complete.** Every page exists in Spanish and in English.
 
 ## Accessibility & Inclusion
 

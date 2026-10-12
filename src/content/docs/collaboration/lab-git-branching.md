@@ -2,23 +2,16 @@
 title: Práctica · ramas seguras
 description: Versiona la aplicación de ejemplo, resuelve un conflicto, deshaz un merge y abre tu primer pull request.
 type: practice
-level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [collaboration.git-model]
-learningObjectives:
-  - Crear un cambio aislado en una rama y revisar su diff antes de integrarlo.
-  - Resolver un conflicto de merge simple de forma deliberada.
-  - Deshacer un cambio integrado sin reescribir la historia.
-  - Publicar una rama y proponerla como pull request.
-takeaways:
-  - Revisar el grafo y el diff antes de integrar hace visible el alcance real.
-  - Un conflicto es una decisión que Git te delega, no un error.
-  - Revertir crea una decisión nueva; no borra la anterior.
-  - Una rama publicada y un pull request convierten tu cambio en algo que otra persona puede revisar.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 `miapp` dentro de un repositorio con una historia legible —un merge, un conflicto resuelto y un revert—, publicado en GitHub y con un pull request integrado. Ese repositorio remoto es el que usan las prácticas de servidor y de integración continua.
 

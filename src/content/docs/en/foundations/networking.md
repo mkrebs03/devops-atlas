@@ -2,20 +2,9 @@
 title: Essential networking
 description: Understand DNS, ports, TLS and HTTP as a path you can inspect.
 type: concept
-level: beginner
 module: foundations
 tools: [dns, http, tls, curl, ss]
 prerequisites: [foundations.terminal]
-learningObjectives:
-  - Follow a request from DNS resolution to the HTTP response, including TLS.
-  - Tell a private address from a public one and know where traffic leaves through.
-  - Distinguish failures in resolution, connection, port, and application behaviour.
-  - Read a status code and headers as part of the HTTP contract.
-takeaways:
-  - Each network boundary provides a concrete signal you can check.
-  - A private address only means something inside its own network; the gateway is the way out.
-  - DNS, TCP, TLS, and HTTP answer different questions along the same route.
-  - A status code says as much as the response body.
 ---
 
 ## A request is a route

@@ -2,19 +2,14 @@
 title: Ansible y la idempotencia
 description: Describir cómo debe quedar una máquina por dentro, y poder aplicarlo mil veces con el mismo resultado.
 type: tool
-level: intermediate
 module: infrastructure
 tools: [ansible, ssh, yaml]
 prerequisites: [infrastructure.why-iac]
-learningObjectives:
-  - Escribir un playbook que deje una máquina en el estado descrito.
-  - Explicar qué hace idempotente a una tarea y por qué importa al reaplicar.
-  - Leer el resumen de una ejecución para saber qué cambió de verdad.
-takeaways:
-  - Ansible describe el estado final de una máquina, no la secuencia de comandos.
-  - Una tarea idempotente se puede repetir sin cambiar nada la segunda vez.
-  - El recuento de changed es la señal de si la máquina había derivado.
 ---
+
+:::note
+Ansible lo he estudiado, pero no lo uso en un sistema real. En [Sobre este sitio](/about/) está el detalle de qué opero y qué no.
+:::
 
 ## Sin agente, por SSH
 

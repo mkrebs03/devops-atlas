@@ -2,18 +2,9 @@
 title: Why write infrastructure down
 description: The server nobody knows how to rebuild, drift between environments, and what changes when a machine lives in a file.
 type: concept
-level: intermediate
 module: infrastructure
 tools: [terraform, ansible, ssh]
 prerequisites: [server.provisioning, scaling.when-to-scale]
-learningObjectives:
-  - Explain what configuration drift is and why it appears with nobody causing it.
-  - Tell provisioning resources apart from configuring what runs inside them.
-  - Recognise when writing infrastructure down does not pay off yet.
-takeaways:
-  - A server nobody knows how to rebuild is a point of failure with no backup.
-  - Drift does not come from mistakes, it comes from urgent fixes nobody wrote down.
-  - Describing infrastructure makes it reviewable, versioned and reproducible.
 ---
 
 ## The server nobody knows how to rebuild

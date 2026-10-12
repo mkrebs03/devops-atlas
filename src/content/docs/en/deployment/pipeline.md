@@ -2,18 +2,9 @@
 title: From build to release
 description: How a single artifact travels through environments to production.
 type: concept
-level: intermediate
 module: deployment
 tools: [docker]
 prerequisites: [integration.github-actions, integration.secrets]
-learningObjectives:
-  - Distinguish continuous integration, continuous delivery, and continuous deployment.
-  - Promote a single artifact through environments without rebuilding it.
-  - Define what evidence enables the move to production.
-takeaways:
-  - You build once and promote the same artifact across environments.
-  - Environments exist to gain confidence before production.
-  - An approval gate turns deployment into an explicit decision.
 ---
 
 ## CI, CD, and CD: three acronyms that are not the same thing

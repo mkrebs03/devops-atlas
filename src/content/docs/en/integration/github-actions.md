@@ -2,18 +2,9 @@
 title: GitHub Actions
 description: Turn the validation and deployment path into a visible, repeatable workflow.
 type: tool
-level: beginner
 module: integration
 tools: [github-actions, yaml]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Interpret events, jobs, and steps in a GitHub Actions workflow.
-  - Design validation with lint, tests, and build that gives fast feedback.
-  - Separate validation on pull requests from deployment after merging into main.
-takeaways:
-  - A workflow turns the validation path into an executable promise.
-  - Jobs run in parallel unless you declare dependencies with needs.
-  - Deployment happens after integration, with minimal secrets and permissions.
 ---
 
 ## A workflow is an executable promise

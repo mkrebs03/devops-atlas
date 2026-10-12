@@ -39,8 +39,7 @@
   color: var(--atlas-text-3);
 }
 
-.atlas-title__kind,
-.atlas-title__level {
+.atlas-title__kind {
   border: var(--atlas-hairline) solid var(--atlas-border);
   border-radius: var(--atlas-radius);
   padding: 0.1rem 0.4rem;

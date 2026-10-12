@@ -2,21 +2,16 @@
 title: Práctica · promover y revertir
 description: Un blue-green local con un proxy de verdad, cambiando de versión y volviendo atrás sin perder una sola petición.
 type: practice
-level: intermediate
 module: deployment
 tools: [docker, nginx, curl]
 prerequisites: [deployment.strategies]
-learningObjectives:
-  - Ejecutar dos versiones de un servicio detrás de un proxy y decidir cuál recibe tráfico.
-  - Verificar la versión nueva en aislamiento antes de exponerla.
-  - Cambiar y revertir el tráfico recargando el proxy, y comprobar que no se pierde ninguna petición.
-takeaways:
-  - Desplegar es arrancar la versión nueva; publicar es cambiar a dónde apunta el proxy.
-  - Un rollback es la misma operación en sentido contrario, y por eso es rápido.
-  - Validar la configuración antes de recargar es lo que impide que un cambio roto llegue al tráfico.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 Dos versiones de `miapp` corriendo a la vez, un nginx delante que decide cuál atiende, y un bucle de peticiones que demuestra que cambiar de una a otra —y volver— no corta nada.
 

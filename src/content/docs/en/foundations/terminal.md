@@ -2,18 +2,9 @@
 title: The terminal
 description: The shell as an instrument to observe a machine, compose evidence, and repeat what you did.
 type: concept
-level: beginner
 module: foundations
 tools: [bash, ss]
 prerequisites: [foundations.linux]
-learningObjectives:
-  - Explain how the shell connects programs through input, output, and pipes.
-  - Compose small commands to inspect files and processes.
-  - Apply a repeatable diagnostic loop before changing a machine.
-takeaways:
-  - The terminal turns observations and changes into reproducible instructions.
-  - Separating input, output, and errors lets you keep evidence unmixed.
-  - Measuring first and verifying after turns a hunch into evidence.
 ---
 
 ## The terminal is not magic

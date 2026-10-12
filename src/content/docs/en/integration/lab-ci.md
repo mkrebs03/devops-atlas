@@ -2,23 +2,16 @@
 title: Practice · a test and a workflow
 description: Write a test that fails, make it pass, and let a workflow run it and build the image on every change.
 type: practice
-level: intermediate
 module: integration
 tools: [node, github-actions, docker, github]
 prerequisites: [integration.github-actions, integration.tests-in-ci, containers.lab-container-pipeline]
-learningObjectives:
-  - Write a test that fails for the right reason before writing the code.
-  - Describe a workflow that tests the code and verifies the image on every change.
-  - Read a red workflow and find the line that explains the failure.
-  - Turn the checks into a requirement for merging into main.
-takeaways:
-  - A test must fail before it passes, or it does not show that it tests anything.
-  - The workflow runs the same thing you do, on a machine that has nothing of yours.
-  - A smoke test on the image checks the artifact, not just the code.
-  - Without a protected branch the workflow informs; with one, it decides.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 `myapp` with an automated test, a new route born from that test, and a workflow that on every pull request runs the suite, builds the image, and checks that the container answers. And `main` protected so nothing gets in without going through it.
 

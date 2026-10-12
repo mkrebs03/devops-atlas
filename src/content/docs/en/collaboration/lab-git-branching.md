@@ -2,23 +2,16 @@
 title: Practice · safe branches
 description: Version the sample application, resolve a conflict, undo a merge, and open your first pull request.
 type: practice
-level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [collaboration.git-model]
-learningObjectives:
-  - Create an isolated change on a branch and review its diff before integrating it.
-  - Resolve a simple merge conflict deliberately.
-  - Undo an integrated change without rewriting history.
-  - Publish a branch and propose it as a pull request.
-takeaways:
-  - Reviewing the graph and the diff before integrating makes the real scope visible.
-  - A conflict is a decision Git hands to you, not an error.
-  - Reverting creates a new decision; it does not erase the old one.
-  - A published branch and a pull request turn your change into something another person can review.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 `myapp` inside a repository with a readable history — a merge, a resolved conflict, and a revert — published on GitHub with one pull request merged. That remote repository is the one the server and continuous integration walkthroughs use.
 

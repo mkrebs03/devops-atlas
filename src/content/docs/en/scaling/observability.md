@@ -2,18 +2,9 @@
 title: Observability
 description: 'Logs, metrics, and traces: knowing what the system is doing without waiting for someone to complain.'
 type: concept
-level: intermediate
 module: scaling
 tools: [prometheus, opentelemetry]
 prerequisites: [server.proxy-tls]
-learningObjectives:
-  - Tell which question each of the three signals answers.
-  - Choose what to measure at the boundary where the user notices the problem.
-  - Define alerts on actionable symptoms rather than on causes.
-takeaways:
-  - Tests prove behaviour before deploying; observability measures it afterwards.
-  - Metrics say something is wrong, traces say where, logs say exactly what.
-  - A high percentile describes the real experience better than an average does.
 ---
 
 ## You deployed. Now what?

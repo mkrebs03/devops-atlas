@@ -2,19 +2,9 @@
 title: The Git model
 description: Read commits, branches and references as a map of decisions.
 type: concept
-level: beginner
 module: collaboration
 tools: [git]
 prerequisites: [foundations.terminal]
-learningObjectives:
-  - Explain what distributed version control gives you, and what a repository is.
-  - Relate commits, branches, and HEAD within the Git graph.
-  - Choose between merge and rebase to integrate a branch and resolve a simple conflict.
-  - Use the diff, history, and gitignore to explain and scope a change.
-takeaways:
-  - A branch is a moving reference and a commit is a connected snapshot.
-  - Merge preserves the real history; rebase rewrites it to linearize it.
-  - The diff is the smallest unit for reviewing and discussing a change.
 ---
 
 ## Why Git

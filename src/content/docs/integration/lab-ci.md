@@ -2,23 +2,16 @@
 title: Práctica · una prueba y un workflow
 description: Escribe una prueba que falle, hazla pasar, y deja que un workflow la ejecute y construya la imagen en cada cambio.
 type: practice
-level: intermediate
 module: integration
 tools: [node, github-actions, docker, github]
 prerequisites: [integration.github-actions, integration.tests-in-ci, containers.lab-container-pipeline]
-learningObjectives:
-  - Escribir una prueba que falle por la razón correcta antes de escribir el código.
-  - Describir un workflow que pruebe el código y verifique la imagen en cada cambio.
-  - Leer un workflow en rojo y encontrar la línea que explica el fallo.
-  - Convertir las comprobaciones en requisito para integrar en main.
-takeaways:
-  - Una prueba debe fallar antes de pasar, o no demuestra que prueba algo.
-  - El workflow ejecuta lo mismo que tú, en una máquina que no tiene nada tuyo.
-  - Una prueba de humo sobre la imagen comprueba el artefacto, no solo el código.
-  - Sin rama protegida, el workflow informa; con ella, decide.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 `miapp` con una prueba automática, una ruta nueva nacida de esa prueba, y un workflow que en cada pull request ejecuta la suite, construye la imagen y comprueba que el contenedor responde. Y `main` protegida para que nada entre sin pasar por ahí.
 

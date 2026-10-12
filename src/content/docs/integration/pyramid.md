@@ -2,18 +2,9 @@
 title: La pirámide de pruebas
 description: Unidad, integración y extremo a extremo, y cómo elegir el nivel correcto.
 type: concept
-level: beginner
 module: integration
 tools: [node]
 prerequisites: []
-learningObjectives:
-  - Distinguir pruebas de unidad, integración y extremo a extremo.
-  - Elegir el nivel de prueba según el costo y la confianza que aporta.
-  - Reconocer una prueba frágil y por qué ralentiza al equipo.
-takeaways:
-  - Muchas pruebas rápidas y pocas lentas mantienen el feedback ágil.
-  - Cada nivel de prueba responde una pregunta distinta sobre el sistema.
-  - Una prueba frágil cuesta más de lo que protege.
 ---
 
 ## Tres niveles, tres preguntas

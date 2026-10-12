@@ -2,20 +2,9 @@
 title: Linux
 description: Por qué el servidor que vas a operar corre Linux, y qué modelo del sistema necesitas para no ir a ciegas.
 type: concept
-level: beginner
 module: foundations
 tools: [linux, systemd, apt]
 prerequisites: []
-learningObjectives:
-  - Explicar por qué los servidores, contenedores y runners de CI corren Linux.
-  - Distinguir qué cambia y qué no entre distribuciones al ejecutar un comando.
-  - Ubicar configuración, logs y datos dentro de la jerarquía de archivos.
-  - Leer el modelo de usuarios, grupos y permisos que decide qué puede hacer un proceso.
-takeaways:
-  - Aunque desarrolles en Windows o macOS, lo que despliegas casi siempre corre sobre Linux.
-  - Una distribución cambia el empaquetado y el gestor de paquetes, no el modelo del sistema.
-  - Cada proceso corre como un usuario, y esa identidad explica la mayoría de los fallos de acceso.
-  - Un servicio es un proceso que el sistema puede arrancar, reiniciar según su configuración y registrar por ti.
 ---
 
 ## Por qué Linux y no otro sistema

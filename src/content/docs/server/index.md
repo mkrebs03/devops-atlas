@@ -2,18 +2,9 @@
 title: Un servidor
 description: El primer sitio donde la aplicación corre de verdad, y todo lo que hay que sostener para que siga corriendo.
 type: concept
-level: beginner
 module: server
 tools: [ssh, systemd, nginx]
 prerequisites: [foundations.networking]
-learningObjectives:
-  - Nombrar las piezas que hacen falta para que una aplicación responda en internet.
-  - Distinguir qué parte del trabajo la hace la máquina y cuál la hace una persona.
-  - Reconocer los límites de operar un solo servidor a mano.
-takeaways:
-  - Un servidor sirviendo tráfico es una aplicación sostenida por un proxy, un supervisor, un cortafuegos y un respaldo.
-  - Todo lo que se hace a mano se hace distinto la segunda vez.
-  - Con un solo disco, el respaldo es la única copia de lo que no se puede regenerar.
 ---
 
 **Dónde estás:** hasta ahora el código vivía en tu máquina y en un repositorio. Aquí sale por primera vez: una máquina ajena, una IP pública y usuarios que pueden llegar a ella.
@@ -62,9 +53,9 @@ Este módulo las separa. Después, un contenedor deja de ser magia y pasa a ser 
 Que existan Kubernetes y las plataformas administradas no convierte a un servidor único en un error. Para la mayor parte de los proyectos es más barato, más simple de diagnosticar y suficiente durante mucho más tiempo del que se supone. Lo que hay que saber es cuándo deja de serlo.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes tomar una VPS recién creada y dejarla sirviendo una aplicación por HTTPS, que sobrevive a un reinicio, con los puertos cerrados y un respaldo que sale de la máquina.
+Estas páginas cubren el camino desde una VPS recién creada hasta una aplicación servida por HTTPS, que sobrevive a un reinicio, con los puertos cerrados y un respaldo que sale de la máquina.
 
 ## Dónde se rompe esto
 

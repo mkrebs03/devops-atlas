@@ -2,18 +2,9 @@
 title: Pull requests y revisión
 description: Proponer un cambio, explicarlo y revisarlo antes de que entre en la rama compartida.
 type: tool
-level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [collaboration.git-model]
-learningObjectives:
-  - Recorrer un cambio desde una rama de trabajo hasta su integración.
-  - Preparar un pull request que haga visible la intención y la evidencia.
-  - Aplicar revisión y protecciones de rama para integrar con seguridad.
-takeaways:
-  - Las ramas de trabajo aíslan una intención concreta durante poco tiempo.
-  - Un pull request útil facilita comprender, verificar y revertir un cambio.
-  - Las protecciones y la revisión convierten main en un estado en el que confiar.
 ---
 
 ## El recorrido de un cambio

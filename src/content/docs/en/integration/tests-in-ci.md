@@ -2,20 +2,9 @@
 title: Tests in CI
 description: Run the suite on every change, with the dependencies it needs, and read coverage without fooling yourself.
 type: tool
-level: intermediate
 module: integration
 tools: [github-actions, postgresql, docker]
 prerequisites: [integration.github-actions, integration.pyramid]
-learningObjectives:
-  - Run tests and lint automatically on every change with CI.
-  - Give integration tests a real database inside the runner.
-  - Add a smoke test on the artifact, on top of the tests on the code.
-  - Interpret coverage without turning it into an empty target.
-takeaways:
-  - CI runs the suite in a clean, repeatable environment, not just on your machine.
-  - A service declared on the job gives integration tests their real dependency.
-  - Testing the code and testing the artifact are different checks.
-  - Coverage measures executed lines, not verified behaviour.
 ---
 
 ## The suite runs on every change

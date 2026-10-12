@@ -2,19 +2,9 @@
 title: El modelo de Git
 description: Commits, ramas y referencias como un mapa de decisiones, no como botones misteriosos.
 type: concept
-level: beginner
 module: collaboration
 tools: [git]
 prerequisites: [foundations.terminal]
-learningObjectives:
-  - Explicar qué aporta un control de versiones distribuido y qué es un repositorio.
-  - Relacionar commits, ramas y HEAD dentro del grafo de Git.
-  - Elegir entre merge y rebase para integrar una rama y resolver un conflicto simple.
-  - Usar el diff, el historial y gitignore para explicar y acotar un cambio.
-takeaways:
-  - Una rama es una referencia móvil y un commit es una instantánea conectada.
-  - Merge conserva la historia real; rebase la reescribe para linealizarla.
-  - El diff es la unidad mínima para revisar y conversar sobre un cambio.
 ---
 
 ## Por qué Git

@@ -2,16 +2,9 @@
 title: Continuous deployment
 description: Take an artifact to production with safe strategies and the ability to roll back.
 type: concept
-level: intermediate
 module: deployment
 tools: [nginx, docker]
 prerequisites: [integration.github-actions]
-learningObjectives:
-  - Relate continuous integration and continuous delivery along one route.
-  - Recognise what makes a deployment safe or risky.
-takeaways:
-  - Deploying often and in small portions reduces the risk of each change.
-  - Being able to roll back fast matters more than never failing.
 ---
 
 **Where you are:** you have a tested artifact. What is left is the last stretch, and the most visible one: getting it to the server unattended, putting it in front of real users without cutting the service, and being able to go back.
@@ -41,9 +34,9 @@ flowchart LR
 A mature team does not pray before a yearly deploy. It deploys often, in small portions, and can roll back in minutes.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you describe a delivery pipeline, make a merge into `main` deploy by itself and go back if it fails, choose a strategy by risk, and practise a promotion with rollback.
+These pages cover the stages of a delivery pipeline, a deployment that starts from a merge into `main` and goes back if it fails, strategies by risk, and a promotion with rollback.
 
 ## Where this breaks
 

@@ -2,21 +2,16 @@
 title: Practice · from empty VPS to HTTPS
 description: Walk the whole path on a real machine, from the first connection to a valid certificate.
 type: practice
-level: beginner
 module: server
 tools: [ssh, ufw, systemd, nginx, certbot]
 prerequisites: [server.processes, server.proxy-tls]
-learningObjectives:
-  - Leave a freshly created VPS with key-based access and a closed firewall.
-  - Publish an application as a systemd service that survives a reboot.
-  - Put a reverse proxy in front with an issued, renewable certificate.
-takeaways:
-  - Every step leaves a checkable signal before you move to the next one.
-  - A machine reboot is the proof that the service belongs to the system.
-  - Everything you did by hand here is what you will later want to automate.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 `myapp` answering at `https://your-domain.com` from a VPS: started by systemd, reachable only through nginx, with the certificate issued and its renewal scheduled.
 

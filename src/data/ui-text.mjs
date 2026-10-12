@@ -12,15 +12,12 @@ const text = Object.freeze({
   es: Object.freeze({
     tools: 'Herramientas A–Z',
     modules: 'Módulos',
-    pages: 'páginas',
-    practices: 'prácticas',
     language: 'Idioma',
     switchTheme: 'Cambiar tema',
     kind: Object.freeze({
       overview: 'Panorama', concept: 'Concepto', tool: 'Herramienta',
       practice: 'Práctica', cheatsheet: 'Chuleta',
     }),
-    level: Object.freeze({ beginner: 'Inicial', intermediate: 'Intermedio', advanced: 'Avanzado' }),
     before: 'Conviene saber antes',
     related: 'Relacionadas',
     next: 'Siguiente',
@@ -32,15 +29,12 @@ const text = Object.freeze({
   en: Object.freeze({
     tools: 'Tools A–Z',
     modules: 'Modules',
-    pages: 'pages',
-    practices: 'practices',
     language: 'Language',
     switchTheme: 'Switch theme',
     kind: Object.freeze({
       overview: 'Overview', concept: 'Concept', tool: 'Tool',
       practice: 'Practice', cheatsheet: 'Cheatsheet',
     }),
-    level: Object.freeze({ beginner: 'Beginner', intermediate: 'Intermediate', advanced: 'Advanced' }),
     before: 'Worth knowing first',
     related: 'Related',
     next: 'Next',

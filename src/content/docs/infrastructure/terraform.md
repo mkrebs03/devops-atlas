@@ -2,19 +2,14 @@
 title: Terraform y el estado
 description: Describir los recursos que quieres, y entender el archivo de estado que hace posible saber qué falta.
 type: tool
-level: advanced
 module: infrastructure
 tools: [terraform, ssh]
 prerequisites: [infrastructure.why-iac]
-learningObjectives:
-  - Declarar recursos y aplicar un plan sabiendo qué va a cambiar antes de ejecutarlo.
-  - Explicar qué guarda el archivo de estado y por qué no puede vivir en tu portátil.
-  - Reconocer las operaciones que destruyen y recrean un recurso en lugar de modificarlo.
-takeaways:
-  - El estado es lo que permite a Terraform distinguir crear de modificar.
-  - El estado contiene secretos en claro y necesita bloqueo si trabaja más de una persona.
-  - plan antes de apply no es una formalidad; es donde se ven las destrucciones.
 ---
+
+:::note
+Terraform lo he estudiado, pero no lo uso en un sistema real. En [Sobre este sitio](/about/) está el detalle de qué opero y qué no.
+:::
 
 ## Describir en vez de pedir
 

@@ -2,18 +2,9 @@
 title: The testing pyramid
 description: Unit, integration and end-to-end tests, and how to pick the right level.
 type: concept
-level: beginner
 module: integration
 tools: [node]
 prerequisites: []
-learningObjectives:
-  - Distinguish unit, integration, and end-to-end tests.
-  - Choose the test level by the cost and confidence it provides.
-  - Recognise a flaky test and why it slows the team down.
-takeaways:
-  - Many fast tests and few slow ones keep feedback quick.
-  - Each test level answers a different question about the system.
-  - A flaky test costs more than it protects.
 ---
 
 ## Three levels, three questions

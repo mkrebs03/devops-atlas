@@ -2,16 +2,9 @@
 title: Fundamentos
 description: Aprende a leer una máquina antes de intentar automatizarla.
 type: concept
-level: beginner
 module: foundations
 tools: [linux]
 prerequisites: []
-learningObjectives:
-  - Identificar las señales básicas de una máquina y una red antes de cambiar el sistema.
-  - Ordenar preguntas de diagnóstico para investigar un fallo con evidencia.
-takeaways:
-  - Observar el sistema antes de actuar reduce cambios innecesarios.
-  - Máquina, proceso y red forman un mapa común para investigar problemas.
 ---
 
 :::tip[¿Primera vez aquí?]
@@ -48,9 +41,9 @@ flowchart LR
 Recorrer el sistema de afuera hacia adentro —DNS → conexión → puerto → proceso → archivo → configuración— reduce la tentación de cambiar cinco cosas a la vez.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes describir el recorrido de una petición, encontrar un proceso y verificar una conexión con herramientas locales. Ese vocabulario es la base de Git, Docker y CI/CD.
+Estas páginas cubren el recorrido de una petición, cómo encontrar un proceso y cómo verificar una conexión con herramientas locales. Ese vocabulario es la base de Git, Docker y CI/CD.
 
 ## Dónde se rompe esto
 

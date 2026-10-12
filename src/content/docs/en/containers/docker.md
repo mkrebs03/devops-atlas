@@ -2,19 +2,9 @@
 title: Docker without magic
 description: Understand images, containers, layers and volumes through their contracts.
 type: tool
-level: beginner
 module: containers
 tools: [docker, nginx, docker-compose]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Explain what a container isolates, and how it differs from a virtual machine.
-  - Distinguish an immutable image from a running container.
-  - Write a Dockerfile that uses layer ordering and a multi-stage build.
-  - Define the process, port, configuration, and data contract of a container.
-takeaways:
-  - An image packages layers while a container runs a process under concrete conditions.
-  - Instruction order decides which layers are reused and how long a build takes.
-  - Ports, volumes, and configuration should form an observable contract.
 ---
 
 ## Why containers and not virtual machines

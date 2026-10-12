@@ -2,18 +2,9 @@
 title: Operating and scaling
 description: Seeing what is happening in production, and deciding from evidence when one machine stops being enough.
 type: concept
-level: intermediate
 module: scaling
 tools: [prometheus, kubernetes]
 prerequisites: [deployment.pipeline]
-learningObjectives:
-  - Order the questions to answer before adding infrastructure.
-  - Relate each limit of a single server to the thing that resolves it.
-  - Recognise that growing is mostly removing state, not adding machines.
-takeaways:
-  - Scaling is not decided without measuring; without measuring you only guess and pay.
-  - The work of growing is making instances interchangeable, not buying them.
-  - Every step up adds operations, so it is worth taking late.
 ---
 
 **Where you are:** you have a server serving traffic, a pipeline that deploys on its own, and the ability to roll back. Here begin the questions with no single technical answer, because they depend on numbers only you can measure.
@@ -52,9 +43,9 @@ A well-operated VPS — tested backups, a certificate that renews itself, an aut
 A system is not better for having more parts. The right decision is the one that carries your real load with the fewest pieces your team can operate well. Sometimes that decision is a bigger machine, and there is nothing to justify.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you instrument a service, read its signals, tell an efficiency problem from a capacity one, move state out of your instances, and judge whether an orchestrator is worth it to you.
+These pages cover how to instrument a service and read its signals, the difference between an efficiency problem and a capacity one, how to move state out of the instances, and when an orchestrator is worth it.
 
 ## Where this breaks
 

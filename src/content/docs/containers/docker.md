@@ -2,19 +2,9 @@
 title: Docker sin magia
 description: Imágenes, contenedores, capas y volúmenes explicados desde el contrato que cumplen.
 type: tool
-level: beginner
 module: containers
 tools: [docker, nginx, docker-compose]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Explicar qué aísla un contenedor y en qué se diferencia de una máquina virtual.
-  - Distinguir una imagen inmutable de un contenedor en ejecución.
-  - Escribir un Dockerfile aprovechando el orden de capas y un build multi-stage.
-  - Definir el contrato de proceso, puerto, configuración y datos de un contenedor.
-takeaways:
-  - Una imagen empaqueta capas y un contenedor ejecuta un proceso bajo condiciones concretas.
-  - El orden de las instrucciones decide qué capas se reutilizan y cuánto tarda un build.
-  - Puertos, volúmenes y configuración deben formar un contrato observable.
 ---
 
 ## Por qué contenedores y no máquinas virtuales

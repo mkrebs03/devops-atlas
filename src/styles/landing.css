@@ -38,8 +38,6 @@
   letter-spacing: -0.035em;
   color: var(--atlas-text);
 }
-.landing__display span { display: block; }
-.landing__display span:last-child { color: var(--atlas-text-3); }
 
 .landing__lede {
   max-width: 58ch;
@@ -48,60 +46,7 @@
   line-height: 1.6;
   color: var(--atlas-text-2);
 }
-
-.landing__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--atlas-space-3);
-  margin: var(--atlas-space-6) 0 0;
-}
-.landing__cta,
-.landing__ghost {
-  display: inline-flex;
-  align-items: center;
-  border-radius: var(--atlas-radius);
-  padding: 0.6rem 1.1rem;
-  font-size: var(--atlas-size-sm);
-  font-weight: 600;
-  text-decoration: none;
-  transition-property: background-color, border-color;
-  transition-duration: var(--atlas-dur-base);
-  transition-timing-function: var(--atlas-ease);
-}
-.landing__cta {
-  background: var(--atlas-coral);
-  color: var(--atlas-on-coral);   /* the reference's own on-coral ink */
-  border: var(--atlas-hairline) solid var(--atlas-coral);
-}
-.landing__cta:hover { background: var(--atlas-coral-hover); border-color: var(--atlas-coral-hover); }
-.landing__ghost {
-  border: var(--atlas-hairline) solid var(--atlas-border);
-  color: var(--atlas-text);
-  background: var(--atlas-surface);
-}
-.landing__ghost:hover { background: var(--atlas-surface-3); }
-
-.landing__facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  align-items: baseline;
-  gap: var(--atlas-space-4);
-  margin: var(--atlas-space-7) 0 0;
-  padding-top: var(--atlas-space-4);
-  border-top: var(--atlas-hairline) solid var(--atlas-border);
-}
-.landing__facts div { display: flex; align-items: baseline; gap: var(--atlas-space-2); }
-.landing__facts dt {
-  font-family: var(--atlas-font-mono);
-  font-size: var(--atlas-size-lg);
-  font-weight: 600;
-  color: var(--atlas-text);
-}
-.landing__facts dd {
-  margin: 0;
-  font-size: var(--atlas-size-xs);
-  color: var(--atlas-text-3);
-}
+.landing__lede + .landing__lede { margin-top: var(--atlas-space-3); }
 
 /* ---------- sections ----------------------------------------------------- */
 
@@ -127,34 +72,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
   gap: var(--atlas-space-4);
-}
-
-/* Columns of plain text under a hairline — the same treatment as the facts
-   row, so "how to use it" reads as a note on the site, not as a third offer. */
-.landing__use {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: var(--atlas-space-5);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.landing__use li {
-  margin-top: 0;
-  padding-top: var(--atlas-space-3);
-  border-top: var(--atlas-hairline) solid var(--atlas-border);
-}
-.landing__use h3 {
-  margin: 0;
-  font-size: var(--atlas-size-sm);
-  font-weight: 600;
-  color: var(--atlas-text);
-}
-.landing__use p {
-  margin: var(--atlas-space-2) 0 0;
-  font-size: var(--atlas-size-xs);
-  line-height: 1.6;
-  color: var(--atlas-text-2);
 }
 
 /* Cards in a row stretch to the tallest one — Colaboración has half the
@@ -228,62 +145,6 @@
   padding: 0.1rem 0.4rem;
 }
 
-/* ---------- sample ------------------------------------------------------- */
-
-.landing__sample {
-  display: grid;
-  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
-  gap: var(--atlas-space-6);
-  align-items: center;
-}
-.landing__sample-lede {
-  margin: 0;
-  font-size: var(--atlas-size-sm);
-  line-height: 1.6;
-  color: var(--atlas-text-2);
-}
-.landing__sample-caption {
-  margin: var(--atlas-space-3) 0 0;
-  font-family: var(--atlas-font-mono);
-  font-size: var(--atlas-size-2xs);
-  color: var(--atlas-text-3);
-}
-
-.term {
-  margin: 0;
-  background: var(--atlas-code-bg);
-  border: var(--atlas-hairline) solid var(--atlas-border);
-  border-radius: var(--atlas-radius-lg);
-  overflow: hidden;
-}
-.term__bar {
-  display: flex;
-  align-items: center;
-  gap: var(--atlas-space-2);
-  padding: var(--atlas-space-2) var(--atlas-space-3);
-  border-bottom: var(--atlas-hairline) solid var(--atlas-border);
-  font-family: var(--atlas-font-mono);
-  font-size: var(--atlas-size-2xs);
-  color: var(--atlas-term-dim);
-}
-.term__dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--atlas-coral);
-}
-.term pre {
-  margin: 0;
-  padding: var(--atlas-space-4);
-  overflow-x: auto;
-  font-family: var(--atlas-font-mono);
-  font-size: var(--atlas-size-2xs);
-  line-height: 1.85;
-  color: var(--atlas-code-text);
-}
-.term__p   { color: var(--atlas-term-dim); }
-.term__o   { color: var(--atlas-bone-dim); }
-.term__ok  { color: var(--atlas-term-ok); }
-.term__err { color: var(--atlas-coral); }
-
 /* ---------- foot --------------------------------------------------------- */
 
 .landing__foot {
@@ -330,9 +191,4 @@
   background: var(--atlas-surface-3);
   border-color: var(--atlas-border-strong);
   color: var(--atlas-text);
-}
-
-@media (max-width: 52rem) {
-  .landing__sample { grid-template-columns: 1fr; }
-  .landing__facts { grid-template-columns: repeat(2, 1fr); }
 }

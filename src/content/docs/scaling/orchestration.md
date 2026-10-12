@@ -2,19 +2,14 @@
 title: Orquestación
 description: Qué problema resuelven Swarm, Kubernetes y las plataformas administradas, y a partir de cuándo compensa su coste.
 type: concept
-level: advanced
 module: scaling
 tools: [kubernetes, docker-swarm, docker]
 prerequisites: [containers.docker, deployment.load-balancing]
-learningObjectives:
-  - Nombrar el trabajo que un orquestador hace y que hoy haces a mano.
-  - Distinguir el modelo declarativo de un script de despliegue.
-  - Reconocer las señales que indican que un orquestador todavía no compensa.
-takeaways:
-  - Un orquestador mantiene el sistema en un estado declarado, no ejecuta pasos.
-  - Su coste no es aprenderlo, es operarlo el día que falla.
-  - Antes de orquestar hay que tener instancias intercambiables, o no hay nada que repartir.
 ---
+
+:::note
+Kubernetes lo opero a diario, en un cluster k3s. Docker Swarm solo lo he estudiado. En [Sobre este sitio](/about/) está el detalle de qué opero y qué no.
+:::
 
 ## Qué queda por resolver
 

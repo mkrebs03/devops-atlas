@@ -2,21 +2,16 @@
 title: Práctica · investigar una aplicación local
 description: Arranca la aplicación de ejemplo, encuentra su puerto y separa un fallo de conexión de uno de aplicación.
 type: practice
-level: beginner
 module: foundations
 tools: [node, curl, ss]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Iniciar un servidor local e identificar el puerto donde escucha.
-  - Verificar por separado la conexión y la respuesta HTTP de una aplicación.
-  - Reconocer la diferencia entre una conexión rechazada y una respuesta HTTP de error.
-takeaways:
-  - Un proceso escuchando y una respuesta HTTP correcta son evidencias distintas.
-  - Un fallo de conexión y un 404 apuntan a fronteras distintas del recorrido.
-  - Combinar herramientas pequeñas permite reproducir una investigación de red.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 La [aplicación de ejemplo](/sample-app/) corriendo en tu máquina, y tres evidencias separadas: que escucha, que responde, y qué aspecto tiene cada tipo de fallo. La carpeta que creas aquí la siguen usando las demás prácticas.
 

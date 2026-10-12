@@ -2,18 +2,9 @@
 title: Secrets and permissions
 description: Where the credentials a pipeline needs actually live, and why least privilege matters more than hiding them well.
 type: concept
-level: intermediate
 module: integration
 tools: [github-actions, ssh, yaml]
 prerequisites: [integration.github-actions, server.manual-deploy]
-learningObjectives:
-  - Tell configuration from a secret by what happens if it leaks.
-  - Grant each job the minimum permission its task requires.
-  - React to an exposed secret by rotating it rather than deleting it.
-takeaways:
-  - A secret in Git history is still there even after a later commit removes it.
-  - Rotating is the only valid response to a leak; hiding is not a response.
-  - A short-lived credential is worth more than a long-lived one kept carefully.
 ---
 
 ## What is a secret and what is not

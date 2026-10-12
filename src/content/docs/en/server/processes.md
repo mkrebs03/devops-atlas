@@ -2,18 +2,9 @@
 title: Keeping the application alive
 description: A systemd service that starts your application when the machine boots and retries it when it fails.
 type: tool
-level: beginner
 module: server
 tools: [systemd, linux]
 prerequisites: [server.manual-deploy]
-learningObjectives:
-  - Write a systemd unit that starts the application when the machine boots.
-  - Read a service's logs and tell apart the reasons it stopped.
-  - Recognise the limits of retrying a process that fails the same way every time.
-takeaways:
-  - A service belongs to the system, not to your session, which is why it survives closing SSH.
-  - Automatic restarts cover the transient failure and hide the permanent one.
-  - journalctl is the first place to look when a service will not start.
 ---
 
 ## From a process of yours to a system service

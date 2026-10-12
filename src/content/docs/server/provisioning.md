@@ -2,18 +2,9 @@
 title: Aprovisionar una VPS
 description: "De una máquina recién creada a una en la que se puede trabajar: usuario propio, claves y cortafuegos."
 type: concept
-level: beginner
 module: server
 tools: [ssh, ufw, linux, apt]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Entrar por SSH con clave en lugar de contraseña y entender qué prueba cada una.
-  - Trabajar con un usuario propio y escalar a root solo cuando hace falta.
-  - Dejar abiertos únicamente los puertos que el servicio necesita.
-takeaways:
-  - Una clave SSH prueba que tienes un secreto sin llegar a enviarlo nunca.
-  - Trabajar como root convierte cualquier error de tipeo en un daño permanente.
-  - Un cortafuegos por defecto cerrado hace explícito todo lo que expones.
 ---
 
 ## Qué te acaban de entregar

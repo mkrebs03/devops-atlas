@@ -2,20 +2,9 @@
 title: Pruebas en CI
 description: Ejecuta la suite en cada cambio, con las dependencias que necesita, y lee la cobertura sin engañarte.
 type: tool
-level: intermediate
 module: integration
 tools: [github-actions, postgresql, docker]
 prerequisites: [integration.github-actions, integration.pyramid]
-learningObjectives:
-  - Ejecutar pruebas y lint automáticamente en cada cambio con CI.
-  - Dar a las pruebas de integración una base de datos real dentro del runner.
-  - Añadir una prueba de humo sobre el artefacto, además de las pruebas sobre el código.
-  - Interpretar la cobertura sin convertirla en una meta vacía.
-takeaways:
-  - CI ejecuta la suite en un entorno limpio y repetible, no solo en tu máquina.
-  - Un servicio declarado en el job da a las pruebas de integración su dependencia real.
-  - Probar el código y probar el artefacto son comprobaciones distintas.
-  - La cobertura mide líneas ejecutadas, no comportamiento verificado.
 ---
 
 ## La suite corre en cada cambio

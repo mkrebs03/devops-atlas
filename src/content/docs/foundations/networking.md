@@ -2,20 +2,9 @@
 title: Redes esenciales
 description: DNS, puertos, TLS y HTTP explicados como un recorrido que puedes inspeccionar.
 type: concept
-level: beginner
 module: foundations
 tools: [dns, http, tls, curl, ss]
 prerequisites: [foundations.terminal]
-learningObjectives:
-  - Seguir una petición desde DNS hasta la respuesta HTTP, incluido TLS.
-  - Distinguir una dirección privada de una pública y saber por dónde sale el tráfico.
-  - Distinguir fallos de resolución, conexión, puerto y aplicación.
-  - Leer un código de estado y las cabeceras como parte del contrato HTTP.
-takeaways:
-  - Cada frontera de red ofrece una señal concreta que puedes comprobar.
-  - Una dirección privada solo significa algo dentro de su red; el gateway es la salida.
-  - DNS, TCP, TLS y HTTP responden preguntas diferentes dentro de la misma ruta.
-  - Un código de estado dice tanto como el cuerpo de la respuesta.
 ---
 
 ## Una petición es una ruta

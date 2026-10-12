@@ -2,18 +2,9 @@
 title: Proxy inverso y certificados
 description: La pieza que recibe el tráfico antes que tu aplicación, y el certificado que hace que el navegador confíe en ella.
 type: concept
-level: intermediate
 module: server
 tools: [nginx, caddy, certbot, tls, http]
 prerequisites: [foundations.networking, server.processes]
-learningObjectives:
-  - Explicar qué resuelve un proxy inverso frente a exponer la aplicación directamente.
-  - Configurar el reenvío hacia un servicio local conservando la identidad del cliente.
-  - Obtener y renovar un certificado sin depender de que alguien se acuerde.
-takeaways:
-  - Un proxy inverso da un único punto de entrada donde vive el certificado y la decisión de enrutado.
-  - Sin las cabeceras reenviadas, la aplicación cree que todo el tráfico viene del proxy.
-  - Un certificado que se renueva a mano es una caída con fecha de vencimiento conocida.
 ---
 
 ## Un solo 443 para muchos servicios

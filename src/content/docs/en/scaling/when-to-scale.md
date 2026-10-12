@@ -1,19 +1,10 @@
 ---
 title: When to scale, and how
-description: The signals that say one machine is no longer enough, and why the answer is rarely more servers.
+description: The signals that say one machine is no longer enough, and what to check before adding servers.
 type: concept
-level: intermediate
 module: scaling
 tools: [prometheus, linux, ss]
 prerequisites: [scaling.observability]
-learningObjectives:
-  - Tell a capacity problem from an efficiency problem before adding machine.
-  - Compare scaling vertically and horizontally by what each one costs.
-  - Identify the real bottleneck from a measurement rather than an intuition.
-takeaways:
-  - Scaling without measuring turns a cheap problem into an expensive, permanent one.
-  - Vertical scaling is a change of size; horizontal scaling is a change of architecture.
-  - The limit is almost always one specific resource rather than the whole machine.
 ---
 
 ## First: is it capacity or efficiency?
@@ -28,10 +19,10 @@ The question to answer before touching anything is whether the system lacks mach
 | CPU at 30% and slow responses | Yes | No |
 | CPU pinned at 95% | No | Yes |
 
-A query with no index, a call inside a loop, an 8 MB image served uncompressed: none of that improves with twice the server. It only becomes twice as expensive.
+A query with no index, a call inside a loop, an 8 MB image served uncompressed: none of that improves with twice the server, and it costs twice as much.
 
-:::caution[Scaling is the most expensive way to hide a problem]
-Doubling the machine can make the symptom disappear for a few weeks. The problem is still there, now with double the bill and a cause nobody remembers to look for. Measure first.
+:::caution[Scaling can hide the problem]
+Doubling the machine can make the symptom disappear for a few weeks. The problem is still there, with double the bill. Measure first.
 :::
 
 ## Find the resource that ran out
@@ -51,7 +42,7 @@ Two readings that get misinterpreted often:
 - **High "used" memory is not a problem.** Linux uses free RAM as disk cache and gives it back when somebody needs it. What matters is *swap* in use: if the system is writing memory to disk, every access just became thousands of times slower.
 - **High load average with low CPU** means processes are waiting for something else, usually disk or network. Adding CPU would change nothing.
 
-The most common limit in a web application is none of these: it is the database. One slow query holds a connection, connections run out, and the whole application looks saturated even with its CPU at 20%.
+In a web application it is worth looking at the database too, which is not on that list. One slow query holds a connection, connections run out, and the whole application looks saturated even with its CPU at 20%.
 
 ## Vertical: the same machine, bigger
 
@@ -60,7 +51,7 @@ Swap the instance for one with more CPU and more RAM. In a cloud that is a reboo
 - **For:** it changes nothing in the code or the architecture. It is reversible. You can have it within the hour.
 - **Against:** there is a ceiling, it is priced in large steps, and it means an outage. And you still have one single point of failure: that machine goes down and there is no service.
 
-It is the right answer far more often than people admit. An 8-core, 32 GB VPS serves traffic most projects never reach.
+While there is headroom it is the simplest option, and an 8-core, 32 GB VPS leaves a fair amount of it.
 
 ## Horizontal: more identical machines
 
@@ -92,7 +83,7 @@ Look at the diagram: you just multiplied the application and **not** the databas
 4. **Move state out** of the application, which is the real work that enables what follows.
 5. **Scale horizontally**, now with interchangeable instances.
 
-Skipping 4 and doing 5 is the usual way of ending up with a system that fails intermittently and is hard to reproduce: some requests hit the instance holding your session and some do not.
+Skipping 4 and doing 5 produces a system that fails intermittently and is hard to reproduce: some requests hit the instance holding your session and some do not.
 
 ## Check your understanding
 

@@ -2,19 +2,14 @@
 title: Balanceo de carga
 description: Varias instancias del mismo servicio, y la decisión de a cuál mandar cada petición.
 type: concept
-level: intermediate
 module: deployment
 tools: [nginx, traefik, http]
 prerequisites: [server.proxy-tls]
-learningObjectives:
-  - Repartir tráfico entre varias instancias y retirar de rotación la que no responde.
-  - Distinguir un chequeo de salud pasivo de uno activo por lo que cada uno detecta.
-  - Relacionar cada estrategia de despliegue con lo que cambia en el balanceador.
-takeaways:
-  - Un chequeo de salud es lo que convierte a un balanceador en algo más que un repartidor ciego.
-  - Cambiar de versión sin downtime siempre significa cambiar a dónde apunta el tráfico.
-  - Una aplicación que guarda estado en su memoria no se puede balancear sin romperla.
 ---
+
+:::note
+El balanceo entre varias instancias lo he estudiado, pero no lo he operado en un sistema real. En [Sobre este sitio](/about/) está el detalle de qué opero y qué no.
+:::
 
 ## Cuando una instancia deja de bastar
 

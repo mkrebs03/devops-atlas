@@ -2,18 +2,9 @@
 title: Del build al release
 description: Cómo un mismo artefacto atraviesa entornos hasta producción.
 type: concept
-level: intermediate
 module: deployment
 tools: [docker]
 prerequisites: [integration.github-actions, integration.secrets]
-learningObjectives:
-  - Distinguir integración continua, entrega continua y despliegue continuo.
-  - Promover un mismo artefacto a través de entornos sin reconstruirlo.
-  - Definir qué evidencia habilita el paso a producción.
-takeaways:
-  - Se construye una vez y se promueve el mismo artefacto entre entornos.
-  - Los entornos existen para ganar confianza antes de producción.
-  - Una compuerta de aprobación convierte el despliegue en una decisión explícita.
 ---
 
 ## CI, CD y CD: tres siglas que no son lo mismo

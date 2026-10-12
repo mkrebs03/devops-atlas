@@ -2,18 +2,9 @@
 title: Varios contenedores con Compose
 description: Describir la aplicación, su base de datos y la red que comparten en un archivo, en vez de encadenar comandos.
 type: tool
-level: beginner
 module: containers
 tools: [docker-compose, docker, postgresql]
 prerequisites: [containers.docker]
-learningObjectives:
-  - Describir varios servicios y la red que comparten en un solo archivo.
-  - Mantener los datos fuera del ciclo de vida de los contenedores con volúmenes.
-  - Ordenar el arranque con dependencias que comprueben salud y no solo existencia.
-takeaways:
-  - Compose describe el resultado deseado; los comandos docker run describen pasos.
-  - Los servicios se encuentran por nombre, así que no necesitan publicar puertos.
-  - Un volumen es lo único del conjunto que no se puede recrear.
 ---
 
 ## Un archivo en lugar de una secuencia

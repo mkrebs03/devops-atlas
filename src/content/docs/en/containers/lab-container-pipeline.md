@@ -2,23 +2,16 @@
 title: Practice · packaging myapp
 description: Turn the sample application into an image, find out why it does not answer at first, and describe it with Compose.
 type: practice
-level: beginner
 module: containers
 tools: [docker, docker-compose, curl]
 prerequisites: [containers.docker, containers.compose]
-learningObjectives:
-  - Write a Dockerfile for a real application and build its image.
-  - Diagnose a container that starts and does not answer from outside.
-  - Tell rebuilding an image from replacing the running container.
-  - Describe the service with Compose, including its health check.
-takeaways:
-  - Inside a container, 127.0.0.1 is the container itself, not the host machine.
-  - Rebuilding the image does not change containers that are already running.
-  - The same image behaves differently depending on the configuration it receives at start.
-  - A Compose file keeps in the repository what used to be docker run flags.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 `myapp` packaged as an image, running as a Compose service with a health check, with the `Dockerfile` and `compose.yml` stored in the repository. Along the way you will cause the most common failure when putting an application into a container.
 

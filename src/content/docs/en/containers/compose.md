@@ -2,18 +2,9 @@
 title: Several containers with Compose
 description: Describing the application, its database and the network they share in one file, instead of chaining commands.
 type: tool
-level: beginner
 module: containers
 tools: [docker-compose, docker, postgresql]
 prerequisites: [containers.docker]
-learningObjectives:
-  - Describe several services and the network they share in a single file.
-  - Keep data outside the containers' lifecycle using volumes.
-  - Order startup with dependencies that check health rather than mere existence.
-takeaways:
-  - Compose describes the desired result; docker run commands describe steps.
-  - Services find each other by name, so they do not need to publish ports.
-  - A volume is the only thing in the set that cannot be recreated.
 ---
 
 ## One file instead of a sequence

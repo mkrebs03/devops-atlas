@@ -2,18 +2,9 @@
 title: Mantener la aplicación viva
 description: Un servicio de systemd que arranca tu aplicación al encender la máquina y la reintenta cuando falla.
 type: tool
-level: beginner
 module: server
 tools: [systemd, linux]
 prerequisites: [server.manual-deploy]
-learningObjectives:
-  - Escribir una unidad de systemd que arranque la aplicación al encender la máquina.
-  - Leer los logs de un servicio y distinguir por qué se detuvo.
-  - Reconocer los límites de reintentar un proceso que falla siempre igual.
-takeaways:
-  - Un servicio pertenece al sistema, no a tu sesión, y por eso sobrevive a que cierres SSH.
-  - Reiniciar automáticamente cubre el fallo transitorio y esconde el permanente.
-  - journalctl es el primer sitio donde mirar cuando un servicio no arranca.
 ---
 
 ## De un proceso tuyo a un servicio del sistema

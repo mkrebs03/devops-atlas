@@ -2,18 +2,9 @@
 title: Secretos y permisos
 description: Dónde viven las credenciales que el pipeline necesita, y por qué el permiso mínimo importa más que esconderlas bien.
 type: concept
-level: intermediate
 module: integration
 tools: [github-actions, ssh, yaml]
 prerequisites: [integration.github-actions, server.manual-deploy]
-learningObjectives:
-  - Distinguir configuración de secreto por lo que pasa si se filtra.
-  - Conceder a cada job el permiso mínimo que necesita para su tarea.
-  - Reaccionar a un secreto expuesto rotándolo en lugar de borrándolo.
-takeaways:
-  - Un secreto en el historial de Git sigue ahí aunque el commit posterior lo borre.
-  - Rotar es la única respuesta válida a una filtración; ocultar no es responder.
-  - Una credencial de corta vida vale más que una larga bien guardada.
 ---
 
 ## Qué es un secreto y qué no

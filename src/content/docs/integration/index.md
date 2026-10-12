@@ -2,20 +2,9 @@
 title: Integración continua
 description: Que cada cambio se pruebe y se construya solo, en una máquina limpia, antes de llegar a un servidor.
 type: concept
-level: beginner
 module: integration
 tools: [github-actions, node]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Explicar qué gana un equipo cuando la comprobación deja de ocurrir en la máquina de quien escribió el código.
-  - Reconocer qué cambia cuando una suite de pruebas pasa a ser una compuerta del camino de entrega.
-  - Distinguir pipeline, artefacto y entorno dentro del mismo recorrido.
-  - Relacionar el modelo de ramas con la cadencia de entrega que sostiene.
-takeaways:
-  - CI comprueba en un entorno limpio, así que el resultado no depende de tu máquina.
-  - Una prueba es una afirmación ejecutable; en CI deja de ser un seguro personal y pasa a ser evidencia compartida.
-  - Un artefacto tiene identidad propia y no es lo mismo que el código del que salió.
-  - El modelo de ramas es una consecuencia de cómo entregas, no una preferencia.
 ---
 
 **Dónde estás:** ya sabes revisar un cambio, poner la aplicación en un servidor y empaquetarla. Todo eso depende todavía de que alguien lo haga, y de que lo haga bien. Aquí el commit deja de necesitar a una persona para convertirse en un artefacto comprobado.
@@ -66,9 +55,9 @@ El orden importa: lo barato va primero. Un lint que tarda diez segundos debe fal
 Si el workflow falla a menudo por razones que no son el código —una dependencia inestable, un límite de tiempo mal puesto— el equipo aprende a ignorar el rojo. Una comprobación que se ignora cuesta lo mismo y no protege nada.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes elegir qué probar y a qué nivel, escribir un workflow que valide cada pull request y verifique la imagen que construye, elegir un modelo de ramas y justificarlo, y dar al pipeline solo los permisos que necesita.
+Estas páginas cubren qué probar y a qué nivel, un workflow que valida cada pull request y verifica la imagen que construye, los modelos de ramas y los permisos que necesita un pipeline.
 
 ## Dónde se rompe esto
 

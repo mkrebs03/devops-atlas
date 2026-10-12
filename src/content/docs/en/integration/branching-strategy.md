@@ -2,18 +2,9 @@
 title: Branching strategies
 description: Trunk-based, GitHub Flow and GitFlow compared by what they cost, not by what they promise.
 type: concept
-level: intermediate
 module: integration
 tools: [git, github]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Recognise that a branching model describes a way of delivering, not a team preference.
-  - Compare trunk-based, GitHub Flow, and GitFlow by the cost each one imposes.
-  - Choose a model from how many versions you support and how many environments you cross.
-takeaways:
-  - A long-lived branch is a deferred integration, and deferral is paid back with interest.
-  - GitFlow only earns its cost when you maintain several published versions at once.
-  - The right model is the simplest one that supports your release cadence.
 ---
 
 ## A branching model is a consequence, not a preference

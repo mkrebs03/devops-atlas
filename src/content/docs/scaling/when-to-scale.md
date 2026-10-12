@@ -1,19 +1,10 @@
 ---
 title: Cuándo escalar y cómo
-description: Las señales que dicen que una máquina dejó de bastar, y por qué la respuesta casi nunca es más servidores.
+description: Las señales que dicen que una máquina dejó de bastar, y qué revisar antes de añadir servidores.
 type: concept
-level: intermediate
 module: scaling
 tools: [prometheus, linux, ss]
 prerequisites: [scaling.observability]
-learningObjectives:
-  - Distinguir un problema de capacidad de un problema de eficiencia antes de añadir máquina.
-  - Comparar escalar vertical y horizontalmente por lo que cada uno cuesta.
-  - Identificar el cuello de botella real a partir de una medición y no de una intuición.
-takeaways:
-  - Escalar sin haber medido convierte un problema barato en uno caro y permanente.
-  - Escalar en vertical es un cambio de tamaño; en horizontal es un cambio de arquitectura.
-  - Casi siempre el límite es un recurso concreto y no la máquina entera.
 ---
 
 ## Primero: ¿es capacidad o es eficiencia?
@@ -28,10 +19,10 @@ La pregunta que hay que responder antes de tocar nada es si al sistema le falta 
 | CPU al 30% y respuestas lentas | Sí | No |
 | CPU al 95% sostenido | No | Sí |
 
-Una consulta sin índice, una llamada dentro de un bucle, una imagen de 8 MB servida sin comprimir: nada de eso mejora con el doble de servidor. Solo se vuelve el doble de caro.
+Una consulta sin índice, una llamada dentro de un bucle, una imagen de 8 MB servida sin comprimir: nada de eso mejora con el doble de servidor, y cuesta el doble.
 
-:::caution[Escalar es la forma más cara de esconder un problema]
-Duplicar la máquina puede hacer que el síntoma desaparezca durante unas semanas. El problema sigue ahí, ahora con el doble de factura y con una causa que ya nadie recuerda buscar. Mide antes.
+:::caution[Escalar puede esconder el problema]
+Duplicar la máquina puede hacer que el síntoma desaparezca durante unas semanas. El problema sigue ahí, con el doble de factura. Mide antes.
 :::
 
 ## Encontrar el recurso que se acabó
@@ -51,7 +42,7 @@ Dos lecturas que se malinterpretan a menudo:
 - **Memoria "usada" alta no es un problema.** Linux usa la RAM libre como caché de disco y la devuelve cuando alguien la necesita. Lo que importa es el *swap* en uso: si el sistema está escribiendo memoria a disco, cada acceso se volvió miles de veces más lento.
 - **Carga media alta con CPU baja** significa que los procesos esperan por otra cosa, normalmente disco o red. Añadir CPU no cambiaría nada.
 
-El límite más común en una aplicación web no es ninguno de estos: es la base de datos. Una consulta lenta bloquea una conexión, las conexiones se agotan, y toda la aplicación parece saturada aunque su CPU esté al 20%.
+En una aplicación web conviene mirar también la base de datos, que no aparece en esa lista. Una consulta lenta bloquea una conexión, las conexiones se agotan, y toda la aplicación parece saturada aunque su CPU esté al 20%.
 
 ## Vertical: la misma máquina, más grande
 
@@ -60,7 +51,7 @@ Cambiar la instancia por una con más CPU y más RAM. En una nube es un reinicio
 - **A favor:** no cambia nada del código ni de la arquitectura. Es reversible. En un rato lo tienes.
 - **En contra:** hay un techo, se paga en escalones grandes, e implica una parada. Y sigues teniendo un solo punto de fallo: esa máquina cae y no hay servicio.
 
-Es la respuesta correcta muchísimo más a menudo de lo que se admite. Una VPS de 8 núcleos y 32 GB atiende un tráfico que la mayoría de los proyectos nunca alcanza.
+Mientras quede techo es la opción más simple, y una VPS de 8 núcleos y 32 GB deja bastante margen.
 
 ## Horizontal: más máquinas iguales
 
@@ -92,7 +83,7 @@ Fíjate en el diagrama: acabas de multiplicar la aplicación y **no** la base de
 4. **Sacar el estado fuera** de la aplicación, que es el trabajo real que habilita lo siguiente.
 5. **Escalar en horizontal**, ya con instancias intercambiables.
 
-Saltarse el 4 y hacer el 5 es la forma habitual de acabar con un sistema que falla de manera intermitente y difícil de reproducir: unas peticiones aciertan la instancia que tiene tu sesión y otras no.
+Saltarse el 4 y hacer el 5 produce un sistema que falla de manera intermitente y difícil de reproducir: unas peticiones aciertan la instancia que tiene tu sesión y otras no.
 
 ## Comprueba lo que entendiste
 
