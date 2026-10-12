@@ -3,7 +3,7 @@ FROM --platform=$BUILDPLATFORM node:22-bookworm-slim AS build
 ENV COREPACK_HOME=/corepack
 WORKDIR /app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # corepack install reads the pnpm version from package.json#packageManager,
 # keeping this Dockerfile out of the version-pinning business.

@@ -12,11 +12,6 @@
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.29.3",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  },
   "engines": {
     "node": ">=20.11 <26"
   },
