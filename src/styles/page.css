@@ -270,6 +270,10 @@
   margin: var(--atlas-space-5) 0;
 }
 .atlas-diagram__canvas { overflow-x: auto; }
+/* Set by MermaidRunner while part of the flow is still off the trailing edge. */
+.atlas-diagram[data-more] .atlas-diagram__canvas {
+  mask-image: linear-gradient(to right, #000 calc(100% - var(--atlas-space-6)), transparent);
+}
 .atlas-diagram svg {
   display: block;
   max-width: 100%;
@@ -294,6 +298,22 @@
 }
 .atlas-diagram .edgeLabel {
   font-size: var(--atlas-size-2xs);
+}
+
+/* ---------- asides -------------------------------------------------------- */
+
+/* Starlight colours a note blue and a tip purple. Neither is in this palette:
+   a note is a quiet box on the surface tone, a tip is the same box with the
+   accent on its edge. Caution and danger keep their own hues — those are
+   state, which is what colour is spent on here. */
+.starlight-aside--note,
+.starlight-aside--tip {
+  --sl-color-asides-text-accent: var(--atlas-text);
+  --sl-color-asides-border: var(--atlas-border-strong);
+  background-color: var(--atlas-surface-2);
+}
+.starlight-aside--tip {
+  --sl-color-asides-border: var(--atlas-accent);
 }
 
 /* ---------- tables ------------------------------------------------------- */
