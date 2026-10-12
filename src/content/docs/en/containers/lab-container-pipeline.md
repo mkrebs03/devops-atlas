@@ -2,23 +2,16 @@
 title: Practice · packaging myapp
 description: Turn the sample application into an image, find out why it does not answer at first, and describe it with Compose.
 type: practice
-level: beginner
 module: containers
 tools: [docker, docker-compose, curl]
 prerequisites: [containers.docker, containers.compose]
-learningObjectives:
-  - Write a Dockerfile for a real application and build its image.
-  - Diagnose a container that starts and does not answer from outside.
-  - Tell rebuilding an image from replacing the running container.
-  - Describe the service with Compose, including its health check.
-takeaways:
-  - Inside a container, 127.0.0.1 is the container itself, not the host machine.
-  - Rebuilding the image does not change containers that are already running.
-  - The same image behaves differently depending on the configuration it receives at start.
-  - A Compose file keeps in the repository what used to be docker run flags.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 `myapp` packaged as an image, running as a Compose service with a health check, with the `Dockerfile` and `compose.yml` stored in the repository. Along the way you will cause the most common failure when putting an application into a container.
 
@@ -163,22 +156,6 @@ Open the pull request and merge it, as in the [branches walkthrough](/en/collabo
 | `port is already allocated` | Another container or process holds 8080 | `docker ps`, `ss -lntp` |
 | The service ends up `unhealthy` | The check cannot reach `/health` | `docker compose logs app` |
 | The change does not show | You rebuilt the image and did not replace the container | `docker compose up --detach --build` |
-
-## Check your understanding
-
-<details>
-<summary>The application listens on 0.0.0.0 inside the container. Is it exposed to the internet?</summary>
-
-Not because of that. `0.0.0.0` refers to the container's interfaces, and the container lives on a private Docker network. What decides whether it is reachable from outside is how you publish the port: `127.0.0.1:8080:8080` opens it only on the host machine; `8080:8080` would open it on all of the host's interfaces.
-
-</details>
-
-<details>
-<summary>You rebuilt the image and the container still answers the old thing. Why?</summary>
-
-Because a container is created from the image that existed at that moment and never looks at it again. The `myapp:local` tag now points at a new image, but the running process is still the old one's. You have to stop the container and create another, which is what `docker compose up --build` does.
-
-</details>
 
 ## Cleanup
 

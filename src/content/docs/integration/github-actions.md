@@ -2,21 +2,12 @@
 title: GitHub Actions
 description: Convierte el camino de validación y despliegue en un workflow visible y repetible.
 type: tool
-level: beginner
 module: integration
 tools: [github-actions, yaml]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Interpretar eventos, jobs y pasos dentro de un workflow de GitHub Actions.
-  - Diseñar una validación con lint, pruebas y build que dé feedback rápido.
-  - Separar la validación en pull requests del despliegue tras integrar en main.
-takeaways:
-  - Un workflow convierte el camino de validación en una promesa ejecutable.
-  - Los jobs corren en paralelo salvo que declares dependencias con needs.
-  - El despliegue ocurre después de integrar, con secretos y permisos mínimos.
 ---
 
-## Un workflow es una promesa ejecutable
+## Qué es un workflow
 
 GitHub Actions describe qué ocurre ante eventos del repositorio (`push`, `pull_request`, etiquetas). Un workflow se compone de **jobs** —que corren en máquinas separadas y en paralelo— y cada job de **pasos** en orden.
 
@@ -33,7 +24,7 @@ flowchart LR
 
 ## Validar con lint, pruebas y build
 
-Un buen pipeline no solo compila: revisa formato, tipos y comportamiento antes de empaquetar.
+Un pipeline revisa formato, tipos y comportamiento antes de empaquetar.
 
 El **lint** es la comprobación más barata de todas: un programa lee el código sin ejecutarlo y señala lo que rompe una convención o huele a error —una variable sin usar, un `await` que falta, una importación que ya no existe—. Tarda segundos, así que su veredicto llega primero.
 
@@ -98,8 +89,8 @@ Los pull requests ejecutan validaciones sin tocar producción. Solo después de 
 
 El `if` limita el deploy a `main`; el `environment` permite exigir aprobaciones o guardar secretos por entorno.
 
-:::tip[Trata el pipeline como producto]
-Un error de CI es una experiencia de usuario. Mensajes cortos, comandos reproducibles y artefactos visibles reducen el tiempo entre fallo y aprendizaje.
+:::tip[Mensajes de error del pipeline]
+Mensajes cortos, comandos reproducibles y artefactos visibles reducen el tiempo entre un fallo de CI y su arreglo.
 :::
 
 ## Secretos y permisos
@@ -115,22 +106,6 @@ permissions:
 ```
 
 Dónde viven exactamente, por qué el permiso importa más que el escondite, y qué hacer cuando uno se escapa: [Secretos y permisos](/integration/secrets/).
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Quieres que build solo corra si test pasa. ¿Qué usas?</summary>
-
-`needs: test` en el job build. Por defecto los jobs corren en paralelo; `needs` declara una dependencia y hace que build espere a que test termine con éxito.
-
-</details>
-
-<details>
-<summary>Tu deploy corre en cada pull request. ¿Cómo lo limitas a main?</summary>
-
-Con una condición en el job, `if: github.ref == 'refs/heads/main'`, idealmente combinada con un `environment` que exija aprobación. La validación corre en cada PR; el despliegue, solo tras integrar.
-
-</details>
 
 ## Sigue explorando
 

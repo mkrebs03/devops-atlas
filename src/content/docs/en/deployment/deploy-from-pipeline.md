@@ -2,20 +2,9 @@
 title: Deploying from the pipeline
 description: The missing stretch, from a merge into main to the new version serving on the server, with a check and a way back.
 type: tool
-level: intermediate
 module: deployment
 tools: [github-actions, docker, docker-compose, ssh]
 prerequisites: [deployment.pipeline, integration.secrets, containers.compose]
-learningObjectives:
-  - Publish an image identified by its commit to a registry from the workflow.
-  - Make the server change version with one command, with no manual sessions.
-  - Check the deployment from outside and return to the previous version automatically if it fails.
-  - Limit what the credential the pipeline uses to enter the server can do.
-takeaways:
-  - The server builds nothing; it only downloads the image the pipeline already checked.
-  - A deployment does not end when the container starts, but when it is shown to answer.
-  - Saving the previous version before switching is what makes going back possible.
-  - The deploy key opens a single door, and the runner checks which server it is talking to.
 ---
 
 ## The missing stretch
@@ -206,29 +195,6 @@ An image in a registry is private unless you say otherwise. Either you make it p
 | The check through the domain | Depends on the cause | The container is healthy; the fault is in the proxy, the certificate, or DNS |
 
 The fourth row is the limit of this design: `docker compose up` stops the old container before starting the new one, so there is always an instant without service, and a few more seconds if it has to go back. Removing that gap takes both versions running at once and a proxy that switches between them, which is what [Load balancing](/en/deployment/load-balancing/) and [Deployment strategies](/en/deployment/strategies/) are about.
-
-## Check your understanding
-
-<details>
-<summary>Why does the server download an image instead of running git pull and building?</summary>
-
-Because what gets deployed has to be what was tested. If the server builds, it produces a new artifact nobody checked, with whatever dependencies exist that day. Downloading by SHA, it runs exactly the same bytes that passed the tests and the smoke test.
-
-</details>
-
-<details>
-<summary>The new container starts and the script waits twenty seconds before calling the deployment good. What does that prevent?</summary>
-
-Mistaking "it started" for "it works". `docker compose up` finishes successfully as soon as the container exists, even if the process inside dies a second later. Only an answered request shows the version is serving, and only then does it make sense to forget the previous one.
-
-</details>
-
-<details>
-<summary>What would happen without the DEPLOY_KNOWN_HOSTS secret?</summary>
-
-The runner would have nothing to compare the server's identity against. Either the connection fails, or — if the check is disabled so that it "works" — it would accept anyone answering at that address and hand over the session. Pinning the fingerprint is what guarantees the private key is only ever used against your machine.
-
-</details>
 
 ## Keep exploring
 

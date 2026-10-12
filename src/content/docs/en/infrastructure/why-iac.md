@@ -2,18 +2,9 @@
 title: Why write infrastructure down
 description: The server nobody knows how to rebuild, drift between environments, and what changes when a machine lives in a file.
 type: concept
-level: intermediate
 module: infrastructure
 tools: [terraform, ansible, ssh]
 prerequisites: [server.provisioning, scaling.when-to-scale]
-learningObjectives:
-  - Explain what configuration drift is and why it appears with nobody causing it.
-  - Tell provisioning resources apart from configuring what runs inside them.
-  - Recognise when writing infrastructure down does not pay off yet.
-takeaways:
-  - A server nobody knows how to rebuild is a point of failure with no backup.
-  - Drift does not come from mistakes, it comes from urgent fixes nobody wrote down.
-  - Describing infrastructure makes it reviewable, versioned and reproducible.
 ---
 
 ## The server nobody knows how to rebuild
@@ -28,7 +19,7 @@ This is called a **pet server**: unique, irreplaceable, with a name of its own a
 Dumping the database protects the data. It does not protect the dozens of system decisions that make the application start. If the disk disappears, you have the data and nowhere to put it.
 :::
 
-## Nobody causes drift
+## Configuration drift
 
 Even if you build two servers on the same day with the same steps, in six months they will not be alike. This is **configuration drift**, and it does not come from carelessness:
 
@@ -37,7 +28,7 @@ Even if you build two servers on the same day with the same steps, in six months
 - Somebody tries something on staging and leaves it in place.
 - A package's default version changes between two installs weeks apart.
 
-The result is the most expensive failure to diagnose there is: it works in one environment and not the other, and the difference is undocumented because nobody knows what it is.
+The result is a failure that is expensive to diagnose: it works in one environment and not the other, and the difference is undocumented because nobody knows what it is.
 
 ## What changes by writing it down
 
@@ -51,11 +42,11 @@ If infrastructure lives in versioned files, it inherits everything you already h
 | Reversible | Going back is going back to the previous commit |
 | Documented | The file is the documentation, and it cannot go stale |
 
-That last row carries the most weight. Any document about how a server is configured starts lying the day it is written. A file that **is** the configuration cannot lie: if it lied, the machine would not be that way.
+That last row carries the most weight. A document about how a server is configured goes out of date with the first change made by hand. A file that **is** the configuration does not go out of date that way: if it changes, the machine changes.
 
 ## Two different jobs
 
-They get confused constantly, and they use different tools because they solve different things:
+They use different tools because they solve different things:
 
 ```mermaid
 flowchart LR
@@ -86,29 +77,6 @@ It is not free. Writing infrastructure down adds a language, a tool, a state to 
 And signals that it is: more than one environment that has to match, more than one person with access, or the question "what happens if this machine disappears?" without a comfortable answer.
 
 An honest middle ground: a provisioning script in Bash, versioned, not idempotent but at least **existing**. It is far below Terraform and far above somebody's memory.
-
-## Check your understanding
-
-<details>
-<summary>Why do two servers built with the same steps stop being alike?</summary>
-
-Configuration drift. Urgent fixes get applied where it hurts, updates happen at different moments, and packages' default versions change between two installs separated in time. None of those is a mistake, and together they produce two different machines nobody can compare.
-
-</details>
-
-<details>
-<summary>What is the difference between what Terraform solves and what Ansible solves?</summary>
-
-Terraform creates the resources: the instance, the network, the disk, the DNS record. Ansible configures what is inside a machine that already exists: packages, files, services. One answers "which machines are there" and the other "what each one looks like inside".
-
-</details>
-
-<details>
-<summary>Why can an infrastructure file not go stale when a document can?</summary>
-
-Because the document describes reality from outside and nothing forces them to match; the moment somebody changes something without updating it, it lies. The file does not describe the infrastructure: it defines it. If it did not match the machine, applying it would change the machine to match.
-
-</details>
 
 ## Keep exploring
 

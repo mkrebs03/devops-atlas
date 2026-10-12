@@ -160,6 +160,11 @@ export default defineConfig({
           translations: { en: 'The sample application' },
           link: '/sample-app/',
         },
+        {
+          label: 'Sobre este sitio',
+          translations: { en: 'About this site' },
+          link: '/about/',
+        },
         ...moduleSidebar,
       ],
     }),

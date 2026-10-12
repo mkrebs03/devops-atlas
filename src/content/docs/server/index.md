@@ -2,25 +2,16 @@
 title: Un servidor
 description: El primer sitio donde la aplicación corre de verdad, y todo lo que hay que sostener para que siga corriendo.
 type: concept
-level: beginner
 module: server
 tools: [ssh, systemd, nginx]
 prerequisites: [foundations.networking]
-learningObjectives:
-  - Nombrar las piezas que hacen falta para que una aplicación responda en internet.
-  - Distinguir qué parte del trabajo la hace la máquina y cuál la hace una persona.
-  - Reconocer los límites de operar un solo servidor a mano.
-takeaways:
-  - Un servidor sirviendo tráfico es una aplicación sostenida por un proxy, un supervisor, un cortafuegos y un respaldo.
-  - Todo lo que se hace a mano se hace distinto la segunda vez.
-  - Con un solo disco, el respaldo es la única copia de lo que no se puede regenerar.
 ---
 
 **Dónde estás:** hasta ahora el código vivía en tu máquina y en un repositorio. Aquí sale por primera vez: una máquina ajena, una IP pública y usuarios que pueden llegar a ella.
 
 ## Qué hace falta para responder una petición
 
-Es tentador pensar que desplegar es copiar archivos a un servidor. No lo es. Entre el código y una petición contestada hay cuatro piezas, y cada una resuelve un problema distinto:
+Desplegar es más que copiar archivos a un servidor. Entre el código y una petición contestada hay cuatro piezas, y cada una resuelve un problema distinto:
 
 ```mermaid
 flowchart LR
@@ -39,13 +30,13 @@ fuera de la máquina"]
 - El **cortafuegos** resuelve que una IP pública recibe intentos de acceso automatizados a las pocas horas de existir.
 - El **respaldo** resuelve que un solo disco es un solo ejemplar de los datos.
 
-Quitas cualquiera de las cuatro y el sistema sigue funcionando — hasta el día en que no.
+Sin cualquiera de las cuatro el sistema sigue funcionando, hasta que falla justo lo que esa pieza cubría.
 
 ## Por qué empezar aquí y no por contenedores
 
-Puedes desplegar con Docker sin haber configurado nunca un servidor a mano. Mucha gente lo hace. El problema aparece cuando algo falla: un contenedor que no arranca, un puerto que no responde, un certificado caducado. Sin haber visto esas piezas por separado, todo se parece a que "Docker no funciona".
+Puedes desplegar con Docker sin haber configurado nunca un servidor a mano. El problema aparece cuando algo falla: un contenedor que no arranca, un puerto que no responde, un certificado caducado. Sin haber visto esas piezas por separado, todo se parece a que "Docker no funciona".
 
-Este módulo las separa. Después, un contenedor deja de ser magia y pasa a ser lo que es: una forma de empaquetar la aplicación y sus dependencias, que no te ahorra ni el proxy, ni el certificado, ni el respaldo.
+Este módulo las separa. Un contenedor es una forma de empaquetar la aplicación y sus dependencias, y no ahorra ni el proxy, ni el certificado, ni el respaldo.
 
 ## El recorrido
 
@@ -59,12 +50,12 @@ Este módulo las separa. Después, un contenedor deja de ser magia y pasa a ser 
 | Práctica | ¿Puedo hacer el camino completo? | [Práctica · de VPS vacía a HTTPS](/server/lab-vps-deploy/) |
 
 :::note[Una VPS sigue siendo una opción seria]
-Que existan Kubernetes y las plataformas administradas no convierte a un servidor único en un error. Para la mayor parte de los proyectos es más barato, más simple de diagnosticar y suficiente durante mucho más tiempo del que se supone. Lo que hay que saber es cuándo deja de serlo.
+Un servidor único es más barato y más simple de diagnosticar que un cluster. [Cuándo escalar y cómo](/scaling/when-to-scale/) trata cuándo deja de bastar.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes tomar una VPS recién creada y dejarla sirviendo una aplicación por HTTPS, que sobrevive a un reinicio, con los puertos cerrados y un respaldo que sale de la máquina.
+Estas páginas cubren el camino desde una VPS recién creada hasta una aplicación servida por HTTPS, que sobrevive a un reinicio, con los puertos cerrados y un respaldo que sale de la máquina.
 
 ## Dónde se rompe esto
 

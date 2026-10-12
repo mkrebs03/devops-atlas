@@ -1,17 +1,10 @@
 ---
 title: Collaboration
-description: Turn individual changes into decisions a team can understand and review.
+description: How to make your own change something a team can understand, review and undo.
 type: concept
-level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [foundations.terminal]
-learningObjectives:
-  - Explain how Git turns local changes into a reviewable history.
-  - Recognise the agreements that make collaboration possible without losing context.
-takeaways:
-  - Delivering a change also requires communicating its intent and history.
-  - Small, reviewable, and reversible changes reduce risk for the team.
 ---
 
 **Where you are:** in Foundations you learned to read a machine. Here the change stops being only yours: a team enters, and with it the need for your work to be reviewable, explainable, and undoable.
@@ -37,13 +30,13 @@ flowchart LR
 | Review | How do I propose a change another person can review? | [Pull requests and review](/en/collaboration/pull-requests/) |
 | Practice | Can I create and undo a safe change? | [Practice · safe branches](/en/collaboration/lab-git-branching/) |
 
-:::note[History is an interface]
-A useful history does not record every keystroke. It records decisions that are small, coherent and reversible.
+:::note[What goes in the history]
+A useful history records decisions that are small, coherent and reversible, not every keystroke.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you create an intentional branch, keep it current, explain a diff and open a change another person can review without rebuilding your context from scratch.
+These pages cover how to create an intentional branch, keep it current, read a diff and open a change another person can review without rebuilding your context from scratch.
 
 ## Where this breaks
 

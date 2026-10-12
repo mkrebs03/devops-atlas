@@ -2,19 +2,9 @@
 title: Docker sin magia
 description: Imágenes, contenedores, capas y volúmenes explicados desde el contrato que cumplen.
 type: tool
-level: beginner
 module: containers
 tools: [docker, nginx, docker-compose]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Explicar qué aísla un contenedor y en qué se diferencia de una máquina virtual.
-  - Distinguir una imagen inmutable de un contenedor en ejecución.
-  - Escribir un Dockerfile aprovechando el orden de capas y un build multi-stage.
-  - Definir el contrato de proceso, puerto, configuración y datos de un contenedor.
-takeaways:
-  - Una imagen empaqueta capas y un contenedor ejecuta un proceso bajo condiciones concretas.
-  - El orden de las instrucciones decide qué capas se reutilizan y cuánto tarda un build.
-  - Puertos, volúmenes y configuración deben formar un contrato observable.
 ---
 
 ## Por qué contenedores y no máquinas virtuales
@@ -100,7 +90,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 ```
 
-La imagen final solo contiene nginx y los archivos estáticos: menos tamaño, menos superficie, menos sorpresas.
+La imagen final solo contiene nginx y los archivos estáticos: menos tamaño y menos superficie.
 
 ## El contrato de un contenedor
 
@@ -118,25 +108,9 @@ En una red Docker, los servicios se encuentran por nombre: un contenedor puede l
 
 Ese reparto se declara en un archivo de **Docker Compose**, que describe varios contenedores y la red que comparten en lugar de encadenar comandos `docker run`. Cómo se escribe, y qué pasa con los datos cuando esos contenedores se recrean, está en [Varios contenedores con Compose](/containers/compose/).
 
-:::caution[Menos superficie, menos sorpresas]
+:::caution[Publica solo lo necesario]
 Un servicio que solo necesita ser accesible desde el proxy no debe publicar `80:80` al host. Expón únicamente lo que el contrato del sistema necesita.
 :::
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Cambias una línea de código y el build reconstruye TODAS las dependencias. ¿Qué está mal?</summary>
-
-Probablemente copias todo el proyecto con `COPY . .` antes de instalar, así que cualquier cambio de código invalida la capa de instalación. Copia primero `package.json` y el lockfile, instala, y recién después copia el resto del código.
-
-</details>
-
-<details>
-<summary>Borras el contenedor y pierdes la base de datos. ¿Cómo evitarlo?</summary>
-
-Los datos que deben persistir van en un volumen (`-v nombre:/ruta`), no dentro del contenedor. El contenedor es desechable; el volumen sobrevive a su borrado y puede montarse en uno nuevo.
-
-</details>
 
 ## Sigue explorando
 

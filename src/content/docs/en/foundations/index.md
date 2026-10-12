@@ -1,17 +1,10 @@
 ---
 title: Foundations
-description: Learn to read a machine before trying to automate it.
+description: How to read a machine before automating it.
 type: concept
-level: beginner
 module: foundations
 tools: [linux]
 prerequisites: []
-learningObjectives:
-  - Identify the basic signals of a machine and network before changing the system.
-  - Order diagnostic questions to investigate a failure with evidence.
-takeaways:
-  - Observing the system before acting reduces unnecessary changes.
-  - Machine, process, and network form a shared map for investigating problems.
 ---
 
 :::tip[First time here?]
@@ -22,9 +15,9 @@ If it is not yet clear what DevOps is or which part of the cycle this Atlas cove
 
 ## The first skill: observe
 
-DevOps does not start with a tool. It starts with the ability to ask concrete questions about a system: which process is listening, which file changed, why a request does not arrive, and what evidence supports a decision.
+Before any tool comes the ability to ask concrete questions about a system: which process is listening, which file changed, why a request does not arrive, and what evidence supports a decision.
 
-This module builds the minimum map for moving through Linux and a network. You do not need to memorise hundreds of commands; you need to connect small, verifiable observations.
+This module gathers the minimum map for moving through Linux and a network: a few commands, chained into small, verifiable observations.
 
 ## Walk the system from the outside in
 
@@ -48,9 +41,9 @@ flowchart LR
 Walking the system from the outside in —DNS → connection → port → process → file → configuration— reduces the temptation to change five things at once.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you describe a request path, find a process and verify a connection using local tools. That vocabulary is the foundation for Git, Docker and CI/CD.
+These pages cover the path of a request, how to find a process and how to verify a connection using local tools. That vocabulary is the foundation for Git, Docker and CI/CD.
 
 ## Where this breaks
 

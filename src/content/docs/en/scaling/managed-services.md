@@ -2,18 +2,9 @@
 title: Moving state off the machine
 description: Managed databases, object storage and shared sessions — the work that makes instances interchangeable.
 type: concept
-level: intermediate
 module: scaling
 tools: [postgresql, s3, redis]
 prerequisites: [server.backups, scaling.when-to-scale]
-learningObjectives:
-  - Identify which parts of your server hold state and which do not.
-  - Decide between operating a database yourself and paying for a managed one.
-  - Move uploaded files to object storage without breaking existing URLs.
-takeaways:
-  - An instance is disposable only when it holds nothing that is not somewhere else.
-  - A managed database buys operations, not features.
-  - Object storage turns files into a service rather than a disk.
 ---
 
 ## What holds state on your server
@@ -78,30 +69,7 @@ When the diagram looks like this, the instances are genuinely interchangeable: a
 
 In-memory **sessions** are the state noticed fastest: the user signs in and the next request asks them to sign in again. They move to Redis or the database, and it is usually a framework configuration change.
 
-**Scheduled jobs** are the state noticed latest, which is what makes them the most expensive. A `cron` sending the daily digest, replicated across three instances, sends three emails to every person. The way out is having only one instance run it: a shared lock, or an external scheduler that fires the job once.
-
-## Check your understanding
-
-<details>
-<summary>You migrate to two instances and users see "file not found" half the time. What is happening?</summary>
-
-The uploaded files are on the disk of one of the two machines. Requests landing on the other do not find them, and which one you get depends on the balancer. They have to move to object storage, which both instances reach equally.
-
-</details>
-
-<details>
-<summary>What exactly do you buy with a managed database?</summary>
-
-Operations, not features. The engine is the same. What you pay for is somebody else taking and testing the backups, keeping the replicas, applying upgrades, and answering when something breaks overnight. If your team already does all of that well, the price buys nothing.
-
-</details>
-
-<details>
-<summary>Your daily digest cron now sends three emails to every user. Why, and how is it fixed?</summary>
-
-Because the three instances are identical, `cron` included, and all three run the job. It is fixed by having only one run it: take a shared lock before starting, or move the scheduling outside the instances so a scheduler fires the job exactly once.
-
-</details>
+**Scheduled jobs** are the state noticed latest. A `cron` sending the daily digest, replicated across three instances, sends three emails to every person. The way out is having only one instance run it: a shared lock, or an external scheduler that fires the job once.
 
 ## Keep exploring
 

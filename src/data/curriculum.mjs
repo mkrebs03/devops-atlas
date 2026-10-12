@@ -8,16 +8,13 @@
  * reading order, never a gate, and the site stores no reader state.
  *
  * Modules are grouped by the *state of the system* a reader is looking at —
- * one server, containers, automated checks — not by the reader's skill. That
- * is why a module is never called a level: `level` is a per-page field, and a
- * module heading that ranked the reader would imply a gate this site has not
- * got.
+ * one server, containers, automated checks — not by the reader's skill.
  */
 
 /**
  * The taxonomy enums, in one place. `src/content.config.ts` builds its zod
  * enums from these and `scripts/validate-content.mjs` checks against them,
- * so adding a module or a level here is the whole change.
+ * so adding a module here is the whole change.
  */
 export const MODULE_IDS = /** @type {const} */ ([
   'foundations',
@@ -31,7 +28,6 @@ export const MODULE_IDS = /** @type {const} */ ([
 ]);
 /** Frontmatter `type` values. `overview` is a curriculum kind, not a frontmatter type. */
 export const PAGE_TYPES = /** @type {const} */ (['concept', 'tool', 'practice', 'cheatsheet']);
-export const LEVELS = /** @type {const} */ (['beginner', 'intermediate', 'advanced']);
 
 /** @typedef {'es' | 'en'} Locale */
 /** @typedef {typeof MODULE_IDS[number]} ModuleId */

@@ -1,103 +1,64 @@
 ---
 /*
   The landing is its own surface, not the docs index wearing a headline. It
-  answers, in order: what this is, what is inside, what a page actually looks
-  like, how to use it and who it is for — and then says what is still missing
-  instead of letting the reader discover the gap on their own.
-
-  Every number and every sample below is real content from this repository, and
-  the closing disclosure names exactly the topics this Atlas does not cover yet.
+  answers, in order: what this is, who writes it, what is inside and where to
+  enter.
 */
-import { modules, pages, getLocalizedPath } from '../data/curriculum.mjs';
-import { t } from '../data/ui-text.mjs';
+import { modules, getLocalizedPath } from '../data/curriculum.mjs';
 
 interface Props { locale: 'es' | 'en' }
 
 const { locale } = Astro.props;
-const copy = t(locale);
 const en = locale === 'en';
 const base = en ? '/en/' : '/';
-const practiceCount = pages.filter((page) => page.kind === 'practice').length;
 
 const words = en
   ? {
-      display: ['Learn DevOps', 'by reading how it', 'actually behaves.'],
-      lede: 'A DevOps reference for developers who already code: concepts explained to build a mental model, tools documented as they behave, and walkthroughs that carry one application from your machine to an automated deployment.',
       whatIs: 'What DevOps is',
-      start: 'Start with Foundations',
-      browse: 'Browse tools A–Z',
+      browse: 'Tools A–Z',
       whatInside: 'What is inside',
-      insideLede: 'Eight modules that follow the path of a change: read the machine, collaborate on the code, put it on a server, package it, test it on every change, take it to production, hold it up as it grows, and describe that machine in a file. Read them in order, or go straight to the one you need.',
-      sample: 'What a page looks like',
-      sampleLede: 'Pages separate the boundaries a request crosses, then show the evidence that tells them apart — real commands, real output.',
-      sampleCaption: 'From Foundations · investigate a local application',
-      howTo: 'How to use it',
-      use: [
-        {
-          title: 'In order, or by lookup',
-          body: 'Modules run 01 to 08 and each leans on the previous one. You can also come in through search or the A–Z index: every page states which module it belongs to and what is worth knowing first.',
-        },
-        {
-          title: 'For people who already code',
-          body: 'It assumes you can write code, use an editor, and read an error. It does not teach programming from zero: it starts at the point where that code has to run somewhere.',
-        },
-        {
-          title: 'In Spanish and English',
-          body: 'Every page exists in full in both languages, not as a half-finished translation. Switch language whenever you like and carry on where you were.',
-        },
-      ],
-      missing: 'Right now the Atlas runs from reading a machine to shipping a version, watching it, rolling it back, and describing the infrastructure in a file. What you will not find here yet: public clouds, Kubernetes in depth, or security.',
-      openSource: 'Free, no sign-up.',
+      insideLede: 'The modules follow the path of a change, from the machine to production. They can be read in order or one at a time.',
+      assumes: 'The pages assume you already write code, and every one of them exists in Spanish and in English.',
+      missing: 'I have not written yet about public clouds, security, or Kubernetes beyond an introduction.',
       backToTop: 'Back to top',
     }
   : {
-      display: ['Aprende DevOps', 'leyendo cómo se', 'comporta de verdad.'],
-      lede: 'Referencia de DevOps para quien ya programa: conceptos explicados para construir un modelo mental, herramientas documentadas como se comportan y prácticas que llevan una misma aplicación de tu máquina a un despliegue automático.',
       whatIs: 'Qué es DevOps',
-      start: 'Empezar por Fundamentos',
-      browse: 'Ver herramientas A–Z',
+      browse: 'Herramientas A–Z',
       whatInside: 'Qué hay dentro',
-      insideLede: 'Ocho módulos que siguen el recorrido de un cambio: leer la máquina, colaborar sobre el código, ponerlo en un servidor, empaquetarlo, probarlo en cada cambio, llevarlo a producción, sostenerlo cuando crece y describir esa máquina en un archivo. Puedes leerlos en orden o entrar directo al que necesites.',
-      sample: 'Cómo se ve una página',
-      sampleLede: 'Las páginas separan las fronteras que atraviesa una petición y muestran la evidencia que las distingue: comandos reales, salida real.',
-      sampleCaption: 'De Fundamentos · investigar una aplicación local',
-      howTo: 'Cómo usarlo',
-      use: [
-        {
-          title: 'En orden o suelto',
-          body: 'Los módulos van del 01 al 08 y cada uno se apoya en el anterior. También puedes entrar por el buscador o por el índice A–Z: cada página dice a qué módulo pertenece y qué conviene saber antes.',
-        },
-        {
-          title: 'Para quien ya programa',
-          body: 'Asume que sabes escribir código, usar un editor y leer un error. No enseña a programar desde cero: empieza en el punto donde ese código tiene que correr en alguna parte.',
-        },
-        {
-          title: 'En español y en inglés',
-          body: 'Cada página existe completa en los dos idiomas, no como traducción a medias. Cambias de idioma cuando quieras y sigues donde estabas.',
-        },
-      ],
-      missing: 'Por ahora el Atlas llega desde leer una máquina hasta desplegar una versión, observarla, revertirla y describir la infraestructura en un archivo. Todavía no encontrarás aquí nubes públicas, Kubernetes a fondo ni seguridad.',
-      openSource: 'Gratis y sin registro.',
+      insideLede: 'Los módulos siguen el recorrido de un cambio, desde la máquina hasta producción. Se pueden leer en orden o sueltos.',
+      assumes: 'Las páginas asumen que ya programas, y cada una existe en español y en inglés.',
+      missing: 'Todavía no he escrito sobre nubes públicas, seguridad ni Kubernetes más allá de una introducción.',
       backToTop: 'Volver arriba',
     };
 ---
 
 <div class="landing">
   <section class="landing__hero">
-    <h1 class="landing__display">
-      {words.display.map((line) => <span>{line}</span>)}
-    </h1>
-    <p class="landing__lede">{words.lede}</p>
+    <h1 class="landing__display">DevOps Atlas</h1>
+    {en ? (
+      <>
+        <p class="landing__lede">DevOps notes organized as a reference, in Spanish and English.</p>
+        <p class="landing__lede">
+          I'm Martín Sanhueza Krebs. I study computer engineering at Universidad de La Frontera and I put these notes
+          together as I learn. There is more about me and about what I run in{' '}
+          <a href={`${base}about/`}>About this site</a>.
+        </p>
+      </>
+    ) : (
+      <>
+        <p class="landing__lede">Apuntes de DevOps organizados como referencia, en español y en inglés.</p>
+        <p class="landing__lede">
+          Soy Martín Sanhueza Krebs, estudio Ingeniería Informática en la Universidad de La Frontera y voy armando
+          estos apuntes a medida que aprendo. En <a href={`${base}about/`}>Sobre este sitio</a> hay más sobre mí y
+          sobre lo que opero.
+        </p>
+      </>
+    )}
     <p class="landing__actions">
       <a class="landing__cta" href={`${base}what-is-devops/`}>{words.whatIs}</a>
-      <a class="landing__ghost" href={getLocalizedPath('foundations.overview', locale)}>{words.start}</a>
       <a class="landing__ghost" href={`${base}tools/`}>{words.browse}</a>
     </p>
-    <dl class="landing__facts">
-      <div><dt>{modules.length}</dt><dd>{copy.modules.toLowerCase()}</dd></div>
-      <div><dt>{pages.length}</dt><dd>{copy.pages}</dd></div>
-      <div><dt>{practiceCount}</dt><dd>{copy.practices}</dd></div>
-    </dl>
   </section>
 
   <section class="landing__section">
@@ -120,43 +81,9 @@ const words = en
     </div>
   </section>
 
-  <section class="landing__section landing__sample">
-    <div>
-      <h2>{words.sample}</h2>
-      <p class="landing__sample-lede">{words.sampleLede}</p>
-      <p class="landing__sample-caption">{words.sampleCaption}</p>
-    </div>
-    <figure class="term">
-      <figcaption class="term__bar">
-        <span class="term__dot" aria-hidden="true"></span>
-        <span>bash</span>
-      </figcaption>
-      <pre><code><span class="term__p">$</span> ss -lnt | grep ':8080'
-<span class="term__o">LISTEN 0  511  127.0.0.1:8080  0.0.0.0:*</span>
-<span class="term__p">$</span> curl -i http://127.0.0.1:8080/health
-<span class="term__ok">HTTP/1.1 200 OK</span>
-<span class="term__o">{'{"status":"ok"}'}</span>
-
-<span class="term__p">$</span> curl -i http://127.0.0.1:9090/health
-<span class="term__err">curl: (7) Failed to connect to 127.0.0.1 port 9090: Connection refused</span></code></pre>
-    </figure>
-  </section>
-
-  <section class="landing__section">
-    <h2>{words.howTo}</h2>
-    <ul class="landing__use">
-      {words.use.map((item) => (
-        <li>
-          <h3>{item.title}</h3>
-          <p>{item.body}</p>
-        </li>
-      ))}
-    </ul>
-  </section>
-
   <div class="landing__foot">
+    <p>{words.assumes}</p>
     <p>{words.missing}</p>
-    <p>{words.openSource}</p>
   </div>
 
   <button type="button" class="landing__totop" aria-label={words.backToTop} data-atlas-top>

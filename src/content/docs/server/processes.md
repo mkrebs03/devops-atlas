@@ -2,18 +2,9 @@
 title: Mantener la aplicación viva
 description: Un servicio de systemd que arranca tu aplicación al encender la máquina y la reintenta cuando falla.
 type: tool
-level: beginner
 module: server
 tools: [systemd, linux]
 prerequisites: [server.manual-deploy]
-learningObjectives:
-  - Escribir una unidad de systemd que arranque la aplicación al encender la máquina.
-  - Leer los logs de un servicio y distinguir por qué se detuvo.
-  - Reconocer los límites de reintentar un proceso que falla siempre igual.
-takeaways:
-  - Un servicio pertenece al sistema, no a tu sesión, y por eso sobrevive a que cierres SSH.
-  - Reiniciar automáticamente cubre el fallo transitorio y esconde el permanente.
-  - journalctl es el primer sitio donde mirar cuando un servicio no arranca.
 ---
 
 ## De un proceso tuyo a un servicio del sistema
@@ -99,29 +90,6 @@ sudo systemctl restart miapp    # el proceso se reinicia con la definición nuev
 ```
 
 `daemon-reload` solo no cambia nada del proceso en marcha. `restart` sin `daemon-reload` reinicia con la definición vieja.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Tu servicio queda en activating (auto-restart) y no llega nunca a active. ¿Qué está pasando?</summary>
-
-El proceso arranca y muere de inmediato, y systemd lo reintenta en bucle. La causa está en el diario: `journalctl -u miapp -n 50`. Lo habitual es una variable de entorno que falta, un puerto ya ocupado, o una ruta de `WorkingDirectory` o `ExecStart` que no existe.
-
-</details>
-
-<details>
-<summary>¿Por qué enable y start son dos cosas distintas?</summary>
-
-`start` arranca el servicio ahora. `enable` lo inscribe para que arranque en el próximo encendido. Si haces solo `start`, todo funciona hasta que la máquina se reinicia y el servicio no vuelve. `enable --now` hace las dos.
-
-</details>
-
-<details>
-<summary>Editaste el archivo .service y reiniciaste, pero el cambio no se aplicó. ¿Qué falta?</summary>
-
-`sudo systemctl daemon-reload`. systemd trabaja con una copia en memoria de las unidades; hasta que no la relee, `restart` vuelve a arrancar el proceso con la definición anterior.
-
-</details>
 
 ## Sigue explorando
 

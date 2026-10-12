@@ -2,21 +2,16 @@
 title: Practice · from empty VPS to HTTPS
 description: Walk the whole path on a real machine, from the first connection to a valid certificate.
 type: practice
-level: beginner
 module: server
 tools: [ssh, ufw, systemd, nginx, certbot]
 prerequisites: [server.processes, server.proxy-tls]
-learningObjectives:
-  - Leave a freshly created VPS with key-based access and a closed firewall.
-  - Publish an application as a systemd service that survives a reboot.
-  - Put a reverse proxy in front with an issued, renewable certificate.
-takeaways:
-  - Every step leaves a checkable signal before you move to the next one.
-  - A machine reboot is the proof that the service belongs to the system.
-  - Everything you did by hand here is what you will later want to automate.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 `myapp` answering at `https://your-domain.com` from a VPS: started by systemd, reachable only through nginx, with the certificate issued and its renewal scheduled.
 
@@ -200,22 +195,6 @@ Write down how long it took and how many steps had a value only you knew: the us
 | Checking that the code works before uploading it | [Continuous integration](/en/integration/) |
 | Copying the code and restarting the service | [Deploying from the pipeline](/en/deployment/deploy-from-pipeline/) |
 | Accepting a few seconds of downtime on update | [Deployment strategies](/en/deployment/strategies/) |
-
-## Check your understanding
-
-<details>
-<summary>Why is rebooting the machine a better test than closing the SSH session?</summary>
-
-Because it checks both things a service does. Closing the session only shows the process no longer depends on you; the reboot also shows the system knows how to start it by itself, which is what `enable` did. A service started with `start` and never enabled passes the first test and fails the second.
-
-</details>
-
-<details>
-<summary>nginx returns 502. Which boundary is the failure at?</summary>
-
-Between the proxy and the application. There was DNS, a connection, TLS and an HTTP response: nginx provided all of that. What failed is the hop to `127.0.0.1:8080`, so you look at the service (`systemctl status myapp`), not at the proxy.
-
-</details>
 
 ## Cleanup
 

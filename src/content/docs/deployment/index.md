@@ -1,17 +1,10 @@
 ---
 title: Despliegue continuo
-description: Lleva un artefacto a producción con estrategias seguras y capacidad de revertir.
+description: Cómo llega un artefacto a producción, con qué estrategia y cómo se revierte.
 type: concept
-level: intermediate
 module: deployment
 tools: [nginx, docker]
 prerequisites: [integration.github-actions]
-learningObjectives:
-  - Relacionar integración continua y entrega continua en un mismo recorrido.
-  - Reconocer qué hace seguro o riesgoso a un despliegue.
-takeaways:
-  - Desplegar seguido y en porciones pequeñas reduce el riesgo de cada cambio.
-  - Poder revertir rápido importa más que no fallar nunca.
 ---
 
 **Dónde estás:** ya tienes un artefacto probado. Queda el último tramo, y el más visible: que llegue solo al servidor, ponerlo delante de usuarios reales sin cortar el servicio y poder volver atrás.
@@ -37,13 +30,13 @@ flowchart LR
 | Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](/deployment/strategies/) |
 | Práctica | ¿Puedo promover y revertir una versión? | [Práctica · promover y revertir](/deployment/lab-release/) |
 
-:::note[Desplegar no es un evento, es una capacidad]
-Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en porciones pequeñas, y puede revertir en minutos.
+:::note[Desplegar seguido]
+Desplegar seguido y en porciones pequeñas, con una reversión que tarda minutos, baja el riesgo de cada entrega.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes describir un pipeline de entrega, hacer que un merge en `main` despliegue solo y vuelva atrás si falla, elegir una estrategia según el riesgo y practicar una promoción con rollback.
+Estas páginas cubren las etapas de un pipeline de entrega, un despliegue que sale de un merge en `main` y vuelve atrás si falla, las estrategias según el riesgo y una promoción con rollback.
 
 ## Dónde se rompe esto
 

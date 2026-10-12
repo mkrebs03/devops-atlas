@@ -2,23 +2,16 @@
 title: Práctica · ramas seguras
 description: Versiona la aplicación de ejemplo, resuelve un conflicto, deshaz un merge y abre tu primer pull request.
 type: practice
-level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [collaboration.git-model]
-learningObjectives:
-  - Crear un cambio aislado en una rama y revisar su diff antes de integrarlo.
-  - Resolver un conflicto de merge simple de forma deliberada.
-  - Deshacer un cambio integrado sin reescribir la historia.
-  - Publicar una rama y proponerla como pull request.
-takeaways:
-  - Revisar el grafo y el diff antes de integrar hace visible el alcance real.
-  - Un conflicto es una decisión que Git te delega, no un error.
-  - Revertir crea una decisión nueva; no borra la anterior.
-  - Una rama publicada y un pull request convierten tu cambio en algo que otra persona puede revisar.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 `miapp` dentro de un repositorio con una historia legible —un merge, un conflicto resuelto y un revert—, publicado en GitHub y con un pull request integrado. Ese repositorio remoto es el que usan las prácticas de servidor y de integración continua.
 
@@ -96,7 +89,7 @@ git commit --no-edit
 
 ## Paso 4 · Deshacer sin reescribir
 
-Supón que ese merge fue un error. No lo borres: decláralo.
+Supón que ese merge fue un error. En vez de borrarlo, se revierte con un commit nuevo.
 
 ```bash
 git revert -m 1 --no-edit HEAD
@@ -108,7 +101,7 @@ cat .env.example
 
 **Señal:** hay un commit nuevo `Revert "Merge branch 'chore/port-3000'"`, el merge sigue visible debajo, y el archivo vuelve a decir `PORT=8081`.
 
-:::tip[Revertir también es una entrega]
+:::tip[Por qué revert y no reset]
 `git revert` crea una nueva decisión que deshace otra. Es preferible a reescribir historia compartida con `reset --hard`, porque quien ya tenía esos commits no se queda con una historia distinta de la tuya.
 :::
 
@@ -152,22 +145,6 @@ git branch -d docs/routes
 | El merge quedó a medias y quieres empezar de nuevo | Sigues dentro del merge | `git merge --abort` |
 | `push` rechazado con `Permission denied (publickey)` | GitHub no conoce tu clave SSH | Añádela en tu cuenta, o usa la URL `https://` del repositorio |
 | `push` rechazado con `fetch first` | El remoto tiene commits que tú no | Lo creaste con README: `git pull --rebase origin main` |
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Resolviste el conflicto pero olvidaste git add del archivo. ¿Puedes cerrar el merge?</summary>
-
-No: mientras el archivo siga marcado como no resuelto, Git no te deja completar el merge. Haz `git add .env.example` para marcarlo como resuelto y luego `git commit` para cerrar la integración.
-
-</details>
-
-<details>
-<summary>¿Por qué el merge del paso 2 no creó un commit y el del paso 3 sí?</summary>
-
-Porque en el paso 2 `main` no se había movido desde que nació la rama: bastaba adelantar la referencia. En el paso 3 las dos ramas tenían commits propios, así que hacía falta un commit con dos padres que las uniera.
-
-</details>
 
 ## Limpieza
 

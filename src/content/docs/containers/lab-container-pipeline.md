@@ -2,23 +2,16 @@
 title: Práctica · empaquetar miapp
 description: Convierte la aplicación de ejemplo en una imagen, descubre por qué no responde a la primera y descríbela con Compose.
 type: practice
-level: beginner
 module: containers
 tools: [docker, docker-compose, curl]
 prerequisites: [containers.docker, containers.compose]
-learningObjectives:
-  - Escribir un Dockerfile para una aplicación real y construir su imagen.
-  - Diagnosticar un contenedor que arranca y no responde desde fuera.
-  - Distinguir reconstruir una imagen de reemplazar el contenedor que corre.
-  - Describir el servicio con Compose, incluido su chequeo de salud.
-takeaways:
-  - Dentro de un contenedor, 127.0.0.1 es el propio contenedor y no la máquina anfitriona.
-  - Reconstruir la imagen no cambia los contenedores que ya están corriendo.
-  - La misma imagen se comporta distinto según la configuración que recibe al arrancar.
-  - Un archivo de Compose guarda en el repositorio lo que antes eran banderas de docker run.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 `miapp` empaquetada en una imagen, corriendo como servicio de Compose con chequeo de salud, y con el `Dockerfile` y el `compose.yml` guardados en el repositorio. Por el camino vas a provocar el fallo más común al meter una aplicación en un contenedor.
 
@@ -163,22 +156,6 @@ Abre el pull request e intégralo, como en la [práctica de ramas](/collaboratio
 | `port is already allocated` | Otro contenedor u otro proceso ocupa el 8080 | `docker ps`, `ss -lntp` |
 | El servicio queda `unhealthy` | El chequeo no llega a `/health` | `docker compose logs app` |
 | El cambio no se nota | Reconstruiste la imagen y no reemplazaste el contenedor | `docker compose up --detach --build` |
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>La aplicación escucha en 0.0.0.0 dentro del contenedor. ¿Queda expuesta a internet?</summary>
-
-No por eso. `0.0.0.0` se refiere a las interfaces del contenedor, que vive en una red privada de Docker. Lo que decide si se alcanza desde fuera es cómo publicas el puerto: `127.0.0.1:8080:8080` solo lo abre en la máquina anfitriona; `8080:8080` lo abriría en todas sus interfaces.
-
-</details>
-
-<details>
-<summary>Reconstruiste la imagen y el contenedor sigue respondiendo lo de antes. ¿Por qué?</summary>
-
-Porque un contenedor se crea a partir de la imagen que existía en ese momento y no vuelve a mirarla. La etiqueta `miapp:local` ahora apunta a una imagen nueva, pero el proceso que corre sigue siendo el de la vieja. Hay que parar el contenedor y crear otro, que es lo que hace `docker compose up --build`.
-
-</details>
 
 ## Limpieza
 

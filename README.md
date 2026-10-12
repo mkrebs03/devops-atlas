@@ -5,15 +5,15 @@
 
 **Español** · [English](README.en.md)
 
-Referencia de DevOps para quien ya programa. Cubre el salto de escribir software a operarlo: dónde está cada frontera que atraviesa una petición, qué evidencia distingue dos fallos parecidos y por qué existe cada herramienta. Conceptos que arman un modelo mental, herramientas documentadas por cómo se comportan y prácticas que ejecutas en tu propia máquina.
+Mis apuntes de DevOps, organizados como referencia en español y en inglés. Los voy armando a medida que aprendo: una parte de lo que hay la opero a diario y otra solo la he estudiado. La página [Sobre este sitio](https://devops.mkrebs.tech/about/) dice cuál es cuál.
 
 [![Portada de DevOps Atlas](.github/media/landing-es.png)](https://devops.mkrebs.tech)
 
 **[devops.mkrebs.tech](https://devops.mkrebs.tech)**
 
-## Para quién es
+## Quién lo escribe
 
-Para desarrolladores que quieren moverse hacia DevOps: autodidactas, gente cambiando de carrera, estudiantes. Asume que sabes escribir código, usar un editor y leer un error. **No enseña a programar desde cero.**
+Martín Sanhueza Krebs, estudiante de Ingeniería Informática en la Universidad de La Frontera. Las páginas asumen que quien lee ya programa.
 
 ## Qué hay dentro
 
@@ -30,9 +30,7 @@ Ocho módulos agrupados por el estado del sistema que describen —una máquina,
 | 07 | Operar y escalar            | Prometheus, OpenTelemetry, PostgreSQL, Kubernetes, Docker Swarm | —                               |
 | 08 | Infraestructura como código | Terraform, Ansible, SSH                                         | —                               |
 
-Las seis prácticas trabajan sobre la misma aplicación de ejemplo, de modo que cada una empieza donde terminó la anterior.
-
-En total: 42 páginas de módulo, 6 de ellas prácticas ejecutables.
+Las prácticas trabajan sobre la misma aplicación de ejemplo, de modo que cada una empieza donde terminó la anterior. Son recorridos escritos: no los ejecuté de punta a punta y la salida que muestran es ilustrativa.
 
 ## Cómo está hecho
 
@@ -72,12 +70,12 @@ Build multi-stage: compila con Node y sirve el resultado con nginx. El procedimi
 
 ## Estado
 
-Ocho módulos publicados, del arranque de una máquina hasta describir esa máquina en un archivo, con respaldos, observabilidad y secrets por el camino. Falta cobertura de nubes públicas, Kubernetes a fondo y seguridad.
+Hay ocho módulos, del arranque de una máquina hasta describir esa máquina en un archivo, con respaldos, observabilidad y secrets por el camino. Todavía no he escrito sobre nubes públicas, seguridad ni Kubernetes más allá de una introducción.
 
 ## Contribuir
 
-Los issues están abiertos para bugs, dudas y sugerencias, y se aceptan PRs desde cualquier fork. El merge a `main` queda a criterio del mantenedor tras revisión: abrir un PR no garantiza que se fusione. Las convenciones de contenido y los pasos están en [`CONTRIBUTING.md`](CONTRIBUTING.md).
+Los issues están abiertos para correcciones, dudas y sugerencias, y se aceptan PRs desde cualquier fork. El merge a `main` queda a criterio del mantenedor tras revisión: abrir un PR no garantiza que se fusione. Las convenciones de contenido y los pasos están en [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Licencia
 
-[MIT](LICENSE) — Martin Sanhueza ([@mkrebs03](https://github.com/mkrebs03)).
+[MIT](LICENSE) — Martín Sanhueza Krebs ([@mkrebs03](https://github.com/mkrebs03)).

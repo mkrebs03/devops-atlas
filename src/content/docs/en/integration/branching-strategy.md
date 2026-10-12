@@ -1,24 +1,15 @@
 ---
 title: Branching strategies
-description: Trunk-based, GitHub Flow and GitFlow compared by what they cost, not by what they promise.
+description: Trunk-based, GitHub Flow and GitFlow compared by what each one costs.
 type: concept
-level: intermediate
 module: integration
 tools: [git, github]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Recognise that a branching model describes a way of delivering, not a team preference.
-  - Compare trunk-based, GitHub Flow, and GitFlow by the cost each one imposes.
-  - Choose a model from how many versions you support and how many environments you cross.
-takeaways:
-  - A long-lived branch is a deferred integration, and deferral is paid back with interest.
-  - GitFlow only earns its cost when you maintain several published versions at once.
-  - The right model is the simplest one that supports your release cadence.
 ---
 
-## A branching model is a consequence, not a preference
+## What the branching model depends on
 
-It is tempting to read the names — trunk-based, GitHub Flow, GitFlow — as styles you pick by taste. They are not. Each one answers one concrete question about how you deliver:
+The names — trunk-based, GitHub Flow, GitFlow — look like styles you pick by taste, but each one answers one concrete question about how you deliver:
 
 > How long can a change exist without being integrated with everyone else's work?
 
@@ -35,7 +26,7 @@ Everything else — how many branches there are, what they are called, who may w
 | How long does your CI take to return a verdict? | Minutes | You can integrate several times a day |
 | | Hours | You will accumulate unintegrated work |
 
-If all three answers land in the first row, any complex model will only cost you money.
+If all three answers land in the first row, a complex model only adds cost.
 
 ## The three models
 
@@ -60,7 +51,7 @@ flowchart LR
 
 One branch per intention, one pull request per branch, `main` always deployable. It is trunk-based with an explicit review stop and slightly longer branches.
 
-It is the reasonable starting point for almost any project: it keeps one single line of truth and still lets another person read the change before it lands. The claim "`main` is always deployable" is what holds it up, and it is only true if CI genuinely checks it.
+It is a reasonable starting point: it keeps one single line of truth and still lets another person read the change before it lands. The claim "`main` is always deployable" is what holds it up, and it is only true if CI genuinely checks it.
 
 ### GitFlow
 
@@ -84,38 +75,15 @@ It solves a real problem: supporting several published versions at once and bein
 | GitHub Flow | One live deployment, review by pull request | Branches of days: some conflicts and review queues |
 | GitFlow | Several published versions supported simultaneously | Two permanent branches that drift apart, and large merges |
 
-## Why a long branch is paid back with interest
+## The cost of a long branch
 
 A branch that has not touched `main` for three weeks is not "in progress": it is a deferred integration. Meanwhile `main` moved on, and the conflict you will resolve at the end is the sum of every conflict you would have resolved one at a time.
 
 The cost does not grow linearly. It grows with the number of other people's changes that happened while you were not looking, and any of them can interact with yours.
 
-:::caution[GitFlow by default is the most expensive mistake]
-Adopting `develop`, `release/*` and `hotfix/*` on a project with a single live deployment adds two merges per change and a branch that drifts, in exchange for a capability — patching an old version — you are never going to use. If you do not have customers on different versions, you do not need GitFlow.
+:::caution[GitFlow by default is expensive]
+Adopting `develop`, `release/*` and `hotfix/*` on a project with a single live deployment adds two merges per change and a branch that drifts, in exchange for a capability — patching an old version — you are not going to use. If you do not have customers on different versions, you do not need GitFlow.
 :::
-
-## Check your understanding
-
-<details>
-<summary>Why does trunk-based require feature flags?</summary>
-
-Because if you integrate into `main` several times a day, half-finished code will reach production. The flag separates two things that normally travel together: deploying the code and enabling the feature. The code ships; the condition decides whether anyone sees it.
-
-</details>
-
-<details>
-<summary>Your team maintains a single web application with one production deployment. What does GitFlow's develop branch give you?</summary>
-
-Nothing `main` does not already give you. `develop` exists to separate "what is in development" from "what is published", and that distinction only matters when there are published versions still receiving patches. With a single live deployment, `main` already is exactly that, and the second branch only adds a merge and an opportunity for the two to drift apart.
-
-</details>
-
-<details>
-<summary>Your CI takes fifty minutes. Which branching model becomes hard, and why?</summary>
-
-Trunk-based. Its premise is integrating several times a day, and that needs a verdict in minutes. At fifty minutes per attempt, people batch work up to avoid waiting, branches lengthen on their own, and you end up in the model you did not choose. Before changing the branching model, shorten CI.
-
-</details>
 
 ## Keep exploring
 

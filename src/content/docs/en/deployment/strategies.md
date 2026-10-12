@@ -2,19 +2,14 @@
 title: Deployment strategies
 description: Recreate, rolling, blue-green and canary, and how to roll back each one.
 type: concept
-level: advanced
 module: deployment
 tools: [nginx]
 prerequisites: [deployment.load-balancing]
-learningObjectives:
-  - Compare recreate, rolling, blue-green, and canary by risk and cost.
-  - Choose a strategy by tolerance for downtime and for failures.
-  - Design a fast rollback for each strategy.
-takeaways:
-  - Each strategy trades deployment risk for more resources or time.
-  - Canary limits the impact by exposing the new version to a fraction of traffic.
-  - A rehearsed rollback is worth more than a perfect deployment.
 ---
+
+:::note
+I have studied blue-green and canary but I have not applied them on a real system. [About this site](/en/about/) lists what I run and what I do not.
+:::
 
 ## Changing the version without taking the service down
 
@@ -49,27 +44,11 @@ There is no single best: a personal blog tolerates recreate; a payments service 
 
 ## The rollback is part of the plan
 
-A deployment without a rollback is a bet. Before you launch, answer: how do I return to the previous version, in how long, and what happens to already-migrated data? A rollback nobody rehearsed does not exist.
+Before you launch, answer: how do I return to the previous version, in how long, and what happens to already-migrated data? It is worth rehearsing the rollback before you need it.
 
 :::caution[Data migrations do not always revert]
 Changing code is reversible; dropping a column is not. Design schema changes that are backward compatible (add before you remove) so a code rollback does not leave orphaned data.
 :::
-
-## Check your understanding
-
-<details>
-<summary>A payments service needs zero downtime and must contain the impact of a failure. Which strategy?</summary>
-
-Canary: you expose the new version to a fraction of traffic and watch metrics before ramping up. If something fails, it only affects that percentage and you withdraw the canary. Blue-green also avoids downtime, but canary limits the blast radius better.
-
-</details>
-
-<details>
-<summary>Your code rollback works, but the deployment dropped a database column. What went wrong?</summary>
-
-The migration was not backward compatible. The code reverts, but the data does not come back on its own. Make schema changes in compatible steps (add before you remove) so a code rollback does not leave the database inconsistent.
-
-</details>
 
 ## Keep exploring
 

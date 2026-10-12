@@ -2,18 +2,9 @@
 title: Por qué escribir la infraestructura
 description: El servidor que nadie sabe reconstruir, la deriva entre entornos, y qué cambia cuando la máquina se describe en un archivo.
 type: concept
-level: intermediate
 module: infrastructure
 tools: [terraform, ansible, ssh]
 prerequisites: [server.provisioning, scaling.when-to-scale]
-learningObjectives:
-  - Explicar qué es la deriva de configuración y por qué aparece sin que nadie la provoque.
-  - Distinguir aprovisionar recursos de configurar lo que corre dentro de ellos.
-  - Reconocer cuándo escribir la infraestructura todavía no compensa.
-takeaways:
-  - Un servidor que nadie sabe reconstruir es un punto de fallo sin respaldo.
-  - La deriva no viene de errores, viene de arreglos urgentes que nadie anotó.
-  - Describir la infraestructura la vuelve revisable, versionada y reproducible.
 ---
 
 ## El servidor que nadie sabe reconstruir
@@ -28,7 +19,7 @@ Se le llama **servidor mascota**: único, irreemplazable, con nombre propio y co
 Volcar la base de datos protege los datos. No protege las decenas de decisiones de sistema que hacen que la aplicación arranque. Si el disco desaparece, tienes los datos y no tienes dónde ponerlos.
 :::
 
-## La deriva no la causa nadie
+## Deriva de configuración
 
 Aunque montes dos servidores el mismo día con los mismos pasos, en seis meses no serán iguales. A eso se le llama **deriva de configuración**, y no aparece por descuido:
 
@@ -37,7 +28,7 @@ Aunque montes dos servidores el mismo día con los mismos pasos, en seis meses n
 - Alguien prueba algo en *staging* y lo deja puesto.
 - Un paquete cambia de versión por defecto entre dos instalaciones separadas por semanas.
 
-El resultado es el fallo más caro de diagnosticar que existe: funciona en un entorno y no en el otro, y la diferencia no está documentada porque nadie sabe cuál es.
+El resultado es un fallo caro de diagnosticar: funciona en un entorno y no en el otro, y la diferencia no está documentada porque nadie sabe cuál es.
 
 ## Qué cambia al escribirla
 
@@ -51,11 +42,11 @@ Si la infraestructura vive en archivos versionados, hereda todo lo que ya tienes
 | Reversible | Volver atrás es volver al commit anterior |
 | Documentado | El archivo es la documentación, y no puede quedar desactualizado |
 
-Esa última fila es la que más pesa. Cualquier documento sobre cómo está configurado un servidor empieza a mentir desde el día que se escribe. Un archivo que **es** la configuración no puede mentir: si mintiera, la máquina no sería así.
+Esa última fila es la que más pesa. Un documento sobre cómo está configurado un servidor se desactualiza con el primer cambio hecho a mano. Un archivo que **es** la configuración no se desactualiza así: si cambia, cambia la máquina.
 
 ## Dos trabajos distintos
 
-Se confunden constantemente y usan herramientas distintas porque resuelven cosas distintas:
+Usan herramientas distintas porque resuelven cosas distintas:
 
 ```mermaid
 flowchart LR
@@ -86,29 +77,6 @@ No es gratis. Escribir la infraestructura añade un lenguaje, una herramienta, u
 Y señales de que sí: más de un entorno que debe parecerse, más de una persona con acceso, o la pregunta "¿qué pasa si esta máquina desaparece?" sin una respuesta cómoda.
 
 Un punto intermedio honesto: un script de aprovisionamiento en Bash, versionado, que no es idempotente pero al menos **existe**. Está muy por debajo de Terraform y muy por encima de la memoria de alguien.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué dos servidores creados con los mismos pasos dejan de ser iguales?</summary>
-
-Por la deriva de configuración. Los arreglos urgentes se aplican donde duele, las actualizaciones ocurren en momentos distintos, y las versiones por defecto de los paquetes cambian entre dos instalaciones separadas en el tiempo. Ninguna de esas cosas es un error, y todas juntas producen dos máquinas distintas que nadie puede comparar.
-
-</details>
-
-<details>
-<summary>¿Qué diferencia hay entre lo que resuelve Terraform y lo que resuelve Ansible?</summary>
-
-Terraform crea los recursos: la instancia, la red, el disco, el registro DNS. Ansible configura lo que hay dentro de una máquina que ya existe: paquetes, archivos, servicios. Uno responde "qué máquinas hay" y el otro "cómo está cada una por dentro".
-
-</details>
-
-<details>
-<summary>¿Por qué un archivo de infraestructura no puede quedar desactualizado y un documento sí?</summary>
-
-Porque el documento describe la realidad desde fuera y nada obliga a que coincidan; en cuanto alguien cambia algo sin actualizarlo, miente. El archivo no describe la infraestructura: la define. Si no coincidiera con la máquina, al aplicarlo la máquina cambiaría para coincidir.
-
-</details>
 
 ## Sigue explorando
 

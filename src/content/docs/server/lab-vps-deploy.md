@@ -2,21 +2,16 @@
 title: Práctica · de VPS vacía a HTTPS
 description: Recorre el camino completo en una máquina real, desde la primera conexión hasta un certificado válido.
 type: practice
-level: beginner
 module: server
 tools: [ssh, ufw, systemd, nginx, certbot]
 prerequisites: [server.processes, server.proxy-tls]
-learningObjectives:
-  - Dejar una VPS recién creada con acceso por clave y cortafuegos cerrado.
-  - Publicar una aplicación como servicio de systemd que sobreviva a un reinicio.
-  - Poner un proxy inverso delante con un certificado emitido y renovable.
-takeaways:
-  - Cada paso deja una señal comprobable antes de pasar al siguiente.
-  - Un reinicio de la máquina es la prueba de que el servicio pertenece al sistema.
-  - Todo lo que hiciste a mano aquí es lo que después vas a querer automatizar.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 `miapp` respondiendo en `https://tu-dominio.com` desde una VPS: arrancada por systemd, alcanzable solo a través de nginx, con el certificado emitido y su renovación programada.
 
@@ -200,22 +195,6 @@ Anota cuánto duró y cuántos pasos tenían un valor que solo tú conocías: el
 | Comprobar que el código funciona antes de subirlo | [Integración continua](/integration/) |
 | Copiar el código y reiniciar el servicio | [Desplegar desde el pipeline](/deployment/deploy-from-pipeline/) |
 | Aceptar unos segundos de corte al actualizar | [Estrategias de despliegue](/deployment/strategies/) |
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué reiniciar la máquina es mejor prueba que cerrar la sesión SSH?</summary>
-
-Porque comprueba las dos cosas que hace un servicio. Cerrar la sesión solo demuestra que el proceso ya no depende de ti; el reinicio demuestra además que el sistema sabe arrancarlo solo, que es lo que hizo `enable`. Un servicio arrancado con `start` y sin `enable` pasa la primera prueba y falla la segunda.
-
-</details>
-
-<details>
-<summary>nginx devuelve 502. ¿En qué frontera está el fallo?</summary>
-
-Entre el proxy y la aplicación. Hubo DNS, conexión, TLS y una respuesta HTTP: todo eso lo puso nginx. Lo que falló es el salto a `127.0.0.1:8080`, así que se mira el servicio (`systemctl status miapp`) y no el proxy.
-
-</details>
 
 ## Limpieza
 

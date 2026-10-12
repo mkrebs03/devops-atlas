@@ -11,7 +11,7 @@ test.describe('DevOps Atlas', () => {
     await expect(page.locator('.landing__display')).toBeVisible();
     await expect(page.locator('.mcard')).toHaveCount(modules.length);
     await expect(page.locator('.mcard__pages li')).toHaveCount(pages.length);
-    await page.locator('.landing__cta').click();
+    await page.locator('.landing__hero').getByRole('link', { name: 'Qué es DevOps' }).click();
     await expect(page).toHaveURL(/\/what-is-devops\/$/);
   });
 
@@ -92,6 +92,14 @@ test.describe('DevOps Atlas', () => {
     await expect(page.getByRole('heading', { level: 1, name: 'La aplicación de ejemplo' })).toBeVisible();
     await page.goto('/en/sample-app/');
     await expect(page.getByRole('heading', { level: 1, name: 'The sample application' })).toBeVisible();
+  });
+
+  test('the about page is reachable in both editions', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.landing__hero').getByRole('link', { name: 'Sobre este sitio' }).click();
+    await expect(page.getByRole('heading', { level: 1, name: 'Sobre este sitio' })).toBeVisible();
+    await page.goto('/en/about/');
+    await expect(page.getByRole('heading', { level: 1, name: 'About this site' })).toBeVisible();
   });
 
   test('mermaid blocks render as diagrams', async ({ page }) => {

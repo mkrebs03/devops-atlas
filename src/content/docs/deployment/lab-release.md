@@ -2,21 +2,16 @@
 title: Práctica · promover y revertir
 description: Un blue-green local con un proxy de verdad, cambiando de versión y volviendo atrás sin perder una sola petición.
 type: practice
-level: intermediate
 module: deployment
 tools: [docker, nginx, curl]
 prerequisites: [deployment.strategies]
-learningObjectives:
-  - Ejecutar dos versiones de un servicio detrás de un proxy y decidir cuál recibe tráfico.
-  - Verificar la versión nueva en aislamiento antes de exponerla.
-  - Cambiar y revertir el tráfico recargando el proxy, y comprobar que no se pierde ninguna petición.
-takeaways:
-  - Desplegar es arrancar la versión nueva; publicar es cambiar a dónde apunta el proxy.
-  - Un rollback es la misma operación en sentido contrario, y por eso es rápido.
-  - Validar la configuración antes de recargar es lo que impide que un cambio roto llegue al tráfico.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 Dos versiones de `miapp` corriendo a la vez, un nginx delante que decide cuál atiende, y un bucle de peticiones que demuestra que cambiar de una a otra —y volver— no corta nada.
 
@@ -155,29 +150,6 @@ Ese es también el coste del blue-green: mientras quieras poder volver, pagas la
 | `host not found in upstream` al arrancar el proxy | `blue` no existe o está en otra red | `docker network inspect atlas-bg` |
 | La recarga no cambia nada | El archivo editado no es el montado | `docker exec proxy cat /etc/nginx/conf.d/default.conf` |
 | `name is already in use` | Quedaron contenedores de un intento anterior | La sección de limpieza |
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>En el paso 3 la verde ya corre pero nadie la usa. ¿Por qué es útil?</summary>
-
-Porque separa desplegar de publicar. Puedes comprobar la versión nueva con calma —que arranca, que su `/health` responde— sin que ningún usuario la vea. Si algo está mal, lo descubres antes de mover el tráfico y no hay nada que revertir.
-
-</details>
-
-<details>
-<summary>¿Qué habría pasado en el paso 5 sin el nginx -t delante?</summary>
-
-Depende del momento. En una recarga, nginx valida por su cuenta y conserva la configuración anterior si la nueva falla, así que el tráfico habría seguido. Pero el archivo roto se queda en disco, y el siguiente reinicio del contenedor —por una actualización, por un reinicio de la máquina— ya no arrancaría. `nginx -t` convierte ese fallo aplazado en uno inmediato y visible.
-
-</details>
-
-<details>
-<summary>Decides borrar blue justo después de cambiar a green. ¿Qué pierdes?</summary>
-
-El rollback instantáneo. Volver ya no es recargar el proxy: es arrancar de nuevo la versión anterior y esperar a que esté lista, con la versión mala atendiendo mientras tanto. La versión vieja se retira cuando la nueva lleva suficiente tiempo sana, no cuando deja de recibir tráfico.
-
-</details>
 
 ## Limpieza
 

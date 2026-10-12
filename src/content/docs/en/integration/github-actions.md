@@ -2,21 +2,12 @@
 title: GitHub Actions
 description: Turn the validation and deployment path into a visible, repeatable workflow.
 type: tool
-level: beginner
 module: integration
 tools: [github-actions, yaml]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Interpret events, jobs, and steps in a GitHub Actions workflow.
-  - Design validation with lint, tests, and build that gives fast feedback.
-  - Separate validation on pull requests from deployment after merging into main.
-takeaways:
-  - A workflow turns the validation path into an executable promise.
-  - Jobs run in parallel unless you declare dependencies with needs.
-  - Deployment happens after integration, with minimal secrets and permissions.
 ---
 
-## A workflow is an executable promise
+## What a workflow is
 
 GitHub Actions describes what happens in response to repository events (`push`, `pull_request`, tags). A workflow is made of **jobs** —which run on separate machines and in parallel— and each job of **steps** in order.
 
@@ -33,7 +24,7 @@ flowchart LR
 
 ## Validate with lint, tests and build
 
-A good pipeline does not only compile: it checks formatting, types and behaviour before packaging.
+A pipeline checks formatting, types and behaviour before packaging.
 
 **Lint** is the cheapest check of all: a program reads the code without running it and flags whatever breaks a convention or smells like a bug — an unused variable, a missing `await`, an import that no longer exists. It takes seconds, so its verdict arrives first.
 
@@ -98,8 +89,8 @@ Pull requests run checks without touching production. Only after merging into `m
 
 The `if` limits the deploy to `main`; the `environment` lets you require approvals or store per-environment secrets.
 
-:::tip[Treat the pipeline as a product]
-A CI error is a user experience. Short messages, reproducible commands and visible artifacts reduce the time between failure and learning.
+:::tip[Pipeline error messages]
+Short messages, reproducible commands and visible artifacts reduce the time between a CI failure and its fix.
 :::
 
 ## Secrets and permissions
@@ -115,22 +106,6 @@ permissions:
 ```
 
 Where exactly they live, why permission matters more than the hiding place, and what to do when one escapes: [Secrets and permissions](/en/integration/secrets/).
-
-## Check your understanding
-
-<details>
-<summary>You want build to run only if test passes. What do you use?</summary>
-
-`needs: test` on the build job. By default jobs run in parallel; `needs` declares a dependency and makes build wait for test to finish successfully.
-
-</details>
-
-<details>
-<summary>Your deploy runs on every pull request. How do you limit it to main?</summary>
-
-With a condition on the job, `if: github.ref == 'refs/heads/main'`, ideally combined with an `environment` that requires approval. Validation runs on every PR; deployment only after integration.
-
-</details>
 
 ## Keep exploring
 

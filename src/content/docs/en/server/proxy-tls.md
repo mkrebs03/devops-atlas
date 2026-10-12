@@ -2,18 +2,9 @@
 title: Reverse proxy and certificates
 description: The piece that receives traffic before your application does, and the certificate that makes browsers trust it.
 type: concept
-level: intermediate
 module: server
 tools: [nginx, caddy, certbot, tls, http]
 prerequisites: [foundations.networking, server.processes]
-learningObjectives:
-  - Explain what a reverse proxy solves compared with exposing the application directly.
-  - Configure forwarding to a local service while preserving the client's identity.
-  - Obtain and renew a certificate without depending on somebody remembering.
-takeaways:
-  - A reverse proxy gives one entry point where the certificate and the routing decision live.
-  - Without forwarded headers, the application believes all traffic comes from the proxy.
-  - A certificate renewed by hand is an outage with a known expiry date.
 ---
 
 ## One single 443 for many services
@@ -32,7 +23,7 @@ flowchart LR
 
 That is a **reverse proxy**: a server that receives requests on behalf of your services and forwards each one to whichever it belongs to. It is called "reverse" because an ordinary proxy represents the client to the internet; this one represents the server to the client, who never learns what is behind it.
 
-## What it buys you
+## What it gives you
 
 Routing is only the first reason. A reverse proxy concentrates in one place four things you would otherwise solve inside every application:
 
@@ -84,31 +75,8 @@ A Let's Encrypt certificate lasts 90 days. Issuing it by hand once works; rememb
 :::
 
 :::note[Caddy, Traefik, nginx: the same role]
-The syntax differs, and so does how much is automated — Caddy requests and renews certificates on its own, without Certbot; Traefik configures itself by reading container labels — but all three occupy the same spot in the diagram. Choose on operations, not performance: for almost any real load, all three are more than enough.
+The syntax differs, and so does how much is automated — Caddy requests and renews certificates on its own, without Certbot; Traefik configures itself by reading container labels — but all three occupy the same spot in the diagram. Choose by how each one is operated rather than by performance.
 :::
-
-## Check your understanding
-
-<details>
-<summary>Your application logs every request as coming from 127.0.0.1. What is missing?</summary>
-
-The `X-Forwarded-For` header. From the application's point of view the connecting party is the proxy, because it literally is. The proxy has to forward the original address in a header, and the application has to be configured to trust it — only when the proxy is yours, because anyone can write a header.
-
-</details>
-
-<details>
-<summary>Why did the site stop loading exactly ninety days after going live?</summary>
-
-Because the certificate expired and automatic renewal was not working. On issuance day everything looks fine, so the failure appears a quarter later, when nobody is watching. A `systemctl list-timers` and a `certbot renew --dry-run` on day one would have shown it.
-
-</details>
-
-<details>
-<summary>Your application listens on 0.0.0.0:8080 and the proxy forwards to it. What is still wrong?</summary>
-
-Port 8080 is still reachable from the internet, so anyone can bypass the proxy and with it the TLS, the limits and the logging. The application should listen on `127.0.0.1:8080`, and the firewall should allow only 22, 80 and 443.
-
-</details>
 
 ## Keep exploring
 

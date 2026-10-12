@@ -2,18 +2,9 @@
 title: From build to release
 description: How a single artifact travels through environments to production.
 type: concept
-level: intermediate
 module: deployment
 tools: [docker]
 prerequisites: [integration.github-actions, integration.secrets]
-learningObjectives:
-  - Distinguish continuous integration, continuous delivery, and continuous deployment.
-  - Promote a single artifact through environments without rebuilding it.
-  - Define what evidence enables the move to production.
-takeaways:
-  - You build once and promote the same artifact across environments.
-  - Environments exist to gain confidence before production.
-  - An approval gate turns deployment into an explicit decision.
 ---
 
 ## CI, CD, and CD: three acronyms that are not the same thing
@@ -52,22 +43,6 @@ An **approval gate** —for example, a protected `environment` in GitHub Actions
 :::tip[Config per environment, single artifact]
 What changes between environments is the configuration (variables, secrets, URLs), not the binary. Same artifact, different config: that way what you tested is what runs.
 :::
-
-## Check your understanding
-
-<details>
-<summary>Your pipeline builds the image in staging and again in production. What risk do you introduce?</summary>
-
-That you are not deploying what you tested: two builds can differ by dependencies, cache or timing. Build a single image, tag it with the commit SHA and promote that same one to each environment; the config changes, the artifact does not.
-
-</details>
-
-<details>
-<summary>What is the difference between continuous delivery and continuous deployment?</summary>
-
-The gate. In continuous delivery the artifact is ready and a person approves the move to production; in continuous deployment that step is automatic when all checks pass.
-
-</details>
 
 ## Keep exploring
 

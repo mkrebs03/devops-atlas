@@ -31,7 +31,7 @@ Cuando algo falla en producción, nadie tiene el sistema completo en la cabeza: 
 
 No es una tecnología. Es la decisión de tratar "construir" y "operar" como un solo trabajo, más el conjunto de prácticas y herramientas que hacen que esa decisión sea sostenible: si un equipo va a responder por su propio sistema en producción, necesita que entregar sea barato, que el estado sea visible y que volver atrás sea rápido.
 
-De ahí sale todo lo demás. Las herramientas que verás en este Atlas —Git, Docker, CI/CD— existen para bajar el costo de ese ciclo, no al revés.
+Las herramientas que aparecen en este Atlas —Git, Docker, CI/CD— existen para bajar el costo de ese ciclo.
 
 :::note[DevOps no se instala]
 Ninguna herramienta convierte a un equipo en DevOps. Automatizar un traspaso roto solo hace que el traspaso falle más rápido.
@@ -79,11 +79,11 @@ Suena al revés, porque desplegar más veces parece exponerse más veces. Pero u
 Un error detectado al escribir cuesta minutos; el mismo error detectado en producción cuesta un incidente. Por eso las comprobaciones se ordenan de barata a cara, y por eso importa que un fallo señale su causa en vez de decir "falló".
 
 **3 · Reversibilidad: poder volver atrás vale más que no fallar nunca.**
-Ningún sistema deja de fallar. La diferencia entre un equipo tranquilo y uno que reza antes de desplegar no es la cantidad de errores: es cuánto tarda en deshacerlos.
+Ningún sistema deja de fallar, así que importa cuánto se tarda en deshacer un error.
 
 ## Qué hace alguien en este rol
 
-El día a día varía mucho por empresa, pero el trabajo suele mezclar:
+El trabajo suele mezclar:
 
 - Construir y mantener el camino automático que va del commit a producción.
 - Empaquetar aplicaciones para que corran igual en cualquier máquina.
@@ -125,22 +125,6 @@ Este Atlas asume que ya programas: que sabes escribir código, usar un editor y 
 Cada página indica a qué módulo pertenece y qué conviene saber antes, así que puedes entrar por el medio sin quedarte sin contexto.
 
 Todo el contenido existe en español y en inglés: cambias de idioma cuando quieras y sigues en la misma página.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Una empresa crea un "equipo DevOps" entre desarrollo y operaciones. ¿Qué problema reaparece?</summary>
-
-El muro. Sigue existiendo un traspaso, y sigue habiendo un equipo que absorbe el riesgo de los cambios que otro escribió. Solo se movió la frontera de sitio: ahora hay dos traspasos en vez de uno.
-
-</details>
-
-<details>
-<summary>Si cada despliegue puede fallar, ¿por qué desplegar más seguido reduce el riesgo?</summary>
-
-Porque el riesgo no está en la cantidad de despliegues, sino en el tamaño de cada uno. Un despliegue pequeño cambia una cosa: es fácil de revisar, su fallo tiene un solo sospechoso y revertirlo devuelve el sistema a un estado conocido. Acumular cambios no evita el fallo, solo lo hace más difícil de diagnosticar.
-
-</details>
 
 ## Sigue explorando
 

@@ -2,18 +2,9 @@
 title: Operating and scaling
 description: Seeing what is happening in production, and deciding from evidence when one machine stops being enough.
 type: concept
-level: intermediate
 module: scaling
 tools: [prometheus, kubernetes]
 prerequisites: [deployment.pipeline]
-learningObjectives:
-  - Order the questions to answer before adding infrastructure.
-  - Relate each limit of a single server to the thing that resolves it.
-  - Recognise that growing is mostly removing state, not adding machines.
-takeaways:
-  - Scaling is not decided without measuring; without measuring you only guess and pay.
-  - The work of growing is making instances interchangeable, not buying them.
-  - Every step up adds operations, so it is worth taking late.
 ---
 
 **Where you are:** you have a server serving traffic, a pipeline that deploys on its own, and the ability to roll back. Here begin the questions with no single technical answer, because they depend on numbers only you can measure.
@@ -31,7 +22,7 @@ from the application"] --> R["replicate
 identical instances"]
 ```
 
-The first two steps prevent most unnecessary spending: a good share of what looks like missing capacity is a query with no index. The third is the real work, and the only one you cannot buy. The fourth is nearly mechanical once the others are done.
+The first two steps prevent unnecessary spending: what looks like missing capacity can be a query with no index. The third is the one that takes the most work. The fourth is nearly mechanical once the others are done.
 
 ## What limits one server has
 
@@ -44,17 +35,17 @@ The first two steps prevent most unnecessary spending: a good share of what look
 
 ## Every step costs operations
 
-It is tempting to read that table as a ladder to be climbed whole. It is not. Each step adds pieces you have to understand when they fail, and the most reliable system is the one with the fewest things that can fail.
+That table is not a ladder to be climbed whole. Each step adds pieces you have to understand when they fail.
 
-A well-operated VPS — tested backups, a certificate that renews itself, an automated deployment — serves more traffic than most projects ever see. The useful question is not "how do I scale", but "which measurement tells me this is no longer enough".
+A well-operated VPS — tested backups, a certificate that renews itself, an automated deployment — leaves a fair amount of headroom. The useful question is which measurement says it is no longer enough.
 
-:::note[Scaling is not a sign of maturity]
-A system is not better for having more parts. The right decision is the one that carries your real load with the fewest pieces your team can operate well. Sometimes that decision is a bigger machine, and there is nothing to justify.
+:::note[Fewer pieces]
+It pays to carry the real load with the fewest pieces the team can operate well. Sometimes that is a bigger machine.
 :::
 
-## What you can do with this
+## What this covers
 
-These pages let you instrument a service, read its signals, tell an efficiency problem from a capacity one, move state out of your instances, and judge whether an orchestrator is worth it to you.
+These pages cover how to instrument a service and read its signals, the difference between an efficiency problem and a capacity one, how to move state out of the instances, and when an orchestrator is worth it.
 
 ## Where this breaks
 

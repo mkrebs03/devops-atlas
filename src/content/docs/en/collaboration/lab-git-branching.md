@@ -2,23 +2,16 @@
 title: Practice · safe branches
 description: Version the sample application, resolve a conflict, undo a merge, and open your first pull request.
 type: practice
-level: beginner
 module: collaboration
 tools: [git, github]
 prerequisites: [collaboration.git-model]
-learningObjectives:
-  - Create an isolated change on a branch and review its diff before integrating it.
-  - Resolve a simple merge conflict deliberately.
-  - Undo an integrated change without rewriting history.
-  - Publish a branch and propose it as a pull request.
-takeaways:
-  - Reviewing the graph and the diff before integrating makes the real scope visible.
-  - A conflict is a decision Git hands to you, not an error.
-  - Reverting creates a new decision; it does not erase the old one.
-  - A published branch and a pull request turn your change into something another person can review.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 `myapp` inside a repository with a readable history — a merge, a resolved conflict, and a revert — published on GitHub with one pull request merged. That remote repository is the one the server and continuous integration walkthroughs use.
 
@@ -96,7 +89,7 @@ git commit --no-edit
 
 ## Step 4 · Undo without rewriting
 
-Suppose that merge was a mistake. Do not erase it: state it.
+Suppose that merge was a mistake. Instead of erasing it, you revert it with a new commit.
 
 ```bash
 git revert -m 1 --no-edit HEAD
@@ -108,7 +101,7 @@ cat .env.example
 
 **Signal:** there is a new commit `Revert "Merge branch 'chore/port-3000'"`, the merge is still visible below it, and the file says `PORT=8081` again.
 
-:::tip[A revert is also a delivery]
+:::tip[Why revert and not reset]
 `git revert` creates a new decision that undoes another. It is preferable to rewriting shared history with `reset --hard`, because whoever already had those commits does not end up with a different history from yours.
 :::
 
@@ -152,22 +145,6 @@ git branch -d docs/routes
 | The merge is half done and you want to start over | You are still inside the merge | `git merge --abort` |
 | `push` rejected with `Permission denied (publickey)` | GitHub does not know your SSH key | Add it to your account, or use the repository's `https://` URL |
 | `push` rejected with `fetch first` | The remote has commits you do not | You created it with a README: `git pull --rebase origin main` |
-
-## Check your understanding
-
-<details>
-<summary>You resolved the conflict but forgot to git add the file. Can you close the merge?</summary>
-
-No: while the file is still marked as unresolved, Git will not let you complete the merge. Run `git add .env.example` to mark it resolved, then `git commit` to close the integration.
-
-</details>
-
-<details>
-<summary>Why did the merge in step 2 create no commit, while the one in step 3 did?</summary>
-
-Because in step 2 `main` had not moved since the branch was created: advancing the reference was enough. In step 3 both branches had commits of their own, so a commit with two parents was needed to join them.
-
-</details>
 
 ## Cleanup
 

@@ -2,20 +2,9 @@
 title: Linux
 description: Why the server you are about to operate runs Linux, and the model of the system you need in order not to work blind.
 type: concept
-level: beginner
 module: foundations
 tools: [linux, systemd, apt]
 prerequisites: []
-learningObjectives:
-  - Explain why servers, containers, and CI runners run Linux.
-  - Tell what changes and what does not between distributions when you run a command.
-  - Locate configuration, logs, and data within the filesystem hierarchy.
-  - Read the model of users, groups, and permissions that decides what a process may do.
-takeaways:
-  - Even if you develop on Windows or macOS, what you deploy almost always runs on Linux.
-  - A distribution changes the packaging and the package manager, not the model of the system.
-  - Every process runs as a user, and that identity explains most access failures.
-  - A service is a process the system can start, restart according to its configuration, and log for you.
 ---
 
 ## Why Linux and not another system
@@ -133,22 +122,6 @@ journalctl -u nginx -n 50 # its last 50 log lines
 `systemctl status` answers in one shot three questions you would otherwise chase separately: whether the process is alive, since when, and what it said before dying.
 
 Hold on to that idea, because it comes back: a container solves the same problem with different parts — it also defines which process starts, what happens if it dies, and where its logs go.
-
-## Check your understanding
-
-<details>
-<summary>A service runs as the `app` user and cannot write to `/var/lib/data`. What do you check first?</summary>
-
-`ls -ld /var/lib/data`, to see the directory's owner, group, and permissions. If it belongs to `root:root` with mode `755`, the `app` user falls into the "everyone else" triplet, which has no write bit. The fix is giving ownership to the right user (`chown`) or sharing access through a group — not touching the code.
-
-</details>
-
-<details>
-<summary>A command works on your Mac but fails on the server. How can that be?</summary>
-
-Because macOS is Unix but not Linux: its tools come from the BSD family, so some flags differ or simply do not exist, and Linux-specific pieces like `ss` or `systemctl` are missing. If you are going to operate on Linux, practise on Linux: a container or a virtual machine is enough.
-
-</details>
 
 ## Keep exploring
 

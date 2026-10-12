@@ -2,18 +2,9 @@
 title: Secretos y permisos
 description: Dónde viven las credenciales que el pipeline necesita, y por qué el permiso mínimo importa más que esconderlas bien.
 type: concept
-level: intermediate
 module: integration
 tools: [github-actions, ssh, yaml]
 prerequisites: [integration.github-actions, server.manual-deploy]
-learningObjectives:
-  - Distinguir configuración de secreto por lo que pasa si se filtra.
-  - Conceder a cada job el permiso mínimo que necesita para su tarea.
-  - Reaccionar a un secreto expuesto rotándolo en lugar de borrándolo.
-takeaways:
-  - Un secreto en el historial de Git sigue ahí aunque el commit posterior lo borre.
-  - Rotar es la única respuesta válida a una filtración; ocultar no es responder.
-  - Una credencial de corta vida vale más que una larga bien guardada.
 ---
 
 ## Qué es un secreto y qué no
@@ -50,7 +41,7 @@ GitHub oculta en el registro de ejecución cualquier valor que coincida con un s
 
 ## El permiso importa más que el escondite
 
-Esta es la parte que se salta con más frecuencia. Un secreto perfectamente guardado que concede acceso total sigue siendo una llave maestra: quien logre ejecutar algo en tu pipeline la hereda entera.
+Un secreto perfectamente guardado que concede acceso total sigue siendo una llave maestra: quien logre ejecutar algo en tu pipeline la hereda entera.
 
 ```yaml
 permissions:
@@ -60,7 +51,7 @@ permissions:
 
 Declarar `permissions` a nivel de workflow con lo mínimo, y ampliarlo solo en el job que lo necesita, limita el daño de cualquier paso comprometido — incluida una acción de terceros que actualizaron ayer.
 
-Dos hábitos concretos que valen más que cualquier otra medida:
+Dos hábitos concretos:
 
 - **Fija las acciones de terceros por SHA**, no por etiqueta. `uses: alguien/accion@v3` ejecuta lo que hoy tenga esa etiqueta, que el autor puede mover. `@a1b2c3d…` ejecuta bytes concretos.
 - **No des a CI una credencial personal.** Un token de tu cuenta tiene todo tu acceso. Usa el token que la propia plataforma emite para el workflow, o una identidad dedicada al despliegue con permiso sobre un solo destino.
@@ -79,11 +70,11 @@ permissions:
   contents: read
 ```
 
-Lo que cambia no es la comodidad: es que ya no hay un valor de larga vida que rotar, filtrar ni olvidar. Y la confianza se declara del lado del proveedor, que puede exigir que la petición venga de un repositorio y una rama concretos.
+Con esto ya no hay un valor de larga vida que rotar, filtrar ni olvidar. Y la confianza se declara del lado del proveedor, que puede exigir que la petición venga de un repositorio y una rama concretos.
 
 ## Cuando uno se escapa
 
-Ocurre. Lo importante es qué se hace, y hay una única respuesta correcta:
+Cuando ocurre, el orden de la respuesta importa:
 
 1. **Rotar primero.** Invalida el valor y emite uno nuevo. Esto detiene el daño; nada de lo demás lo hace.
 2. **Después limpiar.** Borrar el commit no sirve por sí solo: sigue en el historial de cada clon y de cada fork.
@@ -93,30 +84,7 @@ Ocurre. Lo importante es qué se hace, y hay una única respuesta correcta:
 git log -p -S 'AKIA' -- .          # ¿aparece algo con esta forma en el historial?
 ```
 
-El orden no es negociable. Reescribir el historial antes de rotar deja el secreto válido en manos de cualquiera que ya hubiera clonado, y da la sensación de haberlo resuelto.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Subiste una clave de API por error y la borraste en el commit siguiente. ¿Estás a salvo?</summary>
-
-No. El commit anterior sigue en el historial y en cada clon o fork que ya exista, así que la clave se puede recuperar. La única acción que detiene el daño es rotarla: invalidar ese valor y emitir uno nuevo. Limpiar el historial viene después y es secundario.
-
-</details>
-
-<details>
-<summary>¿Por qué fijar una acción de terceros por SHA en vez de por etiqueta?</summary>
-
-Porque una etiqueta es un puntero que su autor puede mover a otro código en cualquier momento, y tu workflow ejecutaría eso con los permisos y secretos que le hayas dado. Un SHA identifica bytes concretos: lo que revisaste es lo que corre.
-
-</details>
-
-<details>
-<summary>¿Qué gana un despliegue con OIDC frente a guardar una clave de acceso como secreto?</summary>
-
-Que deja de existir un valor de larga vida. El workflow presenta un token firmado que identifica repositorio, rama y entorno, y recibe credenciales que caducan en minutos. No hay nada que rotar cada seis meses ni nada que siga sirviendo si se filtra un log antiguo.
-
-</details>
+Reescribir el historial antes de rotar deja el secreto válido en manos de cualquiera que ya hubiera clonado, y da la sensación de haberlo resuelto.
 
 ## Sigue explorando
 

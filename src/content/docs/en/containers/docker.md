@@ -2,19 +2,9 @@
 title: Docker without magic
 description: Understand images, containers, layers and volumes through their contracts.
 type: tool
-level: beginner
 module: containers
 tools: [docker, nginx, docker-compose]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Explain what a container isolates, and how it differs from a virtual machine.
-  - Distinguish an immutable image from a running container.
-  - Write a Dockerfile that uses layer ordering and a multi-stage build.
-  - Define the process, port, configuration, and data contract of a container.
-takeaways:
-  - An image packages layers while a container runs a process under concrete conditions.
-  - Instruction order decides which layers are reused and how long a build takes.
-  - Ports, volumes, and configuration should form an observable contract.
 ---
 
 ## Why containers and not virtual machines
@@ -100,7 +90,7 @@ FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
 ```
 
-The final image contains only nginx and the static files: smaller size, less surface, fewer surprises.
+The final image contains only nginx and the static files: smaller size and less surface.
 
 ## The container contract
 
@@ -118,25 +108,9 @@ On a Docker network, services find one another by name: a container can call `ht
 
 That arrangement is declared in a **Docker Compose** file, which describes several containers and the network they share instead of chaining `docker run` commands. How it is written, and what happens to the data when those containers are recreated, is in [Several containers with Compose](/en/containers/compose/).
 
-:::caution[Less surface, fewer surprises]
+:::caution[Publish only what is needed]
 A service that only needs to be reachable through the proxy should not publish `80:80` to the host. Expose only what the system contract requires.
 :::
-
-## Check your understanding
-
-<details>
-<summary>You change one line of code and the build rebuilds ALL dependencies. What is wrong?</summary>
-
-You probably copy the whole project with `COPY . .` before installing, so any code change invalidates the install layer. Copy `package.json` and the lockfile first, install, and only then copy the rest of the code.
-
-</details>
-
-<details>
-<summary>You delete the container and lose the database. How do you avoid it?</summary>
-
-Data that must persist goes in a volume (`-v name:/path`), not inside the container. The container is disposable; the volume survives its deletion and can be mounted into a new one.
-
-</details>
 
 ## Keep exploring
 

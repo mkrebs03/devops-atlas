@@ -2,18 +2,9 @@
 title: Secrets and permissions
 description: Where the credentials a pipeline needs actually live, and why least privilege matters more than hiding them well.
 type: concept
-level: intermediate
 module: integration
 tools: [github-actions, ssh, yaml]
 prerequisites: [integration.github-actions, server.manual-deploy]
-learningObjectives:
-  - Tell configuration from a secret by what happens if it leaks.
-  - Grant each job the minimum permission its task requires.
-  - React to an exposed secret by rotating it rather than deleting it.
-takeaways:
-  - A secret in Git history is still there even after a later commit removes it.
-  - Rotating is the only valid response to a leak; hiding is not a response.
-  - A short-lived credential is worth more than a long-lived one kept carefully.
 ---
 
 ## What is a secret and what is not
@@ -50,7 +41,7 @@ GitHub masks in the run log any value matching a secret. That is a useful safety
 
 ## Permission matters more than the hiding place
 
-This is the part skipped most often. A perfectly stored secret granting full access is still a master key: whoever manages to run something in your pipeline inherits all of it.
+A perfectly stored secret granting full access is still a master key: whoever manages to run something in your pipeline inherits all of it.
 
 ```yaml
 permissions:
@@ -60,7 +51,7 @@ permissions:
 
 Declaring `permissions` at workflow level with the minimum, and widening it only in the job that needs it, limits the damage from any compromised step — including a third-party action updated yesterday.
 
-Two concrete habits worth more than any other measure:
+Two concrete habits:
 
 - **Pin third-party actions by SHA**, not by tag. `uses: someone/action@v3` runs whatever that tag points at today, and the author can move it. `@a1b2c3d…` runs specific bytes.
 - **Do not give CI a personal credential.** A token from your account carries all of your access. Use the token the platform itself issues for the workflow, or a dedicated deployment identity with permission over one destination.
@@ -79,11 +70,11 @@ permissions:
   contents: read
 ```
 
-What changes is not convenience: it is that there is no longer a long-lived value to rotate, leak or forget. And the trust is declared on the provider's side, which can require the request to come from a specific repository and branch.
+With this there is no longer a long-lived value to rotate, leak or forget. And the trust is declared on the provider's side, which can require the request to come from a specific repository and branch.
 
 ## When one escapes
 
-It happens. What matters is what you do, and there is a single correct answer:
+When it happens, the order of the response matters:
 
 1. **Rotate first.** Invalidate the value and issue a new one. This stops the damage; nothing else does.
 2. **Clean up afterwards.** Removing the commit does not do it alone: the value stays in every clone's and every fork's history.
@@ -93,30 +84,7 @@ It happens. What matters is what you do, and there is a single correct answer:
 git log -p -S 'AKIA' -- .          # does anything of this shape appear in history?
 ```
 
-The order is not negotiable. Rewriting history before rotating leaves a valid secret in the hands of anyone who had already cloned, and creates the impression of having resolved it.
-
-## Check your understanding
-
-<details>
-<summary>You pushed an API key by mistake and deleted it in the next commit. Are you safe?</summary>
-
-No. The earlier commit is still in history and in every clone or fork that already exists, so the key can be recovered. The only action that stops the damage is rotating it: invalidate that value and issue a new one. Cleaning history comes after and is secondary.
-
-</details>
-
-<details>
-<summary>Why pin a third-party action by SHA rather than by tag?</summary>
-
-Because a tag is a pointer its author can move to different code at any time, and your workflow would run that with the permissions and secrets you gave it. A SHA identifies specific bytes: what you reviewed is what runs.
-
-</details>
-
-<details>
-<summary>What does a deployment with OIDC gain over storing an access key as a secret?</summary>
-
-There is no longer a long-lived value at all. The workflow presents a signed token identifying repository, branch and environment, and receives credentials that expire in minutes. There is nothing to rotate every six months and nothing that still works if an old log leaks.
-
-</details>
+Rewriting history before rotating leaves a valid secret in the hands of anyone who had already cloned, and creates the impression of having resolved it.
 
 ## Keep exploring
 

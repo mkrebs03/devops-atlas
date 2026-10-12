@@ -2,23 +2,16 @@
 title: Práctica · una prueba y un workflow
 description: Escribe una prueba que falle, hazla pasar, y deja que un workflow la ejecute y construya la imagen en cada cambio.
 type: practice
-level: intermediate
 module: integration
 tools: [node, github-actions, docker, github]
 prerequisites: [integration.github-actions, integration.tests-in-ci, containers.lab-container-pipeline]
-learningObjectives:
-  - Escribir una prueba que falle por la razón correcta antes de escribir el código.
-  - Describir un workflow que pruebe el código y verifique la imagen en cada cambio.
-  - Leer un workflow en rojo y encontrar la línea que explica el fallo.
-  - Convertir las comprobaciones en requisito para integrar en main.
-takeaways:
-  - Una prueba debe fallar antes de pasar, o no demuestra que prueba algo.
-  - El workflow ejecuta lo mismo que tú, en una máquina que no tiene nada tuyo.
-  - Una prueba de humo sobre la imagen comprueba el artefacto, no solo el código.
-  - Sin rama protegida, el workflow informa; con ella, decide.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 `miapp` con una prueba automática, una ruta nueva nacida de esa prueba, y un workflow que en cada pull request ejecuta la suite, construye la imagen y comprueba que el contenedor responde. Y `main` protegida para que nada entre sin pasar por ahí.
 
@@ -192,22 +185,6 @@ Hasta aquí el workflow avisa, pero nada impide integrar en rojo. En el reposito
 | El workflow no aparece en GitHub | El archivo no está en `.github/workflows/` | La ruta y la extensión `.yml` |
 | `image` falla en la prueba de humo | El contenedor no escucha en `0.0.0.0` | `ENV HOST` en el `Dockerfile` |
 | No encuentras `test` al crear la regla | La comprobación aún no corrió en ese repositorio | Espera a que termine una ejecución |
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué la prueba de humo va en un job aparte y no dentro de test?</summary>
-
-Porque comprueban cosas distintas. `test` ejecuta el código con el Node del runner; `image` ejecuta el artefacto que de verdad se va a desplegar. Una imagen puede fallar con todas las pruebas en verde —una variable que falta en el `Dockerfile`, un archivo que no se copió—, y solo la prueba de humo lo ve.
-
-</details>
-
-<details>
-<summary>¿Qué cambia al proteger la rama, si el workflow ya corría antes?</summary>
-
-Quién decide. Sin protección, el resultado es un dato que alguien puede ignorar con prisa. Con protección, integrar en rojo deja de ser posible: la comprobación pasa de informar a ser una condición.
-
-</details>
 
 ## Limpieza
 

@@ -1,20 +1,10 @@
 ---
 title: The Git model
-description: Read commits, branches and references as a map of decisions.
+description: Commits, branches and references, and how they relate.
 type: concept
-level: beginner
 module: collaboration
 tools: [git]
 prerequisites: [foundations.terminal]
-learningObjectives:
-  - Explain what distributed version control gives you, and what a repository is.
-  - Relate commits, branches, and HEAD within the Git graph.
-  - Choose between merge and rebase to integrate a branch and resolve a simple conflict.
-  - Use the diff, history, and gitignore to explain and scope a change.
-takeaways:
-  - A branch is a moving reference and a commit is a connected snapshot.
-  - Merge preserves the real history; rebase rewrites it to linearize it.
-  - The diff is the smallest unit for reviewing and discussing a change.
 ---
 
 ## Why Git
@@ -106,7 +96,7 @@ node_modules/
 dist/
 ```
 
-A clean repository makes the diff mean something.
+That way the diff only shows what someone wrote.
 
 ## Remotes and trust
 
@@ -125,22 +115,6 @@ git push                         # from then on
 ```
 
 If the remote has commits you do not, Git rejects the push rather than overwrite them. First you integrate what is missing (`git pull --rebase`), then you publish.
-
-## Check your understanding
-
-<details>
-<summary>You are on a branch only you have. To update it with main, merge or rebase?</summary>
-
-Rebase is fine: the history is private, so rewriting it affects no one and you get a clean line to keep building on. If the branch is already shared, prefer merge so you do not rewrite commits others have.
-
-</details>
-
-<details>
-<summary>Git stopped with CONFLICT. What should you NOT do?</summary>
-
-Do not delete the `<<<<<<<` markers blindly or force the merge. Open the file, decide which version or combination is correct, remove the markers, and only then `git add` the resolved file before continuing.
-
-</details>
 
 ## Keep exploring
 

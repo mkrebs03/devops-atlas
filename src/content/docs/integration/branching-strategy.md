@@ -1,24 +1,15 @@
 ---
 title: Estrategias de ramas
-description: Trunk-based, GitHub Flow y GitFlow comparados por lo que cuestan, no por lo que prometen.
+description: Trunk-based, GitHub Flow y GitFlow comparados por lo que cuesta cada uno.
 type: concept
-level: intermediate
 module: integration
 tools: [git, github]
 prerequisites: [collaboration.pull-requests]
-learningObjectives:
-  - Reconocer que un modelo de ramas describe una forma de entregar, no una preferencia de equipo.
-  - Comparar trunk-based, GitHub Flow y GitFlow por el coste que impone cada uno.
-  - Elegir un modelo a partir de cuántas versiones sostienes y cuántos entornos atraviesas.
-takeaways:
-  - Una rama de larga vida es una integración aplazada, y el aplazamiento se paga con intereses.
-  - GitFlow solo devuelve su coste cuando mantienes varias versiones publicadas a la vez.
-  - El modelo correcto es el más simple que soporte tu cadencia de release.
 ---
 
-## El modelo de ramas es una consecuencia, no una preferencia
+## De qué depende el modelo de ramas
 
-Es tentador leer los nombres —trunk-based, GitHub Flow, GitFlow— como estilos entre los que se elige por gusto. No lo son. Cada uno responde a una pregunta concreta sobre cómo entregas:
+Los nombres —trunk-based, GitHub Flow, GitFlow— parecen estilos entre los que se elige por gusto, pero cada uno responde a una pregunta concreta sobre cómo entregas:
 
 > ¿Cuánto tiempo puede existir un cambio sin integrarse con el trabajo de los demás?
 
@@ -35,7 +26,7 @@ Todo lo demás —cuántas ramas hay, cómo se llaman, quién puede escribir en 
 | ¿Cuánto tarda tu CI en dar un veredicto? | Minutos | Puedes integrar varias veces al día |
 | | Horas | Vas a acumular trabajo sin integrar |
 
-Si las tres respuestas caen en la primera fila, cualquier modelo complejo solo te va a costar dinero.
+Si las tres respuestas caen en la primera fila, un modelo complejo solo añade coste.
 
 ## Los tres modelos
 
@@ -60,7 +51,7 @@ flowchart LR
 
 Una rama por intención, un pull request por rama, `main` siempre desplegable. Es trunk-based con una parada de revisión explícita y ramas algo más largas.
 
-Es el punto de partida razonable para casi cualquier proyecto: mantiene una sola línea de verdad y sigue permitiendo que otra persona lea el cambio antes de que entre. La afirmación "`main` siempre está desplegable" es lo que lo sostiene, y solo es cierta si CI la comprueba de verdad.
+Es un punto de partida razonable: mantiene una sola línea de verdad y sigue permitiendo que otra persona lea el cambio antes de que entre. La afirmación "`main` siempre está desplegable" es lo que lo sostiene, y solo es cierta si CI la comprueba de verdad.
 
 ### GitFlow
 
@@ -84,38 +75,15 @@ Resuelve un problema real: sostener varias versiones publicadas a la vez y poder
 | GitHub Flow | Un despliegue vivo, revisión por pull request | Ramas de días: algún conflicto y colas de revisión |
 | GitFlow | Varias versiones publicadas con soporte simultáneo | Dos ramas permanentes que se desincronizan y merges grandes |
 
-## Por qué una rama larga se paga con intereses
+## El coste de una rama larga
 
 Una rama que lleva tres semanas sin tocar `main` no está "en progreso": es una integración aplazada. Mientras tanto `main` avanzó, y el conflicto que resolverás al final es la suma de todos los conflictos que habrías resuelto uno a uno.
 
 El coste no crece de forma lineal. Crece con el número de cambios ajenos que ocurrieron mientras no mirabas, y cada uno de ellos puede interactuar con los tuyos.
 
-:::caution[GitFlow por defecto es el error más caro]
-Adoptar `develop`, `release/*` y `hotfix/*` en un proyecto con un único despliegue vivo añade dos merges por cambio y una rama que se desincroniza, a cambio de una capacidad —parchear una versión antigua— que nunca vas a usar. Si no tienes clientes en distintas versiones, no necesitas GitFlow.
+:::caution[GitFlow por defecto sale caro]
+Adoptar `develop`, `release/*` y `hotfix/*` en un proyecto con un único despliegue vivo añade dos merges por cambio y una rama que se desincroniza, a cambio de una capacidad —parchear una versión antigua— que no vas a usar. Si no tienes clientes en distintas versiones, no necesitas GitFlow.
 :::
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué trunk-based exige feature flags?</summary>
-
-Porque si integras en `main` varias veces al día, va a llegar a producción código de funciones a medio terminar. El flag separa dos cosas que normalmente van juntas: desplegar el código y activar la función. El código viaja; la condición decide si alguien lo ve.
-
-</details>
-
-<details>
-<summary>Tu equipo mantiene una única aplicación web con un solo despliegue en producción. ¿Qué te aporta la rama develop de GitFlow?</summary>
-
-Nada que `main` no te dé ya. `develop` existe para separar "lo que está en desarrollo" de "lo que está publicado", y esa distinción solo importa cuando hay versiones publicadas que siguen recibiendo parches. Con un único despliegue vivo, `main` ya es exactamente eso, y la segunda rama solo añade un merge y una oportunidad de que las dos se separen.
-
-</details>
-
-<details>
-<summary>Tu CI tarda cincuenta minutos. ¿Qué modelo de ramas se vuelve difícil y por qué?</summary>
-
-Trunk-based. Su premisa es integrar varias veces al día, y eso requiere un veredicto en minutos. Con cincuenta minutos por intento, la gente acumula trabajo para no esperar, las ramas se alargan solas y acabas en el modelo que no elegiste. Antes de cambiar el modelo de ramas, acorta la CI.
-
-</details>
 
 ## Sigue explorando
 

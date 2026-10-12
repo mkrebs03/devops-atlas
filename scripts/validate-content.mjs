@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { LEVELS, MODULE_IDS, PAGE_TYPES, modules, pages } from '../src/data/curriculum.mjs';
+import { MODULE_IDS, PAGE_TYPES, modules, pages } from '../src/data/curriculum.mjs';
 import { toolNames } from '../src/data/tool-names.mjs';
 import { parseFrontmatter } from './frontmatter-parser.mjs';
 
@@ -9,7 +9,6 @@ const root = path.resolve('src/content/docs');
 // arrays, so the three enforcement points cannot drift from each other.
 const allowed = {
   type: new Set(PAGE_TYPES),
-  level: new Set(LEVELS),
   module: new Set(MODULE_IDS),
 };
 const modulePath = new RegExp(`^(?:en/)?(?:${MODULE_IDS.join('|')})/`);
@@ -41,8 +40,8 @@ for (const file of files) {
   const relative = path.relative(root, file).split(path.sep).join('/');
   const slug = relative.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
 
-  // Spanish questions open with ¿. The <summary> self-checks are where the
-  // mark keeps going missing, so the rule is enforced rather than assumed.
+  // Spanish questions open with ¿. A <summary> is where the mark keeps going
+  // missing, so the rule is enforced rather than assumed.
   if (!relative.startsWith('en/')) {
     for (const match of source.matchAll(/<summary>([^]*?)<\/summary>/g)) {
       const text = match[1].trim();
@@ -65,7 +64,7 @@ for (const file of files) {
   // module pages owe the full taxonomy, checked again per curriculum entry.
   const isModulePage = modulePath.test(relative);
   const required = isModulePage
-    ? ['title', 'description', 'type', 'level', 'module']
+    ? ['title', 'description', 'type', 'module']
     : ['title', 'description'];
   for (const field of required) {
     if (typeof frontmatter[field] !== 'string' || !frontmatter[field].trim()) {
@@ -73,7 +72,7 @@ for (const file of files) {
     }
   }
 
-  for (const field of ['type', 'level', 'module']) {
+  for (const field of ['type', 'module']) {
     const value = frontmatter[field];
     if (typeof value === 'string' && !allowed[field].has(value)) {
       errors.push(`${relative}: invalid ${field}=${value}`);
@@ -174,22 +173,16 @@ for (const item of pages) {
     }
     paired[locale] = frontmatter;
 
-    for (const field of ['title', 'description', 'type', 'level', 'module']) {
+    for (const field of ['title', 'description', 'type', 'module']) {
       if (typeof frontmatter[field] !== 'string' || !frontmatter[field].trim()) {
         errors.push(`${relative}: canonical page ${item.id} requires ${field}`);
       }
     }
-    for (const field of ['tools', 'prerequisites', 'learningObjectives', 'takeaways']) {
+    for (const field of ['tools', 'prerequisites']) {
       if (!Array.isArray(frontmatter[field])) {
         errors.push(`${relative}: canonical page ${item.id} requires ${field} array`);
       }
     }
-    for (const field of ['learningObjectives', 'takeaways']) {
-      if (Array.isArray(frontmatter[field]) && (
-        frontmatter[field].length === 0 || frontmatter[field].some((value) => !value.trim())
-      )) errors.push(`${relative}: ${field} must contain non-empty text`);
-    }
-
     if (frontmatter.module !== item.module) {
       errors.push(`${relative}: module must be ${item.module} for ${item.id}`);
     }
@@ -210,21 +203,11 @@ for (const item of pages) {
     )) errors.push(`${relative}: prerequisites must use canonical IDs: [${item.prerequisites.join(', ')}]`);
   }
 
-  for (const field of ['learningObjectives', 'takeaways']) {
-    if (Array.isArray(paired.es?.[field]) && Array.isArray(paired.en?.[field])
-      && paired.es[field].length !== paired.en[field].length) {
-      errors.push(`${canonicalFile(item.relativePath, 'en')}: ${field} count must match its Spanish counterpart`);
-    }
-  }
-
-  // Level and tools describe the shared canonical page, not one edition of
-  // it, so both locales must state the same values — tools in the same order,
-  // since the Spanish list is the one every tool index is built from.
+  // Tools describe the shared canonical page, not one edition of it, so both
+  // locales must state the same values in the same order, since the Spanish
+  // list is the one every tool index is built from.
   if (paired.es && paired.en) {
     const relative = canonicalFile(item.relativePath, 'en');
-    if (paired.es.level !== paired.en.level) {
-      errors.push(`${relative}: level must match its Spanish counterpart (${paired.es.level})`);
-    }
     if (Array.isArray(paired.es.tools) && Array.isArray(paired.en.tools) && (
       paired.es.tools.length !== paired.en.tools.length
       || paired.es.tools.some((value, index) => value !== paired.en.tools[index])

@@ -2,18 +2,9 @@
 title: Infraestructura como código
 description: Dejar de configurar máquinas a mano y empezar a describirlas en archivos que se revisan y se versionan.
 type: concept
-level: intermediate
 module: infrastructure
 tools: [terraform, ansible]
 prerequisites: [server.provisioning]
-learningObjectives:
-  - Situar qué parte del trabajo cubre aprovisionar y cuál configurar.
-  - Reconocer el coste que añade escribir la infraestructura, además de su beneficio.
-  - Elegir la herramienta según si el recurso hay que crearlo o solo ajustarlo.
-takeaways:
-  - La infraestructura escrita hereda revisión, historial y reversibilidad del código.
-  - Aprovisionar y configurar son dos trabajos con herramientas distintas.
-  - La descripción de una máquina es la única documentación que no puede quedar obsoleta.
 ---
 
 **Dónde estás:** ya sabes montar un servidor, empaquetar la aplicación, comprobarla sola, desplegarla y decidir cuándo hace falta más de una máquina. Todo eso lo hiciste a mano al menos una vez. Aquí ese trabajo manual se convierte en archivos.
@@ -35,7 +26,7 @@ instalar, ajustar,
 dejarla lista"]
 ```
 
-La distinción no es de gusto: son problemas distintos. Crear un servidor pasa por la API del proveedor y hay que recordar qué se creó para no duplicarlo. Configurar lo de dentro pasa por SSH y se puede comprobar cada vez, sin recordar nada.
+Son problemas distintos. Crear un servidor pasa por la API del proveedor y hay que recordar qué se creó para no duplicarlo. Configurar lo de dentro pasa por SSH y se puede comprobar cada vez, sin recordar nada.
 
 Por eso Terraform guarda un archivo de estado y Ansible no lo necesita.
 
@@ -51,6 +42,6 @@ Por eso Terraform guarda un archivo de estado y Ansible no lo necesita.
 Añade un lenguaje, una herramienta y —en el caso de Terraform— un estado que hay que guardar, cifrar y bloquear. Con una máquina y un entorno que reconstruirías en una tarde, ese coste no se recupera. Empieza a compensar cuando hay dos entornos que deben parecerse o dos personas con acceso.
 :::
 
-## Qué puedes hacer con esto
+## Qué cubre
 
-Con estas páginas puedes declarar los recursos de un entorno y crearlos sin tocar un panel web, dejar la configuración de una máquina descrita en un archivo que se aplica sin miedo a repetirlo, y saber por qué dos servidores que empezaron iguales dejaron de serlo.
+Estas páginas cubren cómo declarar los recursos de un entorno sin tocar un panel web, cómo dejar la configuración de una máquina en un archivo que se puede aplicar más de una vez, y por qué dos servidores que empezaron iguales dejan de serlo.

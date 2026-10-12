@@ -2,21 +2,16 @@
 title: Practice · promote and roll back
 description: A local blue-green with a real proxy, switching versions and going back without losing a single request.
 type: practice
-level: intermediate
 module: deployment
 tools: [docker, nginx, curl]
 prerequisites: [deployment.strategies]
-learningObjectives:
-  - Run two versions of a service behind a proxy and decide which one receives traffic.
-  - Verify the new version in isolation before exposing it.
-  - Switch and roll back traffic by reloading the proxy, and check that no request is lost.
-takeaways:
-  - Deploying is starting the new version; releasing is changing where the proxy points.
-  - A rollback is the same operation in the opposite direction, which is why it is fast.
-  - Validating the configuration before reloading is what keeps a broken change away from traffic.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 Two versions of `myapp` running at once, an nginx in front deciding which one serves, and a loop of requests showing that switching from one to the other — and back — cuts nothing.
 
@@ -155,29 +150,6 @@ That is also the cost of blue-green: for as long as you want to be able to go ba
 | `host not found in upstream` when starting the proxy | `blue` does not exist or is on another network | `docker network inspect atlas-bg` |
 | The reload changes nothing | The file you edited is not the mounted one | `docker exec proxy cat /etc/nginx/conf.d/default.conf` |
 | `name is already in use` | Containers were left over from an earlier attempt | The cleanup section |
-
-## Check your understanding
-
-<details>
-<summary>In step 3 green is already running but nobody uses it. Why is that useful?</summary>
-
-Because it separates deploying from releasing. You can check the new version calmly — that it starts, that its `/health` answers — without any user seeing it. If something is wrong, you find out before moving traffic and there is nothing to roll back.
-
-</details>
-
-<details>
-<summary>What would have happened in step 5 without nginx -t in front?</summary>
-
-It depends on the moment. On a reload, nginx validates by itself and keeps the previous configuration if the new one fails, so traffic would have carried on. But the broken file stays on disk, and the next restart of the container — an upgrade, a machine reboot — would no longer start. `nginx -t` turns that deferred failure into an immediate, visible one.
-
-</details>
-
-<details>
-<summary>You decide to delete blue right after switching to green. What do you lose?</summary>
-
-The instant rollback. Going back is no longer reloading the proxy: it is starting the previous version again and waiting for it to be ready, with the bad version serving in the meantime. The old version is retired once the new one has been healthy for long enough, not when it stops receiving traffic.
-
-</details>
 
 ## Cleanup
 

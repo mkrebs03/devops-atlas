@@ -2,25 +2,16 @@
 title: Aprovisionar una VPS
 description: "De una máquina recién creada a una en la que se puede trabajar: usuario propio, claves y cortafuegos."
 type: concept
-level: beginner
 module: server
 tools: [ssh, ufw, linux, apt]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Entrar por SSH con clave en lugar de contraseña y entender qué prueba cada una.
-  - Trabajar con un usuario propio y escalar a root solo cuando hace falta.
-  - Dejar abiertos únicamente los puertos que el servicio necesita.
-takeaways:
-  - Una clave SSH prueba que tienes un secreto sin llegar a enviarlo nunca.
-  - Trabajar como root convierte cualquier error de tipeo en un daño permanente.
-  - Un cortafuegos por defecto cerrado hace explícito todo lo que expones.
 ---
 
 ## Qué te acaban de entregar
 
 Una **VPS** —*virtual private server*— es una máquina virtual con Linux, una dirección IP pública y nada más. Ningún proveedor —Hetzner, DigitalOcean, EC2— te la deja configurada: te la deja arrancada, con acceso de `root` y todos los puertos que el sistema haya abierto por su cuenta.
 
-Ese estado inicial es cómodo y es exactamente el que no quieres mantener. Tres cosas lo cambian, en este orden.
+Ese estado inicial es cómodo, pero no conviene mantenerlo. Tres cosas lo cambian, en este orden.
 
 ```mermaid
 flowchart LR
@@ -46,7 +37,7 @@ La frase de paso que pide `ssh-keygen` cifra la clave privada en tu disco. Ponla
 
 ## Un usuario propio
 
-`root` puede hacer cualquier cosa, incluida la que no querías. Un usuario normal con permiso de `sudo` hace lo mismo, pero te obliga a escribir `sudo` delante de lo peligroso, y esa pausa es la que evita la mitad de los accidentes.
+`root` puede hacer cualquier cosa, incluida la que no querías. Un usuario normal con permiso de `sudo` hace lo mismo, pero te obliga a escribir `sudo` delante de lo peligroso, y esa pausa evita accidentes.
 
 ```bash
 adduser marta                       # crea el usuario y pide su contraseña
@@ -100,29 +91,6 @@ Las actualizaciones de seguridad que nadie aplica no protegen de nada. En Debian
 sudo apt update && sudo apt upgrade -y
 sudo apt install unattended-upgrades
 ```
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué una clave SSH es más segura que una contraseña larga?</summary>
-
-Porque la contraseña viaja al servidor en cada conexión y se puede adivinar probando; la clave privada no sale nunca de tu máquina. El servidor plantea un desafío y tú devuelves una respuesta que solo se puede calcular teniendo la privada, así que nunca hay un secreto en tránsito que interceptar ni un valor finito que adivinar a fuerza de intentos.
-
-</details>
-
-<details>
-<summary>Pusiste PasswordAuthentication no y reiniciaste SSH. ¿Qué tenías que haber hecho antes?</summary>
-
-Comprobar, desde una segunda terminal y sin cerrar la que ya tenías abierta, que la entrada con clave funciona para tu usuario nuevo. Si la clave no estaba bien copiada, acabas de quitarte a ti mismo la única forma de entrar, y solo queda la consola web del proveedor.
-
-</details>
-
-<details>
-<summary>Tu base de datos escucha en el puerto 5432 y ufw no lo abre. ¿Puede la aplicación conectarse?</summary>
-
-Sí, si ambas corren en la misma máquina y se conectan por `127.0.0.1`. El tráfico local no atraviesa el cortafuegos. Eso es exactamente lo que quieres: la aplicación llega y el resto de internet no.
-
-</details>
 
 ## Sigue explorando
 

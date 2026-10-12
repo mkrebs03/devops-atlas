@@ -2,20 +2,9 @@
 title: Redes esenciales
 description: DNS, puertos, TLS y HTTP explicados como un recorrido que puedes inspeccionar.
 type: concept
-level: beginner
 module: foundations
 tools: [dns, http, tls, curl, ss]
 prerequisites: [foundations.terminal]
-learningObjectives:
-  - Seguir una petición desde DNS hasta la respuesta HTTP, incluido TLS.
-  - Distinguir una dirección privada de una pública y saber por dónde sale el tráfico.
-  - Distinguir fallos de resolución, conexión, puerto y aplicación.
-  - Leer un código de estado y las cabeceras como parte del contrato HTTP.
-takeaways:
-  - Cada frontera de red ofrece una señal concreta que puedes comprobar.
-  - Una dirección privada solo significa algo dentro de su red; el gateway es la salida.
-  - DNS, TCP, TLS y HTTP responden preguntas diferentes dentro de la misma ruta.
-  - Un código de estado dice tanto como el cuerpo de la respuesta.
 ---
 
 ## Una petición es una ruta
@@ -79,7 +68,7 @@ curl -v https://example.com 2>&1 | head  # narra resolución, TCP y TLS
 
 `curl -v` cuenta la ruta paso a paso: resuelve la IP, abre TCP contra el puerto 443, recibe y valida el **certificado** TLS que presenta el servidor y solo entonces envía la petición HTTP. `127.0.0.1` acepta tráfico local; `0.0.0.0` puede aceptar tráfico de varias interfaces y exige más cuidado. TLS existe para dos cosas: cifrar la conexión y probar que el servidor es quien dice ser.
 
-Entre el cliente y ese puerto suele haber un **firewall**: un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Distingue un síntoma que confunde a mucha gente: si nadie escucha, la máquina rechaza y ves `Connection refused` de inmediato; si un firewall descarta el paquete en silencio, no ves nada y la conexión se queda colgada hasta agotar el tiempo.
+Entre el cliente y ese puerto suele haber un **firewall**: un filtro que decide qué conexiones se aceptan antes de que lleguen al proceso. Hay dos síntomas que conviene distinguir: si nadie escucha, la máquina rechaza y ves `Connection refused` de inmediato; si un firewall descarta el paquete en silencio, no ves nada y la conexión se queda colgada hasta agotar el tiempo.
 
 :::note[Una capa cada vez]
 Cuando una URL falla, comprueba primero resolución (DNS), luego conexión (TCP/TLS) y por último la aplicación (HTTP). Un timeout y un `404` no son el mismo problema.
@@ -102,23 +91,7 @@ Un `4xx` indica que el servidor no pudo atender la petición tal como llegó —
 curl -s -o /dev/null -w '%{http_code}\n' https://example.com
 ```
 
-Las cabeceras completan el contrato: tipo de contenido, caché y políticas. El hábito DevOps es hacer visible ese contrato en logs, pruebas y documentación.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>curl devuelve "Could not resolve host". ¿En qué frontera estás?</summary>
-
-En DNS: el nombre no se tradujo a una IP, así que no hubo conexión ni HTTP. Revisa `dig +short`, tu resolvedor y `/etc/hosts` antes de mirar la aplicación.
-
-</details>
-
-<details>
-<summary>Recibes 503 en lugar de 200. ¿Es problema del cliente o del servidor?</summary>
-
-Del servidor: la familia `5xx` indica que no pudo completar una petición válida —a menudo sobrecarga o una dependencia caída. Un `4xx` sería del cliente. Mira los logs y el estado del servicio, no tu petición.
-
-</details>
+Las cabeceras completan el contrato: tipo de contenido, caché y políticas. Conviene hacer visible ese contrato en logs, pruebas y documentación.
 
 ## Sigue explorando
 

@@ -1,19 +1,10 @@
 ---
 title: Respaldos
-description: Con un solo disco, el respaldo es lo único que separa un incidente de una pérdida definitiva.
+description: Qué respaldar en un servidor de un solo disco, cómo sacarlo de la máquina y cómo comprobar que se puede restaurar.
 type: concept
-level: beginner
 module: server
 tools: [postgresql, cron, rsync, ssh]
 prerequisites: [server.manual-deploy]
-learningObjectives:
-  - Distinguir qué datos son irrecuperables y cuáles se pueden volver a generar.
-  - Programar un respaldo que se ejecute solo y salga de la máquina que respalda.
-  - Comprobar un respaldo restaurándolo, no mirando que el archivo exista.
-takeaways:
-  - Un respaldo que vive en la máquina respaldada no es un respaldo.
-  - Un respaldo que nunca se restauró es una suposición, no una garantía.
-  - Decidir cuántos datos puedes perder es lo que fija cada cuánto respaldas.
 ---
 
 ## Qué se pierde y qué no
@@ -29,16 +20,16 @@ En este servidor conviven cosas muy distintas, y solo algunas son irremplazables
 | La base de datos | **No** |
 | Los archivos que subieron los usuarios | **No** |
 
-Las dos últimas filas son el respaldo. Todo lo demás es conveniencia.
+Las dos últimas filas son lo que hay que respaldar. Lo demás se puede reconstruir.
 
 ## Dos números antes de elegir herramienta
 
-Antes de escribir un solo comando, responde dos preguntas. Las respuestas determinan todo lo demás:
+Antes de escribir un solo comando, responde dos preguntas. De las respuestas dependen la frecuencia y la herramienta:
 
 - **Cuántos datos puedes permitirte perder.** Si respaldas cada 24 horas, un fallo puede costarte hasta 24 horas de datos. Si eso es inaceptable, el respaldo diario no te sirve.
 - **Cuánto puedes tardar en volver.** Restaurar una base de datos grande lleva tiempo, y ese tiempo es parte de la caída.
 
-Un proyecto pequeño suele aceptar perder un día y tardar una hora. Ponerle número a las dos cosas es lo que evita descubrirlo durante el incidente.
+En un proyecto pequeño puede ser aceptable perder un día y tardar una hora. Conviene ponerle número a las dos cosas antes de que haya un incidente.
 
 ## Un volcado de la base de datos
 
@@ -91,11 +82,11 @@ rsync --archive --compress "$destino/" respaldo@otro-host:/respaldos/miapp/
 find "$destino" -name 'miapp-*.dump' -mtime +14 -delete
 ```
 
-El volcado se escribe con un nombre temporal y se renombra al terminar: así un `pg_dump` interrumpido no deja un archivo a medias con aspecto de respaldo. El borrado va al final y solo toca copias locales de más de catorce días; sin él, el disco se llena y el respaldo empieza a fallar por falta de espacio, que es la forma más común de quedarse sin respaldos.
+El volcado se escribe con un nombre temporal y se renombra al terminar: así un `pg_dump` interrumpido no deja un archivo a medias con aspecto de respaldo. El borrado va al final y solo toca copias locales de más de catorce días; sin él, el disco se llena y el respaldo empieza a fallar por falta de espacio.
 
 El usuario que lo ejecuta necesita poder escribir en esa carpeta y conectarse a la base de datos. Y como `cron` no avisa cuando un trabajo falla, la última pieza es enterarse: que el script haga una petición a un servicio de vigilancia al terminar bien, y que la alerta salte cuando esa petición no llega.
 
-## El paso que casi nadie da
+## Restaurar para comprobar
 
 Un respaldo no está comprobado hasta que se restaura. El archivo puede existir, pesar lo esperado y estar truncado.
 
@@ -106,30 +97,7 @@ psql miapp_prueba -c "select count(*) from usuarios;"
 dropdb miapp_prueba
 ```
 
-Hazlo el día que montas el respaldo, y repítelo cada cierto tiempo. Es la única diferencia entre tener respaldos y creer que los tienes.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué copiar el directorio de datos de PostgreSQL en caliente no sirve como respaldo?</summary>
-
-Porque la base de datos está escribiendo mientras copias. Los archivos que copiaste primero corresponden a un momento distinto de los que copiaste al final, así que el conjunto no representa ningún estado que haya existido de verdad. `pg_dump` produce una copia coherente de un instante concreto.
-
-</details>
-
-<details>
-<summary>Respaldas cada noche a las 3. Los datos se corrompen a las 14. ¿Cuánto pierdes?</summary>
-
-Once horas de datos: todo lo ocurrido desde el volcado de las 3. Si eso es inaceptable, el respaldo diario es la herramienta equivocada y necesitas algo continuo, como el archivado de WAL o una réplica.
-
-</details>
-
-<details>
-<summary>Tienes respaldos diarios desde hace un año y nunca restauraste ninguno. ¿Qué sabes de ellos?</summary>
-
-Que se generaron archivos. Nada más. No sabes si contienen datos completos, si la versión de la base de datos aún puede leerlos, ni cuánto tarda la restauración. Un respaldo sin restauración de prueba es una suposición.
-
-</details>
+Hazlo el día que montas el respaldo y repítelo cada cierto tiempo.
 
 ## Sigue explorando
 

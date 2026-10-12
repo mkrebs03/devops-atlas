@@ -2,18 +2,9 @@
 title: Keeping the application alive
 description: A systemd service that starts your application when the machine boots and retries it when it fails.
 type: tool
-level: beginner
 module: server
 tools: [systemd, linux]
 prerequisites: [server.manual-deploy]
-learningObjectives:
-  - Write a systemd unit that starts the application when the machine boots.
-  - Read a service's logs and tell apart the reasons it stopped.
-  - Recognise the limits of retrying a process that fails the same way every time.
-takeaways:
-  - A service belongs to the system, not to your session, which is why it survives closing SSH.
-  - Automatic restarts cover the transient failure and hide the permanent one.
-  - journalctl is the first place to look when a service will not start.
 ---
 
 ## From a process of yours to a system service
@@ -99,29 +90,6 @@ sudo systemctl restart myapp    # the process restarts with the new definition
 ```
 
 `daemon-reload` alone changes nothing about the running process. `restart` without `daemon-reload` restarts with the old definition.
-
-## Check your understanding
-
-<details>
-<summary>Your service sits at activating (auto-restart) and never reaches active. What is going on?</summary>
-
-The process starts and dies immediately, and systemd retries it in a loop. The cause is in the journal: `journalctl -u myapp -n 50`. The usual suspects are a missing environment variable, a port already taken, or a `WorkingDirectory` or `ExecStart` path that does not exist.
-
-</details>
-
-<details>
-<summary>Why are enable and start two different things?</summary>
-
-`start` runs the service now. `enable` registers it to start at the next boot. If you only `start`, everything works until the machine reboots and the service does not come back. `enable --now` does both.
-
-</details>
-
-<details>
-<summary>You edited the .service file and restarted, but the change did not apply. What is missing?</summary>
-
-`sudo systemctl daemon-reload`. systemd works from an in-memory copy of the units; until it re-reads that copy, `restart` starts the process again with the previous definition.
-
-</details>
 
 ## Keep exploring
 

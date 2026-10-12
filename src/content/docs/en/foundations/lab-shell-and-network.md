@@ -2,21 +2,16 @@
 title: Practice · investigate a local application
 description: Start the sample application, find its port, and tell a connection failure from an application failure.
 type: practice
-level: beginner
 module: foundations
 tools: [node, curl, ss]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Start a local server and identify the port it listens on.
-  - Verify the connection and the HTTP response of an application separately.
-  - Recognize the difference between a refused connection and an HTTP error response.
-takeaways:
-  - A listening process and a correct HTTP response are different pieces of evidence.
-  - A connection failure and a 404 point to different boundaries along the path.
-  - Combining small tools makes a network investigation reproducible.
 ---
 
-## What you will end up with
+:::note[Written walkthrough, not run end to end]
+I have not run this walkthrough from start to finish. The output shown is illustrative and may differ from yours. If a step does not work, [open an issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## End state
 
 The [sample application](/en/sample-app/) running on your machine, and three separate pieces of evidence: that it listens, that it responds, and what each kind of failure looks like. The folder you create here is reused by the other walkthroughs.
 
@@ -96,22 +91,6 @@ Repeat both `curl` calls to `/health`, the one to `8080` and the one to `9090`.
 | It hangs (timeout) | Firewall or listen address | `curl -v` |
 | `404 Not Found` | Route or resource does not exist | `curl -i` |
 | `EADDRINUSE` on start | Another process already holds the port | `ss -lntp` |
-
-## Check your understanding
-
-<details>
-<summary>curl answers "Connection refused". What should you NOT debug yet?</summary>
-
-The application. "Connection refused" means nothing was listening on that port, so there never was an HTTP request to analyze. First confirm with `ss -lnt` that the process listens where you think it does.
-
-</details>
-
-<details>
-<summary>The application listens on 127.0.0.1:8080. Could another machine on your network reach it?</summary>
-
-No. `127.0.0.1` is the loopback interface: it only accepts connections that originate on the machine itself. For another machine to get in, it would have to listen on a network interface — with `HOST=0.0.0.0`, for instance — and that is a decision, not a default.
-
-</details>
 
 ## Cleanup
 

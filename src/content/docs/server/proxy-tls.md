@@ -2,18 +2,9 @@
 title: Proxy inverso y certificados
 description: La pieza que recibe el tráfico antes que tu aplicación, y el certificado que hace que el navegador confíe en ella.
 type: concept
-level: intermediate
 module: server
 tools: [nginx, caddy, certbot, tls, http]
 prerequisites: [foundations.networking, server.processes]
-learningObjectives:
-  - Explicar qué resuelve un proxy inverso frente a exponer la aplicación directamente.
-  - Configurar el reenvío hacia un servicio local conservando la identidad del cliente.
-  - Obtener y renovar un certificado sin depender de que alguien se acuerde.
-takeaways:
-  - Un proxy inverso da un único punto de entrada donde vive el certificado y la decisión de enrutado.
-  - Sin las cabeceras reenviadas, la aplicación cree que todo el tráfico viene del proxy.
-  - Un certificado que se renueva a mano es una caída con fecha de vencimiento conocida.
 ---
 
 ## Un solo 443 para muchos servicios
@@ -32,7 +23,7 @@ flowchart LR
 
 Eso es un **proxy inverso**: un servidor que recibe las peticiones en nombre de tus servicios y las reenvía al que corresponde. Se llama "inverso" porque un proxy normal representa al cliente ante internet; este representa al servidor ante el cliente, que nunca sabe qué hay detrás.
 
-## Qué te compra
+## Qué aporta
 
 Enrutar es solo la primera razón. Un proxy inverso concentra en un punto cuatro cosas que si no tendrías que resolver en cada aplicación:
 
@@ -84,31 +75,8 @@ Un certificado de Let's Encrypt dura 90 días. Emitirlo a mano una vez funciona;
 :::
 
 :::note[Caddy, Traefik, nginx: el mismo papel]
-Cambia la sintaxis y cuánto se automatiza —Caddy pide y renueva certificados solo, sin Certbot; Traefik se configura leyendo etiquetas de los contenedores—, pero los tres ocupan el mismo sitio en el diagrama. Elige por operación, no por rendimiento: para casi cualquier carga real, los tres sobran.
+Cambia la sintaxis y cuánto se automatiza —Caddy pide y renueva certificados solo, sin Certbot; Traefik se configura leyendo etiquetas de los contenedores—, pero los tres ocupan el mismo sitio en el diagrama. Elige por cómo se opera cada uno más que por rendimiento.
 :::
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Tu aplicación registra que todas las peticiones vienen de 127.0.0.1. ¿Qué falta?</summary>
-
-La cabecera `X-Forwarded-For`. Desde el punto de vista de la aplicación, quien se conecta es el proxy, porque literalmente lo es. El proxy tiene que reenviar la dirección original en una cabecera, y la aplicación tiene que estar configurada para confiar en ella —solo cuando el proxy es tuyo, porque una cabecera la puede escribir cualquiera.
-
-</details>
-
-<details>
-<summary>¿Por qué el sitio dejó de cargar exactamente noventa días después de ponerlo en marcha?</summary>
-
-Porque el certificado caducó y la renovación automática no estaba funcionando. El día de la emisión todo se ve bien, así que el fallo aparece un trimestre después, cuando nadie está mirando. Un `systemctl list-timers` y un `certbot renew --dry-run` el primer día lo habrían mostrado.
-
-</details>
-
-<details>
-<summary>Tu aplicación escucha en 0.0.0.0:8080 y el proxy la reenvía. ¿Qué queda mal?</summary>
-
-Que el puerto 8080 sigue siendo alcanzable desde internet, así que cualquiera puede saltarse el proxy y con él el TLS, los límites y el registro. La aplicación debe escuchar en `127.0.0.1:8080`, y el cortafuegos permitir solo 22, 80 y 443.
-
-</details>
 
 ## Sigue explorando
 

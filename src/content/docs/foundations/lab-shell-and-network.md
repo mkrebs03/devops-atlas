@@ -2,21 +2,16 @@
 title: Práctica · investigar una aplicación local
 description: Arranca la aplicación de ejemplo, encuentra su puerto y separa un fallo de conexión de uno de aplicación.
 type: practice
-level: beginner
 module: foundations
 tools: [node, curl, ss]
 prerequisites: [foundations.terminal, foundations.networking]
-learningObjectives:
-  - Iniciar un servidor local e identificar el puerto donde escucha.
-  - Verificar por separado la conexión y la respuesta HTTP de una aplicación.
-  - Reconocer la diferencia entre una conexión rechazada y una respuesta HTTP de error.
-takeaways:
-  - Un proceso escuchando y una respuesta HTTP correcta son evidencias distintas.
-  - Un fallo de conexión y un 404 apuntan a fronteras distintas del recorrido.
-  - Combinar herramientas pequeñas permite reproducir una investigación de red.
 ---
 
-## Qué vas a tener al final
+:::note[Práctica escrita, no ejecutada de punta a punta]
+No corrí este recorrido completo. La salida que aparece es ilustrativa y puede diferir de la tuya. Si un paso no funciona, [abre un issue](https://github.com/mkrebs03/devops-atlas/issues).
+:::
+
+## Estado final
 
 La [aplicación de ejemplo](/sample-app/) corriendo en tu máquina, y tres evidencias separadas: que escucha, que responde, y qué aspecto tiene cada tipo de fallo. La carpeta que creas aquí la siguen usando las demás prácticas.
 
@@ -96,22 +91,6 @@ Repite los dos `curl` a `/health`, el de `8080` y el de `9090`.
 | Se queda colgado (timeout) | Firewall o dirección de escucha | `curl -v` |
 | `404 Not Found` | Ruta o recurso inexistente | `curl -i` |
 | `EADDRINUSE` al arrancar | Otro proceso ya ocupa el puerto | `ss -lntp` |
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>curl responde "Connection refused". ¿Qué NO deberías depurar todavía?</summary>
-
-La aplicación. "Connection refused" significa que no había nada escuchando en ese puerto, así que nunca hubo una petición HTTP que analizar. Confirma primero con `ss -lnt` que el proceso escucha donde crees.
-
-</details>
-
-<details>
-<summary>La aplicación escucha en 127.0.0.1:8080. ¿Podría alcanzarla otro equipo de tu red?</summary>
-
-No. `127.0.0.1` es la interfaz de *loopback*: solo acepta conexiones que nacen en la propia máquina. Para que otro equipo llegara tendría que escuchar en una interfaz de red —por ejemplo con `HOST=0.0.0.0`—, y eso es una decisión, no un valor por defecto.
-
-</details>
 
 ## Limpieza
 
