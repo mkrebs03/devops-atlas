@@ -31,7 +31,7 @@ psql --version     # ¿y la base de datos?
 
 Ejecutar un script descargado con `sudo` es confiar en quien lo publica; léelo antes, o instala desde los pasos manuales que el propio proyecto documenta.
 
-Anota esas versiones. Son la primera pieza de la lista de cosas que un servidor nuevo tendría que reproducir, y la primera que se olvida.
+Anota esas versiones. Son la primera pieza de la lista de cosas que un servidor nuevo tendría que reproducir.
 
 ## Traer el código
 
@@ -91,29 +91,6 @@ Vale la pena nombrar los fallos ahora, porque cada uno tiene después un respons
 | El servidor nuevo no queda igual que este | Los pasos que diste solo existen en tu memoria |
 
 Los tres primeros los resuelve un gestor de procesos. El cuarto, una estrategia de despliegue. El quinto es el que empuja hacia empaquetar y automatizar.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué npm ci y no npm install en un servidor?</summary>
-
-Porque `npm install` puede resolver versiones nuevas dentro de los rangos permitidos y actualizar el archivo de bloqueo, así que el servidor podría acabar con dependencias que nunca probaste. `npm ci` instala exactamente lo bloqueado y falla si el bloqueo no coincide con el manifiesto, que es el comportamiento que quieres en un despliegue.
-
-</details>
-
-<details>
-<summary>¿Por qué la configuración va en variables de entorno y no en un archivo del repositorio?</summary>
-
-Porque cambia entre entornos y parte de ella es secreta. En el repositorio tendrías que elegir entre publicar credenciales o mantener un archivo por entorno que alguien acabará desincronizando. Las variables dejan un solo código para todos los entornos, y cada máquina aporta sus propios valores.
-
-</details>
-
-<details>
-<summary>Cerraste SSH y el sitio dejó de responder. ¿Qué pasó exactamente?</summary>
-
-El proceso que arrancaste era hijo de tu sesión SSH. Al cerrarla, el sistema lo terminó junto con ella. Para sobrevivir tiene que pertenecer al sistema y no a tu sesión, que es justo lo que hace un gestor de procesos.
-
-</details>
 
 ## Sigue explorando
 

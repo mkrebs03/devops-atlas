@@ -92,22 +92,6 @@ Repeat both `curl` calls to `/health`, the one to `8080` and the one to `9090`.
 | `404 Not Found` | Route or resource does not exist | `curl -i` |
 | `EADDRINUSE` on start | Another process already holds the port | `ss -lntp` |
 
-## Check your understanding
-
-<details>
-<summary>curl answers "Connection refused". What should you NOT debug yet?</summary>
-
-The application. "Connection refused" means nothing was listening on that port, so there never was an HTTP request to analyze. First confirm with `ss -lnt` that the process listens where you think it does.
-
-</details>
-
-<details>
-<summary>The application listens on 127.0.0.1:8080. Could another machine on your network reach it?</summary>
-
-No. `127.0.0.1` is the loopback interface: it only accepts connections that originate on the machine itself. For another machine to get in, it would have to listen on a network interface — with `HOST=0.0.0.0`, for instance — and that is a decision, not a default.
-
-</details>
-
 ## Cleanup
 
 Stop the server with `Ctrl+C`. **Do not delete `~/myapp`**: the [safe branches](/en/collaboration/lab-git-branching/) walkthrough starts in that folder.

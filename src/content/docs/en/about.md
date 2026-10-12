@@ -7,14 +7,14 @@ DevOps Atlas is my DevOps notes, arranged by topic so they can be looked up. I p
 
 ## Who writes it
 
-I'm Martín Sanhueza Krebs. In 2026 I am in the fourth year of a computer engineering degree at Universidad de La Frontera, in Temuco, Chile. My GitHub is [@mkrebs03](https://github.com/mkrebs03).
+I'm Martín Sanhueza Krebs. I am currently in the fourth year of a computer engineering degree at Universidad de La Frontera, in Temuco, Chile. My GitHub is [@mkrebs03](https://github.com/mkrebs03).
 
 I got into this as a DevOps trainee in a university group, replacing the student who was in charge and was about to graduate. I started with a single system and took on more projects over time.
 
 ## What I run today
 
 - A k3s cluster shared by two university groups. Its state is defined in a repository and Argo CD applies it. One of the systems I maintain has real users.
-- A research project between two universities, where I work under contract as DevOps and on the frontend.
+- A research project between two universities, where I work as DevOps and on the frontend.
 - This site, which runs on a VPS of mine.
 
 ## What I use and what I do not

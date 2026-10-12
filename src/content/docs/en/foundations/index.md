@@ -1,6 +1,6 @@
 ---
 title: Foundations
-description: Learn to read a machine before trying to automate it.
+description: How to read a machine before automating it.
 type: concept
 module: foundations
 tools: [linux]
@@ -15,9 +15,9 @@ If it is not yet clear what DevOps is or which part of the cycle this Atlas cove
 
 ## The first skill: observe
 
-DevOps does not start with a tool. It starts with the ability to ask concrete questions about a system: which process is listening, which file changed, why a request does not arrive, and what evidence supports a decision.
+Before any tool comes the ability to ask concrete questions about a system: which process is listening, which file changed, why a request does not arrive, and what evidence supports a decision.
 
-This module builds the minimum map for moving through Linux and a network. You do not need to memorise hundreds of commands; you need to connect small, verifiable observations.
+This module gathers the minimum map for moving through Linux and a network: a few commands, chained into small, verifiable observations.
 
 ## Walk the system from the outside in
 

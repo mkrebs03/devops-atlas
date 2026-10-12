@@ -99,29 +99,6 @@ dropdb myapp_check
 
 Do it the day you set the backup up, and repeat it periodically.
 
-## Check your understanding
-
-<details>
-<summary>Why does copying PostgreSQL's data directory while it runs not work as a backup?</summary>
-
-Because the database is writing while you copy. The files you copied first belong to a different moment than the ones you copied last, so the set does not represent any state that actually existed. `pg_dump` produces a coherent copy of one specific instant.
-
-</details>
-
-<details>
-<summary>You back up nightly at 3. The data is corrupted at 14:00. How much do you lose?</summary>
-
-Eleven hours of data: everything since the 3 a.m. dump. If that is unacceptable, a daily backup is the wrong tool and you need something continuous, such as WAL archiving or a replica.
-
-</details>
-
-<details>
-<summary>You have had daily backups for a year and have never restored one. What do you know about them?</summary>
-
-That files were produced. Nothing more. You do not know whether they hold complete data, whether the database version can still read them, or how long a restore takes.
-
-</details>
-
 ## Keep exploring
 
 - [PostgreSQL · backup and restore](https://www.postgresql.org/docs/current/backup.html) — dumps, file-level copies and continuous archiving.

@@ -53,7 +53,7 @@ terraform apply         # lo hace, tras confirmación
 terraform destroy       # borra todo lo que gestiona
 ```
 
-`plan` es la parte que no conviene saltarse, y no por prudencia genérica. Su salida distingue tres símbolos, y el tercero es el que importa:
+`plan` es la parte que no conviene saltarse. Su salida distingue tres símbolos, y el tercero es el que importa:
 
 ```
   + create        un recurso nuevo
@@ -123,29 +123,6 @@ module "production" {
 Ambos entornos comparten definición y difieren solo en lo declarado. Las dos descripciones ya no pueden separarse, porque es una sola. Lo que sí puede seguir cambiando es la máquina real, a mano y por fuera; eso lo delata el siguiente `plan`.
 
 Cada entorno necesita su propio estado. Mezclarlos en uno significa que un `apply` destinado a *staging* tiene delante los recursos de producción.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué Terraform necesita un archivo de estado si puede preguntarle al proveedor qué existe?</summary>
-
-Porque el proveedor sabe qué recursos hay, pero no cuál de ellos corresponde a cuál bloque de tu archivo. El estado guarda esa correspondencia. Sin ella, Terraform no puede distinguir un recurso que ya gestiona y cambió de uno que todavía no existe, y crearía duplicados.
-
-</details>
-
-<details>
-<summary>El plan muestra -/+ en tu base de datos. ¿Qué significa y qué haces?</summary>
-
-Que el atributo que cambiaste no se puede modificar en sitio, así que Terraform borrará el recurso y creará uno nuevo — perdiendo los datos. Se para ahí: o se revierte ese cambio, o se hace la migración a mano con un respaldo por delante. Ese símbolo es la razón de ejecutar `plan` antes de `apply`.
-
-</details>
-
-<details>
-<summary>Dos personas ejecutan apply a la vez sobre el mismo estado. ¿Qué puede pasar?</summary>
-
-Que el estado quede corrupto o incompleto: ambos leyeron la misma versión y ambos escriben encima, así que el resultado no refleja lo que hizo ninguno. Por eso los backends remotos toman un bloqueo mientras alguien aplica; el segundo espera en vez de pisar.
-
-</details>
 
 ## Sigue explorando
 

@@ -1,6 +1,6 @@
 ---
 title: Despliegue continuo
-description: Lleva un artefacto a producción con estrategias seguras y capacidad de revertir.
+description: Cómo llega un artefacto a producción, con qué estrategia y cómo se revierte.
 type: concept
 module: deployment
 tools: [nginx, docker]
@@ -30,8 +30,8 @@ flowchart LR
 | Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](/deployment/strategies/) |
 | Práctica | ¿Puedo promover y revertir una versión? | [Práctica · promover y revertir](/deployment/lab-release/) |
 
-:::note[Desplegar no es un evento, es una capacidad]
-Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en porciones pequeñas, y puede revertir en minutos.
+:::note[Desplegar seguido]
+Desplegar seguido y en porciones pequeñas, con una reversión que tarda minutos, baja el riesgo de cada entrega.
 :::
 
 ## Qué cubre

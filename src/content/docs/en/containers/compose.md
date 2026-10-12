@@ -9,7 +9,7 @@ prerequisites: [containers.docker]
 
 ## One file instead of a sequence
 
-A real application is not one container: it is several that have to find each other. With `docker run` that means remembering the order, the names, the network and every flag of every start — and getting them right again tomorrow.
+An application is usually several containers that have to find each other. With `docker run` that means remembering the order, the names, the network and every flag of every start — and getting them right again tomorrow.
 
 **Docker Compose** swaps that sequence for a description. You write how the set should end up, and `docker compose up` brings it to that state.
 
@@ -102,29 +102,6 @@ docker compose -f compose.yml -f compose.prod.yml up -d
 ```
 
 The values that differ between environments — passwords, domains, image tags — move to a `.env` file that is not versioned, and the YAML references them with `${DB_PASSWORD}`. The Compose file can live in the repository; the values cannot.
-
-## Check your understanding
-
-<details>
-<summary>Why does the database have no ports in the example?</summary>
-
-Because only the application needs to reach it, and it does so over the project network using the name `db`. Publishing the port would expose it to the host machine and, with Docker, to the internet as well. If you do not need to connect from outside, do not publish.
-
-</details>
-
-<details>
-<summary>You ran docker compose down --volumes and lost the data. What did each part do?</summary>
-
-`down` stops and removes the containers and the project network, both of which are recreatable. `--volumes` adds removing the volumes, which are the only thing that cannot be recreated. The command did exactly what it was asked; the flag is the part to type deliberately.
-
-</details>
-
-<details>
-<summary>Your application fails at startup even though depends_on is declared. Why?</summary>
-
-Because `depends_on` without a condition waits for the container to start, not for the service to be ready to serve. The database exists but is not accepting connections yet. You need a `healthcheck` with `condition: service_healthy`, and even then the application should retry on its own.
-
-</details>
 
 ## Keep exploring
 

@@ -40,8 +40,8 @@ for (const file of files) {
   const relative = path.relative(root, file).split(path.sep).join('/');
   const slug = relative.replace(/\.(md|mdx)$/, '').replace(/\/index$/, '');
 
-  // Spanish questions open with ¿. The <summary> self-checks are where the
-  // mark keeps going missing, so the rule is enforced rather than assumed.
+  // Spanish questions open with ¿. A <summary> is where the mark keeps going
+  // missing, so the rule is enforced rather than assumed.
   if (!relative.startsWith('en/')) {
     for (const match of source.matchAll(/<summary>([^]*?)<\/summary>/g)) {
       const text = match[1].trim();

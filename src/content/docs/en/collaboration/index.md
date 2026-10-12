@@ -1,6 +1,6 @@
 ---
 title: Collaboration
-description: Turn individual changes into decisions a team can understand and review.
+description: How to make your own change something a team can understand, review and undo.
 type: concept
 module: collaboration
 tools: [git, github]
@@ -30,8 +30,8 @@ flowchart LR
 | Review | How do I propose a change another person can review? | [Pull requests and review](/en/collaboration/pull-requests/) |
 | Practice | Can I create and undo a safe change? | [Practice · safe branches](/en/collaboration/lab-git-branching/) |
 
-:::note[History is an interface]
-A useful history does not record every keystroke. It records decisions that are small, coherent and reversible.
+:::note[What goes in the history]
+A useful history records decisions that are small, coherent and reversible, not every keystroke.
 :::
 
 ## What this covers

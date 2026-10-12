@@ -1,6 +1,6 @@
 ---
 title: Colaboración
-description: Convierte cambios individuales en decisiones que el equipo puede entender y revisar.
+description: Cómo hacer que un cambio propio se pueda entender, revisar y deshacer en equipo.
 type: concept
 module: collaboration
 tools: [git, github]
@@ -30,8 +30,8 @@ flowchart LR
 | Revisión | ¿Cómo propongo un cambio que otra persona pueda revisar? | [Pull requests y revisión](/collaboration/pull-requests/) |
 | Práctica | ¿Puedo crear y deshacer un cambio seguro? | [Práctica · ramas seguras](/collaboration/lab-git-branching/) |
 
-:::note[El historial es una interfaz]
-Un buen historial no registra cada movimiento del teclado. Registra decisiones pequeñas, coherentes y reversibles.
+:::note[Qué va en el historial]
+Un buen historial registra decisiones pequeñas, coherentes y reversibles, no cada movimiento del teclado.
 :::
 
 ## Qué cubre

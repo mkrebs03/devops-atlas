@@ -7,14 +7,14 @@ DevOps Atlas son mis apuntes de DevOps, ordenados por tema para poder consultarl
 
 ## Quién escribe
 
-Soy Martín Sanhueza Krebs. En 2026 curso cuarto año de Ingeniería Informática en la Universidad de La Frontera, en Temuco, Chile. Mi GitHub es [@mkrebs03](https://github.com/mkrebs03).
+Soy Martín Sanhueza Krebs. Actualmente curso cuarto año de Ingeniería Informática en la Universidad de La Frontera, en Temuco, Chile. Mi GitHub es [@mkrebs03](https://github.com/mkrebs03).
 
 Llegué a esto como DevOps trainee en un grupo de la universidad, en reemplazo del estudiante que estaba a cargo y que se iba a titular. Empecé con un solo sistema y con el tiempo fui tomando más proyectos.
 
 ## Qué opero hoy
 
 - Un cluster k3s que comparten dos grupos de la universidad. Su estado se define en un repositorio y Argo CD lo aplica. Entre los sistemas que mantengo hay uno con usuarios reales.
-- Un proyecto de investigación entre dos universidades, donde trabajo con contrato como DevOps y en frontend.
+- Un proyecto de investigación entre dos universidades, donde trabajo como DevOps y en frontend.
 - Este sitio, que corre en una VPS mía.
 
 ## Qué uso y qué no

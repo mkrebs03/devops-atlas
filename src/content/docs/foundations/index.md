@@ -1,6 +1,6 @@
 ---
 title: Fundamentos
-description: Aprende a leer una máquina antes de intentar automatizarla.
+description: Cómo leer una máquina antes de automatizarla.
 type: concept
 module: foundations
 tools: [linux]
@@ -15,9 +15,9 @@ Si todavía no tienes claro qué es DevOps ni qué parte del ciclo cubre este At
 
 ## La primera habilidad: observar
 
-DevOps no empieza con una herramienta, sino con la capacidad de hacer preguntas concretas sobre un sistema: qué proceso escucha, qué archivo cambió, por qué una petición no llega y qué evidencia respalda una decisión.
+Antes que cualquier herramienta está la capacidad de hacer preguntas concretas sobre un sistema: qué proceso escucha, qué archivo cambió, por qué una petición no llega y qué evidencia respalda una decisión.
 
-En este módulo construyes el mapa mínimo para moverte por Linux y una red. No necesitas memorizar cientos de comandos; necesitas encadenar observaciones pequeñas y verificables.
+Este módulo reúne el mapa mínimo para moverse por Linux y una red: pocos comandos, encadenados en observaciones pequeñas y verificables.
 
 ## Recorre el sistema de afuera hacia adentro
 

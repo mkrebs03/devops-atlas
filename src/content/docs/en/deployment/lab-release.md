@@ -151,29 +151,6 @@ That is also the cost of blue-green: for as long as you want to be able to go ba
 | The reload changes nothing | The file you edited is not the mounted one | `docker exec proxy cat /etc/nginx/conf.d/default.conf` |
 | `name is already in use` | Containers were left over from an earlier attempt | The cleanup section |
 
-## Check your understanding
-
-<details>
-<summary>In step 3 green is already running but nobody uses it. Why is that useful?</summary>
-
-Because it separates deploying from releasing. You can check the new version calmly — that it starts, that its `/health` answers — without any user seeing it. If something is wrong, you find out before moving traffic and there is nothing to roll back.
-
-</details>
-
-<details>
-<summary>What would have happened in step 5 without nginx -t in front?</summary>
-
-It depends on the moment. On a reload, nginx validates by itself and keeps the previous configuration if the new one fails, so traffic would have carried on. But the broken file stays on disk, and the next restart of the container — an upgrade, a machine reboot — would no longer start. `nginx -t` turns that deferred failure into an immediate, visible one.
-
-</details>
-
-<details>
-<summary>You decide to delete blue right after switching to green. What do you lose?</summary>
-
-The instant rollback. Going back is no longer reloading the proxy: it is starting the previous version again and waiting for it to be ready, with the bad version serving in the meantime. The old version is retired once the new one has been healthy for long enough, not when it stops receiving traffic.
-
-</details>
-
 ## Cleanup
 
 Stop the loop in the second terminal with `Ctrl+C`. Then:

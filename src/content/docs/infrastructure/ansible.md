@@ -68,7 +68,7 @@ ansible_user=marta
         state: reloaded
 ```
 
-Fíjate en cómo están redactados los nombres: «los paquetes están instalados», no «instalar los paquetes». No es un detalle de estilo — es exactamente lo que hace cada tarea. Comprueba si la afirmación ya es cierta y solo actúa si no lo es.
+Fíjate en cómo están redactados los nombres: «los paquetes están instalados», no «instalar los paquetes». Así funciona cada tarea: comprueba si la afirmación ya es cierta y solo actúa si no lo es.
 
 El `notify` añade una pieza útil: el *handler* que recarga nginx se ejecuta **una sola vez y solo si la plantilla cambió**. Sin eso, cada ejecución recargaría el servicio aunque no hubiera nada nuevo.
 
@@ -89,7 +89,7 @@ Ese resumen dice más de lo que parece. `changed=0` significa que la máquina ya
 Aplicado de forma rutinaria, ese número **es tu medidor de deriva**. Un `changed` que aparece en una máquina que nadie tocó dice que alguien la tocó.
 
 :::caution[El módulo command rompe la idempotencia]
-`ansible.builtin.command` y `shell` ejecutan lo que les des, siempre, y siempre informan `changed`. Úsalos solo cuando no exista un módulo específico, y acompáñalos de `creates:` o `when:` para que sepan cuándo no hacer nada. Un playbook lleno de `shell` es un script con más ceremonia.
+`ansible.builtin.command` y `shell` ejecutan lo que les des, siempre, y siempre informan `changed`. Úsalos solo cuando no exista un módulo específico, y acompáñalos de `creates:` o `when:` para que sepan cuándo no hacer nada.
 :::
 
 ## Comprobar antes de aplicar
@@ -98,7 +98,7 @@ Aplicado de forma rutinaria, ese número **es tu medidor de deriva**. Un `change
 ansible-playbook -i inventory.ini site.yml --check --diff
 ```
 
-`--check` simula sin cambiar nada; `--diff` muestra las diferencias exactas de los archivos que tocaría. Es el equivalente al `plan` de Terraform, con una salvedad honesta: una tarea `command` no puede simularse, así que el ensayo es tan fiable como idempotente sea el playbook.
+`--check` simula sin cambiar nada; `--diff` muestra las diferencias exactas de los archivos que tocaría. Es el equivalente al `plan` de Terraform, con una salvedad: una tarea `command` no puede simularse, así que el ensayo es tan fiable como idempotente sea el playbook.
 
 Para desplegar sin cortar el servicio, `serial` limita cuántas máquinas se tocan a la vez:
 
@@ -129,29 +129,6 @@ No compiten. Terraform crea la máquina; Ansible la deja lista por dentro. Lo ha
 | Actúa sobre | La API del proveedor | La máquina, por SSH |
 
 Que Ansible no guarde estado es una ventaja y una limitación a la vez: no hay archivo que corromper ni bloquear, pero tampoco sabe qué recursos creó, así que no puede destruirlos.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Ejecutas el mismo playbook dos veces seguidas. ¿Qué esperas ver la segunda vez?</summary>
-
-`changed=0`. La primera ejecución dejó la máquina como el playbook describe, así que la segunda comprueba las mismas afirmaciones y las encuentra ciertas. Si aparece `changed` en la segunda, alguna tarea no es idempotente — casi siempre un `command` o un `shell` sin condición.
-
-</details>
-
-<details>
-<summary>¿Por qué usar el módulo apt en vez de command con apt install?</summary>
-
-Porque el módulo comprueba si el paquete ya está instalado y solo actúa si falta, así que informa `changed` únicamente cuando cambió algo de verdad. `command` ejecuta siempre e informa `changed` siempre, con lo que pierdes la señal que distingue una máquina que derivó de una que estaba bien.
-
-</details>
-
-<details>
-<summary>Tu playbook toca 20 servidores y una tarea reinicia nginx. ¿Qué añades para no cortar el servicio?</summary>
-
-`serial`, para que Ansible trabaje por tandas en lugar de sobre los veinte a la vez, y un `handler` para que el reinicio ocurra solo si la configuración cambió. Con `serial: 1` el balanceador siempre tiene diecinueve instancias sanas mientras se toca la restante.
-
-</details>
 
 ## Sigue explorando
 

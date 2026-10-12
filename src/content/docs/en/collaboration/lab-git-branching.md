@@ -89,7 +89,7 @@ git commit --no-edit
 
 ## Step 4 · Undo without rewriting
 
-Suppose that merge was a mistake. Do not erase it: state it.
+Suppose that merge was a mistake. Instead of erasing it, you revert it with a new commit.
 
 ```bash
 git revert -m 1 --no-edit HEAD
@@ -101,7 +101,7 @@ cat .env.example
 
 **Signal:** there is a new commit `Revert "Merge branch 'chore/port-3000'"`, the merge is still visible below it, and the file says `PORT=8081` again.
 
-:::tip[A revert is also a delivery]
+:::tip[Why revert and not reset]
 `git revert` creates a new decision that undoes another. It is preferable to rewriting shared history with `reset --hard`, because whoever already had those commits does not end up with a different history from yours.
 :::
 
@@ -145,22 +145,6 @@ git branch -d docs/routes
 | The merge is half done and you want to start over | You are still inside the merge | `git merge --abort` |
 | `push` rejected with `Permission denied (publickey)` | GitHub does not know your SSH key | Add it to your account, or use the repository's `https://` URL |
 | `push` rejected with `fetch first` | The remote has commits you do not | You created it with a README: `git pull --rebase origin main` |
-
-## Check your understanding
-
-<details>
-<summary>You resolved the conflict but forgot to git add the file. Can you close the merge?</summary>
-
-No: while the file is still marked as unresolved, Git will not let you complete the merge. Run `git add .env.example` to mark it resolved, then `git commit` to close the integration.
-
-</details>
-
-<details>
-<summary>Why did the merge in step 2 create no commit, while the one in step 3 did?</summary>
-
-Because in step 2 `main` had not moved since the branch was created: advancing the reference was enough. In step 3 both branches had commits of their own, so a commit with two parents was needed to join them.
-
-</details>
 
 ## Cleanup
 

@@ -48,6 +48,38 @@
 }
 .landing__lede + .landing__lede { margin-top: var(--atlas-space-3); }
 
+.landing__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--atlas-space-3);
+  margin: var(--atlas-space-6) 0 0;
+}
+.landing__cta,
+.landing__ghost {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--atlas-radius);
+  padding: 0.6rem 1.1rem;
+  font-size: var(--atlas-size-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition-property: background-color, border-color;
+  transition-duration: var(--atlas-dur-base);
+  transition-timing-function: var(--atlas-ease);
+}
+.landing__cta {
+  background: var(--atlas-coral);
+  color: var(--atlas-on-coral);   /* the reference's own on-coral ink */
+  border: var(--atlas-hairline) solid var(--atlas-coral);
+}
+.landing__cta:hover { background: var(--atlas-coral-hover); border-color: var(--atlas-coral-hover); }
+.landing__ghost {
+  border: var(--atlas-hairline) solid var(--atlas-border);
+  color: var(--atlas-text);
+  background: var(--atlas-surface);
+}
+.landing__ghost:hover { background: var(--atlas-surface-3); }
+
 /* ---------- sections ----------------------------------------------------- */
 
 .landing__section { padding-block: var(--atlas-space-7) 0; }

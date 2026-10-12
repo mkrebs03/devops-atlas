@@ -44,27 +44,11 @@ No hay una mejor: un blog personal tolera recreate; un servicio de pagos quiere 
 
 ## El rollback es parte del plan
 
-Un despliegue sin rollback es una apuesta. Antes de lanzar, responde: ¿cómo vuelvo a la versión anterior, en cuánto tiempo, y qué pasa con los datos ya migrados? Un rollback que nadie ensayó no existe.
+Antes de lanzar, responde: ¿cómo vuelvo a la versión anterior, en cuánto tiempo, y qué pasa con los datos ya migrados? Conviene ensayar el rollback antes de necesitarlo.
 
 :::caution[Las migraciones de datos no siempre revierten]
 Cambiar código es reversible; borrar una columna, no. Diseña cambios de esquema compatibles hacia atrás (agrega antes de quitar) para que un rollback de código no deje datos huérfanos.
 :::
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Un servicio de pagos necesita cero downtime y contener el impacto de un fallo. ¿Qué estrategia?</summary>
-
-Canary: expones la versión nueva a una fracción del tráfico y observas métricas antes de subir. Si algo falla, solo afecta a ese porcentaje y retiras el canary. Blue-green también evita downtime, pero canary limita mejor el radio de impacto.
-
-</details>
-
-<details>
-<summary>Tu rollback de código funciona, pero el despliegue borró una columna de la base. ¿Qué salió mal?</summary>
-
-La migración no era compatible hacia atrás. El código revierte, pero el dato no vuelve solo. Haz los cambios de esquema en pasos compatibles (agrega antes de quitar) para que un rollback de código no deje la base inconsistente.
-
-</details>
 
 ## Sigue explorando
 

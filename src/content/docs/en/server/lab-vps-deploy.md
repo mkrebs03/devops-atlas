@@ -196,22 +196,6 @@ Write down how long it took and how many steps had a value only you knew: the us
 | Copying the code and restarting the service | [Deploying from the pipeline](/en/deployment/deploy-from-pipeline/) |
 | Accepting a few seconds of downtime on update | [Deployment strategies](/en/deployment/strategies/) |
 
-## Check your understanding
-
-<details>
-<summary>Why is rebooting the machine a better test than closing the SSH session?</summary>
-
-Because it checks both things a service does. Closing the session only shows the process no longer depends on you; the reboot also shows the system knows how to start it by itself, which is what `enable` did. A service started with `start` and never enabled passes the first test and fails the second.
-
-</details>
-
-<details>
-<summary>nginx returns 502. Which boundary is the failure at?</summary>
-
-Between the proxy and the application. There was DNS, a connection, TLS and an HTTP response: nginx provided all of that. What failed is the hop to `127.0.0.1:8080`, so you look at the service (`systemctl status myapp`), not at the proxy.
-
-</details>
-
 ## Cleanup
 
 If you are going on to the deployment walkthroughs, keep the machine. If not, delete it from the provider's panel: with most of them a powered-off machine keeps billing. Delete the DNS record too, so the name is not left pointing at an IP that will belong to someone else tomorrow.

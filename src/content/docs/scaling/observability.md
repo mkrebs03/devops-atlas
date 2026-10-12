@@ -45,7 +45,7 @@ http_request_duration_seconds{route="/api/orders",quantile="0.99"}  2.4
 
 ## Qué medir
 
-Un sistema tiene infinitos números y casi ninguno importa. Cuatro señales describen la salud de casi cualquier servicio:
+Un sistema produce muchos más números de los que hace falta mirar. Cuatro señales describen la salud de un servicio:
 
 - **Latencia** — cuánto tarda en responder. Separa las respuestas correctas de las fallidas: un error devuelto rápido no es una buena noticia.
 - **Tráfico** — cuánta demanda está recibiendo.
@@ -72,7 +72,7 @@ Un **chequeo de salud** —el que ya viste en [el proxy](/deployment/load-balanc
 
 ## Alertas: avisa de síntomas, no de causas
 
-Una alerta debería significar: *alguien está sufriendo algo, y hay algo que hacer al respecto*. Ese listón descarta la mayoría de las alertas que la gente configura al empezar.
+Una alerta debería significar: *alguien está sufriendo algo, y hay algo que hacer al respecto*. Ese listón descarta muchas alertas que parecen razonables al empezar.
 
 - **Sobre síntomas**: "el 5% de las peticiones a `/checkout` falla" o "el p99 pasó de 300 ms a 3 s". Le pasa a alguien.
 - **No sobre causas**: "la CPU está al 80%". Puede ser perfectamente normal, y si no lo es, ya lo dirá la latencia.
@@ -91,23 +91,7 @@ flowchart LR
   L --> D["causa"]
 ```
 
-Es el mismo bucle de diagnóstico de [la terminal](/foundations/terminal/), a escala de sistema: ubicar, medir, filtrar, actuar, verificar. Cambia la herramienta, no el método.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Tu panel dice que la latencia media está en 200 ms y los usuarios se quejan de lentitud. ¿Qué miras?</summary>
-
-Los percentiles. Una media de 200 ms es compatible con que el 5% de las peticiones tarde varios segundos, y esa cola es justo lo que la gente nota y recuerda. Mira el p95 y el p99, y sepáralos por ruta: lo más probable es que un endpoint concreto esté arrastrando la experiencia.
-
-</details>
-
-<details>
-<summary>Recibes una alerta de "memoria al 85%" tres veces por semana y nunca ha pasado nada. ¿Qué está mal?</summary>
-
-Es una alerta sobre una causa, no sobre un síntoma, y no es accionable: nadie sabe qué hacer con ella, así que se aprende a ignorarla. Sustitúyela por lo que de verdad afectaría a alguien —errores, latencia, peticiones rechazadas— y deja la memoria como un número que consultas *cuando* investigas, no como algo que te despierta.
-
-</details>
+Es el mismo bucle de diagnóstico de [la terminal](/foundations/terminal/), a escala de sistema: ubicar, medir, filtrar, actuar, verificar.
 
 ## Sigue explorando
 

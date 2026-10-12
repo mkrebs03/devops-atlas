@@ -17,7 +17,7 @@ Hasta ahora, quien escribió el código era quien comprobaba que funcionara, en 
 
 ## Una prueba es una afirmación que se ejecuta
 
-Lo que ese servidor ejecuta son, sobre todo, pruebas. Una prueba automática afirma algo concreto: dada cierta entrada, el sistema responde de cierta forma. Cuando falla, no se discuten opiniones; se lee una evidencia reproducible.
+Lo que ese servidor ejecuta son, sobre todo, pruebas. Una prueba automática afirma algo concreto: dada cierta entrada, el sistema responde de cierta forma. Cuando falla, deja una evidencia reproducible.
 
 Si ya programas, probablemente esto no sea nuevo. Lo que cambia aquí es dónde vive la suite: deja de ser una comprobación que corres cuando te acuerdas y pasa a ser una **compuerta del camino de entrega**. Se ejecuta sola en cada cambio y su resultado decide si el artefacto sigue avanzando.
 
@@ -51,8 +51,8 @@ El orden importa: lo barato va primero. Un lint que tarda diez segundos debe fal
 | Acceso | ¿Dónde viven las credenciales que el pipeline necesita? | [Secretos y permisos](/integration/secrets/) |
 | Práctica | ¿Puedo dejar una prueba y un workflow funcionando? | [Práctica · una prueba y un workflow](/integration/lab-ci/) |
 
-:::note[Una comprobación que nadie mira no es una compuerta]
-Si el workflow falla a menudo por razones que no son el código —una dependencia inestable, un límite de tiempo mal puesto— el equipo aprende a ignorar el rojo. Una comprobación que se ignora cuesta lo mismo y no protege nada.
+:::note[Fallos que no son del código]
+Si el workflow falla a menudo por razones que no son el código —una dependencia inestable, un límite de tiempo mal puesto— el equipo aprende a ignorar el rojo.
 :::
 
 ## Qué cubre

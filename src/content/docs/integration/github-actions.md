@@ -7,7 +7,7 @@ tools: [github-actions, yaml]
 prerequisites: [collaboration.pull-requests]
 ---
 
-## Un workflow es una promesa ejecutable
+## Qué es un workflow
 
 GitHub Actions describe qué ocurre ante eventos del repositorio (`push`, `pull_request`, etiquetas). Un workflow se compone de **jobs** —que corren en máquinas separadas y en paralelo— y cada job de **pasos** en orden.
 
@@ -24,7 +24,7 @@ flowchart LR
 
 ## Validar con lint, pruebas y build
 
-Un buen pipeline no solo compila: revisa formato, tipos y comportamiento antes de empaquetar.
+Un pipeline revisa formato, tipos y comportamiento antes de empaquetar.
 
 El **lint** es la comprobación más barata de todas: un programa lee el código sin ejecutarlo y señala lo que rompe una convención o huele a error —una variable sin usar, un `await` que falta, una importación que ya no existe—. Tarda segundos, así que su veredicto llega primero.
 
@@ -89,8 +89,8 @@ Los pull requests ejecutan validaciones sin tocar producción. Solo después de 
 
 El `if` limita el deploy a `main`; el `environment` permite exigir aprobaciones o guardar secretos por entorno.
 
-:::tip[Trata el pipeline como producto]
-Un error de CI es una experiencia de usuario. Mensajes cortos, comandos reproducibles y artefactos visibles reducen el tiempo entre fallo y aprendizaje.
+:::tip[Mensajes de error del pipeline]
+Mensajes cortos, comandos reproducibles y artefactos visibles reducen el tiempo entre un fallo de CI y su arreglo.
 :::
 
 ## Secretos y permisos
@@ -106,22 +106,6 @@ permissions:
 ```
 
 Dónde viven exactamente, por qué el permiso importa más que el escondite, y qué hacer cuando uno se escapa: [Secretos y permisos](/integration/secrets/).
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Quieres que build solo corra si test pasa. ¿Qué usas?</summary>
-
-`needs: test` en el job build. Por defecto los jobs corren en paralelo; `needs` declara una dependencia y hace que build espere a que test termine con éxito.
-
-</details>
-
-<details>
-<summary>Tu deploy corre en cada pull request. ¿Cómo lo limitas a main?</summary>
-
-Con una condición en el job, `if: github.ref == 'refs/heads/main'`, idealmente combinada con un `environment` que exija aprobación. La validación corre en cada PR; el despliegue, solo tras integrar.
-
-</details>
 
 ## Sigue explorando
 

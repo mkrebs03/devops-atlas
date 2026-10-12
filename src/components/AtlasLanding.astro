@@ -2,7 +2,7 @@
 /*
   The landing is its own surface, not the docs index wearing a headline. It
   answers, in order: what this is, who writes it, what is inside and where to
-  enter. The ways in are links in the prose rather than buttons.
+  enter.
 */
 import { modules, getLocalizedPath } from '../data/curriculum.mjs';
 
@@ -14,6 +14,8 @@ const base = en ? '/en/' : '/';
 
 const words = en
   ? {
+      whatIs: 'What DevOps is',
+      browse: 'Tools A–Z',
       whatInside: 'What is inside',
       insideLede: 'The modules follow the path of a change, from the machine to production. They can be read in order or one at a time.',
       assumes: 'The pages assume you already write code, and every one of them exists in Spanish and in English.',
@@ -21,6 +23,8 @@ const words = en
       backToTop: 'Back to top',
     }
   : {
+      whatIs: 'Qué es DevOps',
+      browse: 'Herramientas A–Z',
       whatInside: 'Qué hay dentro',
       insideLede: 'Los módulos siguen el recorrido de un cambio, desde la máquina hasta producción. Se pueden leer en orden o sueltos.',
       assumes: 'Las páginas asumen que ya programas, y cada una existe en español y en inglés.',
@@ -37,14 +41,8 @@ const words = en
         <p class="landing__lede">DevOps notes organized as a reference, in Spanish and English.</p>
         <p class="landing__lede">
           I'm Martín Sanhueza Krebs. I study computer engineering at Universidad de La Frontera and I put these notes
-          together as I learn. Some of what is here I run every day and some I have only studied;
-          <a href={`${base}about/`}>About this site</a> says which is which.
-        </p>
-        <p class="landing__lede">
-          Inside there are modules that go from reading a machine to describing infrastructure in a file,
-          a <a href={`${base}glossary/`}>glossary</a>, an <a href={`${base}tools/`}>A–Z index of tools</a>, and
-          written walkthroughs on a single <a href={`${base}sample-app/`}>sample application</a>. If you arrive
-          without a topic in mind, <a href={`${base}what-is-devops/`}>What DevOps is</a> is the first page.
+          together as I learn. There is more about me and about what I run in
+          <a href={`${base}about/`}>About this site</a>.
         </p>
       </>
     ) : (
@@ -52,17 +50,15 @@ const words = en
         <p class="landing__lede">Apuntes de DevOps organizados como referencia, en español y en inglés.</p>
         <p class="landing__lede">
           Soy Martín Sanhueza Krebs, estudio Ingeniería Informática en la Universidad de La Frontera y voy armando
-          estos apuntes a medida que aprendo. Una parte de lo que hay aquí la opero a diario y otra solo la he
-          estudiado; en <a href={`${base}about/`}>Sobre este sitio</a> digo cuál es cuál.
-        </p>
-        <p class="landing__lede">
-          Dentro hay módulos que van desde leer una máquina hasta describir la infraestructura en un archivo,
-          un <a href={`${base}glossary/`}>glosario</a>, un <a href={`${base}tools/`}>índice de herramientas A–Z</a> y
-          prácticas escritas sobre una misma <a href={`${base}sample-app/`}>aplicación de ejemplo</a>. Si llegas sin
-          un tema en mente, <a href={`${base}what-is-devops/`}>Qué es DevOps</a> es la primera página.
+          estos apuntes a medida que aprendo. En <a href={`${base}about/`}>Sobre este sitio</a> hay más sobre mí y
+          sobre lo que opero.
         </p>
       </>
     )}
+    <p class="landing__actions">
+      <a class="landing__cta" href={`${base}what-is-devops/`}>{words.whatIs}</a>
+      <a class="landing__ghost" href={`${base}tools/`}>{words.browse}</a>
+    </p>
   </section>
 
   <section class="landing__section">

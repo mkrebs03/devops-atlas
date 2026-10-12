@@ -44,22 +44,6 @@ Una **compuerta de aprobación** —por ejemplo, un `environment` protegido en G
 Lo que cambia entre entornos es la configuración (variables, secretos, URLs), no el binario. Mismo artefacto, distinta config: así lo que probaste es lo que corre.
 :::
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>Tu pipeline compila la imagen en staging y otra vez en producción. ¿Qué riesgo introduces?</summary>
-
-Que no estás desplegando lo que probaste: dos builds pueden diferir por dependencias, caché o momento. Construye una sola imagen, etiquétala con el SHA del commit y promueve esa misma a cada entorno; la config cambia, el artefacto no.
-
-</details>
-
-<details>
-<summary>¿Cuál es la diferencia entre entrega continua y despliegue continuo?</summary>
-
-La compuerta. En entrega continua el artefacto queda listo y una persona aprueba el paso a producción; en despliegue continuo ese paso es automático cuando todas las comprobaciones pasan.
-
-</details>
-
 ## Sigue explorando
 
 - [Continuous Delivery (Martin Fowler)](https://martinfowler.com/bliki/ContinuousDelivery.html) — la definición de referencia.

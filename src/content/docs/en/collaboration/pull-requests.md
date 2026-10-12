@@ -36,7 +36,7 @@ This route — a short branch that returns to `main` quickly — is not the only
 
 ## Pull requests as conversation
 
-A pull request is not only a merge button. It is a surface for explaining:
+A pull request is for explaining:
 
 1. Which problem the change solves.
 2. Which decisions the implementer made.
@@ -45,7 +45,7 @@ A pull request is not only a merge button. It is a surface for explaining:
 
 An **issue** is the unit that records outstanding work — a reported bug, an agreed improvement — with its discussion and its number. Link the issue that motivates the change (for example, with `Closes #42`, which also closes it on merge) so that context travels with the code. The description and diff should make a review specific: "the endpoint returns 503 when the dependency is missing, and the test covers that case" helps more than "looks good".
 
-## Reviewing is reading with intent
+## What a review looks for
 
 A reviewer does not chase formatting errors —automation does that. They look for three things:
 
@@ -53,7 +53,7 @@ A reviewer does not chase formatting errors —automation does that. They look f
 - **Scope**: does the diff contain a single intention?
 - **Reversibility**: can it be undone without dragging other things along?
 
-Requesting changes is not a rejection, it is part of the conversation. A small PR gets truly reviewed; a huge one gets approved at a glance, which is worse.
+Requesting changes is part of the conversation. A small PR gets truly reviewed; a huge one gets approved at a glance.
 
 ## CI and protected branches
 
@@ -64,22 +64,6 @@ A **protected branch** turns those agreements into rules: require at least one r
 :::caution[Do not mix cleanup with a feature]
 A pull request that changes behaviour, renames files and reformats the whole project costs more to review. Split the intent so the signal stays clear.
 :::
-
-## Check your understanding
-
-<details>
-<summary>Your PR touches 40 files: the feature and a massive reformat. Why is that a problem?</summary>
-
-Because it mixes two intentions and the review loses signal: the real changes hide among thousands of lines of formatting. Split them into two PRs (or two clear commits) so each decision can be reviewed and reverted on its own.
-
-</details>
-
-<details>
-<summary>CI fails on your PR and the branch is protected. Can you merge anyway?</summary>
-
-No, and that is the point: the protection requires checks to pass before integrating into main. Fix the cause —the status should point to the evidence— and re-run; only then is the merge enabled.
-
-</details>
 
 ## Keep exploring
 

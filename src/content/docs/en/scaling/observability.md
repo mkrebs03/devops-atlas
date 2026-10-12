@@ -45,7 +45,7 @@ http_request_duration_seconds{route="/api/orders",quantile="0.99"}  2.4
 
 ## What to measure
 
-A system has infinite numbers and almost none of them matter. Four signals describe the health of nearly any service:
+A system produces far more numbers than you need to look at. Four signals describe the health of a service:
 
 - **Latency** — how long it takes to answer. Keep successful and failed responses apart: an error returned quickly is not good news.
 - **Traffic** — how much demand it is receiving.
@@ -72,7 +72,7 @@ A **health check** — the one you met at [the proxy](/en/deployment/load-balanc
 
 ## Alerts: page on symptoms, not on causes
 
-An alert should mean: *somebody is suffering something, and there is something to do about it*. That bar rules out most of the alerts people configure when they start.
+An alert should mean: *somebody is suffering something, and there is something to do about it*. That bar rules out many alerts that look reasonable at the start.
 
 - **On symptoms**: "5% of requests to `/checkout` are failing" or "the p99 went from 300 ms to 3 s". It is happening to someone.
 - **Not on causes**: "CPU is at 80%". That may be perfectly normal, and if it is not, latency will say so.
@@ -91,23 +91,7 @@ flowchart LR
   L --> D["cause"]
 ```
 
-It is the same diagnostic loop as [the terminal](/en/foundations/terminal/), at system scale: locate, measure, filter, act, verify. The tools change, the method does not.
-
-## Check your understanding
-
-<details>
-<summary>Your dashboard says average latency is 200 ms and users complain about slowness. What do you look at?</summary>
-
-The percentiles. A 200 ms average is entirely compatible with 5% of requests taking several seconds, and that tail is exactly what people notice and remember. Look at p95 and p99, and split them by route: chances are one specific endpoint is dragging the experience down.
-
-</details>
-
-<details>
-<summary>You get a "memory at 85%" alert three times a week and nothing has ever come of it. What is wrong?</summary>
-
-It alerts on a cause rather than a symptom, and it is not actionable: nobody knows what to do with it, so everyone learns to ignore it. Replace it with what would actually affect someone — errors, latency, rejected requests — and leave memory as a number you consult *while* investigating, not one that wakes you up.
-
-</details>
+It is the same diagnostic loop as [the terminal](/en/foundations/terminal/), at system scale: locate, measure, filter, act, verify.
 
 ## Keep exploring
 

@@ -7,9 +7,9 @@ tools: [bash, ss]
 prerequisites: [foundations.linux]
 ---
 
-## The terminal is not magic
+## What a shell does
 
-A shell is an interpreter: it reads text, runs programs, and connects their inputs and outputs. Its value is not that it looks cryptic; it is that each step can become a repeatable instruction — something you can save, review, share, and automate later. You cannot paste a click into a ticket; you can paste a command.
+A shell is an interpreter: it reads text, runs programs, and connects their inputs and outputs. Its value is that each step can become a repeatable instruction — something you can save, review, share, and automate later. You cannot paste a click into a ticket; you can paste a command.
 
 Every program starts with three channels: **input** (`stdin`), **output** (`stdout`), and **errors** (`stderr`). Keeping them apart lets you save a result without mixing it with the warnings.
 
@@ -32,7 +32,7 @@ find . -name '*.log' | wc -l   # how many logs under this tree?
 journalctl -u nginx | tail -20 # the last 20 lines of its log
 ```
 
-The `[n]ginx` pattern keeps `grep` out of its own result: the brackets form a class matching the letter `n`, but the literal text `[n]ginx` is no longer on that line. It is not a trick to copy; it expresses exactly what you are looking for.
+The `[n]ginx` pattern keeps `grep` out of its own result: the brackets form a class matching the letter `n`, but the literal text `[n]ginx` is no longer on that line.
 
 ## Observing processes
 
@@ -49,7 +49,7 @@ When the process you are investigating is managed by the system, `systemctl stat
 
 ## Mental model: the diagnostic loop
 
-Think of the terminal as a diagnostic camera. Every intervention follows the same loop, and you only act **after** you measure:
+Every intervention follows the same loop, and you only act **after** you measure:
 
 ```mermaid
 flowchart LR
@@ -67,23 +67,7 @@ flowchart LR
 4. **Act** with the smallest useful change.
 5. **Verify** that the final state matches your intent; if not, measure again.
 
-The step most often skipped is the second, and it is the one that separates fixing from guessing: without a measurement beforehand you cannot show your change did anything.
-
-## Check your understanding
-
-<details>
-<summary>Why use the [n]ginx pattern instead of nginx?</summary>
-
-Because `grep 'nginx'` would also find its own process in the `ps` output. The brackets `[n]` form a character class that matches the letter `n`, but the literal text `[n]ginx` no longer appears on the `grep` line itself, so it excludes itself from the result.
-
-</details>
-
-<details>
-<summary>You save a command's output with `> output.txt` and the file comes out empty, though you saw text on screen. What happened?</summary>
-
-What you saw was `stderr`, and `>` only redirects `stdout`. The two channels exist precisely so you can separate them: use `2> errors.txt` to capture errors on their own, or `> all.txt 2>&1` if you want both in the same file.
-
-</details>
+The second step is easy to skip: without a measurement beforehand you cannot show your change did anything.
 
 ## Keep exploring
 

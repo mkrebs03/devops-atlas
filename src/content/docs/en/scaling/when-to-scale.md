@@ -85,29 +85,6 @@ Look at the diagram: you just multiplied the application and **not** the databas
 
 Skipping 4 and doing 5 produces a system that fails intermittently and is hard to reproduce: some requests hit the instance holding your session and some do not.
 
-## Check your understanding
-
-<details>
-<summary>CPU sits at 25% and responses take three seconds. Do you scale?</summary>
-
-No. With the CPU idle, the time goes on waiting for something: disk, network, or — most likely — the database. More CPU does not shorten a wait. Find the slow query or the external call before touching the size of the machine.
-
-</details>
-
-<details>
-<summary>You go from one instance to three and some users lose their session at random. What is missing?</summary>
-
-The session lives in each instance's memory, so it only works while the balancer happens to hit the same one. It has to move outside — to Redis or the database — so all three instances see the same thing. That is the step that makes the copies interchangeable.
-
-</details>
-
-<details>
-<summary>Why can scaling horizontally make a database bottleneck worse?</summary>
-
-Because you multiply the clients without multiplying the server serving them. Three instances open three times as many connections and fire three times as many queries at the same database, which was already the limit. The database has to be relieved first — indexes, cache, read replicas — or the spreading only speeds up the pile-up.
-
-</details>
-
 ## Keep exploring
 
 - [Brendan Gregg · USE method](https://www.brendangregg.com/usemethod.html) — utilisation, saturation and errors, resource by resource.

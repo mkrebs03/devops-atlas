@@ -11,7 +11,7 @@ prerequisites: [server.manual-deploy, foundations.networking]
 
 ## El problema que resuelve empaquetar
 
-Una aplicación no es solo su código. Es también la versión del runtime, las bibliotecas del sistema, las variables de entorno y el orden en que se instaló todo. Instalar eso a mano en cada máquina produce servidores parecidos pero nunca idénticos, y las diferencias aparecen justo cuando algo falla.
+Una aplicación es su código y también la versión del runtime, las bibliotecas del sistema, las variables de entorno y el orden en que se instaló todo. Instalar eso a mano en cada máquina produce servidores parecidos pero nunca idénticos, y las diferencias aparecen justo cuando algo falla.
 
 Un contenedor fija esa lista completa en un paquete que se construye una vez y se ejecuta en cualquier parte. Deja de importar qué tenía instalado la máquina antes.
 

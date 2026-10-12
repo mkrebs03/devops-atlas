@@ -99,29 +99,6 @@ dropdb miapp_prueba
 
 Hazlo el día que montas el respaldo y repítelo cada cierto tiempo.
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué copiar el directorio de datos de PostgreSQL en caliente no sirve como respaldo?</summary>
-
-Porque la base de datos está escribiendo mientras copias. Los archivos que copiaste primero corresponden a un momento distinto de los que copiaste al final, así que el conjunto no representa ningún estado que haya existido de verdad. `pg_dump` produce una copia coherente de un instante concreto.
-
-</details>
-
-<details>
-<summary>Respaldas cada noche a las 3. Los datos se corrompen a las 14. ¿Cuánto pierdes?</summary>
-
-Once horas de datos: todo lo ocurrido desde el volcado de las 3. Si eso es inaceptable, el respaldo diario es la herramienta equivocada y necesitas algo continuo, como el archivado de WAL o una réplica.
-
-</details>
-
-<details>
-<summary>Tienes respaldos diarios desde hace un año y nunca restauraste ninguno. ¿Qué sabes de ellos?</summary>
-
-Que se generaron archivos. Nada más. No sabes si contienen datos completos, si la versión de la base de datos aún puede leerlos, ni cuánto tarda la restauración.
-
-</details>
-
 ## Sigue explorando
 
 - [PostgreSQL · copia de seguridad y restauración](https://www.postgresql.org/docs/current/backup.html) — volcados, copia a nivel de archivos y archivado continuo.

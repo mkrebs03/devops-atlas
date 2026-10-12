@@ -1,6 +1,6 @@
 ---
 title: Tests in CI
-description: Run the suite on every change, with the dependencies it needs, and read coverage without fooling yourself.
+description: Running the suite on every change, with the dependencies it needs, and how to read coverage.
 type: tool
 module: integration
 tools: [github-actions, postgresql, docker]
@@ -86,7 +86,7 @@ Everything above runs the code with the runner's Node. What gets deployed is som
 
 That is a **smoke test**: start the artifact and ask it for the bare minimum. It does not replace the suite; it checks the one thing the suite cannot.
 
-## Coverage: a compass, not a destination
+## Coverage
 
 **Coverage** measures what percentage of the code your tests execute. It is useful for finding untested areas, but misleading as a target: you can have 100% coverage and zero useful assertions. Executing a line is not the same as verifying its behaviour.
 
@@ -105,32 +105,9 @@ It is almost always an environment difference, and almost always one of these:
 
 CI is valuable for exactly that reason: it runs in a clean environment that reveals assumptions you did not know you had.
 
-:::tip[Fail fast, fail clearly]
-A CI job that takes 30 minutes discourages the whole team. Parallelise, cache dependencies, and put the fast checks first.
+:::tip[Fast checks first]
+A CI job that takes 30 minutes delays every change. Parallelise, cache dependencies, and put the fast checks first.
 :::
-
-## Check your understanding
-
-<details>
-<summary>You have 95% coverage but bugs keep reaching production. How is that possible?</summary>
-
-Coverage only says which lines ran, not whether you asserted on them correctly. You can execute code without checking its result. Make sure each test has meaningful assertions about behaviour, not merely that it passes through.
-
-</details>
-
-<details>
-<summary>A test passes on your machine and fails in CI. What is the first suspect?</summary>
-
-An environment difference: unpinned dependencies (use a lockfile and `npm ci`), missing environment variables, or data that existed only on your machine. CI runs clean and that is why it exposes those assumptions.
-
-</details>
-
-<details>
-<summary>Every test passes and the container does not start on the server. Which check was missing?</summary>
-
-A smoke test on the image. The suite ran the code directly, without going through the `Dockerfile`, so nothing checked the artifact that was deployed. Building the image in CI, starting it, and asking for `/health` would have failed there, before reaching any server.
-
-</details>
 
 ## Keep exploring
 

@@ -68,7 +68,7 @@ ansible_user=marta
         state: reloaded
 ```
 
-Notice how the names are phrased: "packages are installed", not "install packages". That is not a style detail — it is exactly what each task does. It checks whether the statement is already true and only acts if it is not.
+Notice how the names are phrased: "packages are installed", not "install packages". That is how each task works: it checks whether the statement is already true and only acts if it is not.
 
 The `notify` adds a useful piece: the handler reloading nginx runs **once, and only if the template changed**. Without it, every run would reload the service even with nothing new.
 
@@ -89,7 +89,7 @@ That recap says more than it looks. `changed=0` means the machine was already as
 Applied routinely, that number **is your drift gauge**. A `changed` appearing on a machine nobody touched says somebody touched it.
 
 :::caution[The command module breaks idempotence]
-`ansible.builtin.command` and `shell` run whatever you give them, always, and always report `changed`. Use them only when no specific module exists, and pair them with `creates:` or `when:` so they know when to do nothing. A playbook full of `shell` is a script with extra ceremony.
+`ansible.builtin.command` and `shell` run whatever you give them, always, and always report `changed`. Use them only when no specific module exists, and pair them with `creates:` or `when:` so they know when to do nothing.
 :::
 
 ## Checking before applying
@@ -98,7 +98,7 @@ Applied routinely, that number **is your drift gauge**. A `changed` appearing on
 ansible-playbook -i inventory.ini site.yml --check --diff
 ```
 
-`--check` simulates without changing anything; `--diff` shows the exact differences in the files it would touch. It is the equivalent of Terraform's `plan`, with one honest caveat: a `command` task cannot be simulated, so the rehearsal is only as reliable as the playbook is idempotent.
+`--check` simulates without changing anything; `--diff` shows the exact differences in the files it would touch. It is the equivalent of Terraform's `plan`, with one caveat: a `command` task cannot be simulated, so the rehearsal is only as reliable as the playbook is idempotent.
 
 To roll out without cutting the service, `serial` limits how many machines are touched at once:
 
@@ -129,29 +129,6 @@ They do not compete. Terraform creates the machine; Ansible makes it ready insid
 | Acts on | The provider's API | The machine, over SSH |
 
 Ansible keeping no state is an advantage and a limitation at once: there is no file to corrupt or lock, but it also does not know which resources it created, so it cannot destroy them.
-
-## Check your understanding
-
-<details>
-<summary>You run the same playbook twice in a row. What do you expect to see the second time?</summary>
-
-`changed=0`. The first run left the machine as the playbook describes, so the second checks the same statements and finds them true. If `changed` appears on the second run, some task is not idempotent — almost always a `command` or `shell` with no condition.
-
-</details>
-
-<details>
-<summary>Why use the apt module rather than command with apt install?</summary>
-
-Because the module checks whether the package is already installed and only acts if it is missing, so it reports `changed` only when something really changed. `command` always runs and always reports `changed`, which loses the signal that separates a machine that drifted from one that was fine.
-
-</details>
-
-<details>
-<summary>Your playbook touches 20 servers and one task restarts nginx. What do you add to avoid cutting the service?</summary>
-
-`serial`, so Ansible works in batches rather than across all twenty at once, and a `handler` so the restart only happens if the configuration changed. With `serial: 1` the balancer always has nineteen healthy instances while the remaining one is touched.
-
-</details>
 
 ## Keep exploring
 

@@ -11,7 +11,7 @@ prerequisites: [server.manual-deploy, foundations.networking]
 
 ## The problem packaging solves
 
-An application is not only its code. It is also the runtime version, the system libraries, the environment variables, and the order everything was installed in. Installing that by hand on each machine produces servers that are similar but never identical, and the differences surface exactly when something breaks.
+An application is its code and also the runtime version, the system libraries, the environment variables, and the order everything was installed in. Installing that by hand on each machine produces servers that are similar but never identical, and the differences surface exactly when something breaks.
 
 A container pins that whole list into a package built once and run anywhere. What the machine happened to have installed before stops mattering.
 

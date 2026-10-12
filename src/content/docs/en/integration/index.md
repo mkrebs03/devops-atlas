@@ -17,7 +17,7 @@ Until now, whoever wrote the code was also the one checking that it worked, on t
 
 ## A test is a claim that runs
 
-What that server runs is, above all, tests. An automated test claims something specific: given a certain input, the system responds a certain way. When it fails, nobody argues opinions; you read reproducible evidence.
+What that server runs is, above all, tests. An automated test claims something specific: given a certain input, the system responds a certain way. When it fails, it leaves reproducible evidence.
 
 If you already code, this is probably not new. What changes here is where the suite lives: it stops being a check you run when you remember and becomes a **gate on the delivery path**. It runs by itself on every change and its result decides whether the artifact keeps moving.
 
@@ -51,8 +51,8 @@ The order matters: cheap things go first. A lint that takes ten seconds should f
 | Access | Where do the credentials the pipeline needs live? | [Secrets and permissions](/en/integration/secrets/) |
 | Practice | Can I leave a test and a workflow running? | [Practice · a test and a workflow](/en/integration/lab-ci/) |
 
-:::note[A check nobody looks at is not a gate]
-If the workflow fails often for reasons that are not the code — an unstable dependency, a badly set timeout — the team learns to ignore the red. A check that gets ignored costs the same and protects nothing.
+:::note[Failures that are not the code]
+If the workflow fails often for reasons that are not the code — an unstable dependency, a badly set timeout — the team learns to ignore the red.
 :::
 
 ## What this covers

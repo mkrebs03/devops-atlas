@@ -92,22 +92,6 @@ Repite los dos `curl` a `/health`, el de `8080` y el de `9090`.
 | `404 Not Found` | Ruta o recurso inexistente | `curl -i` |
 | `EADDRINUSE` al arrancar | Otro proceso ya ocupa el puerto | `ss -lntp` |
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>curl responde "Connection refused". ¿Qué NO deberías depurar todavía?</summary>
-
-La aplicación. "Connection refused" significa que no había nada escuchando en ese puerto, así que nunca hubo una petición HTTP que analizar. Confirma primero con `ss -lnt` que el proceso escucha donde crees.
-
-</details>
-
-<details>
-<summary>La aplicación escucha en 127.0.0.1:8080. ¿Podría alcanzarla otro equipo de tu red?</summary>
-
-No. `127.0.0.1` es la interfaz de *loopback*: solo acepta conexiones que nacen en la propia máquina. Para que otro equipo llegara tendría que escuchar en una interfaz de red —por ejemplo con `HOST=0.0.0.0`—, y eso es una decisión, no un valor por defecto.
-
-</details>
-
 ## Limpieza
 
 Detén el servidor con `Ctrl+C`. **No borres `~/miapp`**: la práctica de [ramas seguras](/collaboration/lab-git-branching/) empieza en esa carpeta.

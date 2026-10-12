@@ -44,27 +44,11 @@ There is no single best: a personal blog tolerates recreate; a payments service 
 
 ## The rollback is part of the plan
 
-A deployment without a rollback is a bet. Before you launch, answer: how do I return to the previous version, in how long, and what happens to already-migrated data? A rollback nobody rehearsed does not exist.
+Before you launch, answer: how do I return to the previous version, in how long, and what happens to already-migrated data? It is worth rehearsing the rollback before you need it.
 
 :::caution[Data migrations do not always revert]
 Changing code is reversible; dropping a column is not. Design schema changes that are backward compatible (add before you remove) so a code rollback does not leave orphaned data.
 :::
-
-## Check your understanding
-
-<details>
-<summary>A payments service needs zero downtime and must contain the impact of a failure. Which strategy?</summary>
-
-Canary: you expose the new version to a fraction of traffic and watch metrics before ramping up. If something fails, it only affects that percentage and you withdraw the canary. Blue-green also avoids downtime, but canary limits the blast radius better.
-
-</details>
-
-<details>
-<summary>Your code rollback works, but the deployment dropped a database column. What went wrong?</summary>
-
-The migration was not backward compatible. The code reverts, but the data does not come back on its own. Make schema changes in compatible steps (add before you remove) so a code rollback does not leave the database inconsistent.
-
-</details>
 
 ## Keep exploring
 

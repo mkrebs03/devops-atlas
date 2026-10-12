@@ -7,9 +7,9 @@ tools: [bash, ss]
 prerequisites: [foundations.linux]
 ---
 
-## La terminal no es magia
+## Qué hace una shell
 
-Una shell es un intérprete: recibe texto, ejecuta programas y conecta sus entradas y salidas. Su valor no está en parecer críptica, sino en que cada paso puede convertirse en una instrucción repetible —algo que puedes guardar, revisar, compartir y automatizar más tarde. Un clic no se puede pegar en un ticket; un comando sí.
+Una shell es un intérprete: recibe texto, ejecuta programas y conecta sus entradas y salidas. Su valor está en que cada paso puede convertirse en una instrucción repetible —algo que puedes guardar, revisar, compartir y automatizar más tarde. Un clic no se puede pegar en un ticket; un comando sí.
 
 Cada programa nace con tres canales: **entrada** (`stdin`), **salida** (`stdout`) y **errores** (`stderr`). Separarlos te permite guardar un resultado sin mezclarlo con los avisos.
 
@@ -32,7 +32,7 @@ find . -name '*.log' | wc -l   # ¿cuántos logs hay bajo este árbol?
 journalctl -u nginx | tail -20 # las últimas 20 líneas de su registro
 ```
 
-El patrón `[n]ginx` evita que el propio `grep` aparezca en la lista: los corchetes forman una clase que coincide con la letra `n`, pero el texto literal `[n]ginx` ya no está en esa línea. No es un truco para copiar; expresa exactamente qué buscas.
+El patrón `[n]ginx` evita que el propio `grep` aparezca en la lista: los corchetes forman una clase que coincide con la letra `n`, pero el texto literal `[n]ginx` ya no está en esa línea.
 
 ## Observar procesos
 
@@ -49,7 +49,7 @@ Cuando el proceso que investigas está gestionado por el sistema, `systemctl sta
 
 ## Modelo mental: el bucle de diagnóstico
 
-Piensa en la terminal como una cámara de diagnóstico. Cada intervención sigue el mismo bucle, y solo actúas **después** de medir:
+Cada intervención sigue el mismo bucle, y solo actúas **después** de medir:
 
 ```mermaid
 flowchart LR
@@ -67,23 +67,7 @@ flowchart LR
 4. **Actúa** con el cambio mínimo.
 5. **Verifica** que el estado final coincide con tu intención; si no, vuelve a medir.
 
-El paso que más se salta es el segundo, y es el que separa arreglar de adivinar: sin una medición previa no puedes demostrar que tu cambio sirvió de algo.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué se usa el patrón [n]ginx en lugar de nginx?</summary>
-
-Porque `grep 'nginx'` también encontraría su propio proceso en la salida de `ps`. Los corchetes `[n]` forman una clase de caracteres que coincide con la letra `n`, pero el texto literal `[n]ginx` ya no aparece en la línea del propio `grep`, así que se excluye a sí mismo del resultado.
-
-</details>
-
-<details>
-<summary>Guardas la salida de un comando con `> salida.txt` y el archivo queda vacío, pero en pantalla viste texto. ¿Qué pasó?</summary>
-
-Lo que viste era `stderr`, y `>` solo redirige `stdout`. Los dos canales existen precisamente para poder separarlos: usa `2> errores.txt` para capturar los errores aparte, o `> todo.txt 2>&1` si quieres ambos en el mismo archivo.
-
-</details>
+El segundo paso es fácil de saltar: sin una medición previa no puedes demostrar que tu cambio sirvió de algo.
 
 ## Sigue explorando
 

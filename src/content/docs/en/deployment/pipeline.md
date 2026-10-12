@@ -44,22 +44,6 @@ An **approval gate** —for example, a protected `environment` in GitHub Actions
 What changes between environments is the configuration (variables, secrets, URLs), not the binary. Same artifact, different config: that way what you tested is what runs.
 :::
 
-## Check your understanding
-
-<details>
-<summary>Your pipeline builds the image in staging and again in production. What risk do you introduce?</summary>
-
-That you are not deploying what you tested: two builds can differ by dependencies, cache or timing. Build a single image, tag it with the commit SHA and promote that same one to each environment; the config changes, the artifact does not.
-
-</details>
-
-<details>
-<summary>What is the difference between continuous delivery and continuous deployment?</summary>
-
-The gate. In continuous delivery the artifact is ready and a person approves the move to production; in continuous deployment that step is automatic when all checks pass.
-
-</details>
-
 ## Keep exploring
 
 - [Continuous Delivery (Martin Fowler)](https://martinfowler.com/bliki/ContinuousDelivery.html) — the reference definition.

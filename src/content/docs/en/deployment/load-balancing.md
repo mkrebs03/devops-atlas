@@ -43,7 +43,7 @@ Whether that endpoint is honest is the application's responsibility: if it retur
 
 ## Why there are no deployment strategies without this
 
-Here is the underlying reason to read this page before the next one. Deploying without cutting the service always comes down to the same thing: **changing where the traffic points**. All that changes between strategies is what you touch in the balancer.
+Deploying without cutting the service always comes down to the same thing: **changing where the traffic points**. All that changes between strategies is what you touch in the balancer.
 
 | Strategy | What changes in the balancer |
 | --- | --- |
@@ -57,27 +57,11 @@ And the rollback is the same operation in reverse, which is what makes it fast: 
 When you pull an instance out, the requests it was already serving are still alive. A deployment without downtime needs *draining*: stop sending it new traffic, wait for it to finish what it has in hand, and only then shut it down.
 :::
 
-## State gets in the way
+## State in the instance
 
 If your application keeps something in its own memory — the session of whoever signed in, a cart, an uploaded file — balancing breaks it: that user's next request lands on another instance that knows nothing about any of it.
 
 The way out is not pinning each user to one instance, but moving the state outside: sessions in a database or in Redis, files in shared storage. An application whose instances are interchangeable is the one you can scale and deploy without ceremony.
-
-## Check your understanding
-
-<details>
-<summary>You have three instances and one loses its database. Why does a third of requests keep failing?</summary>
-
-Because the balancer still considers it healthy. Either no health check is configured, or the endpoint returns `200` without checking its dependencies. The process still being alive does not mean it can serve: the check has to verify what the application needs in order to answer.
-
-</details>
-
-<details>
-<summary>Why is a blue-green switch nearly instant if the new version takes minutes to start?</summary>
-
-Because starting and switching traffic are two separate moments. The new version comes up and is verified at leisure while nobody uses it; the deployment itself is only the target change in the balancer, which is immediate. And that is why going back is immediate too.
-
-</details>
 
 ## Keep exploring
 

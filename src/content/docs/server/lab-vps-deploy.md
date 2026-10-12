@@ -196,22 +196,6 @@ Anota cuánto duró y cuántos pasos tenían un valor que solo tú conocías: el
 | Copiar el código y reiniciar el servicio | [Desplegar desde el pipeline](/deployment/deploy-from-pipeline/) |
 | Aceptar unos segundos de corte al actualizar | [Estrategias de despliegue](/deployment/strategies/) |
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué reiniciar la máquina es mejor prueba que cerrar la sesión SSH?</summary>
-
-Porque comprueba las dos cosas que hace un servicio. Cerrar la sesión solo demuestra que el proceso ya no depende de ti; el reinicio demuestra además que el sistema sabe arrancarlo solo, que es lo que hizo `enable`. Un servicio arrancado con `start` y sin `enable` pasa la primera prueba y falla la segunda.
-
-</details>
-
-<details>
-<summary>nginx devuelve 502. ¿En qué frontera está el fallo?</summary>
-
-Entre el proxy y la aplicación. Hubo DNS, conexión, TLS y una respuesta HTTP: todo eso lo puso nginx. Lo que falló es el salto a `127.0.0.1:8080`, así que se mira el servicio (`systemctl status miapp`) y no el proxy.
-
-</details>
-
 ## Limpieza
 
 Si vas a seguir con las prácticas de despliegue, conserva la máquina. Si no, bórrala desde el panel del proveedor: apagada sigue facturando en la mayoría de ellos. Borra también el registro DNS, para que el nombre no quede apuntando a una IP que mañana será de otra persona.

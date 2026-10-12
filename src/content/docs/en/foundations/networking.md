@@ -68,7 +68,7 @@ curl -v https://example.com 2>&1 | head  # narrates resolution, TCP and TLS
 
 `curl -v` tells the story step by step: it resolves the IP, opens TCP to port 443, receives and validates the TLS **certificate** presented by the server, and only then sends the HTTP request. `127.0.0.1` accepts local traffic only; `0.0.0.0` may accept traffic from several interfaces and deserves more care. TLS exists for two reasons: to encrypt the connection and to prove the server is who it claims to be.
 
-Between the client and that port there is usually a **firewall**: a filter that decides which connections are accepted before they reach the process. It explains a symptom that confuses many people: if nothing is listening, the machine refuses and you see `Connection refused` straight away; if a firewall drops the packet silently, you see nothing and the connection hangs until it times out.
+Between the client and that port there is usually a **firewall**: a filter that decides which connections are accepted before they reach the process. There are two symptoms worth telling apart: if nothing is listening, the machine refuses and you see `Connection refused` straight away; if a firewall drops the packet silently, you see nothing and the connection hangs until it times out.
 
 :::note[One layer at a time]
 When a URL fails, check resolution (DNS) first, then connection (TCP/TLS), and finally the application (HTTP). A timeout and a `404` are different problems.
@@ -91,23 +91,7 @@ A `4xx` means the server could not handle the request as it arrived —for examp
 curl -s -o /dev/null -w '%{http_code}\n' https://example.com
 ```
 
-Headers complete the contract: content type, caching and policies. The DevOps habit is to make this contract visible in logs, tests and documentation.
-
-## Check your understanding
-
-<details>
-<summary>curl returns "Could not resolve host". Which boundary are you on?</summary>
-
-DNS: the name was not translated into an IP, so there was no connection and no HTTP. Check `dig +short`, your resolver and `/etc/hosts` before looking at the application.
-
-</details>
-
-<details>
-<summary>You get 503 instead of 200. Is it a client or a server problem?</summary>
-
-Server: the `5xx` family means it could not complete a valid request —often overload or a downstream dependency being down. A `4xx` would be the client. Look at the service logs and status, not your request.
-
-</details>
+Headers complete the contract: content type, caching and policies. It is worth making this contract visible in logs, tests and documentation.
 
 ## Keep exploring
 

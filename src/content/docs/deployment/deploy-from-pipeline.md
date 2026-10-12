@@ -196,29 +196,6 @@ Una imagen en un registro es privada salvo que digas lo contrario. O la haces p�
 
 La cuarta fila es el límite de este diseño: `docker compose up` para el contenedor viejo antes de arrancar el nuevo, así que siempre hay un instante sin servicio, y unos segundos más si hay que volver. Quitar ese corte exige tener las dos versiones corriendo a la vez y un proxy que cambie entre ellas, que es de lo que tratan [Balanceo de carga](/deployment/load-balancing/) y [Estrategias de despliegue](/deployment/strategies/).
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué el servidor descarga una imagen en lugar de hacer git pull y construir?</summary>
-
-Porque lo que se despliega tiene que ser lo que se probó. Si el servidor construye, produce un artefacto nuevo que nadie comprobó, con las dependencias que existan ese día. Descargando por SHA, corre exactamente los mismos bytes que pasaron las pruebas y la prueba de humo.
-
-</details>
-
-<details>
-<summary>El contenedor nuevo arranca y el script espera veinte segundos antes de dar el despliegue por bueno. ¿Qué evita eso?</summary>
-
-Confundir "arrancó" con "funciona". `docker compose up` termina bien en cuanto el contenedor existe, aunque el proceso de dentro muera un segundo después. Solo una petición contestada demuestra que la versión atiende, y solo entonces tiene sentido olvidar la anterior.
-
-</details>
-
-<details>
-<summary>¿Qué pasaría sin el secreto DEPLOY_KNOWN_HOSTS?</summary>
-
-El runner no tendría con qué comparar la identidad del servidor. O la conexión falla, o —si se desactiva la comprobación para que "funcione"— aceptaría a cualquiera que respondiera en esa dirección y le entregaría la sesión. Fijar la huella es lo que garantiza que la clave privada solo se usa contra tu máquina.
-
-</details>
-
 ## Sigue explorando
 
 - [GitHub · publicar imágenes de Docker](https://docs.github.com/es/actions/use-cases-and-examples/publishing-packages/publishing-docker-images) — el flujo completo hacia el registro de GitHub.

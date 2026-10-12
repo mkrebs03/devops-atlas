@@ -45,7 +45,7 @@ Todo esto lo aplica `scripts/validate-content.mjs`, que corre dentro de `pnpm ru
 
 - Los anglicismos llevan género fijo: «el pipeline», «el build».
 - En prosa se escribe «prueba»; «test» se reserva para nombres literales (jobs, comandos, `npm test`).
-- Las preguntas de los `<summary>` de autoevaluación en español abren con «¿». El CI rechaza cualquier `<summary>` que termine en `?` sin `¿` en archivos fuera de `en/`.
+- Las preguntas en un `<summary>` en español abren con «¿». El CI rechaza cualquier `<summary>` que termine en `?` sin `¿` en archivos fuera de `en/`.
 - Los módulos se agrupan por el estado del sistema que describen, nunca por nivel del lector.
 
 ## Estructura del proyecto
@@ -120,7 +120,7 @@ All of this is enforced by `scripts/validate-content.mjs`, which runs as part of
 
 - Spanish pages give English loanwords a fixed gender: «el pipeline», «el build».
 - Spanish prose uses «prueba»; «test» is reserved for literal names (jobs, commands, `npm test`).
-- Spanish self-check `<summary>` questions open with «¿». CI rejects any `<summary>` ending in `?` without a `¿` outside `en/`.
+- Spanish `<summary>` questions open with «¿». CI rejects any `<summary>` ending in `?` without a `¿` outside `en/`.
 - Modules are grouped by the state of the system they describe, never by reader level.
 
 ## Project layout

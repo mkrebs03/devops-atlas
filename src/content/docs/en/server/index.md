@@ -11,7 +11,7 @@ prerequisites: [foundations.networking]
 
 ## What it takes to answer one request
 
-It is tempting to think deploying means copying files to a server. It does not. Between the code and an answered request there are four pieces, and each solves a different problem:
+Deploying is more than copying files to a server. Between the code and an answered request there are four pieces, and each solves a different problem:
 
 ```mermaid
 flowchart LR
@@ -30,13 +30,13 @@ off the machine"]
 - The **firewall** solves that a public IP starts receiving automated login attempts within hours of existing.
 - The **backup** solves that a single disk is a single copy of the data.
 
-Remove any of the four and the system keeps working — until the day it does not.
+Without any one of the four the system keeps working, until the very thing that piece covered fails.
 
 ## Why start here and not with containers
 
-You can deploy with Docker having never configured a server by hand. Plenty of people do. The problem arrives when something breaks: a container that will not start, a port that does not answer, an expired certificate. Without having seen those pieces separately, all of it looks like "Docker is not working".
+You can deploy with Docker having never configured a server by hand. The problem arrives when something breaks: a container that will not start, a port that does not answer, an expired certificate. Without having seen those pieces separately, all of it looks like "Docker is not working".
 
-This module separates them. Afterwards a container stops being magic and becomes what it is: a way to package the application and its dependencies, which saves you neither the proxy, nor the certificate, nor the backup.
+This module separates them. A container is a way to package the application and its dependencies, and it saves you neither the proxy, nor the certificate, nor the backup.
 
 ## The route
 
@@ -50,7 +50,7 @@ This module separates them. Afterwards a container stops being magic and becomes
 | Practice | Can I walk the whole path? | [Practice · from empty VPS to HTTPS](/en/server/lab-vps-deploy/) |
 
 :::note[A VPS is still a serious option]
-Kubernetes and managed platforms existing does not make a single server a mistake. For most projects it is cheaper, easier to diagnose, and sufficient for far longer than people assume. What you need to know is when it stops being so.
+A single server is cheaper and easier to diagnose than a cluster. The page on [when to scale](/en/scaling/when-to-scale/) covers when it stops being enough.
 :::
 
 ## What this covers

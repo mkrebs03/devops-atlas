@@ -91,29 +91,6 @@ sudo systemctl restart miapp    # el proceso se reinicia con la definición nuev
 
 `daemon-reload` solo no cambia nada del proceso en marcha. `restart` sin `daemon-reload` reinicia con la definición vieja.
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>Tu servicio queda en activating (auto-restart) y no llega nunca a active. ¿Qué está pasando?</summary>
-
-El proceso arranca y muere de inmediato, y systemd lo reintenta en bucle. La causa está en el diario: `journalctl -u miapp -n 50`. Lo habitual es una variable de entorno que falta, un puerto ya ocupado, o una ruta de `WorkingDirectory` o `ExecStart` que no existe.
-
-</details>
-
-<details>
-<summary>¿Por qué enable y start son dos cosas distintas?</summary>
-
-`start` arranca el servicio ahora. `enable` lo inscribe para que arranque en el próximo encendido. Si haces solo `start`, todo funciona hasta que la máquina se reinicia y el servicio no vuelve. `enable --now` hace las dos.
-
-</details>
-
-<details>
-<summary>Editaste el archivo .service y reiniciaste, pero el cambio no se aplicó. ¿Qué falta?</summary>
-
-`sudo systemctl daemon-reload`. systemd trabaja con una copia en memoria de las unidades; hasta que no la relee, `restart` vuelve a arrancar el proceso con la definición anterior.
-
-</details>
-
 ## Sigue explorando
 
 - [systemd.service · manual](https://www.freedesktop.org/software/systemd/man/systemd.service.html) — todas las directivas de la sección `[Service]`.

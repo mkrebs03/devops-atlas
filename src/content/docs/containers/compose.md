@@ -9,7 +9,7 @@ prerequisites: [containers.docker]
 
 ## Un archivo en lugar de una secuencia
 
-Una aplicación real no es un contenedor: son varios que tienen que encontrarse. Con `docker run` eso significa recordar el orden, los nombres, la red y cada bandera de cada arranque —y volver a acertarlos mañana.
+Una aplicación suele ser varios contenedores que tienen que encontrarse. Con `docker run` eso significa recordar el orden, los nombres, la red y cada bandera de cada arranque —y volver a acertarlos mañana.
 
 **Docker Compose** cambia esa secuencia por una descripción. Escribes cómo debe quedar el conjunto y `docker compose up` lo lleva a ese estado.
 
@@ -102,29 +102,6 @@ docker compose -f compose.yml -f compose.prod.yml up -d
 ```
 
 Los valores que cambian entre entornos —contraseñas, dominios, etiquetas de imagen— salen a un archivo `.env` que no se versiona, y el YAML los referencia con `${DB_PASSWORD}`. El archivo de Compose puede estar en el repositorio; los valores, no.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué la base de datos no lleva ports en el ejemplo?</summary>
-
-Porque solo la aplicación necesita alcanzarla, y lo hace por la red del proyecto usando el nombre `db`. Publicar el puerto la expondría a la máquina anfitriona y, con Docker, también a internet. Si no necesitas conectarte desde fuera, no publiques.
-
-</details>
-
-<details>
-<summary>Corriste docker compose down --volumes y perdiste los datos. ¿Qué hacía cada parte?</summary>
-
-`down` para y borra contenedores y la red del proyecto, que son recreables. `--volumes` añade el borrado de los volúmenes, que es lo único que no se puede recrear. El comando hizo exactamente lo que pedía; la bandera es la que hay que escribir a conciencia.
-
-</details>
-
-<details>
-<summary>Tu aplicación falla al arrancar con depends_on ya declarado. ¿Por qué?</summary>
-
-Porque `depends_on` sin condición espera a que el contenedor arranque, no a que el servicio esté listo para atender. La base de datos existe pero todavía no acepta conexiones. Necesitas un `healthcheck` con `condition: service_healthy`, y aun así conviene que la aplicación reintente por su cuenta.
-
-</details>
 
 ## Sigue explorando
 

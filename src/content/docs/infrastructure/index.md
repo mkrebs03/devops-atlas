@@ -26,7 +26,7 @@ instalar, ajustar,
 dejarla lista"]
 ```
 
-La distinción no es de gusto: son problemas distintos. Crear un servidor pasa por la API del proveedor y hay que recordar qué se creó para no duplicarlo. Configurar lo de dentro pasa por SSH y se puede comprobar cada vez, sin recordar nada.
+Son problemas distintos. Crear un servidor pasa por la API del proveedor y hay que recordar qué se creó para no duplicarlo. Configurar lo de dentro pasa por SSH y se puede comprobar cada vez, sin recordar nada.
 
 Por eso Terraform guarda un archivo de estado y Ansible no lo necesita.
 

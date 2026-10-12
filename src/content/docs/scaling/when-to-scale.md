@@ -85,29 +85,6 @@ Fíjate en el diagrama: acabas de multiplicar la aplicación y **no** la base de
 
 Saltarse el 4 y hacer el 5 produce un sistema que falla de manera intermitente y difícil de reproducir: unas peticiones aciertan la instancia que tiene tu sesión y otras no.
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>La CPU está al 25% y las respuestas tardan tres segundos. ¿Escalas?</summary>
-
-No. Con la CPU ociosa, el tiempo se va esperando por algo: disco, red o —lo más probable— la base de datos. Más CPU no acorta una espera. Busca la consulta lenta o la llamada externa antes de tocar el tamaño de la máquina.
-
-</details>
-
-<details>
-<summary>Pasas de una instancia a tres y algunos usuarios pierden la sesión al azar. ¿Qué falta?</summary>
-
-La sesión vive en la memoria de cada instancia, así que solo funciona mientras el balanceador acierte la misma. Hay que sacarla fuera —a Redis o a la base de datos— para que las tres instancias vean lo mismo. Es el paso que hace intercambiables a las copias.
-
-</details>
-
-<details>
-<summary>¿Por qué escalar en horizontal puede empeorar un cuello de botella en la base de datos?</summary>
-
-Porque multiplicas los clientes sin multiplicar el servidor que los atiende. Tres instancias abren tres veces más conexiones y lanzan tres veces más consultas contra la misma base de datos, que ya era el límite. Primero hay que aliviar la base —índices, caché, réplicas de lectura— o el reparto solo acelera el atasco.
-
-</details>
-
 ## Sigue explorando
 
 - [Brendan Gregg · USE method](https://www.brendangregg.com/usemethod.html) — utilización, saturación y errores, recurso por recurso.

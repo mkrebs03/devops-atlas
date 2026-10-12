@@ -1,6 +1,6 @@
 ---
 title: El modelo de Git
-description: Commits, ramas y referencias como un mapa de decisiones, no como botones misteriosos.
+description: Commits, ramas y referencias, y cómo se relacionan.
 type: concept
 module: collaboration
 tools: [git]
@@ -96,7 +96,7 @@ node_modules/
 dist/
 ```
 
-Un repositorio limpio hace que el diff signifique algo.
+Así el diff solo muestra lo que alguien escribió.
 
 ## Remotos y confianza
 
@@ -115,22 +115,6 @@ git push                         # las siguientes
 ```
 
 Si el remoto tiene commits que tú no, Git rechaza el push en lugar de pisarlos. Primero integras lo que falta (`git pull --rebase`), y después publicas.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Trabajas en una rama que solo tú tienes. Para actualizarla con main, ¿merge o rebase?</summary>
-
-Rebase es válido: la historia es privada, así que reescribirla no afecta a nadie y obtienes una línea limpia sobre la que seguir. Si la rama ya está compartida, prefiere merge para no reescribir commits que otras personas tienen.
-
-</details>
-
-<details>
-<summary>Git se detuvo con CONFLICT. ¿Qué NO deberías hacer?</summary>
-
-No borres las marcas `<<<<<<<` a ciegas ni fuerces el merge. Abre el archivo, decide qué versión o combinación es correcta, quita las marcas, y recién entonces `git add` del archivo resuelto antes de continuar.
-
-</details>
 
 ## Sigue explorando
 

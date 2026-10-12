@@ -26,7 +26,7 @@ install, tune,
 make it ready"]
 ```
 
-The distinction is not a matter of taste: they are different problems. Creating a server goes through the provider's API and requires remembering what was created so as not to duplicate it. Configuring the inside goes over SSH and can be checked every time, remembering nothing.
+They are different problems. Creating a server goes through the provider's API and requires remembering what was created so as not to duplicate it. Configuring the inside goes over SSH and can be checked every time, remembering nothing.
 
 That is why Terraform keeps a state file and Ansible does not need one.
 

@@ -123,22 +123,6 @@ journalctl -u nginx -n 50 # sus últimas 50 líneas de log
 
 Guarda esta idea, porque vuelve más adelante: un contenedor resuelve el mismo problema con otras piezas —también define qué proceso arranca, qué pasa si se cae y dónde van sus logs.
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>Un servicio corre como el usuario `app` y no puede escribir en `/var/lib/datos`. ¿Qué miras primero?</summary>
-
-`ls -ld /var/lib/datos`, para ver dueño, grupo y permisos del directorio. Si pertenece a `root:root` con permisos `755`, el usuario `app` cae en la terna del "resto", que no incluye escritura. Se arregla dando la propiedad al usuario correcto (`chown`) o compartiendo el acceso por grupo, no tocando el código.
-
-</details>
-
-<details>
-<summary>Un comando funciona en tu Mac pero falla en el servidor. ¿Por qué puede pasar?</summary>
-
-Porque macOS es Unix pero no Linux: sus herramientas vienen de la familia BSD y algunas banderas cambian o directamente no existen, y falta lo específico de Linux como `ss` o `systemctl`. Si vas a operar sobre Linux, prueba sobre Linux: un contenedor o una máquina virtual bastan.
-
-</details>
-
 ## Sigue explorando
 
 - [Linux Journey](https://linuxjourney.com/) — un recorrido guiado y gratuito por el sistema, desde cero.

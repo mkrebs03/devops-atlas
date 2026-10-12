@@ -22,7 +22,7 @@ from the application"] --> R["replicate
 identical instances"]
 ```
 
-The first two steps prevent most unnecessary spending: a good share of what looks like missing capacity is a query with no index. The third is the real work, and the only one you cannot buy. The fourth is nearly mechanical once the others are done.
+The first two steps prevent unnecessary spending: what looks like missing capacity can be a query with no index. The third is the one that takes the most work. The fourth is nearly mechanical once the others are done.
 
 ## What limits one server has
 
@@ -35,12 +35,12 @@ The first two steps prevent most unnecessary spending: a good share of what look
 
 ## Every step costs operations
 
-It is tempting to read that table as a ladder to be climbed whole. It is not. Each step adds pieces you have to understand when they fail, and the most reliable system is the one with the fewest things that can fail.
+That table is not a ladder to be climbed whole. Each step adds pieces you have to understand when they fail.
 
-A well-operated VPS — tested backups, a certificate that renews itself, an automated deployment — serves more traffic than most projects ever see. The useful question is not "how do I scale", but "which measurement tells me this is no longer enough".
+A well-operated VPS — tested backups, a certificate that renews itself, an automated deployment — leaves a fair amount of headroom. The useful question is which measurement says it is no longer enough.
 
-:::note[Scaling is not a sign of maturity]
-A system is not better for having more parts. The right decision is the one that carries your real load with the fewest pieces your team can operate well. Sometimes that decision is a bigger machine, and there is nothing to justify.
+:::note[Fewer pieces]
+It pays to carry the real load with the fewest pieces the team can operate well. Sometimes that is a bigger machine.
 :::
 
 ## What this covers

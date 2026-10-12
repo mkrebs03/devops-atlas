@@ -196,29 +196,6 @@ An image in a registry is private unless you say otherwise. Either you make it p
 
 The fourth row is the limit of this design: `docker compose up` stops the old container before starting the new one, so there is always an instant without service, and a few more seconds if it has to go back. Removing that gap takes both versions running at once and a proxy that switches between them, which is what [Load balancing](/en/deployment/load-balancing/) and [Deployment strategies](/en/deployment/strategies/) are about.
 
-## Check your understanding
-
-<details>
-<summary>Why does the server download an image instead of running git pull and building?</summary>
-
-Because what gets deployed has to be what was tested. If the server builds, it produces a new artifact nobody checked, with whatever dependencies exist that day. Downloading by SHA, it runs exactly the same bytes that passed the tests and the smoke test.
-
-</details>
-
-<details>
-<summary>The new container starts and the script waits twenty seconds before calling the deployment good. What does that prevent?</summary>
-
-Mistaking "it started" for "it works". `docker compose up` finishes successfully as soon as the container exists, even if the process inside dies a second later. Only an answered request shows the version is serving, and only then does it make sense to forget the previous one.
-
-</details>
-
-<details>
-<summary>What would happen without the DEPLOY_KNOWN_HOSTS secret?</summary>
-
-The runner would have nothing to compare the server's identity against. Either the connection fails, or — if the check is disabled so that it "works" — it would accept anyone answering at that address and hand over the session. Pinning the fingerprint is what guarantees the private key is only ever used against your machine.
-
-</details>
-
 ## Keep exploring
 
 - [GitHub · publishing Docker images](https://docs.github.com/en/actions/use-cases-and-examples/publishing-packages/publishing-docker-images) — the full flow to GitHub's registry.

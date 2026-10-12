@@ -157,22 +157,6 @@ Open the pull request and merge it, as in the [branches walkthrough](/en/collabo
 | The service ends up `unhealthy` | The check cannot reach `/health` | `docker compose logs app` |
 | The change does not show | You rebuilt the image and did not replace the container | `docker compose up --detach --build` |
 
-## Check your understanding
-
-<details>
-<summary>The application listens on 0.0.0.0 inside the container. Is it exposed to the internet?</summary>
-
-Not because of that. `0.0.0.0` refers to the container's interfaces, and the container lives on a private Docker network. What decides whether it is reachable from outside is how you publish the port: `127.0.0.1:8080:8080` opens it only on the host machine; `8080:8080` would open it on all of the host's interfaces.
-
-</details>
-
-<details>
-<summary>You rebuilt the image and the container still answers the old thing. Why?</summary>
-
-Because a container is created from the image that existed at that moment and never looks at it again. The `myapp:local` tag now points at a new image, but the running process is still the old one's. You have to stop the container and create another, which is what `docker compose up --build` does.
-
-</details>
-
 ## Cleanup
 
 ```bash

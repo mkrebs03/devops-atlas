@@ -1,6 +1,6 @@
 ---
 title: Continuous deployment
-description: Take an artifact to production with safe strategies and the ability to roll back.
+description: How an artifact reaches production, with which strategy, and how it is rolled back.
 type: concept
 module: deployment
 tools: [nginx, docker]
@@ -30,8 +30,8 @@ flowchart LR
 | Strategy | How do I change the version without taking the service down? | [Deployment strategies](/en/deployment/strategies/) |
 | Practice | Can I promote and roll back a version? | [Practice · promote and roll back](/en/deployment/lab-release/) |
 
-:::note[Deploying is not an event, it is a capability]
-A mature team does not pray before a yearly deploy. It deploys often, in small portions, and can roll back in minutes.
+:::note[Deploying often]
+Deploying often and in small portions, with a rollback that takes minutes, lowers the risk of each delivery.
 :::
 
 ## What this covers

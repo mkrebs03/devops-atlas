@@ -157,22 +157,6 @@ Abre el pull request e intégralo, como en la [práctica de ramas](/collaboratio
 | El servicio queda `unhealthy` | El chequeo no llega a `/health` | `docker compose logs app` |
 | El cambio no se nota | Reconstruiste la imagen y no reemplazaste el contenedor | `docker compose up --detach --build` |
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>La aplicación escucha en 0.0.0.0 dentro del contenedor. ¿Queda expuesta a internet?</summary>
-
-No por eso. `0.0.0.0` se refiere a las interfaces del contenedor, que vive en una red privada de Docker. Lo que decide si se alcanza desde fuera es cómo publicas el puerto: `127.0.0.1:8080:8080` solo lo abre en la máquina anfitriona; `8080:8080` lo abriría en todas sus interfaces.
-
-</details>
-
-<details>
-<summary>Reconstruiste la imagen y el contenedor sigue respondiendo lo de antes. ¿Por qué?</summary>
-
-Porque un contenedor se crea a partir de la imagen que existía en ese momento y no vuelve a mirarla. La etiqueta `miapp:local` ahora apunta a una imagen nueva, pero el proceso que corre sigue siendo el de la vieja. Hay que parar el contenedor y crear otro, que es lo que hace `docker compose up --build`.
-
-</details>
-
 ## Limpieza
 
 ```bash

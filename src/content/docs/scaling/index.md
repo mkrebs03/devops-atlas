@@ -22,7 +22,7 @@ de la aplicación"] --> R["replicar
 instancias iguales"]
 ```
 
-Los dos primeros pasos evitan la mayoría de los gastos innecesarios: buena parte de lo que parece falta de capacidad es una consulta sin índice. El tercero es el trabajo real, y el único que no se puede comprar. El cuarto es casi mecánico cuando los otros están hechos.
+Los dos primeros pasos evitan gastos innecesarios: lo que parece falta de capacidad puede ser una consulta sin índice. El tercero es el que más trabajo lleva. El cuarto es casi mecánico cuando los otros están hechos.
 
 ## Qué límite tiene un solo servidor
 
@@ -35,12 +35,12 @@ Los dos primeros pasos evitan la mayoría de los gastos innecesarios: buena part
 
 ## Cada escalón cuesta operación
 
-Es tentador leer esa tabla como una escalera que hay que subir entera. No lo es. Cada paso añade piezas que hay que entender cuando fallan, y el sistema más fiable es el que tiene menos cosas que puedan fallar.
+Esa tabla no es una escalera que haya que subir entera. Cada paso añade piezas que hay que entender cuando fallan.
 
-Una VPS bien operada —con respaldos probados, certificado que se renueva solo y un despliegue automatizado— atiende más tráfico del que la mayoría de los proyectos ve nunca. La pregunta útil no es "cómo escalo", sino "qué medición me dice que ya no me alcanza".
+Una VPS bien operada —con respaldos probados, certificado que se renueva solo y un despliegue automatizado— da bastante margen. La pregunta útil es qué medición dice que ya no alcanza.
 
-:::note[Escalar no es una señal de madurez]
-Un sistema no es mejor por tener más partes. La decisión correcta es la que sostiene tu carga real con la menor cantidad de piezas que tu equipo pueda operar bien. A veces esa decisión es una máquina más grande, y no hay nada que justificar.
+:::note[Menos piezas]
+Conviene sostener la carga real con la menor cantidad de piezas que el equipo pueda operar bien. A veces eso es una máquina más grande.
 :::
 
 ## Qué cubre

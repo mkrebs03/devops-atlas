@@ -69,30 +69,7 @@ Cuando el diagrama queda así, las instancias son verdaderamente intercambiables
 
 Las **sesiones** en memoria son el estado que más rápido se nota: el usuario inicia sesión y la petición siguiente le pide iniciar sesión otra vez. Se mueven a Redis o a la base de datos, y suele ser un cambio de configuración del framework.
 
-Los **trabajos programados** son el estado que más tarde se nota, y por eso el más caro. Un `cron` que envía el resumen diario, replicado en tres instancias, envía tres correos a cada persona. La salida es que solo una instancia lo ejecute: un bloqueo compartido, o un planificador externo que dispare el trabajo una vez.
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Migras a dos instancias y los usuarios ven "archivo no encontrado" la mitad de las veces. ¿Qué pasa?</summary>
-
-Los archivos subidos están en el disco de una de las dos máquinas. Las peticiones que aterrizan en la otra no los encuentran, y cuál te toca depende del balanceador. Hay que moverlos a almacenamiento de objetos, al que ambas instancias llegan igual.
-
-</details>
-
-<details>
-<summary>¿Qué compras exactamente con una base de datos administrada?</summary>
-
-Operación, no funcionalidad. El motor es el mismo. Lo que pagas es que otro haga los respaldos y los pruebe, mantenga las réplicas, aplique las actualizaciones y responda cuando algo falla de madrugada. Si tu equipo ya hace todo eso bien, el precio no compra nada.
-
-</details>
-
-<details>
-<summary>Tu cron de resumen diario ahora manda tres correos a cada usuario. ¿Por qué y cómo se arregla?</summary>
-
-Porque las tres instancias son idénticas, incluido su `cron`, y las tres ejecutan el trabajo. Se arregla haciendo que solo una lo ejecute: tomar un bloqueo compartido antes de empezar, o sacar la programación fuera de las instancias y que un planificador dispare el trabajo una sola vez.
-
-</details>
+Los **trabajos programados** son el estado que más tarde se nota. Un `cron` que envía el resumen diario, replicado en tres instancias, envía tres correos a cada persona. La salida es que solo una instancia lo ejecute: un bloqueo compartido, o un planificador externo que dispare el trabajo una vez.
 
 ## Sigue explorando
 

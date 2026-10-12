@@ -186,22 +186,6 @@ Hasta aquí el workflow avisa, pero nada impide integrar en rojo. En el reposito
 | `image` falla en la prueba de humo | El contenedor no escucha en `0.0.0.0` | `ENV HOST` en el `Dockerfile` |
 | No encuentras `test` al crear la regla | La comprobación aún no corrió en ese repositorio | Espera a que termine una ejecución |
 
-## Comprueba lo que entendiste
-
-<details>
-<summary>¿Por qué la prueba de humo va en un job aparte y no dentro de test?</summary>
-
-Porque comprueban cosas distintas. `test` ejecuta el código con el Node del runner; `image` ejecuta el artefacto que de verdad se va a desplegar. Una imagen puede fallar con todas las pruebas en verde —una variable que falta en el `Dockerfile`, un archivo que no se copió—, y solo la prueba de humo lo ve.
-
-</details>
-
-<details>
-<summary>¿Qué cambia al proteger la rama, si el workflow ya corría antes?</summary>
-
-Quién decide. Sin protección, el resultado es un dato que alguien puede ignorar con prisa. Con protección, integrar en rojo deja de ser posible: la comprobación pasa de informar a ser una condición.
-
-</details>
-
 ## Limpieza
 
 Nada que borrar: el workflow, la prueba y la regla de la rama son el resultado. La práctica de [promover y revertir](/deployment/lab-release/) usa la imagen que construye este repositorio.

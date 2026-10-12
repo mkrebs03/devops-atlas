@@ -31,7 +31,7 @@ psql --version     # and the database?
 
 Running a downloaded script with `sudo` means trusting whoever publishes it; read it first, or install through the manual steps the project itself documents.
 
-Write those versions down. They are the first entry on the list of things a new server would have to reproduce, and the first one forgotten.
+Write those versions down. They are the first entry on the list of things a new server would have to reproduce.
 
 ## Bring the code across
 
@@ -91,29 +91,6 @@ It is worth naming the failures now, because each one gets a specific owner late
 | A new server does not come out like this one | The steps you took exist only in your memory |
 
 The first three are solved by a process manager. The fourth, by a deployment strategy. The fifth is the one that pushes towards packaging and automating.
-
-## Check your understanding
-
-<details>
-<summary>Why npm ci and not npm install on a server?</summary>
-
-Because `npm install` may resolve newer versions within the allowed ranges and update the lockfile, so the server could end up with dependencies you never tested. `npm ci` installs exactly what is locked and fails if the lock does not match the manifest, which is the behaviour you want in a deployment.
-
-</details>
-
-<details>
-<summary>Why does configuration go in environment variables rather than a file in the repository?</summary>
-
-Because it differs between environments and part of it is secret. In the repository you would have to choose between publishing credentials and maintaining one file per environment that somebody will let drift. Variables leave one codebase for every environment, with each machine supplying its own values.
-
-</details>
-
-<details>
-<summary>You closed SSH and the site stopped answering. What exactly happened?</summary>
-
-The process you started was a child of your SSH session. When you closed it, the system terminated the process along with it. To survive, it has to belong to the system rather than to your session — which is precisely what a process manager does.
-
-</details>
 
 ## Keep exploring
 

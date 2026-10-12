@@ -31,7 +31,7 @@ When something breaks in production, nobody holds the whole system in their head
 
 It is not a technology. It is the decision to treat "building" and "operating" as one job, plus the practices and tools that make that decision sustainable: if a team is going to answer for its own system in production, shipping has to be cheap, state has to be visible, and going back has to be fast.
 
-Everything else follows from that. The tools you will meet in this Atlas — Git, Docker, CI/CD — exist to lower the cost of that cycle, not the other way around.
+The tools that appear in this Atlas — Git, Docker, CI/CD — exist to lower the cost of that cycle.
 
 :::note[DevOps does not install]
 No tool turns a team into a DevOps team. Automating a broken handoff only makes the handoff fail faster.
@@ -79,11 +79,11 @@ It sounds backwards, since deploying more often looks like more chances to fail.
 A mistake caught while writing costs minutes; the same mistake caught in production costs an incident. That is why checks run cheapest-first, and why it matters that a failure points at its cause instead of saying "failed".
 
 **3 · Reversibility: being able to go back beats never failing.**
-No system stops failing. The difference between a calm team and one that prays before deploying is not the number of errors — it is how long they take to undo them.
+No system stops failing, so what matters is how long it takes to undo an error.
 
 ## What the job actually looks like
 
-Day to day varies a lot by company, but the work usually mixes:
+The work usually mixes:
 
 - Building and maintaining the automatic path from commit to production.
 - Packaging applications so they run the same on any machine.
@@ -125,22 +125,6 @@ This Atlas assumes you already code: that you can write code, use an editor, and
 Every page states which module it belongs to and what is worth knowing first, so you can come in halfway through without missing the context.
 
 All the content exists in Spanish and English: switch language whenever you like and stay on the same page.
-
-## Check your understanding
-
-<details>
-<summary>A company creates a "DevOps team" between development and operations. Which problem comes back?</summary>
-
-The wall. There is still a handoff, and there is still a team absorbing the risk of changes someone else wrote. The boundary just moved: now there are two handoffs instead of one.
-
-</details>
-
-<details>
-<summary>If every deploy can fail, why does deploying more often reduce risk?</summary>
-
-Because the risk is not in the number of deploys but in the size of each one. A small deploy changes one thing: it is easy to review, its failure has a single suspect, and reverting it returns the system to a known state. Batching changes does not prevent the failure — it only makes it harder to diagnose.
-
-</details>
 
 ## Keep exploring
 

@@ -91,29 +91,6 @@ sudo systemctl restart myapp    # the process restarts with the new definition
 
 `daemon-reload` alone changes nothing about the running process. `restart` without `daemon-reload` restarts with the old definition.
 
-## Check your understanding
-
-<details>
-<summary>Your service sits at activating (auto-restart) and never reaches active. What is going on?</summary>
-
-The process starts and dies immediately, and systemd retries it in a loop. The cause is in the journal: `journalctl -u myapp -n 50`. The usual suspects are a missing environment variable, a port already taken, or a `WorkingDirectory` or `ExecStart` path that does not exist.
-
-</details>
-
-<details>
-<summary>Why are enable and start two different things?</summary>
-
-`start` runs the service now. `enable` registers it to start at the next boot. If you only `start`, everything works until the machine reboots and the service does not come back. `enable --now` does both.
-
-</details>
-
-<details>
-<summary>You edited the .service file and restarted, but the change did not apply. What is missing?</summary>
-
-`sudo systemctl daemon-reload`. systemd works from an in-memory copy of the units; until it re-reads that copy, `restart` starts the process again with the previous definition.
-
-</details>
-
 ## Keep exploring
 
 - [systemd.service · manual](https://www.freedesktop.org/software/systemd/man/systemd.service.html) — every directive in the `[Service]` section.

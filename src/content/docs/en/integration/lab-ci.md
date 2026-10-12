@@ -186,22 +186,6 @@ So far the workflow warns, but nothing stops a red merge. In the repository, go 
 | `image` fails at the smoke test | The container does not listen on `0.0.0.0` | `ENV HOST` in the `Dockerfile` |
 | You cannot find `test` when creating the rule | The check has not run in that repository yet | Wait for one run to finish |
 
-## Check your understanding
-
-<details>
-<summary>Why does the smoke test go in a separate job rather than inside test?</summary>
-
-Because they check different things. `test` runs the code with the runner's Node; `image` runs the artifact that is actually going to be deployed. An image can fail with every test green — a variable missing from the `Dockerfile`, a file that was not copied — and only the smoke test sees it.
-
-</details>
-
-<details>
-<summary>What changes when you protect the branch, if the workflow was already running?</summary>
-
-Who decides. Without protection, the result is a fact someone can ignore in a hurry. With protection, merging on red stops being possible: the check goes from informing to being a condition.
-
-</details>
-
 ## Cleanup
 
 Nothing to delete: the workflow, the test, and the branch rule are the result. The [promote and roll back](/en/deployment/lab-release/) walkthrough uses the image this repository builds.

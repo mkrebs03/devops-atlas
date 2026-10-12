@@ -1,6 +1,6 @@
 ---
 title: Pruebas en CI
-description: Ejecuta la suite en cada cambio, con las dependencias que necesita, y lee la cobertura sin engañarte.
+description: Ejecutar la suite en cada cambio, con las dependencias que necesita, y cómo leer la cobertura.
 type: tool
 module: integration
 tools: [github-actions, postgresql, docker]
@@ -86,7 +86,7 @@ Todo lo anterior ejecuta el código con el Node del runner. Lo que se despliega 
 
 Eso es una **prueba de humo**: arrancar el artefacto y pedirle lo mínimo. No sustituye a la suite; comprueba lo único que la suite no puede comprobar.
 
-## Cobertura: una brújula, no un destino
+## Cobertura
 
 La **cobertura** mide qué porcentaje del código ejecutan tus pruebas. Es útil para encontrar zonas sin probar, pero engaña como meta: puedes tener 100% de cobertura y cero afirmaciones útiles. Ejecutar una línea no es lo mismo que verificar su comportamiento.
 
@@ -105,32 +105,9 @@ Casi siempre es una diferencia de entorno, y casi siempre es una de estas:
 
 CI es valioso justo por eso: corre en un entorno limpio que revela supuestos que no sabías que tenías.
 
-:::tip[Falla rápido, falla claro]
-Un job de CI que tarda 30 minutos desalienta a todo el equipo. Paraleliza, cachea dependencias y pon primero las comprobaciones rápidas.
+:::tip[Comprobaciones rápidas primero]
+Un job de CI que tarda 30 minutos retrasa cada cambio. Paraleliza, cachea dependencias y pon primero las comprobaciones rápidas.
 :::
-
-## Comprueba lo que entendiste
-
-<details>
-<summary>Tienes 95% de cobertura pero los bugs siguen llegando a producción. ¿Cómo es posible?</summary>
-
-La cobertura solo dice qué líneas se ejecutaron, no si las afirmaste correctamente. Puedes ejecutar código sin comprobar su resultado. Revisa que cada prueba tenga afirmaciones significativas sobre el comportamiento, no solo que pase por ahí.
-
-</details>
-
-<details>
-<summary>Una prueba pasa en tu máquina y falla en CI. ¿Cuál es la primera sospecha?</summary>
-
-Una diferencia de entorno: dependencias no fijadas (usa un lockfile y `npm ci`), variables de entorno ausentes, o datos que existían solo en tu máquina. CI corre limpio y por eso expone esos supuestos.
-
-</details>
-
-<details>
-<summary>Todas las pruebas pasan y el contenedor no arranca en el servidor. ¿Qué comprobación faltaba?</summary>
-
-Una prueba de humo sobre la imagen. La suite ejecutó el código directamente, sin pasar por el `Dockerfile`, así que nada comprobó el artefacto que se desplegó. Construir la imagen en CI, arrancarla y pedirle `/health` habría fallado ahí, antes de llegar a ningún servidor.
-
-</details>
 
 ## Sigue explorando
 

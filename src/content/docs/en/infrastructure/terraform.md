@@ -53,7 +53,7 @@ terraform apply         # does it, after confirmation
 terraform destroy       # removes everything it manages
 ```
 
-`plan` is the part not to skip, and not out of generic caution. Its output distinguishes three symbols, and the third is the one that matters:
+`plan` is the part not to skip. Its output distinguishes three symbols, and the third is the one that matters:
 
 ```
   + create        a new resource
@@ -123,29 +123,6 @@ module "production" {
 Both environments share a definition and differ only in what is declared. The two descriptions can no longer grow apart, because there is only one. What can still change is the real machine, by hand and from outside; the next `plan` gives that away.
 
 Each environment needs its own state. Mixing them into one means an `apply` intended for staging has production's resources in front of it.
-
-## Check your understanding
-
-<details>
-<summary>Why does Terraform need a state file if it can ask the provider what exists?</summary>
-
-Because the provider knows which resources exist, but not which of them corresponds to which block in your file. State holds that mapping. Without it, Terraform cannot tell a resource it already manages and that changed from one that does not exist yet, and it would create duplicates.
-
-</details>
-
-<details>
-<summary>The plan shows -/+ on your database. What does it mean and what do you do?</summary>
-
-The attribute you changed cannot be modified in place, so Terraform will delete the resource and create a new one — losing the data. You stop there: either revert that change, or do the migration by hand with a backup in front of it. That symbol is the reason for running `plan` before `apply`.
-
-</details>
-
-<details>
-<summary>Two people run apply against the same state at once. What can happen?</summary>
-
-The state ends up corrupt or incomplete: both read the same version and both write over it, so the result reflects what neither of them did. That is why remote backends take a lock while somebody applies; the second one waits instead of overwriting.
-
-</details>
 
 ## Keep exploring
 

@@ -123,22 +123,6 @@ journalctl -u nginx -n 50 # its last 50 log lines
 
 Hold on to that idea, because it comes back: a container solves the same problem with different parts — it also defines which process starts, what happens if it dies, and where its logs go.
 
-## Check your understanding
-
-<details>
-<summary>A service runs as the `app` user and cannot write to `/var/lib/data`. What do you check first?</summary>
-
-`ls -ld /var/lib/data`, to see the directory's owner, group, and permissions. If it belongs to `root:root` with mode `755`, the `app` user falls into the "everyone else" triplet, which has no write bit. The fix is giving ownership to the right user (`chown`) or sharing access through a group — not touching the code.
-
-</details>
-
-<details>
-<summary>A command works on your Mac but fails on the server. How can that be?</summary>
-
-Because macOS is Unix but not Linux: its tools come from the BSD family, so some flags differ or simply do not exist, and Linux-specific pieces like `ss` or `systemctl` are missing. If you are going to operate on Linux, practise on Linux: a container or a virtual machine is enough.
-
-</details>
-
 ## Keep exploring
 
 - [Linux Journey](https://linuxjourney.com/) — a free, guided tour of the system, from zero.
