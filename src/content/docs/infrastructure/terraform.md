@@ -88,17 +88,17 @@ Sin estado, Terraform no puede distinguir "este recurso ya existe y cambió" de 
 Tres consecuencias prácticas:
 
 - **El estado contiene secretos en claro.** Contraseñas generadas, claves, cadenas de conexión: lo que el proveedor devuelva queda escrito ahí. No va al repositorio.
-- **Compartido y con bloqueo.** Si dos personas aplican a la vez sobre el mismo estado, se corrompe. Los backends remotos —S3 con DynamoDB, Terraform Cloud, GCS— guardan el archivo y toman un bloqueo mientras alguien aplica.
+- **Compartido y con bloqueo.** Si dos personas aplican a la vez sobre el mismo estado, se corrompe. Los backends remotos —S3, GCS, HCP Terraform— guardan el archivo y toman un bloqueo mientras alguien aplica.
 - **Puede desincronizarse.** Si alguien borra el servidor desde el panel web, el estado sigue creyendo que existe. El siguiente `plan` lo detecta y propone recrearlo.
 
 ```hcl
 terraform {
   backend "s3" {
-    bucket         = "atlas-tfstate"
-    key            = "prod/terraform.tfstate"
-    region         = "eu-central-1"
-    dynamodb_table = "atlas-tflock"
-    encrypt        = true
+    bucket       = "atlas-tfstate"
+    key          = "prod/terraform.tfstate"
+    region       = "eu-central-1"
+    use_lockfile = true     # bloqueo en el propio bucket
+    encrypt      = true
   }
 }
 ```
@@ -125,7 +125,7 @@ module "production" {
 }
 ```
 
-Ambos entornos comparten definición y difieren solo en lo declarado. La deriva deja de ser posible por construcción: no hay dos descripciones que puedan separarse.
+Ambos entornos comparten definición y difieren solo en lo declarado. Las dos descripciones ya no pueden separarse, porque es una sola. Lo que sí puede seguir cambiando es la máquina real, a mano y por fuera; eso lo delata el siguiente `plan`.
 
 Cada entorno necesita su propio estado. Mezclarlos en uno significa que un `apply` destinado a *staging* tiene delante los recursos de producción.
 

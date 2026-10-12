@@ -14,7 +14,7 @@ takeaways:
   - Being able to roll back fast matters more than never failing.
 ---
 
-**Where you are:** you have a tested artifact. What is left is the last stretch, and the most visible one: putting it in front of real users without cutting the service, knowing how it behaves, and being able to go back.
+**Where you are:** you have a tested artifact. What is left is the last stretch, and the most visible one: getting it to the server unattended, putting it in front of real users without cutting the service, and being able to go back.
 
 ## From integrating to delivering
 
@@ -32,6 +32,7 @@ flowchart LR
 | Moment | Question | Page |
 | --- | --- | --- |
 | Pipeline | How does an artifact go from build to release? | [From build to release](/en/deployment/pipeline/) |
+| Automation | How does the image reach the server without anyone logging in over SSH? | [Deploying from the pipeline](/en/deployment/deploy-from-pipeline/) |
 | Traffic | Who decides which instance each request reaches? | [Load balancing](/en/deployment/load-balancing/) |
 | Strategy | How do I change the version without taking the service down? | [Deployment strategies](/en/deployment/strategies/) |
 | Practice | Can I promote and roll back a version? | [Practice · promote and roll back](/en/deployment/lab-release/) |
@@ -42,12 +43,12 @@ A mature team does not pray before a yearly deploy. It deploys often, in small p
 
 ## What you can do with this
 
-These pages let you describe a delivery pipeline, choose a deployment strategy by risk, know what to watch in the minutes that follow, and practise a promotion with rollback.
+These pages let you describe a delivery pipeline, make a merge into `main` deploy by itself and go back if it fails, choose a strategy by risk, and practise a promotion with rollback.
 
 ## Where this breaks
 
 | Symptom | What causes it | Where it continues |
 | --- | --- | --- |
 | The deployment finishes and nobody knows whether the service is healthy | Evidence stops at the pipeline instead of continuing into production | [Observability](/en/scaling/observability/) |
-| Replacing the version cuts off requests that were in flight | Nothing takes the traffic while the old process shuts down | [Load balancing](/en/deployment/load-balancing/) |
-| Rolling back takes as long as deploying, so nobody rolls back | The previous version was never kept as an artifact ready to return to | [Practice · promote and roll back](/en/deployment/lab-release/) |
+| A single machine takes all the traffic, and its failure is the service's failure | There is no second instance the balancer could send requests to | [When to scale, and how](/en/scaling/when-to-scale/) |
+| The server you deploy to was configured by hand and nobody could rebuild it | The application is automated and the machine holding it up is not | [Infrastructure as code](/en/infrastructure/) |

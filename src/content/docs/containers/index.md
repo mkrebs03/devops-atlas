@@ -16,7 +16,7 @@ takeaways:
   - Empaquetar elimina la diferencia entre tu máquina y el servidor.
 ---
 
-**Dónde estás:** en Colaboración un cambio pasó a ser revisable. Aquí pasa a ser portátil: la aplicación viaja con sus dependencias, así que se ejecuta igual en tu máquina que en un servidor ajeno.
+**Dónde estás:** en Un servidor instalaste a mano todo lo que la aplicación necesita: el runtime, las dependencias, la configuración. Aquí esa lista deja de vivir en una máquina y pasa a viajar con la aplicación, así que se ejecuta igual en tu portátil que en un servidor ajeno.
 
 ## El problema que resuelve empaquetar
 
@@ -40,13 +40,13 @@ flowchart LR
 
 El `Dockerfile` describe cómo se construye la imagen. La imagen no cambia. El contenedor sí: nace, escribe en su propia capa temporal y muere. Todo lo que deba sobrevivir a esa muerte tiene que estar en un volumen.
 
-## Mapa del módulo
+## El recorrido
 
-| Señal | Qué vas a aprender | Página |
+| Momento | Pregunta | Página |
 | --- | --- | --- |
-| Paquete | Qué significa encapsular una aplicación | [Docker sin magia](/containers/docker/) |
-| Conjunto | Cómo describir varios contenedores y sus datos | [Varios contenedores con Compose](/containers/compose/) |
-| Evidencia | Cómo construir y verificar una imagen local | [Práctica · pipeline local](/containers/lab-container-pipeline/) |
+| Paquete | ¿Qué es una imagen y cómo se construye? | [Docker sin magia](/containers/docker/) |
+| Conjunto | ¿Cómo describo varios contenedores y sus datos? | [Varios contenedores con Compose](/containers/compose/) |
+| Práctica | ¿Puedo empaquetar una aplicación y explicar por qué no responde? | [Práctica · empaquetar miapp](/containers/lab-container-pipeline/) |
 
 :::note[Un contenedor no es una máquina virtual]
 No lleva su propio sistema operativo: comparte el núcleo de la máquina anfitriona y solo aísla el proceso, sus archivos y su red. Por eso arranca en milisegundos y pesa megabytes en vez de gigabytes.
@@ -54,7 +54,7 @@ No lleva su propio sistema operativo: comparte el núcleo de la máquina anfitri
 
 ## Qué puedes hacer con esto
 
-Con estas páginas puedes escribir un `Dockerfile`, construir una imagen, ejecutarla y saber dónde quedaron los datos cuando el contenedor desaparece.
+Con estas páginas puedes escribir un `Dockerfile`, construir una imagen, describir el servicio con Compose y saber dónde quedaron los datos cuando el contenedor desaparece.
 
 ## Dónde se rompe esto
 

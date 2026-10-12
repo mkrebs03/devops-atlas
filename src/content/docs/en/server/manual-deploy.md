@@ -30,9 +30,15 @@ flowchart LR
 Your application needs its language's interpreter or virtual machine, and it needs the **same version** you developed against. The package the distribution ships is usually several versions behind, so installing from the project's own repository is normal.
 
 ```bash
-node --version     # what is installed?
+# the NodeSource repository, for the major version you develop against
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+
+node --version     # is it the version you expected?
 psql --version     # and the database?
 ```
+
+Running a downloaded script with `sudo` means trusting whoever publishes it; read it first, or install through the manual steps the project itself documents.
 
 Write those versions down. They are the first entry on the list of things a new server would have to reproduce, and the first one forgotten.
 

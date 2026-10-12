@@ -51,23 +51,24 @@ The passphrase `ssh-keygen` asks for encrypts the private key on your disk. Set 
 ```bash
 adduser marta                       # creates the user and asks for its password
 usermod -aG sudo marta              # lets it escalate when it asks
-rsync --archive --chown=marta:marta ~/.ssh /home/marta   # copies your key to that account
+install -d -m 700 -o marta -g marta /home/marta/.ssh
+install -m 600 -o marta -g marta ~/.ssh/authorized_keys /home/marta/.ssh/   # copies your key to that account
 ```
 
 Check that you can log in as `marta` **from a second terminal, without closing the root session**, before going any further. If something went wrong, the session you already have open is your only way to fix it.
 
 ## Closing the back door
 
-With the user working, remove the two ways in you no longer need. In `/etc/ssh/sshd_config`:
-
-```
-PermitRootLogin no
-PasswordAuthentication no
-```
+With the user working, remove the two ways in you no longer need:
 
 ```bash
-sudo systemctl restart ssh
+printf 'PermitRootLogin no\nPasswordAuthentication no\n' \
+  | sudo tee /etc/ssh/sshd_config.d/00-atlas.conf
+sudo sshd -t && sudo systemctl restart ssh
+sudo sshd -T | grep -Ei '^(permitrootlogin|passwordauthentication)'
 ```
+
+The file goes in `sshd_config.d` rather than `sshd_config` for a specific reason: `sshd` keeps the **first** value it reads for each option, and it reads that folder first, in alphabetical order. Many cloud images ship a file of their own there that enables passwords, so editing the main file would change nothing. `sshd -T` prints the configuration actually being applied: that is the check, not the file you wrote.
 
 From here on, a password attempt is refused without even being tried, and most of those automated attempts stop making sense.
 

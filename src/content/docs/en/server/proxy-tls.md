@@ -45,6 +45,8 @@ Routing is only the first reason. A reverse proxy concentrates in one place four
 server {
   listen 443 ssl;
   server_name yourapp.com;
+  ssl_certificate     /etc/letsencrypt/live/yourapp.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/yourapp.com/privkey.pem;
 
   location / {
     proxy_pass http://127.0.0.1:8080;   # the service only listens locally
@@ -55,7 +57,9 @@ server {
 }
 ```
 
-Those headers matter more than they look: without them your application believes every request comes from the proxy rather than the user, the logs stop being useful for investigating anything, and any redirect it builds will come out as `http://` even though the user arrived over HTTPS.
+You do not write the two `ssl_certificate` lines yourself: Certbot adds them when it issues the certificate, as you will see below. Without them nginx rejects the block.
+
+The headers matter more than they look: without them your application believes every request comes from the proxy rather than the user, the logs stop being useful for investigating anything, and any redirect it builds will come out as `http://` even though the user arrived over HTTPS.
 
 ## Where the certificate comes from
 

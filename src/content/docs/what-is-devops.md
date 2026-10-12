@@ -105,11 +105,10 @@ Este Atlas te lleva desde leer una máquina hasta desplegar una versión, observ
 | Codificar y revisar en equipo | [02 · Colaboración](/collaboration/) |
 | Poner la aplicación en una máquina y mantenerla viva | [03 · Un servidor](/server/) |
 | Empaquetar la aplicación | [04 · Contenedores](/containers/) |
-| Probar con evidencia | [05 · Pruebas](/testing/) |
-| Comprobar cada cambio automáticamente | [06 · Integración continua](/integration/) |
-| Publicar, desplegar y revertir | [07 · Despliegue continuo](/deployment/) |
-| Observar, medir y crecer | [08 · Escalar](/scaling/) |
-| Describir la infraestructura en vez de configurarla | [09 · Infraestructura como código](/infrastructure/) |
+| Probar y comprobar cada cambio automáticamente | [05 · Integración continua](/integration/) |
+| Publicar, desplegar y revertir | [06 · Despliegue continuo](/deployment/) |
+| Observar, medir y crecer | [07 · Operar y escalar](/scaling/) |
+| Describir la infraestructura en vez de configurarla | [08 · Infraestructura como código](/infrastructure/) |
 
 **Lo que todavía no encontrarás aquí:** nubes públicas y seguridad. De Kubernetes verás por qué existe y cuándo compensa, pero no cómo operarlo. Cuando una página necesita apoyarse en alguno de esos temas, lo dice y te enlaza a una fuente externa.
 
@@ -119,7 +118,8 @@ Este Atlas asume que ya programas: que sabes escribir código, usar un editor y 
 
 ## Cómo encontrar lo que buscas
 
-- **Si empiezas de cero**, lee en orden: los módulos van del 01 al 09 y cada uno se apoya en el anterior.
+- **Si empiezas de cero**, lee en orden: los módulos van del 01 al 08 y cada uno se apoya en el anterior.
+- **Si quieres hacerlo con las manos**, las prácticas trabajan todas sobre la misma [aplicación de ejemplo](/sample-app/), de tu máquina a un despliegue automático.
 - **Si vienes por algo concreto**, usa el buscador o el [índice de herramientas A–Z](/tools/) y entra directo a la página.
 
 Cada página indica a qué módulo pertenece y qué conviene saber antes, así que puedes entrar por el medio sin quedarte sin contexto.

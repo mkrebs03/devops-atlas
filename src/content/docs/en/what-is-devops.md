@@ -105,11 +105,10 @@ This Atlas takes you from reading a machine to shipping a version, watching how 
 | Coding and reviewing as a team | [02 · Collaboration](/en/collaboration/) |
 | Getting the application onto a machine and keeping it alive | [03 · One server](/en/server/) |
 | Packaging the application | [04 · Containers](/en/containers/) |
-| Testing with evidence | [05 · Testing](/en/testing/) |
-| Checking every change automatically | [06 · Continuous integration](/en/integration/) |
-| Releasing, deploying, rolling back | [07 · Continuous deployment](/en/deployment/) |
-| Observing, measuring, growing | [08 · Scaling](/en/scaling/) |
-| Describing infrastructure instead of configuring it | [09 · Infrastructure as code](/en/infrastructure/) |
+| Testing and checking every change automatically | [05 · Continuous integration](/en/integration/) |
+| Releasing, deploying, rolling back | [06 · Continuous deployment](/en/deployment/) |
+| Observing, measuring, growing | [07 · Operating and scaling](/en/scaling/) |
+| Describing infrastructure instead of configuring it | [08 · Infrastructure as code](/en/infrastructure/) |
 
 **What you will not find here yet:** public clouds and security. For Kubernetes you will find why it exists and when it pays off, but not how to operate it. When a page needs to lean on one of those topics, it says so and links you to an outside source.
 
@@ -119,7 +118,8 @@ This Atlas assumes you already code: that you can write code, use an editor, and
 
 ## Finding what you came for
 
-- **Starting from scratch?** Read in order: modules run 01 to 09 and each leans on the previous one.
+- **Starting from scratch?** Read in order: modules run 01 to 08 and each leans on the previous one.
+- **Want to do it hands-on?** The walkthroughs all work on the same [sample application](/en/sample-app/), from your machine to an automated deployment.
 - **Here for one specific thing?** Use search or the [A–Z tools index](/en/tools/) and go straight to the page.
 
 Every page states which module it belongs to and what is worth knowing first, so you can come in halfway through without missing the context.

@@ -69,7 +69,7 @@ If half your users are answered in 50 ms and the other half in 4 s, the average 
 
 ## After a deployment
 
-This is where it connects to the rest of the module. A deployment does not end when the new version boots; it ends when you have checked that it behaves like the previous one. In the first minutes, compare **the new version against the one already running**:
+This is where it connects to deployment. A deployment does not end when the new version boots; it ends when you have checked that it behaves like the previous one. In the first minutes, compare **the new version against the one already running**:
 
 - Error rate: did it rise compared with the previous version?
 - p95 and p99 latency: did it degrade?
@@ -86,7 +86,7 @@ An alert should mean: *somebody is suffering something, and there is something t
 - **On symptoms**: "5% of requests to `/checkout` are failing" or "the p99 went from 300 ms to 3 s". It is happening to someone.
 - **Not on causes**: "CPU is at 80%". That may be perfectly normal, and if it is not, latency will say so.
 
-And every alert needs somebody who can act and something to do. An alert nobody can act on gets ignored, and once a team learns to ignore one, it starts ignoring the rest — the same mechanism by which a [flaky test](/en/testing/pyramid/) ends up destroying trust in the whole suite.
+And every alert needs somebody who can act and something to do. An alert nobody can act on gets ignored, and once a team learns to ignore one, it starts ignoring the rest — the same mechanism by which a [flaky test](/en/integration/pyramid/) ends up destroying trust in the whole suite.
 
 ## The three signals work together
 

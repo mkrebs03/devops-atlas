@@ -14,7 +14,7 @@ takeaways:
   - Poder revertir rápido importa más que no fallar nunca.
 ---
 
-**Dónde estás:** ya tienes un artefacto probado. Queda el último tramo, y el más visible: ponerlo delante de usuarios reales sin cortar el servicio, saber cómo se está comportando y poder volver atrás.
+**Dónde estás:** ya tienes un artefacto probado. Queda el último tramo, y el más visible: que llegue solo al servidor, ponerlo delante de usuarios reales sin cortar el servicio y poder volver atrás.
 
 ## De integrar a entregar
 
@@ -32,6 +32,7 @@ flowchart LR
 | Momento | Pregunta | Página |
 | --- | --- | --- |
 | Pipeline | ¿Cómo pasa un artefacto de build a release? | [Del build al release](/deployment/pipeline/) |
+| Automatización | ¿Cómo llega la imagen al servidor sin que nadie entre por SSH? | [Desplegar desde el pipeline](/deployment/deploy-from-pipeline/) |
 | Tráfico | ¿Quién decide a qué instancia llega cada petición? | [Balanceo de carga](/deployment/load-balancing/) |
 | Estrategia | ¿Cómo cambio la versión sin tumbar el servicio? | [Estrategias de despliegue](/deployment/strategies/) |
 | Práctica | ¿Puedo promover y revertir una versión? | [Práctica · promover y revertir](/deployment/lab-release/) |
@@ -42,12 +43,12 @@ Un equipo maduro no reza antes de un despliegue anual. Despliega seguido, en por
 
 ## Qué puedes hacer con esto
 
-Con estas páginas puedes describir un pipeline de entrega, elegir una estrategia de despliegue según el riesgo, saber qué mirar en los minutos siguientes y practicar una promoción con rollback.
+Con estas páginas puedes describir un pipeline de entrega, hacer que un merge en `main` despliegue solo y vuelva atrás si falla, elegir una estrategia según el riesgo y practicar una promoción con rollback.
 
 ## Dónde se rompe esto
 
 | Síntoma | Qué lo causa | Dónde sigue |
 | --- | --- | --- |
 | El despliegue termina y nadie sabe si el servicio quedó sano | La evidencia se acaba en el pipeline y no continúa en producción | [Observabilidad](/scaling/observability/) |
-| Reemplazar la versión corta las peticiones que estaban en curso | Nadie recibe el tráfico mientras el proceso viejo se apaga | [Balanceo de carga](/deployment/load-balancing/) |
-| Revertir tarda tanto como desplegar, así que nadie revierte | La versión anterior no quedó disponible como artefacto listo para volver | [Práctica · promover y revertir](/deployment/lab-release/) |
+| Una sola máquina recibe todo el tráfico, y su caída es la caída del servicio | No hay una segunda instancia a la que el balanceador pueda mandar peticiones | [Cuándo escalar y cómo](/scaling/when-to-scale/) |
+| El servidor al que despliegas se configuró a mano y nadie sabría rehacerlo | La aplicación está automatizada y la máquina que la sostiene no | [Infraestructura como código](/infrastructure/) |

@@ -26,7 +26,7 @@ La diferencia entre los dos últimos es una **compuerta**: manual o automática.
 
 ## Construye una vez, promueve el mismo artefacto
 
-El error clásico es reconstruir en cada entorno. Si `staging` y `producción` compilan por separado, no estás probando lo que despliegas. Construye **una** imagen, identifícala por su SHA y promueve esa misma imagen:
+El error clásico es reconstruir en cada entorno. Si `staging` y `producción` compilan por separado, no estás probando lo que despliegas. Construye **una** imagen, etiquétala con el SHA del commit del que salió y promueve esa misma imagen:
 
 ```mermaid
 flowchart LR
@@ -35,9 +35,11 @@ flowchart LR
 
 ```bash
 # la misma imagen inmutable atraviesa los entornos
-docker tag app:sha-abc123 registry/app:sha-abc123
-docker push registry/app:sha-abc123
+docker tag miapp:sha-abc123 registry/miapp:sha-abc123
+docker push registry/miapp:sha-abc123
 ```
+
+Cómo se hace eso desde un workflow, y cómo llega esa imagen al servidor, está en [Desplegar desde el pipeline](/deployment/deploy-from-pipeline/).
 
 ## Los entornos ganan confianza
 
@@ -56,7 +58,7 @@ Lo que cambia entre entornos es la configuración (variables, secretos, URLs), n
 <details>
 <summary>Tu pipeline compila la imagen en staging y otra vez en producción. ¿Qué riesgo introduces?</summary>
 
-Que no estás desplegando lo que probaste: dos builds pueden diferir por dependencias, caché o momento. Construye una sola imagen, identifícala por su SHA y promueve esa misma a cada entorno; la config cambia, el artefacto no.
+Que no estás desplegando lo que probaste: dos builds pueden diferir por dependencias, caché o momento. Construye una sola imagen, etiquétala con el SHA del commit y promueve esa misma a cada entorno; la config cambia, el artefacto no.
 
 </details>
 

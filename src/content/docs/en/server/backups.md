@@ -45,7 +45,7 @@ A small project usually accepts losing a day and taking an hour. Putting a numbe
 Copying the data files of a running database produces an inconsistent copy: it was writing while you copied. The right tool is the one the database itself ships.
 
 ```bash
-pg_dump --format=custom myapp > /var/backups/myapp-$(date +%F).dump
+pg_dump --format=custom myapp > /var/backups/myapp/myapp-$(date +%F).dump
 ```
 
 `--format=custom` compresses and allows restoring individual tables. The date in the name is what stops you overwriting the good backup with one taken after the data was already corrupted.
@@ -56,7 +56,7 @@ A backup in `/var/backups` on the same server protects against a `DROP TABLE` an
 
 ```bash
 rsync --archive --compress \
-  /var/backups/ backup@other-host:/backups/myapp/
+  /var/backups/myapp/ backup@other-host:/backups/myapp/
 ```
 
 The rule usually quoted is **3-2-1**: three copies, on two different media, one of them off-site. For a small project, "the server plus object storage in another region" already covers the essential part.
@@ -72,14 +72,28 @@ If the server holds credentials with delete permission on the destination, whoev
 0 3 * * * marta /usr/local/bin/backup-myapp.sh
 ```
 
-That script has to do three things rather than two: dump, copy off-site, and **exit with an error if anything failed**. A script that carries on after a failure produces empty files that look like backups.
+That script has to do four things: dump, copy off-site, delete old copies, and **exit with an error if anything failed**. A script that carries on after a failure produces empty files that look like backups.
 
 ```bash
 #!/usr/bin/env bash
+# /usr/local/bin/backup-myapp.sh
 set -euo pipefail        # any failure stops the script
+
+target=/var/backups/myapp
+file="$target/myapp-$(date +%F).dump"
+
+mkdir -p "$target"
+pg_dump --format=custom myapp > "$file.tmp"
+mv "$file.tmp" "$file"                  # it only exists under its final name if the dump finished
+
+rsync --archive --compress "$target/" backup@other-host:/backups/myapp/
+
+find "$target" -name 'myapp-*.dump' -mtime +14 -delete
 ```
 
-It also has to delete old ones, or the disk fills and the backup starts failing for lack of space — which is the most common way of ending up with no backups.
+The dump is written under a temporary name and renamed when it finishes: that way an interrupted `pg_dump` does not leave a half-written file that looks like a backup. The deletion goes last and only touches local copies older than fourteen days; without it the disk fills and the backup starts failing for lack of space, which is the most common way of ending up with no backups.
+
+The user running it needs to be able to write to that folder and connect to the database. And since `cron` does not tell anyone when a job fails, the last piece is finding out: have the script call a monitoring service when it ends well, and let the alert fire when that call does not arrive.
 
 ## The step almost nobody takes
 
@@ -87,7 +101,7 @@ A backup is not verified until it has been restored. The file can exist, weigh w
 
 ```bash
 createdb myapp_check
-pg_restore --dbname=myapp_check /var/backups/myapp-2026-07-26.dump
+pg_restore --dbname=myapp_check /var/backups/myapp/myapp-2026-07-26.dump
 psql myapp_check -c "select count(*) from users;"
 dropdb myapp_check
 ```

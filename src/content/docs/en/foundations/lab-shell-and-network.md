@@ -1,102 +1,118 @@
 ---
 title: Practice · investigate a local application
-description: Start a small server, find its port and verify its response.
+description: Start the sample application, find its port, and tell a connection failure from an application failure.
 type: practice
 level: beginner
 module: foundations
-tools: [python, curl, ss]
+tools: [node, curl, ss]
 prerequisites: [foundations.terminal, foundations.networking]
 learningObjectives:
-  - Start a local server and identify the port where it listens.
-  - Verify an application's connection and HTTP response separately.
-  - Tell the difference between a refused connection and an HTTP error response.
+  - Start a local server and identify the port it listens on.
+  - Verify the connection and the HTTP response of an application separately.
+  - Recognize the difference between a refused connection and an HTTP error response.
 takeaways:
-  - A listening process and a correct HTTP response are distinct pieces of evidence.
-  - A connection failure and a 404 point to different boundaries of the route.
+  - A listening process and a correct HTTP response are different pieces of evidence.
+  - A connection failure and a 404 point to different boundaries along the path.
   - Combining small tools makes a network investigation reproducible.
 ---
 
-## Goal
+## What you will end up with
 
-Start a local server, check which port it listens on and separate a connection problem from an HTTP problem —the same reasoning you will use in production, but on your machine.
+The [sample application](/en/sample-app/) running on your machine, and three separate pieces of evidence: that it listens, that it responds, and what each kind of failure looks like. The folder you create here is reused by the other walkthroughs.
 
 ## Requirements
 
-- A terminal (ideally open two).
-- Python 3, `curl` and `ss` available.
+- Two terminals.
+- Node 18 or later, and `curl`.
+- `ss`, which ships with any Linux. macOS does not have it: use `lsof -nP -iTCP -sTCP:LISTEN` wherever this page says `ss -lnt`.
 - About 15 minutes.
 
-## Step 1 · publish a response
+## Step 1 · Start the application
+
+Create the folder `~/myapp` and save the `server.js` from [The sample application](/en/sample-app/#the-file) inside it. Then:
 
 ```bash
-mkdir -p /tmp/atlas-lab
-printf 'atlas is listening\n' > /tmp/atlas-lab/index.html
-cd /tmp/atlas-lab
-python3 -m http.server 8080
+cd ~/myapp
+node server.js
 ```
 
-Leave that process running and open a second terminal for the rest.
+**Signal:** the terminal prints `listening on 127.0.0.1:8080` and stays busy. Leave it there and carry on in the second one.
 
-## Step 2 · observe the socket and verify the response
+## Step 2 · Two pieces of evidence, not one
 
 ```bash
 ss -lntp | grep ':8080'
-curl -i http://127.0.0.1:8080/
+curl -i http://127.0.0.1:8080/health
 ```
 
-You should see a socket in the `LISTEN` state and a response that starts like this:
+**Signal:** a socket in `LISTEN` state on `127.0.0.1:8080`, and a response that starts like this:
 
 ```text
-HTTP/1.0 200 OK
+HTTP/1.1 200 OK
+content-type: application/json
 ...
-atlas is listening
+{"status":"ok"}
 ```
 
-These are **two distinct pieces of evidence**: the socket says "something is listening"; the `200` says "the application returned what I expected". The `-p` option may also show the process that owns the socket; on some systems you need additional permissions to see that information.
+They are different pieces of evidence. The socket says "something is listening"; the `200` says "the application answered what I expected". The `-p` option adds the process that owns the socket; seeing another user's processes takes `sudo`.
 
-## Step 3 · cause a failure on purpose
+## Step 3 · An application failure
 
-Query a port where nothing is listening:
-
-```bash
-curl -i http://127.0.0.1:9090/
-# curl: (7) Failed to connect to 127.0.0.1 port 9090: Connection refused
-```
-
-Now request a path that does not exist, without stopping the server:
+Request a route that does not exist, without stopping the server:
 
 ```bash
 curl -i http://127.0.0.1:8080/does-not-exist
 ```
 
-You should receive a `404 File not found`. This time there was a connection and an HTTP response: the server is available, but it could not find the requested resource. This is an **application** failure, not a connection failure.
+**Signal:** `HTTP/1.1 404 Not Found`. There was a connection and there was an HTTP response: the server is available and tells you that resource does not exist. This is the **application** boundary.
 
-`Connection refused` is not a `404`: there was no HTTP at all. It is the **connection** boundary, not the application one. Now stop the server with `Ctrl+C`, restart it on port `9090` and repeat the previous `curl`. What changed and why?
+## Step 4 · A connection failure
 
-## When something is off
+Now query a port nobody is listening on:
+
+```bash
+curl -i http://127.0.0.1:9090/health
+```
+
+**Signal:** `curl` exits with error `(7)` and a message containing `Connection refused` or `Couldn't connect to server`, depending on the version. There is no `HTTP/...` line because HTTP never happened: this is the **connection** boundary.
+
+## Step 5 · Move the port
+
+Stop the server with `Ctrl+C` and start it on another port, without touching the file:
+
+```bash
+PORT=9090 node server.js
+```
+
+Repeat both `curl` calls to `/health`, the one to `8080` and the one to `9090`.
+
+**Signal:** they swapped. Now `9090` answers `200` and `8080` refuses the connection. The code is the same; an environment variable changed, which is how this application receives its configuration in every walkthrough that follows.
+
+## When something does not add up
 
 | Symptom | Likely boundary | First command |
 | --- | --- | --- |
 | `Connection refused` | Nothing listens on that port | `ss -lnt` |
-| Hangs (timeout) | Firewall or listen address | `curl -v` |
-| `404 Not Found` | Missing path or resource | `curl -i` |
-| `200 OK` but odd content | Application / served file | `curl -i` |
-
-## Verification
-
-The lab ends with a checkable assertion: **"the process listens on the port I chose and returns the file I published"**. If you can demonstrate that with `ss` and `curl`, you met the goal.
+| It hangs (timeout) | Firewall or listen address | `curl -v` |
+| `404 Not Found` | Route or resource does not exist | `curl -i` |
+| `EADDRINUSE` on start | Another process already holds the port | `ss -lntp` |
 
 ## Check your understanding
 
 <details>
-<summary>curl returns "Connection refused". What should you NOT debug yet?</summary>
+<summary>curl answers "Connection refused". What should you NOT debug yet?</summary>
 
-The application. "Connection refused" means nothing was listening on that port, so there was never an HTTP request to analyse. Confirm first with `ss -lnt` that the process listens where you think it does.
+The application. "Connection refused" means nothing was listening on that port, so there never was an HTTP request to analyze. First confirm with `ss -lnt` that the process listens where you think it does.
+
+</details>
+
+<details>
+<summary>The application listens on 127.0.0.1:8080. Could another machine on your network reach it?</summary>
+
+No. `127.0.0.1` is the loopback interface: it only accepts connections that originate on the machine itself. For another machine to get in, it would have to listen on a network interface — with `HOST=0.0.0.0`, for instance — and that is a decision, not a default.
 
 </details>
 
 ## Cleanup
 
-```bash
-rm -rf /tmp/atlas-lab
-```
+Stop the server with `Ctrl+C`. **Do not delete `~/myapp`**: the [safe branches](/en/collaboration/lab-git-branching/) walkthrough starts in that folder.

@@ -39,7 +39,9 @@ const dotEnv = (() => {
 })();
 
 export default defineConfig({
-  site: dotEnv.PUBLIC_SITE_URL ?? process.env.PUBLIC_SITE_URL ?? 'http://localhost:4321',
+  // A real environment variable wins over the .env file, as it does everywhere
+  // else: CI and the Docker build set it explicitly.
+  site: process.env.PUBLIC_SITE_URL ?? dotEnv.PUBLIC_SITE_URL ?? 'http://localhost:4321',
   output: 'static',
   /*
     Old URLs stay reachable. Two rounds of restructuring are recorded here:
@@ -76,6 +78,15 @@ export default defineConfig({
     '/en/deployment/proxy/': '/en/server/proxy-tls/',
     '/deployment/observability/': '/scaling/observability/',
     '/en/deployment/observability/': '/en/scaling/observability/',
+    // Testing stopped being a module of its own: a suite only matters to this
+    // reference as a gate in the pipeline, so its pages live with the workflow
+    // that runs them. The first-test walkthrough became the CI one.
+    '/testing/': '/integration/',
+    '/en/testing/': '/en/integration/',
+    '/testing/pyramid/': '/integration/pyramid/',
+    '/en/testing/pyramid/': '/en/integration/pyramid/',
+    '/testing/lab-first-test/': '/integration/lab-ci/',
+    '/en/testing/lab-first-test/': '/en/integration/lab-ci/',
   },
   markdown: {
     // Gives every <details> in the content a single body element, which is what
@@ -143,6 +154,11 @@ export default defineConfig({
           label: 'Glosario',
           translations: { en: 'Glossary' },
           link: '/glossary/',
+        },
+        {
+          label: 'La aplicación de ejemplo',
+          translations: { en: 'The sample application' },
+          link: '/sample-app/',
         },
         ...moduleSidebar,
       ],

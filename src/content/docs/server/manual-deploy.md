@@ -30,9 +30,15 @@ flowchart LR
 Tu aplicación necesita el intérprete o la máquina virtual de su lenguaje, y necesita la **misma versión** que usaste al desarrollarla. El paquete que trae la distribución suele estar varias versiones por detrás, así que es normal instalar desde el repositorio del proyecto.
 
 ```bash
-node --version     # ¿qué hay instalado?
+# el repositorio de NodeSource, para la versión mayor que usas al desarrollar
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
+
+node --version     # ¿quedó la versión que esperabas?
 psql --version     # ¿y la base de datos?
 ```
+
+Ejecutar un script descargado con `sudo` es confiar en quien lo publica; léelo antes, o instala desde los pasos manuales que el propio proyecto documenta.
 
 Anota esas versiones. Son la primera pieza de la lista de cosas que un servidor nuevo tendría que reproducir, y la primera que se olvida.
 

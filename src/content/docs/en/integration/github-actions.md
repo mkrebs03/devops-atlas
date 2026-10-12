@@ -38,7 +38,7 @@ A good pipeline does not only compile: it checks formatting, types and behaviour
 **Lint** is the cheapest check of all: a program reads the code without running it and flags whatever breaks a convention or smells like a bug — an unused variable, a missing `await`, an import that no longer exists. It takes seconds, so its verdict arrives first.
 
 ```yaml
-name: Validate Atlas
+name: CI
 on:
   pull_request:
   push:
@@ -49,41 +49,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 10.29.3 }
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint        # formatting and conventions
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint         # formatting and conventions
 
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 10.29.3 }
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run check       # types
-      - run: pnpm run test:e2e    # behaviour
+          cache: npm
+      - run: npm ci
+      - run: npm test             # behaviour
 
   build:
     needs: [lint, test]           # waits for lint and test to pass
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with: { version: 10.29.3 }
       - uses: actions/setup-node@v4
-        with: { node-version: 22, cache: pnpm }
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
 ```
 
-`cache: pnpm` reuses dependencies across runs; `lint` and `test` run in parallel and `needs: [lint, test]` makes `build` wait for both. Every step should say what it guarantees and which evidence it leaves.
+`cache: npm` reuses dependencies across runs; `lint` and `test` run in parallel and `needs: [lint, test]` makes `build` wait for both. Every step should say what it guarantees and which evidence it leaves.
 
 ## Validation is not deployment
 

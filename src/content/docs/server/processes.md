@@ -82,11 +82,11 @@ El estado que devuelve `systemctl status` dice más de lo que parece:
 | --- | --- |
 | `active (running)` | El proceso está vivo |
 | `activating (auto-restart)` | Está en el bucle de reintentos: arranca y muere |
-| `failed` | Se agotaron los reintentos, o terminó con un error del que no se reintenta |
+| `failed` | Terminó con error y nada lo reintenta, o systemd dejó de reintentar por arrancar demasiadas veces seguidas |
 | `inactive (dead)` | Nadie lo ha arrancado, o se paró limpiamente |
 
-:::caution[Reiniciar sin límite esconde el problema]
-`Restart=always` sobre una aplicación que muere al arrancar —porque falta una variable, porque el puerto está ocupado— produce un bucle infinito que llena el diario y deja el servicio caído sin que nada avise. Por eso systemd corta tras cinco intentos en diez segundos. Ese corte no es el fallo: es lo que hace visible el fallo de verdad.
+:::caution[Reintentar no arregla un fallo que se repite]
+Una aplicación que muere al arrancar —porque falta una variable, porque el puerto está ocupado— vuelve a morir en cada reintento, con `on-failure` igual que con `always`. systemd tiene un freno: si el servicio arranca más de cinco veces en diez segundos, deja de intentarlo y lo marca `failed`. Pero con `RestartSec=5`, como en la unidad de arriba, ese ritmo nunca se alcanza y el bucle no termina: el servicio queda en `activating (auto-restart)` hasta que alguien mire. Reiniciar cubre el fallo transitorio; el permanente hay que verlo, con `systemctl status` o con una alerta.
 :::
 
 ## Recargar sin cortar

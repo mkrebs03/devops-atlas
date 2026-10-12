@@ -45,6 +45,8 @@ Enrutar es solo la primera razón. Un proxy inverso concentra en un punto cuatro
 server {
   listen 443 ssl;
   server_name tuapp.com;
+  ssl_certificate     /etc/letsencrypt/live/tuapp.com/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/tuapp.com/privkey.pem;
 
   location / {
     proxy_pass http://127.0.0.1:8080;   # el servicio solo escucha en local
@@ -55,7 +57,9 @@ server {
 }
 ```
 
-Esas cabeceras importan más de lo que parece: sin ellas tu aplicación cree que todas las peticiones vienen del proxy y no del usuario, los logs dejan de servir para investigar nada, y cualquier redirección que construya saldrá en `http://` aunque el usuario haya entrado por HTTPS.
+Las dos líneas `ssl_certificate` no las escribes tú: las añade Certbot al emitir el certificado, como verás más abajo. Sin ellas nginx rechaza el bloque.
+
+Las cabeceras importan más de lo que parece: sin ellas tu aplicación cree que todas las peticiones vienen del proxy y no del usuario, los logs dejan de servir para investigar nada, y cualquier redirección que construya saldrá en `http://` aunque el usuario haya entrado por HTTPS.
 
 ## De dónde sale el certificado
 

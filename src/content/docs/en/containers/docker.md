@@ -41,11 +41,16 @@ flowchart LR
 ```
 
 ```bash
-docker build -t atlas-web:local .
-docker run --rm -p 8080:8080 atlas-web:local
+docker build -t myapp:local .
+docker run --rm -p 127.0.0.1:8080:8080 myapp:local
 ```
 
-The tag helps you find an image; it does not make `latest` a reliable version: `latest` is a name someone can repoint at a different image tomorrow. Production uses an **immutable** identifier instead, usually the **SHA**: the cryptographic fingerprint of the image's content. Change the content and the fingerprint changes, so `sha-abc123` always means exactly the same bytes.
+The tag helps you find an image; it does not make `latest` a reliable version: `latest` is a name someone can repoint at a different image tomorrow. Production needs an identifier that does not move, and there are two that get confused because both are called "SHA":
+
+- The image **digest** (`myapp@sha256:9f2c…`) is the cryptographic fingerprint of its content. It is truly immutable: change one byte and the digest changes.
+- A **tag carrying the commit SHA** (`myapp:sha-abc123`) says which code the image came from. It is still a tag, so technically it can be repointed; what makes it reliable is the convention that the pipeline writes it once and nobody reuses it.
+
+The usual choice is deploying by the commit tag, which reads well and can be traced, and reaching for the digest when you need the strict guarantee.
 
 Images are not copied between machines by hand: they are published to a **registry** (Docker Hub, GitHub Container Registry, your cloud's own), which works as a remote repository for images. `docker push` uploads and `docker pull` downloads, and that is how an artifact built in CI reaches the server.
 
@@ -54,14 +59,24 @@ Images are not copied between machines by hand: they are published to a **regist
 A `Dockerfile` describes, step by step, how the image is built. Each instruction creates a **layer**:
 
 ```dockerfile
-FROM node:22-alpine                    # base image
-WORKDIR /app                           # working directory
-COPY package.json pnpm-lock.yaml ./    # dependencies first
-RUN corepack enable && pnpm install --frozen-lockfile
-COPY . .                               # then the code
+# base image
+FROM node:22-alpine
+WORKDIR /app
+
+# dependencies first: they change rarely
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+
+# then the code, which changes daily
+COPY . .
+
+# the process does not run as root
+USER node
 EXPOSE 8080
-CMD ["node", "server.js"]              # the process the container starts
+CMD ["node", "server.js"]
 ```
+
+Comments go on their own line: a `#` after an instruction is not a comment, it is part of its arguments.
 
 Order matters: copying `package.json` first lets Docker **reuse** that layer while the dependencies do not change, even when you edit the code. Copying everything at once would invalidate the cache on every change.
 
@@ -76,10 +91,10 @@ One stage compiles and another, minimal one runs. The final image does not carry
 ```dockerfile
 FROM node:22-alpine AS build
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN corepack enable && pnpm install --frozen-lockfile
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
-RUN pnpm run build
+RUN npm run build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html
@@ -92,14 +107,14 @@ The final image contains only nginx and the static files: smaller size, less sur
 Before running an image, define which process starts, which port it listens on, which configuration it receives, which data must survive and how its health is verified. Data that must persist does not live inside the container: it goes in a **volume**.
 
 ```bash
-docker run --rm -v atlas-data:/var/lib/app atlas-web:local
+docker run --rm -v myapp-data:/var/lib/app myapp:local
 ```
 
-If you delete the container, the `atlas-data` volume is still there. A container is disposable; its data should not be.
+If you delete the container, the `myapp-data` volume is still there. A container is disposable; its data should not be.
 
 ## Networks and names
 
-On a Docker network, services find one another by name: a container can call `http://atlas:8080` without knowing its IP. That is why you do not need to publish every port to the host. The usual pattern puts a [reverse proxy](/en/server/proxy-tls/) in front: it is the only one exposed to the outside, and it reaches the rest by service name.
+On a Docker network, services find one another by name: a container can call `http://app:8080` without knowing its IP. That is why you do not need to publish every port to the host. The usual pattern puts a [reverse proxy](/en/server/proxy-tls/) in front: it is the only one exposed to the outside, and it reaches the rest by service name.
 
 That arrangement is declared in a **Docker Compose** file, which describes several containers and the network they share instead of chaining `docker run` commands. How it is written, and what happens to the data when those containers are recreated, is in [Several containers with Compose](/en/containers/compose/).
 

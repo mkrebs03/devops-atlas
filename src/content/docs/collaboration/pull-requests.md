@@ -32,6 +32,15 @@ git pull --ff-only
 git switch -c feat/health-check
 ```
 
+Cuando el cambio está listo, se publica la rama y se abre la propuesta:
+
+```bash
+git push -u origin feat/health-check
+gh pr create --fill
+```
+
+`gh` es la herramienta de línea de comandos de GitHub. Sin ella, el enlace que imprime `git push` abre el mismo formulario en la web.
+
 Este recorrido —una rama corta que vuelve pronto a `main`— no es la única forma de organizar las ramas de un proyecto, pero sí la más simple, y la que conviene mientras no tengas motivos para otra cosa. Cuáles son esos motivos se decide más adelante, en [Estrategias de ramas](/integration/branching-strategy/), cuando ya sepas qué cuesta un despliegue.
 
 ## Pull requests como conversación

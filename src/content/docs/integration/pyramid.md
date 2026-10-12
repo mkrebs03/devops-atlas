@@ -3,7 +3,7 @@ title: La pirámide de pruebas
 description: Unidad, integración y extremo a extremo, y cómo elegir el nivel correcto.
 type: concept
 level: beginner
-module: testing
+module: integration
 tools: [node]
 prerequisites: []
 learningObjectives:

@@ -51,23 +51,24 @@ La frase de paso que pide `ssh-keygen` cifra la clave privada en tu disco. Ponla
 ```bash
 adduser marta                       # crea el usuario y pide su contraseña
 usermod -aG sudo marta              # le da permiso para escalar cuando lo pida
-rsync --archive --chown=marta:marta ~/.ssh /home/marta   # copia tu clave a su cuenta
+install -d -m 700 -o marta -g marta /home/marta/.ssh
+install -m 600 -o marta -g marta ~/.ssh/authorized_keys /home/marta/.ssh/   # copia tu clave a su cuenta
 ```
 
 Comprueba que puedes entrar como `marta` **desde otra terminal, sin cerrar la sesión de root**, antes de seguir. Si algo salió mal, la sesión abierta es tu única forma de arreglarlo.
 
 ## Cerrar la puerta de atrás
 
-Con el usuario funcionando, quita las dos formas de entrar que ya no necesitas. En `/etc/ssh/sshd_config`:
-
-```
-PermitRootLogin no
-PasswordAuthentication no
-```
+Con el usuario funcionando, quita las dos formas de entrar que ya no necesitas:
 
 ```bash
-sudo systemctl restart ssh
+printf 'PermitRootLogin no\nPasswordAuthentication no\n' \
+  | sudo tee /etc/ssh/sshd_config.d/00-atlas.conf
+sudo sshd -t && sudo systemctl restart ssh
+sudo sshd -T | grep -Ei '^(permitrootlogin|passwordauthentication)'
 ```
+
+El archivo va en `sshd_config.d` y no en `sshd_config` por una razón concreta: `sshd` se queda con el **primer** valor que lee de cada opción, y lee antes esa carpeta, por orden alfabético. Muchas imágenes de nube traen ahí un archivo propio que activa las contraseñas, así que editar el principal no cambiaría nada. `sshd -T` imprime la configuración que se está aplicando de verdad: es la comprobación, no el archivo que escribiste.
 
 A partir de aquí, un intento con contraseña se rechaza sin llegar a probarla, y la mayor parte de esos intentos automatizados dejan de tener sentido.
 

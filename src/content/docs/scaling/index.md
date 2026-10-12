@@ -1,5 +1,5 @@
 ---
-title: Escalar
+title: Operar y escalar
 description: Ver qué está pasando en producción, y decidir con evidencia cuándo una máquina deja de bastar.
 type: concept
 level: intermediate

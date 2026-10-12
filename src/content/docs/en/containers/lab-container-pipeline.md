@@ -1,99 +1,190 @@
 ---
-title: Practice · local pipeline
-description: Build a static image, run it, observe the layer cache and verify its HTTP contract.
+title: Practice · packaging myapp
+description: Turn the sample application into an image, find out why it does not answer at first, and describe it with Compose.
 type: practice
 level: beginner
 module: containers
-tools: [docker, nginx, curl]
-prerequisites: [containers.docker, foundations.networking]
+tools: [docker, docker-compose, curl]
+prerequisites: [containers.docker, containers.compose]
 learningObjectives:
-  - Build a reproducible image that contains a static site.
-  - Run the container and verify its contract through an HTTP request.
-  - Observe how the layer cache speeds up a rebuild.
+  - Write a Dockerfile for a real application and build its image.
+  - Diagnose a container that starts and does not answer from outside.
+  - Tell rebuilding an image from replacing the running container.
+  - Describe the service with Compose, including its health check.
 takeaways:
-  - Building, running, and verifying are separate delivery stages.
-  - An HTTP check confirms that the artifact responds as expected.
-  - Dockerfile order changes which layers are reused on a rebuild.
+  - Inside a container, 127.0.0.1 is the container itself, not the host machine.
+  - Rebuilding the image does not change containers that are already running.
+  - The same image behaves differently depending on the configuration it receives at start.
+  - A Compose file keeps in the repository what used to be docker run flags.
 ---
 
-## Goal
+## What you will end up with
 
-Turn an HTML file into a Docker image, verify that the container serves exactly the artifact you expect, and observe the layer cache on a rebuild.
+`myapp` packaged as an image, running as a Compose service with a health check, with the `Dockerfile` and `compose.yml` stored in the repository. Along the way you will cause the most common failure when putting an application into a container.
 
 ## Requirements
 
-- Docker running and `curl` available.
-- About 15 minutes.
+- Docker running, with `docker compose` available.
+- The `~/myapp` folder with its repository. If you are coming in here, create it with the `server.js` from [The sample application](/en/sample-app/#the-file).
+- About 25 minutes.
 
-## Step 1 · create a tiny site
+## Step 1 · The first Dockerfile
 
 ```bash
-mkdir -p /tmp/atlas-container-lab
-cd /tmp/atlas-container-lab
-printf '<h1>Atlas pipeline green</h1>\n' > index.html
+cd ~/myapp
+printf '.git\nnode_modules\n.env\n' > .dockerignore
 cat > Dockerfile <<'EOF'
-FROM nginx:alpine
-COPY index.html /usr/share/nginx/html/index.html
+FROM node:22-alpine
+WORKDIR /app
+COPY server.js ./
+USER node
+EXPOSE 8080
+CMD ["node", "server.js"]
 EOF
+
+docker build --tag myapp:local .
+docker run --detach --rm --name myapp --publish 127.0.0.1:8080:8080 myapp:local
 ```
 
-## Step 2 · build and run
+`USER node` keeps the process from running as `root` inside the container. `.dockerignore` leaves out of the build what should not travel in the image.
+
+**Signal:** `docker ps` shows the `myapp` container as `Up`, and `docker logs myapp` says `listening on 127.0.0.1:8080`.
+
+## Step 2 · It starts and does not answer
 
 ```bash
-docker build --tag atlas-lab:local .
-docker run --detach --rm --name atlas-lab --publish 8080:80 atlas-lab:local
-curl --fail http://127.0.0.1:8080/
+curl -i http://127.0.0.1:8080/health
 ```
 
-The response should contain `Atlas pipeline green`. If the container does not start, inspect the built image first and then the published port.
+**Signal:** it fails. The message depends on how your Docker installation forwards the port: `Connection reset by peer` on Linux, `Empty reply from server` on Docker Desktop, `Couldn't connect to server` on Colima and other virtual machines.
 
-## Step 3 · observe the layer cache
+Since the message varies, it is not the evidence. Walk the boundaries as in [Foundations](/en/foundations/networking/) with what is stable: `docker ps` says the container is `Up` and the port is published, so the failure is not that it is not running. And the log says the application listens on `127.0.0.1`. Inside a container that address is **the container**, not your machine: Docker delivers the traffic through the container's network interface, where nobody is listening.
 
-Change the content and rebuild:
+Check it from inside, where `127.0.0.1` really is the application:
 
 ```bash
-printf '<h1>Atlas pipeline green v2</h1>\n' > index.html
-docker build --tag atlas-lab:local .
+docker exec myapp wget -qO- http://127.0.0.1:8080/health
+# {"status":"ok"}
 ```
 
-In the output you will see `CACHED` on the `FROM nginx:alpine` layer (unchanged) and a rebuild of only the `COPY index.html` layer. Docker reuses what it can: that is why instruction order matters.
+The application is healthy. What fails is where it can be reached from.
 
-## Step 4 · inspect the evidence
+## Step 3 · Fix the image, then the container
+
+The application reads `HOST` from the environment. Inside a container it has to listen on all of its interfaces:
 
 ```bash
-docker ps --filter name=atlas-lab
-docker logs atlas-lab
-docker image inspect atlas-lab:local --format '{{.Id}}'
+cat > Dockerfile <<'EOF'
+FROM node:22-alpine
+WORKDIR /app
+COPY server.js ./
+ENV HOST=0.0.0.0
+USER node
+EXPOSE 8080
+CMD ["node", "server.js"]
+EOF
+
+docker build --tag myapp:local .
+curl -i http://127.0.0.1:8080/health
 ```
 
-## When something is off
+**Signal:** the build marks `WORKDIR` and `COPY` as `CACHED` (`Using cache` if your Docker uses the legacy builder) — they did not change, so they are not redone — and the `curl` **still fails**.
+
+That second result is the lesson. You rebuilt the image, but the running container was born from the previous one and a new image does not touch it. It has to be replaced:
+
+```bash
+docker stop myapp
+docker run --detach --rm --name myapp --publish 127.0.0.1:8080:8080 myapp:local
+curl -i http://127.0.0.1:8080/health
+```
+
+**Signal:** `HTTP/1.1 200 OK`. Note that `0.0.0.0` is inside the container; towards the outside, reach is decided by `--publish 127.0.0.1:8080:8080`, which only opens the port on your own machine.
+
+## Step 4 · Same image, different configuration
+
+```bash
+docker stop myapp
+docker run --detach --rm --name myapp --publish 127.0.0.1:8080:8080 \
+  --env APP_VERSION=v1 myapp:local
+curl -s http://127.0.0.1:8080/
+```
+
+**Signal:** `myapp v1`. You rebuilt nothing: the image is the same and what it receives at start changed. This is the "one artifact, several configurations" idea that later crosses environments.
+
+```bash
+docker stop myapp
+```
+
+## Step 5 · Describe it with Compose
+
+The flags you have been typing move into a file:
+
+```bash
+cat > compose.yml <<'EOF'
+services:
+  app:
+    build: .
+    environment:
+      APP_VERSION: ${APP_VERSION:-compose}
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+EOF
+
+docker compose up --detach --build
+docker compose ps
+curl -s http://127.0.0.1:8080/
+```
+
+**Signal:** `curl` answers `myapp compose` and, after a few seconds, `docker compose ps` shows the service as `healthy`. That state comes from the `healthcheck`: Docker calls `/health` from inside the container every ten seconds.
+
+## Step 6 · Store it
+
+```bash
+git switch -c feat/container
+git add Dockerfile .dockerignore compose.yml
+git commit -m 'feat: package myapp as a container'
+git push -u origin feat/container
+```
+
+Open the pull request and merge it, as in the [branches walkthrough](/en/collaboration/lab-git-branching/). From that commit on, anyone who clones the repository builds the same image without you explaining anything.
+
+## When something does not add up
 
 | Symptom | Likely cause | Command |
 | --- | --- | --- |
-| `Connection refused` | Container did not start or the port is not published | `docker ps` |
-| `404 Not Found` | The file did not land where nginx serves | `docker exec atlas-lab ls /usr/share/nginx/html` |
-| The build fails | An error in the Dockerfile or context | read the line `docker build` reports |
-
-## Verification
-
-The checkable assertion is: the container serves the artifact I built, and a rebuild reuses the layers that did not change.
+| `curl` fails and `docker ps` does not show the container | It did not start, or the port is not published | `docker ps --all` |
+| `curl` fails with the container `Up` | The application listens on `127.0.0.1` inside the container | `docker logs myapp` |
+| `port is already allocated` | Another container or process holds 8080 | `docker ps`, `ss -lntp` |
+| The service ends up `unhealthy` | The check cannot reach `/health` | `docker compose logs app` |
+| The change does not show | You rebuilt the image and did not replace the container | `docker compose up --detach --build` |
 
 ## Check your understanding
 
 <details>
-<summary>You rebuild after changing only index.html and the FROM layer shows as CACHED. Is that correct?</summary>
+<summary>The application listens on 0.0.0.0 inside the container. Is it exposed to the internet?</summary>
 
-Yes: the `FROM nginx:alpine` instruction did not change, so Docker reuses that layer and only redoes the `COPY` of the modified file. That reuse is exactly what makes rebuilds fast.
+Not because of that. `0.0.0.0` refers to the container's interfaces, and the container lives on a private Docker network. What decides whether it is reachable from outside is how you publish the port: `127.0.0.1:8080:8080` opens it only on the host machine; `8080:8080` would open it on all of the host's interfaces.
 
 </details>
 
-:::note[An image is an artifact]
-A real pipeline should not depend on files that happen to exist on the server. Build the artifact once, identify its version and promote that same version.
-:::
+<details>
+<summary>You rebuilt the image and the container still answers the old thing. Why?</summary>
+
+Because a container is created from the image that existed at that moment and never looks at it again. The `myapp:local` tag now points at a new image, but the running process is still the old one's. You have to stop the container and create another, which is what `docker compose up --build` does.
+
+</details>
 
 ## Cleanup
 
 ```bash
-docker stop atlas-lab
-rm -rf /tmp/atlas-container-lab
+docker compose down
+docker image rm myapp:local
 ```
+
+Keep the three files in the repository: the [CI walkthrough](/en/integration/lab-ci/) builds this same image on every change.
